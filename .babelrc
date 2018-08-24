@@ -1,7 +1,14 @@
 {
   "presets": [
      "env",
-     "react"
+     "react",
+     "stage-0"
 
   ],
+  "plugins": [
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ]
 }
