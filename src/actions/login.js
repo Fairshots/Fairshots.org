@@ -1,0 +1,31 @@
+export function login(formProps) {
+    return async dispatch => {
+
+		let config = {
+		    method: 'POST',
+		    headers: { 'Content-Type':'application/json' },
+		    body: {
+		    	email: formProps.email,
+		    	password: formProps.password
+		    }
+		}
+
+		const res = await fetch('https://fairshots.herokuapp.com/login', config);
+		if (!res.ok) {
+			dispatch(
+			{
+				type: 'AUTH_ERROR',
+				payload: 'email or password incorrect or doesn`t exist'
+			});
+		} else {
+			localStorage.setItem('user', JSON.stringify(res.data));
+			dispatch(
+			{
+				type: 'AUTH_SUCCESS',
+				payload: res.data
+			});
+		}
+
+	};
+
+}
