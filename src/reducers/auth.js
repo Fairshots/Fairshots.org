@@ -1,6 +1,6 @@
-const user = JSON.parse(localStorage.getItem('user'));
+const userSaved = localStorage.getItem('user');
 
-const INITIAL_STATE = {user, errorMessage: ''};
+const INITIAL_STATE = {user: userSaved !== "undefined" ? JSON.parse(userSaved) : {}, errorMessage: ''};
 
 export default function auth(state = INITIAL_STATE, action) {
 	switch(action.type) {
@@ -9,7 +9,6 @@ export default function auth(state = INITIAL_STATE, action) {
 			return Object.assign({}, state, {
 				errorMessage: action.payload
 			});
-
 		}
 		case 'AUTH_SUCCESS': {
 			console.log(action.payload)
