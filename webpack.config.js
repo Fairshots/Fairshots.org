@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, argv) => (
     {
-    entry: "./index.js",
+    entry: path.resolve(__dirname, "index.js"),
 
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -22,7 +22,7 @@ module.exports = (env, argv) => (
 
         new HtmlWebpackPlugin({ // production
             hash: false,
-            template: "./index.html",
+            template: path.resolve(__dirname, "index.html"),
             filename: path.join(__dirname, "dist", "index.html")
         }),
 

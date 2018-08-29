@@ -10,7 +10,7 @@ export function login(formProps) {
 		    })
 		}
 		try {
-			const res = await fetch('https://node-lvcunha.c9users.io:8082/login', config);
+			const res = await fetch('https://node-lvcunha.c9users.io:8080/login', config);
 			let usertoSave = await res.json();
 			console.log(usertoSave);
 			localStorage.setItem('user', JSON.stringify(usertoSave));
