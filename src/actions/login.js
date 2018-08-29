@@ -32,3 +32,10 @@ export function login(formProps) {
 	};
 
 }
+
+export function logout() {
+    return 	{
+				type: 'AUTH_LOGOUT',
+			}
+};
+
