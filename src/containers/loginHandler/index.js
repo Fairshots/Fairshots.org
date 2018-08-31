@@ -1,18 +1,23 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Input, FormFeedback } from 'reactstrap';
 import { connect } from 'react-redux';
 import { login , logout } from '../../actions/login';
-
+import LoginModal from '../../components/loginModal'
+import RegisterForm from '../registerForm'
 
 class LoginHandler extends Component {
     constructor(props) {
         super(props);
 		this.state = {
 					  email: '',
-					  password: ''
+					  password: '',
+						loginModal: false,
+						registerForm: false
   				 	 };
-	    this.handleChange = this.handleChange.bind(this);
-	    this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.showLoginModal = this.showLoginModal.bind(this);
+		this.showRegisterForm = this.showRegisterForm.bind(this);
 	 }
 
 	handleChange(event) {
@@ -28,35 +33,46 @@ class LoginHandler extends Component {
 		this.props.doLogin(form);
 	}
 
+	showLoginModal() {
+		this.setState(prevState => { return { loginModal: !prevState.loginModal }});
+	}
 
-	componentDidMount() {
+	showRegisterForm() {
+		this.setState(prevState => { return { registerForm: !prevState.registerForm }});
 	}
 
 	render() {
-	const { doLogin, isAuthenticated, handleLogout } = this.props;
-	return (
-		<div>
-			{ !isAuthenticated && 
-			<Form inline onSubmit={this.handleSubmit}>
-				<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-					<Input type="email" name="email" id="Email" placeholder="e-mail" value={this.state.email} onChange={this.handleChange}/>
-				</FormGroup>
-				<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-					<Input type="password" name="password" id="Password" placeholder="password" value={this.state.password} onChange={this.handleChange} />
-				</FormGroup>
-				<Button>Submit</Button>
-			</Form> }
-			{
-				isAuthenticated && 
-				<Button onClick={handleLogout}>Logout</Button>
-			}
-		</div>
-	);
+		const { doLogin, isAuthenticated, handleLogout, errorMessage } = this.props;
+		return (
+			<div className="login-handler">
+				{ !isAuthenticated && 
+				<div className="login-register">
+					<Button className="mr-2" onClick={this.showLoginModal}>Login</Button>
+					<Button onClick={this.showRegisterForm}>Register</Button>
+				</div>
+				}
+				{ 
+					isAuthenticated && 
+					<Button onClick={handleLogout}>Logout</Button>
+				}
+				<LoginModal showModal={this.state.loginModal}
+										showLoginModal={this.showLoginModal}
+										handleChange={this.handleChange}
+										handleSubmit={this.handleSubmit}
+										email={this.state.email}
+										password={this.state.password}
+										errorMessage={errorMessage}
+				/>
+				<RegisterForm toggleForm={this.showRegisterForm} showForm={this.state.registerForm}/>
+
+			</div>
+		);
 	}
 }
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+		errorMessage: state.auth.errorMessage
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -73,5 +89,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginHandler);
-
-

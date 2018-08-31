@@ -1,9 +1,9 @@
 let userSaved = localStorage.getItem('user');
 
 const INITIAL_STATE = {
-				user: userSaved !== "undefined" ? JSON.parse(userSaved) : {},
+				user: !(userSaved === "undefined" || userSaved === null) ? JSON.parse(userSaved) : {},
 				errorMessage: '', 
-				isAuthenticated: userSaved !== "undefined" ? true : false
+				isAuthenticated: !(userSaved === "undefined" || userSaved === null)
 			};
 
 export default function auth(state = INITIAL_STATE, action) {
@@ -11,6 +11,7 @@ export default function auth(state = INITIAL_STATE, action) {
 		case 'AUTH_ERROR': {
 			console.log(action.payload)
 			return Object.assign({}, state, {
+				user: {},
 				errorMessage: action.payload,
 				isAuthenticated: false
 			});
@@ -19,14 +20,16 @@ export default function auth(state = INITIAL_STATE, action) {
 			console.log(action.payload)
 			return Object.assign({}, state, {
 				user: action.payload,
-				isAuthenticated: true
+				isAuthenticated: true,
+				errorMessage: ''
 			});
 		}
 		case 'AUTH_LOGOUT': {
 			localStorage.removeItem('user');
 			return Object.assign({}, state, {
 				user: {},
-				isAuthenticated: false
+				isAuthenticated: false,
+				errorMessage: ''
 			});
 		}
 		default:

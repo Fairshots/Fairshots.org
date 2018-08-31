@@ -5,7 +5,7 @@ export default class NavBar extends Component {
     render() {
         return (
             <div data-collapse="medium" data-animation="default" data-duration="400" className="navbar w-nav">
-             <div className="d-flex flex-justify-between px-3">
+             <div className="d-flex justify-content-between align-items-center w-100">
                 <a href="index.html" className="brand w-nav-brand"><img src="images/Fair-shotsV3.png" width="250"/></a>
                 <nav role="navigation" className="nav-menu w-nav-menu">
                   <div data-delay="0" data-hover="1" className="navbarlink w-dropdown">
