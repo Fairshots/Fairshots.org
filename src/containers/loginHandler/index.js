@@ -54,7 +54,7 @@ class LoginHandler extends Component {
 				}
 				{ 
 					isAuthenticated && 
-					<Button onClick={handleLogout}>Logout</Button>
+					<Button className="loglog" onClick={handleLogout}>LOGOUT</Button>
 				}
 				<LoginModal showModal={this.state.loginModal}
 										showLoginModal={this.showLoginModal}
