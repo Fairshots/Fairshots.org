@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { login , logout } from '../../actions/login';
 import LoginModal from '../../components/loginModal'
 import RegisterForm from '../registerForm'
+import './login-handler.scss'
 
 class LoginHandler extends Component {
     constructor(props) {
@@ -47,8 +48,8 @@ class LoginHandler extends Component {
 			<div className="login-handler">
 				{ !isAuthenticated && 
 				<div className="login-register">
-					<Button className="mr-2" onClick={this.showLoginModal}>Login</Button>
-					<Button onClick={this.showRegisterForm}>Register</Button>
+					<Button className="mr-2 loglog" onClick={this.showLoginModal}>LOGIN</Button>
+					<Button className="loglog" onClick={this.showRegisterForm}>REGISTER</Button>
 				</div>
 				}
 				{ 
