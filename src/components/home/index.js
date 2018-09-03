@@ -7,12 +7,11 @@ import BePart from "./bepart";
 
 export default function Home(props) {
     return (
-          <div>
+        <div>
             <HeroSlider />
             <SoFarBanner />
             <Featured />
             <BePart />
-          </div>
+        </div>
     );
-
 }

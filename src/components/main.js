@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import Home from "./home"
+import Home from "./home";
 
 export default function Main(props) {
     return (
@@ -10,5 +10,4 @@ export default function Main(props) {
             </Switch>
         </main>
     );
-
 }

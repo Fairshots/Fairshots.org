@@ -7,11 +7,11 @@ import Footer from "./components/footer";
 export default class App extends Component {
     render() {
         return (
-          <div>
-            <NavBar />
-            <Main />
-            <Footer />
-          </div>
+            <div>
+                <NavBar />
+                <Main />
+                <Footer />
+            </div>
         );
     }
 }
