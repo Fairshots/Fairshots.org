@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {
     Modal, ModalHeader, ModalBody, ModalFooter
 } from "reactstrap";
+
 import { Field, reduxForm } from "redux";
 
 class RegisterForm extends Component {
@@ -10,12 +11,26 @@ class RegisterForm extends Component {
         super(props);
         this.state = {
 
-  				 	 };
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
-	 }
+    }
 
     handleSubmit(event) {
         event.preventDefault();
+    }
+
+    renderField({
+        input, label, type, meta: { touched, error, warning }
+    }) {
+        return (
+            <div>
+                <label>{label}</label>
+                <div>
+                    <input {...input} placeholder={label} type={type}/>
+                    {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+                </div>
+            </div>
+        );
     }
 
     render() {
@@ -25,6 +40,8 @@ class RegisterForm extends Component {
         return (
             <Modal isOpen={this.props.showForm} toggle={this.props.toggleForm}>
                 <ModalBody>
+
+
                 </ModalBody>
             </Modal>
         );
@@ -37,4 +54,6 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
+export default reduxForm({
+    form: "registerNewForm"
+})(connect(mapStateToProps, mapDispatchToProps)(RegisterForm));

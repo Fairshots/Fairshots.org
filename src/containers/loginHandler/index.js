@@ -12,16 +12,16 @@ class LoginHandler extends Component {
     constructor(props) {
         super(props);
         this.state = {
-					  email: "",
-					  password: "",
+            email: "",
+            password: "",
             loginModal: false,
             registerForm: false
-  				 	 };
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showLoginModal = this.showLoginModal.bind(this);
         this.showRegisterForm = this.showRegisterForm.bind(this);
-	 }
+    }
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
@@ -51,14 +51,14 @@ class LoginHandler extends Component {
         return (
             <div className="login-handler">
                 { !isAuthenticated
-				&& <div className="login-register">
-				    <Button className="mr-2 loglog" onClick={this.showLoginModal}>LOGIN</Button>
-				    <Button className="loglog" onClick={this.showRegisterForm}>REGISTER</Button>
-				</div>
+                && <div className="login-register">
+                    <Button className="mr-2 loglog" onClick={this.showLoginModal}>LOGIN</Button>
+                    <Button className="loglog" onClick={this.showRegisterForm}>REGISTER</Button>
+                </div>
                 }
                 {
                     isAuthenticated
-					&& <Button className="loglog" onClick={handleLogout}>LOGOUT</Button>
+                && <Button className="loglog" onClick={handleLogout}>LOGOUT</Button>
                 }
                 <LoginModal showModal={this.state.loginModal}
                     showLoginModal={this.showLoginModal}
@@ -79,9 +79,9 @@ const mapStateToProps = state => ({
     errorMessage: state.auth.errorMessage
 });
 const mapDispatchToProps = dispatch => ({
-	    doLogin: formProps => {
-	      dispatch(login(formProps));
-	    },
+    doLogin: formProps => {
+        dispatch(login(formProps));
+    },
     handleLogout: () => {
         dispatch(logout());
     }
