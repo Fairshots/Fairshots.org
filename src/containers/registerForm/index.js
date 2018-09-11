@@ -4,7 +4,7 @@ import {
     Modal, ModalHeader, ModalBody, ModalFooter
 } from "reactstrap";
 
-import { Field, reduxForm } from "redux";
+import { Field, reduxForm } from "redux-form";
 
 class RegisterForm extends Component {
     constructor(props) {
