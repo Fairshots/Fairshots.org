@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-    Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input
+    Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Input, Button
 } from "reactstrap";
 
 import { Field, reduxForm } from "redux-form";
@@ -9,9 +9,7 @@ import { Field, reduxForm } from "redux-form";
 class RegisterForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {
 
-        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -23,31 +21,33 @@ class RegisterForm extends Component {
         input, label, type, meta: { touched, error, warning }
     }) {
         return (
-            <div>
+            <FormGroup>
                 <label>{label}</label>
-                <div>
-                    <Input {...input} placeholder={label} type={type}/>
-                    {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-                </div>
-            </div>
+                <Input {...input} type={type} invalid={touched && error}/>
+                {touched && (error && <FormFeedback>{error}</FormFeedback>)}
+            </FormGroup>
         );
     }
 
     render() {
-        const {
-            doLogin, isAuthenticated, errorMessage
-        } = this.props;
         return (
             <Modal isOpen={this.props.showForm} toggle={this.props.toggleForm}>
                 <ModalBody>
                     <Form onSubmit={this.handleSubmit}>
-                        <FormGroup>
-                            <Field name="name" label="Name: " component={this.renderField} type="text" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Field name="email" label="E-mail: " component={this.renderField} type="Email" />
-                        </FormGroup>
-                        <button type="submit">Submit</button>
+                        <Field name="name" label="Name: " component={this.renderField} type="text" />
+                        <Field name="email" label="E-mail: " component={this.renderField} type="Email" />
+                        <Field name="password" label="Password: " component={this.renderField} type="Password" />
+                        <Field name="pictUrl" label="Picture: " component={this.renderField} type="file" />
+                        <Field name="skill" label="Skill Level: " component={this.renderField} type="select" />
+                        <Field name="biography" label="Biography: " component={this.renderField} type="textarea" />
+                        <Field name="webpage" label="Webpage: " component={this.renderField} type="url" />
+                        <Field name="facebook" label="Facebook: " component={this.renderField} type="url" />
+                        <Field name="instagram" label="Instagram: " component={this.renderField} type="url" />
+                        <Field name="languages" label="Languages: " component={this.renderField} type="select" />
+                        <Field name="causes" label="Causes: " component={this.renderField} type="select" />
+                        <Field name="city" label="City: " component={this.renderField} type="select" />
+                        <Field name="country" label="Country: " component={this.renderField} type="select" />
+                        <Button type="submit">Submit</Button>
                     </Form>
 
                 </ModalBody>
