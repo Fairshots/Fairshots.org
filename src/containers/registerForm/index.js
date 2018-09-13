@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-    Modal, ModalHeader, ModalBody, ModalFooter
+    Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input
 } from "reactstrap";
 
 import { Field, reduxForm } from "redux-form";
@@ -26,7 +26,7 @@ class RegisterForm extends Component {
             <div>
                 <label>{label}</label>
                 <div>
-                    <input {...input} placeholder={label} type={type}/>
+                    <Input {...input} placeholder={label} type={type}/>
                     {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
                 </div>
             </div>
@@ -35,12 +35,20 @@ class RegisterForm extends Component {
 
     render() {
         const {
-            doLogin, isAuthenticated, handleLogout, errorMessage
+            doLogin, isAuthenticated, errorMessage
         } = this.props;
         return (
             <Modal isOpen={this.props.showForm} toggle={this.props.toggleForm}>
                 <ModalBody>
-
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Field name="name" label="Name: " component={this.renderField} type="text" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Field name="email" label="E-mail: " component={this.renderField} type="Email" />
+                        </FormGroup>
+                        <button type="submit">Submit</button>
+                    </Form>
 
                 </ModalBody>
             </Modal>
@@ -54,6 +62,20 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
+const validate = values => {
+    const errors = {};
+    if (!values.name) {
+        errors.name = "Required";
+    }
+    if (!values.email) {
+        errors.email = "Required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = "Invalid email address";
+    }
+    return errors;
+};
+
 export default reduxForm({
-    form: "registerNewForm"
+    form: "registerNewForm",
+    validate
 })(connect(mapStateToProps, mapDispatchToProps)(RegisterForm));
