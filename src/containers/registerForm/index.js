@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import {
     Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Input, Button
 } from "reactstrap";
-
 import { Field, reduxForm } from "redux-form";
+import countrylist from "../countriescities";
 
 class RegisterForm extends Component {
     constructor(props) {
@@ -18,12 +18,17 @@ class RegisterForm extends Component {
     }
 
     renderField({
-        input, label, type, meta: { touched, error, warning }
+        input, label, type, options, meta: { touched, error, warning }
     }) {
         return (
             <FormGroup>
                 <label>{label}</label>
-                <Input {...input} type={type} invalid={touched && error}/>
+                {type === "select"
+                    ? <Input {...input} type={type} invalid={touched && error}>
+                        {options.map(i => <option>{i}</option>)}
+                    </Input>
+                    : <Input {...input} type={type} invalid={touched && error}/>}
+
                 {touched && (error && <FormFeedback>{error}</FormFeedback>)}
             </FormGroup>
         );
@@ -38,15 +43,16 @@ class RegisterForm extends Component {
                         <Field name="email" label="E-mail: " component={this.renderField} type="Email" />
                         <Field name="password" label="Password: " component={this.renderField} type="Password" />
                         <Field name="pictUrl" label="Picture: " component={this.renderField} type="file" />
-                        <Field name="skill" label="Skill Level: " component={this.renderField} type="select" />
+                        <Field name="skill" label="Skill Level: " component={this.renderField} options={[]} type="select" />
                         <Field name="biography" label="Biography: " component={this.renderField} type="textarea" />
                         <Field name="webpage" label="Webpage: " component={this.renderField} type="url" />
                         <Field name="facebook" label="Facebook: " component={this.renderField} type="url" />
                         <Field name="instagram" label="Instagram: " component={this.renderField} type="url" />
-                        <Field name="languages" label="Languages: " component={this.renderField} type="select" />
-                        <Field name="causes" label="Causes: " component={this.renderField} type="select" />
-                        <Field name="city" label="City: " component={this.renderField} type="select" />
-                        <Field name="country" label="Country: " component={this.renderField} type="select" />
+                        <Field name="languages" label="Languages: " component={this.renderField} options={[]} type="select" />
+                        <Field name="causes" label="Causes: " component={this.renderField} options={[]} type="select" />
+                        <Field name="city" label="City: " component={this.renderField} options={[]} type="select" />
+                        <Field name="country" label="Country: " component={this.renderField} type="select" options={countrylist.countrylist}/>
+
                         <Button type="submit">Submit</Button>
                     </Form>
 
