@@ -5,7 +5,9 @@ import {
 } from "reactstrap";
 import { Field, reduxForm } from "redux-form";
 import countrylist from "../countriescities";
-
+/**
+ *
+ */
 class RegisterForm extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +29,7 @@ class RegisterForm extends Component {
                     ? <Input {...input} type={type} invalid={touched && error}>
                         {options.map(i => <option>{i}</option>)}
                     </Input>
-                    : <Input {...input} type={type} invalid={touched && error}/>}
+                    : <Input {...input} type={type} invalid={touched && error} value={type === "file" ? null : input.value}/>}
 
                 {touched && (error && <FormFeedback>{error}</FormFeedback>)}
             </FormGroup>
@@ -77,6 +79,9 @@ const validate = values => {
         errors.email = "Required";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = "Invalid email address";
+    }
+    if (!values.biography) {
+        errors.email = "Required";
     }
     return errors;
 };
