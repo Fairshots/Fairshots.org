@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import {
     Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Input, Button
 } from "reactstrap";
-import { Field, reduxForm } from "redux-form";
-import countrylist from "../countriescities";
+import { reduxForm } from "redux-form";
+import PhotographerForm from "./photographerform";
+
 /**
  *
  */
@@ -13,6 +14,7 @@ class RegisterForm extends Component {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.renderField = this.renderField.bind(this);
     }
 
     handleSubmit(event) {
@@ -30,7 +32,6 @@ class RegisterForm extends Component {
                         {options.map(i => <option>{i}</option>)}
                     </Input>
                     : <Input {...input} type={type} invalid={touched && error} value={type === "file" ? null : input.value}/>}
-
                 {touched && (error && <FormFeedback>{error}</FormFeedback>)}
             </FormGroup>
         );
@@ -40,24 +41,7 @@ class RegisterForm extends Component {
         return (
             <Modal isOpen={this.props.showForm} toggle={this.props.toggleForm}>
                 <ModalBody>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Field name="name" label="Name: " component={this.renderField} type="text" />
-                        <Field name="email" label="E-mail: " component={this.renderField} type="Email" />
-                        <Field name="password" label="Password: " component={this.renderField} type="Password" />
-                        <Field name="pictUrl" label="Picture: " component={this.renderField} type="file" />
-                        <Field name="skill" label="Skill Level: " component={this.renderField} options={[]} type="select" />
-                        <Field name="biography" label="Biography: " component={this.renderField} type="textarea" />
-                        <Field name="webpage" label="Webpage: " component={this.renderField} type="url" />
-                        <Field name="facebook" label="Facebook: " component={this.renderField} type="url" />
-                        <Field name="instagram" label="Instagram: " component={this.renderField} type="url" />
-                        <Field name="languages" label="Languages: " component={this.renderField} options={[]} type="select" />
-                        <Field name="causes" label="Causes: " component={this.renderField} options={[]} type="select" />
-                        <Field name="city" label="City: " component={this.renderField} options={[]} type="select" />
-                        <Field name="country" label="Country: " component={this.renderField} type="select" options={countrylist.countrylist}/>
-
-                        <Button type="submit">Submit</Button>
-                    </Form>
-
+                    <PhotographerForm handleSubmit={this.handleSubmit} renderField={this.renderField} />
                 </ModalBody>
             </Modal>
         );
@@ -81,7 +65,7 @@ const validate = values => {
         errors.email = "Invalid email address";
     }
     if (!values.biography) {
-        errors.email = "Required";
+        errors.biography = "Required";
     }
     return errors;
 };
