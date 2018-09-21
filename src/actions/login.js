@@ -1,12 +1,12 @@
 export function login(formProps) {
     return async dispatch => {
         const config = {
-		    method: "POST",
-		    headers: { "Content-Type": "application/json" },
-		    body: JSON.stringify({
-		    	email: formProps.email,
-		    	password: formProps.password
-		    })
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: formProps.email,
+                password: formProps.password
+            })
         };
         try {
             const res = await fetch("https://node-lvcunha.c9users.io:8080/login", config);

@@ -6,19 +6,17 @@ import {
 import { reduxForm } from "redux-form";
 import PhotographerForm from "./photographerform";
 
+import register from "../../actions/register";
+
 /**
  *
  */
 class RegisterForm extends Component {
     constructor(props) {
         super(props);
+        this.state = { userType: "photographer" };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.renderField = this.renderField.bind(this);
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
     }
 
     renderField({
@@ -31,17 +29,20 @@ class RegisterForm extends Component {
                     ? <Input {...input} type={type} invalid={touched && error}>
                         {options.map(i => <option>{i}</option>)}
                     </Input>
-                    : <Input {...input} type={type} invalid={touched && error} value={type === "file" ? null : input.value}/>}
+                    : <Input {...input} type={type} invalid={touched && error} value={type === "file" ? undefined : input.value}/>}
                 {touched && (error && <FormFeedback>{error}</FormFeedback>)}
             </FormGroup>
         );
     }
 
     render() {
+        const {
+            showForm, toggleForm, doRegister, handleSubmit
+        } = this.props;
         return (
-            <Modal isOpen={this.props.showForm} toggle={this.props.toggleForm}>
+            <Modal isOpen={showForm} toggle={toggleForm}>
                 <ModalBody>
-                    <PhotographerForm handleSubmit={this.handleSubmit} renderField={this.renderField} />
+                    <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
                 </ModalBody>
             </Modal>
         );
@@ -51,7 +52,10 @@ const mapStateToProps = state => ({
 
 });
 const mapDispatchToProps = dispatch => ({
-
+    doRegister: userType => formFilled => {
+        console.log(formFilled);
+        dispatch(register(userType, formFilled));
+    }
 });
 
 const validate = values => {
@@ -67,6 +71,16 @@ const validate = values => {
     if (!values.biography) {
         errors.biography = "Required";
     }
+    const pictUrl = document.querySelector("input.form-control-file[name='pictUrl']");
+
+    if (pictUrl && pictUrl.files[0]) {
+        if (pictUrl.files[0].size > 200000) {
+            errors.pictUrl = "Max file size is 200kB";
+        } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(pictUrl.files[0].name)) {
+            errors.pictUrl = "Invalid file";
+        }
+    }
+
     return errors;
 };
 
