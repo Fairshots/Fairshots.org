@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-    Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Input, Button
+    Form, FormGroup, FormFeedback, Input, Button
 } from "reactstrap";
 import { reduxForm } from "redux-form";
 import PhotographerForm from "./photographerform";
@@ -37,14 +37,31 @@ class RegisterForm extends Component {
 
     render() {
         const {
-            showForm, toggleForm, doRegister, handleSubmit
+            doRegister, handleSubmit
         } = this.props;
         return (
-            <Modal isOpen={showForm} toggle={toggleForm}>
-                <ModalBody>
-                    <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
-                </ModalBody>
-            </Modal>
+            <div class="content-section">
+                <h3 class="portfolio-tittle">BE PART OF THE CHANGE</h3>
+                <p>Joining Fairshots is free, easy and open to photographers and organizations anywhere around the world. Start by clicking the button below that is most relevant to you. Easy Peasy.</p>
+                <div data-duration-in="300" data-duration-out="100" class="w-tabs">
+                    <div class="register-tab-menu w-tab-menu">
+                        <a data-w-tab="Tab 1" class="tab-link register w-inline-block w-tab-link">
+                            <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" class="tab-arrow"/></a>
+                        <a data-w-tab="Tab 2" class="tab-link register w-inline-block w-tab-link w--current">
+                            <div>JOIN AS a photographer</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" class="tab-arrow"/></a>
+                    </div>
+                    <div class="w-tab-content">
+                        <div data-w-tab="Tab 1" class="w-tab-pane">
+                            <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
+                        </div>
+                        <div data-w-tab="Tab 2" class="w-tab-pane w--tab-active">
+                            <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         );
     }
 }

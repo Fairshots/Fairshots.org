@@ -3,9 +3,10 @@ import {
     Button, Form, FormGroup, Input, FormFeedback
 } from "reactstrap";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { login, logout } from "../../actions/login";
 import LoginModal from "../../components/loginModal";
-import RegisterForm from "../registerForm";
+
 import "./login-handler.scss";
 
 class LoginHandler extends Component {
@@ -20,7 +21,6 @@ class LoginHandler extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showLoginModal = this.showLoginModal.bind(this);
-        this.showRegisterForm = this.showRegisterForm.bind(this);
     }
 
     handleChange(event) {
@@ -40,10 +40,6 @@ class LoginHandler extends Component {
         this.setState(prevState => ({ loginModal: !prevState.loginModal }));
     }
 
-    showRegisterForm() {
-        this.setState(prevState => ({ registerForm: !prevState.registerForm }));
-    }
-
     render() {
         const {
             doLogin, isAuthenticated, handleLogout, errorMessage
@@ -53,7 +49,7 @@ class LoginHandler extends Component {
                 { !isAuthenticated
                 && <div className="login-register">
                     <Button className="mr-2 loglog" onClick={this.showLoginModal}>LOGIN</Button>
-                    <Button className="loglog" onClick={this.showRegisterForm}>REGISTER</Button>
+                    <Button className="loglog"><Link to="/register">SIGN UP</Link></Button>
                 </div>
                 }
                 {
@@ -68,7 +64,7 @@ class LoginHandler extends Component {
                     password={this.state.password}
                     errorMessage={errorMessage}
                 />
-                <RegisterForm toggleForm={this.showRegisterForm} showForm={this.state.registerForm}/>
+
 
             </div>
         );
