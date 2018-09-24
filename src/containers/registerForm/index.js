@@ -8,6 +8,8 @@ import PhotographerForm from "./photographerform";
 
 import register from "../../actions/register";
 
+import "./registerForm.scss";
+
 /**
  *
  */
@@ -40,21 +42,21 @@ class RegisterForm extends Component {
             doRegister, handleSubmit
         } = this.props;
         return (
-            <div class="content-section">
-                <h3 class="portfolio-tittle">BE PART OF THE CHANGE</h3>
+            <div className="register-form d-flex flex-column flex-wrap align-items-center">
+                <h3 className="portfolio-title">BE PART OF THE CHANGE</h3>
                 <p>Joining Fairshots is free, easy and open to photographers and organizations anywhere around the world. Start by clicking the button below that is most relevant to you. Easy Peasy.</p>
-                <div data-duration-in="300" data-duration-out="100" class="w-tabs">
-                    <div class="register-tab-menu w-tab-menu">
-                        <a data-w-tab="Tab 1" class="tab-link register w-inline-block w-tab-link">
-                            <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" class="tab-arrow"/></a>
-                        <a data-w-tab="Tab 2" class="tab-link register w-inline-block w-tab-link w--current">
-                            <div>JOIN AS a photographer</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" class="tab-arrow"/></a>
+                <div className="register-tabs">
+                    <div className="d-flex flex-wrap justify-content-spacearound">
+                        <a data-w-tab="Tab 1" className="tab-link register w-inline-block w-tab-link">
+                            <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" className="tab-arrow"/></a>
+                        <a data-w-tab="Tab 2" className="tab-link register w-inline-block w-tab-link w--current">
+                            <div>JOIN AS a photographer</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" className="tab-arrow"/></a>
                     </div>
-                    <div class="w-tab-content">
-                        <div data-w-tab="Tab 1" class="w-tab-pane">
+                    <div className="w-tab-content">
+                        <div data-w-tab="Tab 1" className="w-tab-pane">
                             <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
                         </div>
-                        <div data-w-tab="Tab 2" class="w-tab-pane w--tab-active">
+                        <div data-w-tab="Tab 2" className="w-tab-pane w--tab-active">
                             <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
                         </div>
                     </div>
