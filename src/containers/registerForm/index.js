@@ -46,10 +46,10 @@ class RegisterForm extends Component {
                 <h3 className="portfolio-title">BE PART OF THE CHANGE</h3>
                 <p>Joining Fairshots is free, easy and open to photographers and organizations anywhere around the world. Start by clicking the button below that is most relevant to you. Easy Peasy.</p>
                 <div className="register-tabs">
-                    <div className="d-flex flex-wrap justify-content-spacearound">
-                        <a data-w-tab="Tab 1" className="tab-link register w-inline-block w-tab-link">
+                    <div className="d-flex flex-wrap justify-content-around">
+                        <a data-w-tab="Tab 1" className="f-tab-link">
                             <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" className="tab-arrow"/></a>
-                        <a data-w-tab="Tab 2" className="tab-link register w-inline-block w-tab-link w--current">
+                        <a data-w-tab="Tab 2" className="f-tab-link">
                             <div>JOIN AS a photographer</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" className="tab-arrow"/></a>
                     </div>
                     <div className="w-tab-content">

@@ -1,0 +1,30 @@
+.register-form {
+    .register-tabs {
+        .f-tab-link {
+            display: inline-block;
+            width: 35%;
+            height: 50px;
+            margin-right: 19px;
+            margin-left: 19px;
+            float: none;
+            background-color: #00aa53;
+            font-weight: 400;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            padding-right: 15px;
+            padding-left: 15px;
+            -webkit-transition: box-shadow 200ms ease;
+            transition: box-shadow 5px 5px white 200ms ease;
+            font-family: Lato, sans-serif;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .f-tab-link:hover {
+            box-shadow: inset 0 0 12px 0 #fff;
+            color: #fff;
+}
+    }
+
+}
