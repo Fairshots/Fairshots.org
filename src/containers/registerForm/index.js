@@ -5,6 +5,7 @@ import {
 } from "reactstrap";
 import { reduxForm } from "redux-form";
 import PhotographerForm from "./photographerform";
+import OrganizationForm from "./organizationform";
 
 import register from "../../actions/register";
 
@@ -53,11 +54,11 @@ class RegisterForm extends Component {
                             <div>JOIN AS a photographer</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" className="tab-arrow"/></a>
                     </div>
                     <div className="w-tab-content">
-                        <div data-w-tab="Tab 1" className="w-tab-pane">
+                        <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
                             <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
                         </div>
-                        <div data-w-tab="Tab 2" className="w-tab-pane w--tab-active">
-                            <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
+                        <div data-w-tab="Tab 2" className="w-tab-pane">
+                            <OrganizationForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
                         </div>
                     </div>
                 </div>
