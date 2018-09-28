@@ -11,7 +11,7 @@ export default function PhotographerForm({ handleSubmit, renderField }) {
             <Field name="email" label="E-mail: " component={renderField} type="Email" />
             <Field name="password" label="Password: " component={renderField} type="Password" />
             <Field name="pictUrl" label="Picture: " component={renderField} type="file" />
-            <Field name="skill" label="Skill Level: " component={renderField} options={["Student", "Amateur", "Professional"]} type="select" />
+            <Field name="skill" label="Skill Level: " component={renderField} options={["", "Student", "Amateur", "Professional"]} type="select" />
             <Field name="biography" label="Biography: " component={renderField} type="textarea" />
             <Field name="webpage" label="Webpage: " component={renderField} type="url" />
             <Field name="facebook" label="Facebook: " component={renderField} type="url" />

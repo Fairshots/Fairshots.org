@@ -30,7 +30,7 @@ class RegisterForm extends Component {
                 <label>{label}</label>
                 {type === "select"
                     ? <Input {...input} type={type} invalid={touched && error}>
-                        {options.map(i => <option>{i}</option>)}
+                        {options.map(i => <option><input type="checkbox">{i}</input></option>)}
                     </Input>
                     : <Input {...input} type={type} invalid={touched && error} value={type === "file" ? undefined : input.value}/>}
                 {touched && (error && <FormFeedback>{error}</FormFeedback>)}
@@ -88,8 +88,22 @@ const validate = values => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = "Invalid email address";
     }
+    if (!values.password) {
+        errors.password = "Required";
+    } else if (values.password.length < 8) {
+        errors.password = "minimum 8 characters";
+    }
     if (!values.biography) {
         errors.biography = "Required";
+    }
+    if (values.skill === "" || !values.skill) {
+        errors.skill = "Required";
+    }
+    if (!values.city) {
+        errors.city = "Required";
+    }
+    if (values.country === "" || !values.country) {
+        errors.country = "Required";
     }
     const pictUrl = document.querySelector("input.form-control-file[name='pictUrl']");
 
