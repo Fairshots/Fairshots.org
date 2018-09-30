@@ -8,7 +8,7 @@ export default function About(props) {
             <div className="content-section">
                 <h3 className="portfolio-tittle">About us</h3>
                 <div className="w-container">
-                    <h4 className="about-green-tittles">What is fairshots?</h4>
+                    <h4 className="about-green-tittles">What is Fairshots?</h4>
                     <p className="general-paragraph">Simply put Fairshots is a platform that connects photographers and non-profit organizations. It makes it easy for organizations to browse and connect to photographer that are looking for world changing work, both globally and locally.</p>
                     <h4 className="about-green-tittles">our mission</h4>
                     <p className="general-paragraph">Our mission is to help photographers find important meaningful work at the same time that we provide a voice to organizations that are already doing this amazing work. We want to boost both the sense of self-worth within the photographic society, and the reach of organizations that are on the front-line of human affairs and social development. We believe a healthy and honest relationship between photographers and NGOS can bring benefits not only to themselves but also to the greater community.</p>

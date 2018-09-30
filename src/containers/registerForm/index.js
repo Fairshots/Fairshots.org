@@ -30,7 +30,7 @@ class RegisterForm extends Component {
                 <label>{label}</label>
                 {type === "select"
                     ? <Input {...input} type={type} invalid={touched && error}>
-                        {options.map(i => <option><input type="checkbox">{i}</input></option>)}
+                        {options.map(i => <option>{i}</option>)}
                     </Input>
                     : <Input {...input} type={type} invalid={touched && error} value={type === "file" ? undefined : input.value}/>}
                 {touched && (error && <FormFeedback>{error}</FormFeedback>)}

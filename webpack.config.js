@@ -15,7 +15,8 @@ module.exports = (env, argv) => (
         },
         devtool: "inline-source-map",
         devServer: {
-            historyApiFallback: true
+            historyApiFallback: true,
+            hot: true
         },
 
         plugins: argv.mode === "production" ? [
@@ -43,12 +44,14 @@ module.exports = (env, argv) => (
                 }
             ),
         ] : [
-            new HtmlWebpackPlugin({ // production
+            new HtmlWebpackPlugin({ // development
                 hash: false,
                 template: "./index.html",
                 filename: path.join(__dirname, "dist", "index.html")
             }),
-        ],
+            new webpack.HotModuleReplacementPlugin()
+        ],
+
 
         module: {
             rules: [

@@ -42,6 +42,9 @@ module.exports = {
 		"require-jsdoc": "off",
 		"semi": ["error", "always", {"omitLastInOneLineBlock": true}],
         "valid-typeof": "warn",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "import/no-extraneous-dependencies": ["error", 
+        {"devDependencies": true}
+        ]
     }
 };
