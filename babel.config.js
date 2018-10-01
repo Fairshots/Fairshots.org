@@ -1,6 +1,7 @@
 
 
-module.exports = function () {
+module.exports = function (api) {
+    api.cache(true);
     return {
         presets: [
             "@babel/preset-env",
@@ -39,7 +40,7 @@ module.exports = function () {
             ],
             "@babel/plugin-proposal-nullish-coalescing-operator",
             "@babel/plugin-proposal-do-expressions",
-            "@babel/plugin-proposal-function-bind"
+            "@babel/plugin-proposal-function-bind",
         ]
     };
 };

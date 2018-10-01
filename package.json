@@ -97,6 +97,5 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     }
-    
   }
 }
