@@ -6,7 +6,7 @@ export default class SoFarBanner extends Component {
             <div>
                 <div className="so-far-banner">
                     <div className="so-far-div w-clearfix">
-                        <p className="so-far-paragraph">WE HAVE 37 PHOTOGRAPHERS FROM AROUND THE GLOBE  AND 16 ORGANIzATIONS LOOKING to COLLABORATE!</p>
+                        <p className="so-far-paragraph">WE HAVE XX PHOTOGRAPHERS FROM AROUND THE GLOBE  AND YY ORGANIzATIONS LOOKING to COLLABORATE!</p>
                         <p className="updates-small-paragraph">FAIRSHOTS is successfully CONNECting PHOTOGRAPHERS TO  NGOS in:</p>
                         <div className="dynamic-countries-list w-dyn-list">
                             <div className="w-clearfix w-dyn-items">

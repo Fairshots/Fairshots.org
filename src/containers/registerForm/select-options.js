@@ -26,6 +26,7 @@ const causes = ["", "Animal Welfare",
     "Political activism",
     "Relief and crisis work",
     "Other"];
+const languages = ["Chinese", "Spanish", "English", "Hindi", "Arabic", "Portuguese", "Bengali", "Russian"];
 
 
-export { countrylist, causes };
+export { countrylist, causes, languages };
