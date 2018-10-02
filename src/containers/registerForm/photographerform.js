@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Field, FieldArray } from "redux-form";
 import { Form, Button } from "reactstrap";
 import { countrylist, causes, languages } from "./select-options";
-import renderMany from "../../components/renderMany";
+import renderMany from "../../components/checkboxesFormArray";
 
 export default function PhotographerForm({ handleSubmit, renderField }) {
     return (
