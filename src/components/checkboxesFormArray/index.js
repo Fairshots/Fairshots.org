@@ -4,6 +4,8 @@ import {
     Dropdown, DropdownMenu, DropdownToggle, CustomInput
 } from "reactstrap";
 
+import "./checkboxesFormArray.scss";
+
 
 export default class CheckboxesFormArray extends Component {
     constructor(props) {
@@ -32,7 +34,6 @@ export default class CheckboxesFormArray extends Component {
 
         if (!tempVal[id]) { // value not yet checked
             tempVal[id] = true;
-            console.log(tempVal);
             this.props.fields.push(this.props.options[id]);
             this.setState({
                 markedValues: [...tempVal],
@@ -41,8 +42,6 @@ export default class CheckboxesFormArray extends Component {
         } else { // value already checked (i.e. item to remove)
             const itemToRemove = this.props.fields.getAll().findIndex((el) => el === this.props.options[id]);
             tempVal[id] = false;
-            console.log(tempVal);
-            console.log(`remove ${itemToRemove}`);
             this.props.fields.remove(itemToRemove);
             this.setState({
                 markedValues: [...tempVal],
@@ -56,9 +55,9 @@ export default class CheckboxesFormArray extends Component {
 
         return (
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                <DropdownToggle onClick={this.toggle} data-toggle="dropdown"
-                    aria-expanded={this.state.dropdownOpen}caret>{fields.name}</DropdownToggle>
-                <DropdownMenu>
+                <DropdownToggle onClick={this.toggle} className="cbformArray" data-toggle="dropdown"
+                    aria-expanded={this.state.dropdownOpen} caret>{fields.name}</DropdownToggle>
+                <DropdownMenu className="values-menu">
                     {options.map((item, index) => <CustomInput onChange={this.controlMarked}
                         key={index} id={index} type="checkbox" checked={this.state.markedValues[index]} label={item}></CustomInput>)
                     }
