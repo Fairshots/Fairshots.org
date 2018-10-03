@@ -37,10 +37,6 @@ export default class CheckboxesFormArray extends Component {
 
         if (!tempVal[id]) { // value not yet checked
             tempVal[id] = true;
-            console.log(this.state.markedValues);
-            console.log(tempVal);
-            console.log(this);
-            console.log(`added ${this.props.options[id]}`);
             this.props.fields.push(this.props.options[id]);
             this.setState({
                 markedValues: [...tempVal],
@@ -48,9 +44,6 @@ export default class CheckboxesFormArray extends Component {
         } else { // value already checked (i.e. item to remove)
             const itemToRemove = this.props.fields.getAll().findIndex((el) => el === this.props.options[id]);
             tempVal[id] = false;
-            console.log(this.state.markedValues);
-            console.log(tempVal);
-            console.log(`removed ${this.props.fields}`);
             this.props.fields.remove(itemToRemove);
             this.setState({
                 markedValues: [...tempVal],
@@ -59,7 +52,6 @@ export default class CheckboxesFormArray extends Component {
     }
 
     render() {
-        console.log(this);
         const { fields, options, meta: { error } } = this.props;
 
         return (
