@@ -14,7 +14,7 @@ const countrylist = ["", "Afghanistan", "Albania", "Algeria", "Andorra", "Angola
     "Turkey", "Turkmenistan", "Turks & Caicos", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay",
     "Uzbekistan", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"];
 
-const causes = ["", "Animal Welfare",
+const causes = ["Animal Welfare",
     "Arts and Culture",
     "Children and youth",
     "Community development",
