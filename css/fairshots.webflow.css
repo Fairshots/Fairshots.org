@@ -1103,7 +1103,6 @@ body {
 }
 
 .tab-arrow {
-  position: absolute;
   left: 0px;
   right: 0px;
   bottom: -17px;
@@ -1535,7 +1534,7 @@ html.w-mod-js *[data-ix="lightbox-image-2"] {
   opacity: 1;
 }
 
-html.w-mod-js *[data-ix="tab-arrow"] {
+.tab-arrow.noshow {
   opacity: 0;
   -webkit-transform: translate(0px, -10px) scale(1, 0.3);
   -ms-transform: translate(0px, -10px) scale(1, 0.3);

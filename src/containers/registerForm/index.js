@@ -22,6 +22,14 @@ class RegisterForm extends Component {
         this.renderField = this.renderField.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+        const { location: { hash } } = this.props;
+        if (hash !== prevProps.location.hash) {
+            this.setState({ userType: hash.slice(1, hash.length) });
+            console.log(hash);
+        }
+    }
+
     renderField({
         input, label, type, options, meta: { touched, error, warning }
     }) {
@@ -49,16 +57,16 @@ class RegisterForm extends Component {
                 <div className="register-tabs">
                     <div className="d-flex flex-wrap justify-content-around">
                         <a data-w-tab="Tab 1" className="f-tab-link">
-                            <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" className="tab-arrow"/></a>
+                            <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png" className={`tab-arrow ${this.state.userType === "photographer" ? "noshow" : ""}`}/></a>
                         <a data-w-tab="Tab 2" className="f-tab-link">
-                            <div>JOIN AS a photographer</div><img src="images/Dark_Green_Arrow_Up.png" data-ix="tab-arrow" className="tab-arrow"/></a>
+                            <div>JOIN AS a photographer</div><img src="images/Dark_Green_Arrow_Up.png" className={`tab-arrow ${this.state.userType === "photographer" ? "" : "noshow"}`}/></a>
                     </div>
                     <div className="w-tab-content">
                         <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
-                            <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
-                        </div>
-                        <div data-w-tab="Tab 2" className="w-tab-pane">
-                            <OrganizationForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
+                            {this.state.userType === "photographer"
+                                ? <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
+                                : <OrganizationForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
+                            }
                         </div>
                     </div>
                 </div>
