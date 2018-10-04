@@ -11,7 +11,7 @@ export default function Home(props) {
             <HeroSlider />
             <SoFarBanner />
             <Featured />
-            <BePart />
+
         </div>
     );
 }

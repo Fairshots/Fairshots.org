@@ -14,12 +14,8 @@ export default class CheckboxesFormArray extends Component {
         this.controlMarked = this.controlMarked.bind(this);
         this.state = {
             dropdownOpen: false,
-            markedValues: [],
+            markedValues: this.props.options.map(i => false),
         };
-    }
-
-    componentDidMount() {
-        this.setState({ markedValues: this.props.options.map(i => false) });
     }
 
     toggle() {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class HeroSlider extends Component {
     render() {
@@ -8,7 +9,7 @@ export default class HeroSlider extends Component {
                     <div className="darken"></div>
                     <div className="hero-text-holder">
                         <h1 data-ix="hero-sliding" className="hero-sentence">A better world one click at a time</h1>
-                        <h2 data-ix="hero-sliding-2" className="hero-undertittle">connecting socially engaged photographers with world changing NGOS</h2><a href="register.html" className="join-button w-button">I WANT TO JOIN</a>
+                        <h2 data-ix="hero-sliding-2" className="hero-undertittle">connecting socially engaged photographers with world changing NGOS</h2><Link to="/register" className="join-button w-button">I WANT TO JOIN</Link>
                         <p className="general-paragraph hero">Quickly while it is still free :)</p>
                     </div>
                     <div data-delay="3000" data-animation="slide" data-autoplay="1" data-duration="1500" data-infinite="1" className="homepageheroslider w-slider">
@@ -37,7 +38,7 @@ export default class HeroSlider extends Component {
                             <div className="w-slide"><img src="images/Fairshots-mobile-slideshow.jpg" className="hero-slider-image"/></div>
                             <div className="w-slide"><img src="images/Fairshots-mobile-slideshow-04.jpg" className="hero-slider-image"/></div>
                         </div>
-                    </div><a href="register.html" className="join-button w-button">I WANT TO JOIN</a></div>
+                    </div><Link to="/register" className="join-button w-button">I WANT TO JOIN</Link></div>
             </div>
         );
     }

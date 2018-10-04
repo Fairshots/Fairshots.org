@@ -1,5 +1,5 @@
 
-import React, { Component } from "react";
+import React from "react";
 import { Field, FieldArray } from "redux-form";
 import { Form, Button } from "reactstrap";
 import { countrylist, causes, languages } from "./select-options";

@@ -15,14 +15,14 @@ export default class NavBar extends Component {
                                 <div>Organizations</div>
                                 <div className="w-icon-dropdown-toggle"></div>
                             </div>
-                            <nav className="w-dropdown-list"><a href="register.html" className="dropdown-link w-dropdown-link">register an organization</a><a href="create-a-project.html" className="dropdown-link w-dropdown-link">create a NEW PROJECT</a><a href="photographers.html" className="dropdown-link w-dropdown-link">find a photographer</a></nav>
+                            <nav className="w-dropdown-list"><Link to="/register#organization" className="dropdown-link w-dropdown-link">register an organization</Link><a href="create-a-project.html" className="dropdown-link w-dropdown-link">create a NEW PROJECT</a><a href="photographers.html" className="dropdown-link w-dropdown-link">find a photographer</a></nav>
                         </div>
                         <div data-delay="0" data-hover="1" className="navbarlink w-dropdown">
                             <div className="navbarlink w-dropdown-toggle">
                                 <div>photographers</div>
                                 <div className="w-icon-dropdown-toggle"></div>
                             </div>
-                            <nav className="w-dropdown-list"><a href="register.html" className="dropdown-link w-dropdown-link">register as a photographer</a><a href="organizations.html" className="dropdown-link w-dropdown-link">find an ngo</a><a href="current-opportunities.html" className="dropdown-link w-dropdown-link">CURRENT PROJECTS</a></nav>
+                            <nav className="w-dropdown-list"><Link to="/register#photographer" className="dropdown-link w-dropdown-link">register as a photographer</Link><a href="organizations.html" className="dropdown-link w-dropdown-link">find an ngo</a><a href="current-opportunities.html" className="dropdown-link w-dropdown-link">CURRENT PROJECTS</a></nav>
                         </div>
                         <Link to="/about" className="navbarlink w-nav-link">About</Link>
                         <Link to="/contact-us" className="navbarlink w-nav-link">Contact</Link>

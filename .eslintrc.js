@@ -38,13 +38,15 @@ module.exports = {
 		"no-undef": "warn",
 		"no-unreachable": "warn",
 		"no-unused-vars": "warn",
-		"object-curly-spacing": ["error", "always"],
+        "object-curly-spacing": ["error", "always"],
 		"require-jsdoc": "off",
 		"semi": ["error", "always", {"omitLastInOneLineBlock": true}],
         "valid-typeof": "warn",
         "class-methods-use-this": "off",
         "import/no-extraneous-dependencies": ["error", 
         {"devDependencies": true}
-        ]
+        ],
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
     }
 };
