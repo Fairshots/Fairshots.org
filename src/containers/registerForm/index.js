@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-    Form, FormGroup, FormFeedback, Input, Button
+    FormGroup, FormFeedback, Input
 } from "reactstrap";
 import { reduxForm } from "redux-form";
+import { Link } from "react-router-dom";
 import PhotographerForm from "./photographerform";
 import OrganizationForm from "./organizationform";
-
 import register from "../../actions/register";
 
 import "./registerForm.scss";
@@ -48,18 +48,21 @@ class RegisterForm extends Component {
 
     render() {
         const {
-            doRegister, handleSubmit
+            doRegister, handleSubmit, location: { pathname }
         } = this.props;
         return (
             <div className="register-form d-flex flex-column flex-wrap align-items-center">
                 <h3 className="portfolio-title">BE PART OF THE CHANGE</h3>
-                <p>Joining Fairshots is free, easy and open to photographers and organizations anywhere around the world. Start by clicking the button below that is most relevant to you. Easy Peasy.</p>
+                <p>Joining Fairshots is free, easy and open to photographers and organizations anywhere around the world.
+                 Start by clicking the button below that is most relevant to you. Easy Peasy.</p>
                 <div className="register-tabs">
                     <div className="d-flex flex-wrap justify-content-around">
-                        <a data-w-tab="Tab 1" className="f-tab-link">
-                            <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png" className={`tab-arrow ${this.state.userType === "photographer" ? "noshow" : ""}`}/></a>
-                        <a data-w-tab="Tab 2" className="f-tab-link">
-                            <div>JOIN AS a photographer</div><img src="images/Dark_Green_Arrow_Up.png" className={`tab-arrow ${this.state.userType === "photographer" ? "" : "noshow"}`}/></a>
+                        <Link to={{ pathname, hash: "#organization" }} className="f-tab-link">
+                            <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png"
+                                className={`tab-arrow ${this.state.userType === "photographer" ? "noshow" : ""}`}/></Link>
+                        <Link to={{ pathname, hash: "#photographer" }} className="f-tab-link">
+                            <div>JOIN AS AN photographer</div><img src="images/Dark_Green_Arrow_Up.png"
+                                className={`tab-arrow ${this.state.userType === "photographer" ? "" : "noshow"}`}/></Link>
                     </div>
                     <div className="w-tab-content">
                         <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
