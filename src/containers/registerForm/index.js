@@ -89,8 +89,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-const validate = values => {
+const validate = userType => values => {
     const errors = {};
+
     if (!values.name) {
         errors.name = "Required";
     }
@@ -104,28 +105,43 @@ const validate = values => {
     } else if (values.password.length < 8) {
         errors.password = "minimum 8 characters";
     }
-    if (!values.biography) {
-        errors.biography = "Required";
-    }
-    if (values.skill === "" || !values.skill) {
-        errors.skill = "Required";
-    }
     if (!values.city) {
         errors.city = "Required";
     }
     if (values.country === "" || !values.country) {
         errors.country = "Required";
     }
-    const pictUrl = document.querySelector("input.form-control-file[name='pictUrl']");
 
-    if (pictUrl && pictUrl.files[0]) {
-        if (pictUrl.files[0].size > 200000) {
-            errors.pictUrl = "Max file size is 200kB";
-        } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(pictUrl.files[0].name)) {
-            errors.pictUrl = "Invalid file";
+    if (userType === "photographer") {
+        if (!values.biography) {
+            errors.biography = "Required";
+        }
+        if (values.skill === "" || !values.skill) {
+            errors.skill = "Required";
+        }
+
+        const picture = document.querySelector("input.form-control-file[name='pictUrl']");
+        if (picture && picture.files[0]) {
+            if (picture.files[0].size > 200000) {
+                errors.pictUrl = "Max file size is 200kB";
+            } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(picture.files[0].name)) {
+                errors.pictUrl = "Invalid file";
+            }
+        }
+    } else if (userType === "organization") {
+        if (!values.background) {
+            errors.background = "Required";
+        }
+
+        const logo = document.querySelector("input.form-control-file[name='Logo']");
+        if (logo && logo.files[0]) {
+            if (logo.files[0].size > 200000) {
+                errors.logo = "Max file size is 200kB";
+            } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(picture.files[0].name)) {
+                errors.logo = "Invalid file";
+            }
         }
     }
-
     return errors;
 };
 
