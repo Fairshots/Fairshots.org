@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 import auth from "./auth";
-import userProfile from "./userProfile";
+import registration from "./registration";
 
 const rootReducer = combineReducers({
     auth,
-    userProfile,
+    registration,
     form: formReducer
 });
 

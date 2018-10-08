@@ -6,7 +6,7 @@ import { countrylist, causes } from "./select-options";
 
 export default function OrganizationForm({ handleSubmit, renderField }) {
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form className="container" onSubmit={handleSubmit} >
             <Field name="name" label="Organization Name: " component={renderField} type="text" />
             <Field name="_parent" label="Parent Org (if any): " component={renderField} type="text" />
             <Field name="email" label="E-mail: " component={renderField} type="Email" />

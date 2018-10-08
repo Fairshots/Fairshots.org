@@ -24,14 +24,14 @@ export default function register(userType, formProps) {
             dispatch(
                 {
                     type: "REG_SUCCESS",
-                    payload: userProfile
+                    payload: "Registration was successful. Please login now"
                 }
             );
         } catch (e) {
             dispatch(
                 {
                     type: "REG_ERROR",
-                    payload: "Oops! Something went wrong"
+                    payload: "Oops! Something went wrong. Plase try again later"
                 }
             );
         }

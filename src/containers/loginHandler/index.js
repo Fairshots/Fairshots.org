@@ -49,7 +49,7 @@ class LoginHandler extends Component {
                 { !isAuthenticated
                 && <div className="login-register">
                     <Button className="mr-2 loglog" onClick={this.showLoginModal}>LOGIN</Button>
-                    <Button className="loglog"><Link to="/register">SIGN UP</Link></Button>
+                    <Button className="loglog"><Link to="/register#photographer">SIGN UP</Link></Button>
                 </div>
                 }
                 {

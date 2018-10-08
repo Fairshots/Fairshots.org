@@ -48,7 +48,7 @@ class RegisterForm extends Component {
 
     render() {
         const {
-            doRegister, handleSubmit, location: { pathname }
+            doRegister, handleSubmit, regmsg, location: { pathname }
         } = this.props;
         return (
             <div className="register-form d-flex flex-column flex-wrap align-items-center">
@@ -57,21 +57,23 @@ class RegisterForm extends Component {
                  Start by clicking the button below that is most relevant to you. Easy Peasy.</p>
                 <div className="register-tabs">
                     <div className="d-flex flex-wrap justify-content-around">
-                        <Link to={{ pathname, hash: "#organization" }} className="f-tab-link">
+                        <Link to={{ pathname, hash: "#organization" }} className="f-tab-link" onClick={this.props.reset}>
                             <div>JOIN AS AN organization</div><img src="images/Dark_Green_Arrow_Up.png"
                                 className={`tab-arrow ${this.state.userType === "photographer" ? "noshow" : ""}`}/></Link>
-                        <Link to={{ pathname, hash: "#photographer" }} className="f-tab-link">
+                        <Link to={{ pathname, hash: "#photographer" }} className="f-tab-link" onClick={this.props.reset}>
                             <div>JOIN AS AN photographer</div><img src="images/Dark_Green_Arrow_Up.png"
                                 className={`tab-arrow ${this.state.userType === "photographer" ? "" : "noshow"}`}/></Link>
                     </div>
                     <div className="w-tab-content">
-                        <div data-w-tab="Tab 1" className="w-tab-pane w--tab-active">
-                            {this.state.userType === "photographer"
-                                ? <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
-                                : <OrganizationForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
-                            }
-                        </div>
+
+                        {this.state.userType === "photographer"
+                            ? <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
+                            : <OrganizationForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
+                        }
+                        {regmsg.message && <span className="text-danger mr-5 mt-5">{regmsg.message}</span>}
+
                     </div>
+
                 </div>
             </div>
 
@@ -80,7 +82,7 @@ class RegisterForm extends Component {
     }
 }
 const mapStateToProps = state => ({
-
+    regmsg: state.registration
 });
 const mapDispatchToProps = dispatch => ({
     doRegister: userType => formFilled => {
@@ -89,8 +91,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-const validate = userType => values => {
+const validate = values => {
     const errors = {};
+    const userType = window.location.href.split("#")[1];
 
     if (!values.name) {
         errors.name = "Required";
@@ -142,6 +145,7 @@ const validate = userType => values => {
             }
         }
     }
+    console.log(userType);
     return errors;
 };
 
