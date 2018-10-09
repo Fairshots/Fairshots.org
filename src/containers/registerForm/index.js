@@ -150,6 +150,12 @@ const validate = values => {
         if (!values.background) {
             errors.background = "Required";
         }
+        if (!values.person) {
+            errors.person = "Required";
+        }
+        if (!values.website) {
+            errors.website = "Required";
+        }
 
         const logo = document.querySelector("input.form-control-file[name='Logo']");
         if (logo && logo.files[0]) {

@@ -4,8 +4,12 @@ const FAIRSHOTS_API = "https://node-lvcunha.c9users.io:8080/api/";
 export function register(userType, formProps) {
     return async dispatch => {
         try {
-            const fd = new FormData();
-            fd.append("file", formProps.pictUrl[0]);
+            const fd = new FormData(); // need to improve this
+            if (userType === "photographer") {
+                fd.append("file", formProps.pictUrl[0]);
+            } else {
+                fd.append("file", formProps.logo[0]);
+            }
             fd.append("upload_preset", "kahvrgme");
             const imgUp = await fetch(CLOUDINARY_API, {
                 method: "POST",
@@ -16,11 +20,13 @@ export function register(userType, formProps) {
             const config = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...formProps, pictUrl: imgRes.secure_url })
+                body: userType === "photographer" ? JSON.stringify({ ...formProps, pictUrl: imgRes.secure_url })
+                    : JSON.stringify({ ...formProps, logo: imgRes.secure_url, funding: formProps.funding === "Yes" })
             };
             console.log(config);
             const res = await fetch(`${FAIRSHOTS_API}${userType}`, config);
             const userProfile = await res.json();
+            console.log(userProfile);
             dispatch(
                 {
                     type: "REG_SUCCESS",
@@ -28,6 +34,7 @@ export function register(userType, formProps) {
                 }
             );
         } catch (e) {
+            console.log(e);
             dispatch(
                 {
                     type: "REG_ERROR",
