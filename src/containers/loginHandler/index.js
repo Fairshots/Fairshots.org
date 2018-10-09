@@ -15,12 +15,11 @@ class LoginHandler extends Component {
         this.state = {
             email: "",
             password: "",
-            loginModal: false,
-            registerForm: false
+            loginModal: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.showLoginModal = this.showLoginModal.bind(this);
+        this.toggleLoginModal = this.toggleLoginModal.bind(this);
     }
 
     handleChange(event) {
@@ -36,19 +35,26 @@ class LoginHandler extends Component {
         this.props.doLogin(form);
     }
 
-    showLoginModal() {
+    toggleLoginModal() {
         this.setState(prevState => ({ loginModal: !prevState.loginModal }));
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
+            this.toggleLoginModal();
+            this.setState({ email: "", password: "" });
+        }
     }
 
     render() {
         const {
-            doLogin, isAuthenticated, handleLogout, errorMessage
+            isAuthenticated, handleLogout, errorMessage
         } = this.props;
         return (
             <div className="login-handler">
                 { !isAuthenticated
                 && <div className="login-register">
-                    <Button className="mr-2 loglog" onClick={this.showLoginModal}>LOGIN</Button>
+                    <Button className="mr-2 loglog" onClick={this.toggleLoginModal}>LOGIN</Button>
                     <Button className="loglog"><Link to="/register#photographer">SIGN UP</Link></Button>
                 </div>
                 }
@@ -57,7 +63,7 @@ class LoginHandler extends Component {
                 && <Button className="loglog" onClick={handleLogout}>LOGOUT</Button>
                 }
                 <LoginModal showModal={this.state.loginModal}
-                    showLoginModal={this.showLoginModal}
+                    showLoginModal={this.toggleLoginModal}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     email={this.state.email}
