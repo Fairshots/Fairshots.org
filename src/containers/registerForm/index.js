@@ -7,7 +7,7 @@ import { reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import PhotographerForm from "./photographerform";
 import OrganizationForm from "./organizationform";
-import register from "../../actions/register";
+import { register, checkForm, resetMessages } from "../../actions/register";
 
 import "./registerForm.scss";
 
@@ -23,10 +23,23 @@ class RegisterForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { location: { hash } } = this.props;
-        if (hash !== prevProps.location.hash) {
+        const {
+            location: { hash }, submitFailed, doCheckForm, history, regmsg
+        } = this.props;
+        if (hash !== prevProps.location.hash) { // change userType according to url hash
             this.setState({ userType: hash.slice(1, hash.length) });
-            console.log(hash);
+        }
+        if ((typeof regmsg.message === "string") && (typeof prevProps.regmsg.message === "undefined")) {
+            setTimeout(this.props.doResetMessages, 3000); // show error message for 3 seconds if reg. problem
+        }
+        if (submitFailed && !prevProps.submitFailed) {
+            doCheckForm(); // show error message for 3 seconds if required fields are not filled
+        }
+        if (regmsg.success && (typeof regmsg.message === "string")
+        && (typeof prevProps.regmsg.message === "undefined")) { // show registration success and push to home page
+            window.alert(regmsg.message);
+            setTimeout(this.props.doResetMessages, 3000);
+            setTimeout(history.push("/"), 3001);
         }
     }
 
@@ -48,7 +61,7 @@ class RegisterForm extends Component {
 
     render() {
         const {
-            doRegister, handleSubmit, regmsg, location: { pathname }
+            doRegister, handleSubmit, regmsg, valid, location: { pathname }
         } = this.props;
         return (
             <div className="register-form d-flex flex-column flex-wrap align-items-center">
@@ -70,7 +83,7 @@ class RegisterForm extends Component {
                             ? <PhotographerForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
                             : <OrganizationForm handleSubmit={handleSubmit(doRegister(this.state.userType))} renderField={this.renderField} />
                         }
-                        {regmsg.message && <span className="text-danger mr-5 mt-5">{regmsg.message}</span>}
+                        {regmsg.message && <span className={`${regmsg.success ? "text-success" : "text-danger"} ml-5 mt-5`}>{regmsg.message}</span>}
 
                     </div>
 
@@ -88,7 +101,9 @@ const mapDispatchToProps = dispatch => ({
     doRegister: userType => formFilled => {
         console.log(formFilled);
         dispatch(register(userType, formFilled));
-    }
+    },
+    doCheckForm: () => dispatch(checkForm()),
+    doResetMessages: () => dispatch(resetMessages())
 });
 
 const validate = values => {
@@ -145,7 +160,6 @@ const validate = values => {
             }
         }
     }
-    console.log(userType);
     return errors;
 };
 

@@ -1,7 +1,7 @@
 const CLOUDINARY_API = "https://api.cloudinary.com/v1_1/fairshots/image/upload";
 const FAIRSHOTS_API = "https://node-lvcunha.c9users.io:8080/api/";
 
-export default function register(userType, formProps) {
+export function register(userType, formProps) {
     return async dispatch => {
         try {
             const fd = new FormData();
@@ -31,9 +31,22 @@ export default function register(userType, formProps) {
             dispatch(
                 {
                     type: "REG_ERROR",
-                    payload: "Oops! Something went wrong. Plase try again later"
+                    payload: "Oops! Something went wrong. Plase try again"
                 }
             );
         }
+    };
+}
+
+export function checkForm() {
+    return {
+        type: "REG_CHECKFORM",
+        payload: "Please check your form"
+    };
+}
+
+export function resetMessages() {
+    return {
+        type: "REG_RESET"
     };
 }
