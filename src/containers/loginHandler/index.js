@@ -3,7 +3,7 @@ import {
     Button, Form, FormGroup, Input, FormFeedback
 } from "reactstrap";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { login, logout } from "../../actions/login";
 import LoginModal from "../../components/loginModal";
 
@@ -43,6 +43,7 @@ class LoginHandler extends Component {
         if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
             this.toggleLoginModal();
             this.setState({ email: "", password: "" });
+            this.props.history.push(`/photographer/${this.props.userInfo.userId}`);
         }
     }
 
@@ -70,16 +71,17 @@ class LoginHandler extends Component {
                     password={this.state.password}
                     errorMessage={errorMessage}
                 />
-
-
             </div>
         );
     }
 }
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    errorMessage: state.auth.errorMessage
+    errorMessage: state.auth.errorMessage,
+    userInfo: state.auth.user
+
 });
+
 const mapDispatchToProps = dispatch => ({
     doLogin: formProps => {
         dispatch(login(formProps));
@@ -90,4 +92,4 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginHandler);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginHandler));
