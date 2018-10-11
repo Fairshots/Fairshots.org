@@ -16,7 +16,7 @@ export default function Main() {
                 <Route path='/contact-us' exact component={Contact}/>
                 <Route path='/register' exact component={RegisterForm}/>
                 <Route path='/terms-and-conditions' exact component={TermsandConditions}/>
-                <Route path='/profile' exact component={UserProfile}/>
+                <Route path='/:userType/:userId' component={UserProfile}/>
             </Switch>
         </main>
     );

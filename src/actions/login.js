@@ -1,3 +1,5 @@
+import { FAIRSHOTS_API } from "./constants";
+
 export function login(formProps) {
     return async dispatch => {
         const config = {
@@ -9,7 +11,7 @@ export function login(formProps) {
             })
         };
         try {
-            const res = await fetch("https://node-lvcunha.c9users.io:8080/login", config);
+            const res = await fetch(`${FAIRSHOTS_API}login`, config);
             const usertoSave = await res.json();
             console.log(usertoSave);
             localStorage.setItem("user", JSON.stringify(usertoSave));

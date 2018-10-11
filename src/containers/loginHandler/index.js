@@ -43,7 +43,7 @@ class LoginHandler extends Component {
         if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
             this.toggleLoginModal();
             this.setState({ email: "", password: "" });
-            this.props.history.push(`/photographer/${this.props.userInfo.userId}`);
+            this.props.history.push(`/${this.props.userInfo.userType}/${this.props.userInfo.userId}`);
         }
     }
 

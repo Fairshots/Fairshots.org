@@ -1,5 +1,4 @@
-const CLOUDINARY_API = "https://api.cloudinary.com/v1_1/fairshots/image/upload";
-const FAIRSHOTS_API = "https://node-lvcunha.c9users.io:8080/api/";
+import { CLOUDINARY_API, FAIRSHOTS_API } from "./constants";
 
 export function register(userType, formProps) {
     return async dispatch => {
@@ -24,7 +23,7 @@ export function register(userType, formProps) {
                     : JSON.stringify({ ...formProps, logo: imgRes.secure_url, funding: formProps.funding === "Yes" })
             };
             console.log(config);
-            const res = await fetch(`${FAIRSHOTS_API}${userType}`, config);
+            const res = await fetch(`${FAIRSHOTS_API}api/${userType}`, config);
             const userProfile = await res.json();
             console.log(userProfile);
             dispatch(
