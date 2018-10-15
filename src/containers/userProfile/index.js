@@ -4,6 +4,8 @@ import { } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { getProfile } from "../../actions/profile";
 
+import OrgProfile from "../../components/orgProfile";
+import PhotogProfile from "../../components/photogProfile";
 import "./userProfile.scss";
 
 /**
@@ -16,32 +18,18 @@ class UserProfile extends Component {
     }
 
     render() {
+        const { match: { params: { userType } }, userProfile } = this.props;
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm-4">
-                     One of two columns
-                    </div>
-                    <div className="col-sm-8">
-                     One of two columns
-                    </div>
-
-                </div>
-                <div className="row">
-                    <div className="col-sm-4">
-                     One of two columns
-                    </div>
-                    <div className="col-sm-8">
-                     One of two columns
-                    </div>
-                </div>
+            <div>
+                { userType === "organization" ? <OrgProfile organization={userProfile} />
+                    : <PhotogProfile photographer={userProfile}/> }
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    userProfile: state.userProfile,
+    userProfile: state.profile,
     token: state.auth.user.token
 });
 const mapDispatchToProps = dispatch => ({

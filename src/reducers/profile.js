@@ -7,7 +7,7 @@ export default function profile(state = {}, action) {
     }
     case "GET_PROFILE": {
         return Object.assign({}, state, {
-            message: action.payload,
+            ...action.payload
         });
     }
     default: return state;
