@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "reactstrap";
 
 export default function PhotogProfile({ photographer }) {
     return (
@@ -15,12 +16,28 @@ export default function PhotogProfile({ photographer }) {
 
             </div>
             <div className="row">
-                <div className="col-sm-3">
-                        One of two columns
+                <div className="col-sm-3 d-flex flex-column align-items-center">
+                    <Button color="success w-75 mb-2">success</Button>
+                    <Button color="success w-75 mb-2">success</Button>
+                    <Button color="success w-75 mb-2">success</Button>
+
                 </div>
                 <div className="col-sm-9 d-flex">
-                    <img src="/images/place.png" height="40"/>
-                    <p className="general-paragraph ml-2">{`Based in ${photographer.City}, ${photographer.Country}`} </p>
+                    <div className="col-sm-6 p-0">
+                        <img src="/images/place.png" height="40"/>
+                        <p className="general-paragraph ml-2">{`Based in ${photographer.City}, ${photographer.Country}`} </p>
+                    </div>
+                    <div className="col-sm-6">
+                        {photographer.webpage && <a href={photographer.webpage} className="text-link">{photographer.webpage}</a>}
+                        {photographer.facebook && <a href={photographer.facebook} className="text-link">{photographer.facebook}</a>}
+                        {photographer.instagram && <a href={photographer.instagram} className="text-link">{photographer.instagram}</a>}
+                    </div>
+                </div>
+            </div>
+            <div className="row justify-content-end">
+                <div className="col-sm-9 d-flex justify-content-center">
+                    <h3 className="portfolio-tittle">Portfolio</h3>
+
                 </div>
             </div>
         </div>

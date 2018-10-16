@@ -31,7 +31,7 @@ export function getProfile(userType, id, token) {
 }
 
 export function other() {
-    return 	{
+    return {
         type: "XXX",
     };
 }
