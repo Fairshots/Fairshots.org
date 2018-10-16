@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-    Button, Form, FormGroup, Input, FormFeedback
+    Button
 } from "reactstrap";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";

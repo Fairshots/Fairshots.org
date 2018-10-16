@@ -1,7 +1,14 @@
 import React from "react";
 import { Button } from "reactstrap";
 
-export default function PhotogProfile({ photographer }) {
+export default function PhotogProfile({ photographer, uploadPhoto }) {
+    const { cloudinary } = window;
+    const imgUploadWidget = cloudinary.createUploadWidget({ cloudName: "fairshots", uploadPreset: "kahvrgme" }, (error, result) => {
+        if (result.event === "success") {
+            uploadPhoto(result.info.secure_url);
+        }
+    });
+
     return (
         <div className="container">
             <div className="row">
@@ -17,13 +24,11 @@ export default function PhotogProfile({ photographer }) {
             </div>
             <div className="row">
                 <div className="col-sm-3 d-flex flex-column align-items-center">
-                    <Button color="success w-75 mb-2">success</Button>
-                    <Button color="success w-75 mb-2">success</Button>
-                    <Button color="success w-75 mb-2">success</Button>
-
+                    <Button color="success w-75 mb-2">Edit Profile</Button>
+                    <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>Upload Photos</Button>
                 </div>
                 <div className="col-sm-9 d-flex">
-                    <div className="col-sm-6 p-0">
+                    <div className="col-sm-6 d-flex p-0">
                         <img src="/images/place.png" height="40"/>
                         <p className="general-paragraph ml-2">{`Based in ${photographer.City}, ${photographer.Country}`} </p>
                     </div>
