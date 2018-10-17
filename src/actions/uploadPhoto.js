@@ -14,12 +14,12 @@ export default function uploadPhoto(userType, id, token, url) {
             };
             console.log(config);
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photos`, config);
-            const rer = await res.json();
-            console.log(rer);
+            const ret = await res.json();
+            console.log(ret);
             dispatch(
                 {
                     type: "PHOTO_UPLOADED",
-                    payload: url
+                    payload: ret
                 }
             );
         } catch (e) {
