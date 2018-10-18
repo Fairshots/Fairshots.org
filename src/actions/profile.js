@@ -11,19 +11,22 @@ export function getProfile(userType, id, token) {
         };
         try {
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}`, config);
-            const userProfile = await res.json();
-            console.log(userProfile);
-            dispatch(
-                {
-                    type: "GET_PROFILE",
-                    payload: userProfile
-                }
-            );
+            if (res.ok) {
+                const userProfile = await res.json();
+                dispatch(
+                    {
+                        type: "GET_PROFILE",
+                        payload: userProfile
+                    }
+
+                );
+            } else throw res;
         } catch (e) {
+            console.log(e);
             dispatch(
                 {
-                    type: "GET_ERROR",
-                    payload: e
+                    type: "PROFILE_ERROR",
+                    payload: typeof e === "object" ? e.statusText : e.toString()
                 }
             );
         }

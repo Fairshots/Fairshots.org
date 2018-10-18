@@ -8,7 +8,7 @@ import Portfolio from "../portfolio";
 import "./photogProfile.scss";
 
 
-export default function PhotogProfile({ photographer, uploadPhoto }) {
+export default function PhotogProfile({ photographer, uploadPhoto, toggleModal }) {
     const { cloudinary } = window;
     const imgUploadWidget = cloudinary.createUploadWidget({ cloudName: "fairshots", uploadPreset: "kahvrgme" }, (error, result) => {
         if (result.event === "success") {
@@ -31,7 +31,7 @@ export default function PhotogProfile({ photographer, uploadPhoto }) {
             </div>
             <div className="row">
                 <div className="col-sm-3 d-flex flex-column align-items-center">
-                    <Button color="success w-75 mb-2">Edit Profile</Button>
+                    <Button color="success w-75 mb-2" onClick={toggleModal}>Edit Profile</Button>
                     <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>Upload Photos</Button>
                 </div>
                 <div className="col-sm-9 d-flex">
