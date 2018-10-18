@@ -1,5 +1,12 @@
 import React from "react";
-import { Button } from "reactstrap";
+import {
+    Button
+} from "reactstrap";
+
+import Portfolio from "../portfolio";
+
+import "./photogProfile.scss";
+
 
 export default function PhotogProfile({ photographer, uploadPhoto }) {
     const { cloudinary } = window;
@@ -10,7 +17,7 @@ export default function PhotogProfile({ photographer, uploadPhoto }) {
     });
 
     return (
-        <div className="container">
+        <div className="photogProfile container">
             <div className="row">
                 <div className="col-sm-3">
                     <img className="profile-picture" src={photographer.ProfilePic} />
@@ -39,11 +46,12 @@ export default function PhotogProfile({ photographer, uploadPhoto }) {
                     </div>
                 </div>
             </div>
-            <div className="row justify-content-end">
-                <div className="col-sm-9 d-flex justify-content-center">
-                    <h3 className="portfolio-tittle">Portfolio</h3>
+            <div className="row justify-content-center">
+                <h3 className="portfolio-tittle">Portfolio</h3>
+            </div>
+            <div className="portfolio-holder row justify-content-center">
+                {photographer.Photos ? <Portfolio photos={photographer.Photos} /> : <p>Loading...</p> }
 
-                </div>
             </div>
         </div>
     );

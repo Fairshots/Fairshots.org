@@ -1,7 +1,7 @@
 
 import React from "react";
 import {
-    Button, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Row
+    Button, Input, Modal, ModalBody, Form, FormGroup, FormFeedback, Row
 } from "reactstrap";
 
 
