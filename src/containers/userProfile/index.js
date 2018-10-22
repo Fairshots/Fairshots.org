@@ -4,7 +4,7 @@ import { Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { getProfile } from "../../actions/profile";
 import uploadPhoto from "../../actions/uploadPhoto";
-import RegisterForm from "../registerForm";
+import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
 import "./userProfile.scss";
@@ -26,7 +26,7 @@ class UserProfile extends Component {
         getUserProfile(match.params.userType, match.params.userId, token).then(() => {
             if (this.props.userProfile.error) {
                 alert("please Login to continue");
-                this.props.history.push("/");
+                setTimeout(this.props.history.push("/"), 5000);
             }
         });
     }
@@ -47,7 +47,7 @@ class UserProfile extends Component {
 
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                     <ModalBody>
-                        <RegisterForm />
+                        <UpdateProfile />
                     </ModalBody>
                 </Modal>
             </div>

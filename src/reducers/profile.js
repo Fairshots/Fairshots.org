@@ -7,12 +7,21 @@ export default function profile(state = {}, action) {
     }
     case "GET_PROFILE": {
         return Object.assign({}, state, {
-            ...action.payload
+            ...action.payload,
+            error: false
         });
     }
     case "PHOTO_UPLOADED": {
         return Object.assign({}, state, {
-            Photos: [...state.Photos, { id: action.payload[0].id, cloudlink: action.payload[0].cloudlink }]
+            Photos: [...state.Photos, { id: action.payload[0].id, cloudlink: action.payload[0].cloudlink }],
+            error: false
+        });
+    }
+
+    case "UPDATE_PROFILE": {
+        return Object.assign({}, state, {
+            ...action.payload,
+            error: false
         });
     }
 

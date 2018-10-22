@@ -1,21 +1,17 @@
-import { CLOUDINARY_API, FAIRSHOTS_API } from "./constants";
+import { FAIRSHOTS_API } from "./constants";
+import sendPhotoGetUrl from "./sendPhotoGetUrl";
 
 export function register(userType, formProps) {
     return async dispatch => {
         try {
-            const fd = new FormData(); // need to improve this
-            if (userType === "photographer") {
-                fd.append("file", formProps.pictUrl[0]);
-            } else {
-                fd.append("file", formProps.logo[0]);
+            let imgRes = { secure_url: "/images/org-logo.png" };
+            if (formProps.pictUrl[0] || formProps.logo[0]) {
+                if (userType === "photographer") {
+                    imgRes = await sendPhotoGetUrl(formProps.pictUrl[0]);
+                } else {
+                    imgRes = await sendPhotoGetUrl(formProps.logo[0]);
+                }
             }
-            fd.append("upload_preset", "kahvrgme");
-            const imgUp = await fetch(CLOUDINARY_API, {
-                method: "POST",
-                body: fd
-            });
-            const imgRes = await imgUp.json();
-
             const config = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
