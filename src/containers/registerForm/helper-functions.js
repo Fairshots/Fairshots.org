@@ -64,11 +64,15 @@ const validate = values => {
         if (!values.Background) {
             errors.Background = "Required";
         }
-        if (!values.Person) {
+        if (!values.ContactPerson) {
             errors.Person = "Required";
         }
         if (!values.website) {
             errors.website = "Required";
+        }
+
+        if (!values.Languages) {
+            errors.Languages = "choose at least one";
         }
 
         const logo = document.querySelector("input.form-control-file[name='Logo']");

@@ -42,7 +42,7 @@ class UserProfile extends Component {
         } = this.props;
         return (
             <div>
-                { userType === "organization" ? <OrgProfile organization={userProfile} />
+                { userType === "organization" ? <OrgProfile organization={userProfile} toggleModal={this.toggleModal} uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} />
                     : <PhotogProfile photographer={userProfile} toggleModal={this.toggleModal} uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} /> }
 
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>

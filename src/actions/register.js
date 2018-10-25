@@ -7,7 +7,7 @@ export function register(userType, formProps) {
         dispatch(toggleLoading());
         try {
             let imgRes = { secure_url: "/images/org-logo.png" };
-            if (formProps.ProfilePic[0] || formProps.Logo[0]) {
+            if (formProps.ProfilePic || formProps.Logo) {
                 if (userType === "photographer") {
                     imgRes = await sendPhotoGetUrl(formProps.ProfilePic[0]);
                 } else {
@@ -22,15 +22,17 @@ export function register(userType, formProps) {
             };
             console.log(config);
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}`, config);
-            const userProfile = await res.json();
-            console.log(userProfile);
-            dispatch(
-                {
-                    type: "REG_SUCCESS",
-                    payload: "Registration was successful. Please login now"
-                }
-            );
-            dispatch(toggleLoading());
+            if (res.ok) {
+                const userProfile = await res.json();
+                console.log(userProfile);
+                dispatch(
+                    {
+                        type: "REG_SUCCESS",
+                        payload: "Registration was successful. Please login now"
+                    }
+                );
+                dispatch(toggleLoading());
+            } else throw res;
         } catch (e) {
             console.log(e);
             dispatch(
