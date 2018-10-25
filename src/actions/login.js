@@ -1,7 +1,9 @@
 import { FAIRSHOTS_API } from "./constants";
+import toggleLoading from "./toggleLoading";
 
 export function login(formProps) {
     return async dispatch => {
+        dispatch(toggleLoading());
         const config = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -21,6 +23,7 @@ export function login(formProps) {
                     payload: usertoSave
                 }
             );
+            dispatch(toggleLoading());
         } catch (e) {
             dispatch(
                 {
@@ -28,6 +31,7 @@ export function login(formProps) {
                     payload: "email or password incorrect or doesn`t exist"
                 }
             );
+            dispatch(toggleLoading());
         }
     };
 }

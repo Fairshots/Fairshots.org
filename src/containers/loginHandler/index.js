@@ -4,7 +4,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { login, logout, toggleLoading } from "../../actions";
+import { login, logout } from "../../actions";
 import LoginModal from "../../components/loginModal";
 
 import "./login-handler.scss";
@@ -32,7 +32,7 @@ class LoginHandler extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        this.props.toggleLoading();
+
         this.props.doLogin(form);
     }
 
@@ -42,7 +42,6 @@ class LoginHandler extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
-            this.props.toggleLoading();
             this.toggleLoginModal();
             this.setState({ email: "", password: "" });
             this.props.history.push(`/${this.props.userInfo.userType}/${this.props.userInfo.userId}`);
@@ -91,8 +90,7 @@ const mapDispatchToProps = dispatch => ({
     handleLogout: (history) => {
         history.push("/");
         dispatch(logout());
-    },
-    toggleLoading: () => dispatch(toggleLoading())
+    }
 
 });
 

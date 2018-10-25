@@ -7,18 +7,18 @@ export function register(userType, formProps) {
         dispatch(toggleLoading());
         try {
             let imgRes = { secure_url: "/images/org-logo.png" };
-            if (formProps.pictUrl[0] || formProps.logo[0]) {
+            if (formProps.ProfilePic[0] || formProps.Logo[0]) {
                 if (userType === "photographer") {
-                    imgRes = await sendPhotoGetUrl(formProps.pictUrl[0]);
+                    imgRes = await sendPhotoGetUrl(formProps.ProfilePic[0]);
                 } else {
-                    imgRes = await sendPhotoGetUrl(formProps.logo[0]);
+                    imgRes = await sendPhotoGetUrl(formProps.Logo[0]);
                 }
             }
             const config = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: userType === "photographer" ? JSON.stringify({ ...formProps, pictUrl: imgRes.secure_url })
-                    : JSON.stringify({ ...formProps, logo: imgRes.secure_url, funding: formProps.funding === "Yes" })
+                body: userType === "photographer" ? JSON.stringify({ ...formProps, ProfilePic: imgRes.secure_url })
+                    : JSON.stringify({ ...formProps, Logo: imgRes.secure_url, funding: formProps.funding === "Yes" })
             };
             console.log(config);
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}`, config);
