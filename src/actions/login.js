@@ -33,7 +33,7 @@ export function login(formProps) {
 }
 
 export function logout() {
-    return 	{
+    return {
         type: "AUTH_LOGOUT",
     };
 }

@@ -4,7 +4,7 @@ import { reduxForm } from "redux-form";
 import PhotographerForm from "../registerForm/photographerform";
 import OrganizationForm from "../registerForm/organizationform";
 import { renderField, validate } from "../registerForm/helper-functions";
-import { update } from "../../actions/profile";
+import { update } from "../../actions";
 
 
 /**

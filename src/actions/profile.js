@@ -1,8 +1,10 @@
 import { FAIRSHOTS_API } from "./constants";
 import sendPhotoGetUrl from "./sendPhotoGetUrl";
+import toggleLoading from "./toggleLoading";
 
 export function getProfile(userType, id, token) {
     return async dispatch => {
+        dispatch(toggleLoading());
         const config = {
             method: "GET",
             headers: {
@@ -19,8 +21,8 @@ export function getProfile(userType, id, token) {
                         type: "GET_PROFILE",
                         payload: userProfile
                     }
-
                 );
+                dispatch(toggleLoading());
             } else throw res;
         } catch (e) {
             console.log(e);
@@ -30,12 +32,14 @@ export function getProfile(userType, id, token) {
                     payload: typeof e === "object" ? e.statusText : e.toString()
                 }
             );
+            dispatch(toggleLoading());
         }
     };
 }
 
 export function update(userType, id, formProps, token) {
     return async dispatch => {
+        dispatch(toggleLoading());
         const config = {
             method: "PUT",
             headers: {
@@ -74,6 +78,7 @@ export function update(userType, id, formProps, token) {
                     }
 
                 );
+                dispatch(toggleLoading());
             } else throw res;
         } catch (e) {
             console.log(e);
@@ -83,6 +88,7 @@ export function update(userType, id, formProps, token) {
                     payload: typeof e === "object" ? e.statusText : e.toString()
                 }
             );
+            dispatch(toggleLoading());
         }
     };
 }

@@ -1,8 +1,10 @@
 import { FAIRSHOTS_API } from "./constants";
 import sendPhotoGetUrl from "./sendPhotoGetUrl";
+import toggleLoading from "./toggleLoading";
 
 export function register(userType, formProps) {
     return async dispatch => {
+        dispatch(toggleLoading());
         try {
             let imgRes = { secure_url: "/images/org-logo.png" };
             if (formProps.pictUrl[0] || formProps.logo[0]) {
@@ -28,6 +30,7 @@ export function register(userType, formProps) {
                     payload: "Registration was successful. Please login now"
                 }
             );
+            dispatch(toggleLoading());
         } catch (e) {
             console.log(e);
             dispatch(
@@ -36,6 +39,7 @@ export function register(userType, formProps) {
                     payload: "Oops! Something went wrong. Plase try again"
                 }
             );
+            dispatch(toggleLoading());
         }
     };
 }

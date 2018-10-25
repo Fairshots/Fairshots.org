@@ -21,9 +21,13 @@ export default function profile(state = {}, action) {
     case "UPDATE_PROFILE": {
         const { Password, ...newProps } = action.payload; // don't put password in state
         return Object.assign({}, state, {
-            newProps,
+            ...newProps,
             error: false
         });
+    }
+
+    case "AUTH_LOGOUT": {
+        return Object.assign({});
     }
 
 
