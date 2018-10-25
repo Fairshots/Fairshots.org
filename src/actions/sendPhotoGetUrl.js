@@ -10,7 +10,7 @@ export default async function sendPhotoGetUrl(file) {
             body: fd
         });
         const imgRes = await imgUp.json();
-        return;
+        return imgRes;
     } catch (e) {
         throw e;
     }

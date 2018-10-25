@@ -16,36 +16,46 @@ class UpdateProfile extends Component {
         this.state = { userType: window.location.href.match("photographer") ? "photographer" : "organization" };
     }
 
-
     render() {
         const {
-            doUpdate, handleSubmit, token
+            doUpdate, handleSubmit, token, initialValues, id
         } = this.props;
         return (
             <div>
                 {this.state.userType === "photographer"
-                    ? <PhotographerForm handleSubmit={handleSubmit(doUpdate(this.state.userType, token))} renderField={renderField} />
-                    : <OrganizationForm handleSubmit={handleSubmit(doUpdate(this.state.userType, token))} renderField={renderField} />
+                    ? <PhotographerForm handleSubmit={handleSubmit(doUpdate(this.state.userType, id, initialValues, token))} renderField={renderField} />
+                    : <OrganizationForm handleSubmit={handleSubmit(doUpdate(this.state.userType, id, initialValues, token))} renderField={renderField} />
                 }
             </div>
 
         );
     }
 }
-const mapStateToProps = state => ({
-    initialValues: state.profile,
-    token: state.auth.user.token
-});
+const mapStateToProps = state => {
+    const {
+        id, createdAt, updatedAt, error, Photos, __proto__, ...initialValues
+    } = state.profile;
+    return ({
+        id,
+        initialValues,
+        token: state.auth.user.token
+    });
+};
 const mapDispatchToProps = dispatch => ({
-    doUpdate: (userType, token) => formFilled => {
-        console.log(formFilled);
-        dispatch(update(userType, formFilled, token));
+    doUpdate: (userType, id, initialValues, token) => formFilled => {
+        const updateForm = Object.keys(formFilled).filter(k => formFilled[k] !== initialValues[k])
+            .reduce((obj, i) => ({ ...obj, [i]: formFilled[i] }), {});
+        console.log(updateForm);
+        dispatch(update(userType, id, updateForm, token));
     },
 
 
 });
 
-export default reduxForm({
+const up = reduxForm({
     form: "registerNewForm",
-    validate
-})(connect(mapStateToProps, mapDispatchToProps)(UpdateProfile));
+    validate,
+    enableReinitialize: true
+})(UpdateProfile);
+
+export default connect(mapStateToProps, mapDispatchToProps)(up);

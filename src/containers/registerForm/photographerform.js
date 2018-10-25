@@ -17,8 +17,8 @@ export default function PhotographerForm({ handleSubmit, renderField }) {
             <Field name="webpage" label="Webpage: " component={renderField} type="url" />
             <Field name="facebook" label="Facebook: " component={renderField} type="url" />
             <Field name="instagram" label="Instagram: " component={renderField} type="url" />
-            <FieldArray className="Languages" name="languages" label="Languages: " component={checkboxesFormArray} options={languages} />
-            <FieldArray className="Causes" name="causes" label="Causes: " component={checkboxesFormArray} options={causes}/>
+            <FieldArray className="languages" name="Languages" label="Languages: " component={checkboxesFormArray} options={languages} />
+            <FieldArray className="causes" name="Causes" label="Causes: " component={checkboxesFormArray} options={causes}/>
             <Field name="City" label="City: " component={renderField} options={[]} type="text" />
             <Field name="Country" label="Country: " component={renderField} type="select" options={countrylist}/>
 

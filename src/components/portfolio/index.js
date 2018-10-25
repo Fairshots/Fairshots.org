@@ -4,7 +4,7 @@ import {
     CarouselItem,
     CarouselControl,
     CarouselIndicators,
-    CarouselCaption
+    Button
 } from "reactstrap";
 
 
@@ -55,6 +55,9 @@ export default class Portfolio extends Component {
                 key={item.id}
             >
                 <img src={item.cloudlink} />
+                <button type="button" className="close btn-light" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </CarouselItem>
         ));
 
@@ -63,9 +66,9 @@ export default class Portfolio extends Component {
                 activeIndex={activeIndex}
                 next={this.next}
                 previous={this.previous}
-
             >
-                <CarouselIndicators items={photos} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+
+                <CarouselIndicators items={photos.map(i => ({ ...i, src: i.id }))} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
                 {slides}
                 <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
                 <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />

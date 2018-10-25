@@ -19,50 +19,53 @@ const renderField = ({
 
 const validate = values => {
     const errors = {};
-    const userType = window.location.href.split("#")[1];
+    const userType = window.location.href.match("photographer") ? "photographer" : "organization";
+    const formType = window.location.href.match("register") ? "register" : "update";
 
-    if (!values.name) {
-        errors.name = "Required";
+    if (!values.Name) {
+        errors.Name = "Required";
     }
-    if (!values.email) {
-        errors.email = "Required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = "Invalid email address";
+    if (!values.Email) {
+        errors.Email = "Required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.Email)) {
+        errors.Email = "Invalid email address";
     }
-    if (!values.password) {
-        errors.password = "Required";
-    } else if (values.password.length < 8) {
-        errors.password = "minimum 8 characters";
+    if (formType === "register") {
+        if (!values.Password) {
+            errors.Password = "Required";
+        } else if (values.Password.length < 8) {
+            errors.Password = "minimum 8 characters";
+        }
     }
-    if (!values.city) {
-        errors.city = "Required";
+    if (!values.City) {
+        errors.City = "Required";
     }
-    if (values.country === "" || !values.country) {
-        errors.country = "Required";
+    if (values.Country === "" || !values.Country) {
+        errors.Country = "Required";
     }
 
     if (userType === "photographer") {
-        if (!values.biography) {
-            errors.biography = "Required";
+        if (!values.Biography) {
+            errors.Biography = "Required";
         }
-        if (values.skill === "" || !values.skill) {
-            errors.skill = "Required";
+        if (values.Skill === "" || !values.Skill) {
+            errors.Skill = "Required";
         }
 
-        const picture = document.querySelector("input.form-control-file[name='pictUrl']");
+        const picture = document.querySelector("input.form-control-file[name='ProfilePic']");
         if (picture && picture.files[0]) {
             if (picture.files[0].size > 200000) {
-                errors.pictUrl = "Max file size is 200kB";
+                errors.ProfilePic = "Max file size is 200kB";
             } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(picture.files[0].name)) {
-                errors.pictUrl = "Invalid file";
+                errors.ProfilePic = "Invalid file";
             }
         }
     } else if (userType === "organization") {
-        if (!values.background) {
-            errors.background = "Required";
+        if (!values.Background) {
+            errors.Background = "Required";
         }
-        if (!values.person) {
-            errors.person = "Required";
+        if (!values.Person) {
+            errors.Person = "Required";
         }
         if (!values.website) {
             errors.website = "Required";
@@ -71,9 +74,9 @@ const validate = values => {
         const logo = document.querySelector("input.form-control-file[name='Logo']");
         if (logo && logo.files[0]) {
             if (logo.files[0].size > 200000) {
-                errors.logo = "Max file size is 200kB";
-            } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(picture.files[0].name)) {
-                errors.logo = "Invalid file";
+                errors.Logo = "Max file size is 200kB";
+            } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(logo.files[0].name)) {
+                errors.Logo = "Invalid file";
             }
         }
     }

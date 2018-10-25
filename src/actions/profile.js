@@ -34,7 +34,7 @@ export function getProfile(userType, id, token) {
     };
 }
 
-export function update(userType, formProps, token) {
+export function update(userType, id, formProps, token) {
     return async dispatch => {
         const config = {
             method: "PUT",
@@ -45,17 +45,21 @@ export function update(userType, formProps, token) {
         };
         try {
             let imgRes = "";
-            if (formProps.pictUrl[0] || formProps.logo[0]) {
+            let updateForm;
+            if (formProps.ProfilePic || formProps.Logo) {
                 if (userType === "photographer") {
-                    imgRes = await sendPhotoGetUrl(formProps.pictUrl[0]);
-                    config.body = JSON.stringify({ ...formProps, pictUrl: imgRes.secure_url });
+                    imgRes = await sendPhotoGetUrl(formProps.ProfilePic[0]);
+                    updateForm = { ...formProps, ProfilePic: imgRes.secure_url };
+                    config.body = JSON.stringify(updateForm);
                 } else {
-                    imgRes = await sendPhotoGetUrl(formProps.logo[0]);
-                    config.body = JSON.stringify({ ...formProps, logo: imgRes.secure_url, funding: formProps.funding === "Yes" });
+                    imgRes = await sendPhotoGetUrl(formProps.Logo[0]);
+                    updateForm = { ...formProps, Logo: imgRes.secure_url, funding: formProps.funding === "Yes" };
+                    config.body = JSON.stringify(updateForm);
                 }
             } else {
-                config.body = userType === "photographer" ? JSON.stringify({ ...formProps })
-                    : JSON.stringify({ ...formProps, funding: formProps.funding === "Yes" });
+                updateForm = userType === "photographer" ? { ...formProps }
+                    : { ...formProps, FundingPartner: formProps.Funding === "Yes" };
+                config.body = JSON.stringify(updateForm);
             }
 
             console.log(config);
@@ -66,7 +70,7 @@ export function update(userType, formProps, token) {
                 dispatch(
                     {
                         type: "UPDATE_PROFILE",
-                        payload: userProfile
+                        payload: updateForm
                     }
 
                 );
