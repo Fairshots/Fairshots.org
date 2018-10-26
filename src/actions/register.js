@@ -18,7 +18,7 @@ export function register(userType, formProps) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: userType === "photographer" ? JSON.stringify({ ...formProps, ProfilePic: imgRes.secure_url })
-                    : JSON.stringify({ ...formProps, Logo: imgRes.secure_url, funding: formProps.funding === "Yes" })
+                    : JSON.stringify({ ...formProps, Logo: imgRes.secure_url, FundingPartner: formProps.funding === "Yes" })
             };
             console.log(config);
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}`, config);

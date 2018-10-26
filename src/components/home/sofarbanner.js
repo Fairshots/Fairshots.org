@@ -5,20 +5,15 @@ export default class SoFarBanner extends Component {
         return (
             <div>
                 <div className="so-far-banner">
-                    <div className="so-far-div w-clearfix">
-                        <p className="so-far-paragraph">WE HAVE XX PHOTOGRAPHERS FROM AROUND THE GLOBE  AND YY ORGANIzATIONS LOOKING to COLLABORATE!</p>
-                        <p className="updates-small-paragraph">FAIRSHOTS is successfully CONNECting PHOTOGRAPHERS TO  NGOS in:</p>
-                        <div className="dynamic-countries-list w-dyn-list">
-                            <div className="w-clearfix w-dyn-items">
-                                <div className="dynamic-countries-list w-clearfix w-dyn-item"><a className="get-country"></a>
-                                    <div className="get-country">,</div>
-                                </div>
-                            </div>
-                            <div className="w-dyn-empty">
-                                <p>No items found.</p>
-                            </div>
+                    <div className="so-far-div">
+                        <p className="so-far-paragraph">WE HAVE XX PHOTOGRAPHERS FROM AROUND THE GLOBE AND YY ORGANIzATIONS LOOKING to COLLABORATE!</p>
+                        <p className="updates-small-paragraph">FAIRSHOTS is successfully CONNECting PHOTOGRAPHERS TO NGOS in:</p>
+                        <br/>
+                        <div class="w-embed w-iframe d-flex align-items-center">
+                            <iframe src="https://www.google.com/maps/d/embed?mid=1BQH9E4jw_7jcauK7B4ubBwn5i-Y" height="480"></iframe>
                         </div>
                     </div>
+
                 </div>
             </div>
         );

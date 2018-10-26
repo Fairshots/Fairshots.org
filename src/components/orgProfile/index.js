@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Button
+    Button, Row
 } from "reactstrap";
 
 import Portfolio from "../portfolio";
@@ -18,40 +18,47 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal }) {
 
     return (
         <div className="orgProfile container">
-            <div className="row">
+            <Row>
                 <div className="col-sm-3">
                     <img className="profile-picture" src={organization.Logo} />
                 </div>
                 <div className="col-sm-9">
                     <h1 className="profile-tittle">{organization.Name}</h1>
-                    <p className="listing-subtittle page">{`${organization.Cause} organization`}</p>
-                    <p className="general-paragraph">{organization.Biography}</p>
+                    <p className="listing-subtittle page">Member since {`${(new Date(organization.createdAt)).toLocaleDateString()}`}</p>
+                    <p className="general-paragraph">{organization.Background}</p>
                 </div>
 
-            </div>
-            <div className="row">
+            </Row>
+            <Row>
                 <div className="col-sm-3 d-flex flex-column align-items-center">
                     <Button color="success w-75 mb-2" onClick={toggleModal}>Edit Profile</Button>
                     <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>Upload Photos</Button>
+                    <Button color="success w-75 mb-2" onClick={() => true}>Create New Project</Button>
                 </div>
                 <div className="col-sm-9 d-flex">
-                    <div className="col-sm-6 d-flex p-0">
-                        <img src="/images/place.png" height="40"/>
-                        <p className="general-paragraph ml-2">{`Based in ${organization.City}, ${organization.Country}`} </p>
+                    <div className="col-sm-6 p-0">
+                        <Row>
+                            <img src="/images/place.png" height="40"/>
+                            <p className="general-paragraph ml-2">{`Based in ${organization.City}, ${organization.Country}`} </p>
+                        </Row>
+                        <Row className="flex-column mt-2">
+                            <p className="featured-listing-bold-black ml-2">Primary supporting cause </p>
+                            <p className="general-paragraph ml-2">{organization.Causes}</p>
+                        </Row>
                     </div>
                     <div className="col-sm-6">
-                        {organization.webpage && <a href={organization.webpage} className="text-link">{organization.website}</a>}
+                        {organization.website && <a href={organization.website} className="text-link">{organization.website}</a>}
                         {organization.facebook && <a href={organization.facebook} className="text-link">{organization.facebook}</a>}
                     </div>
                 </div>
-            </div>
-            <div className="row justify-content-center">
-                <h3 className="portfolio-tittle">Portfolio</h3>
-            </div>
-            <div className="portfolio-holder row justify-content-center">
+            </Row>
+            <Row className="justify-content-center mt-2">
+                <h3 className="portfolio-tittle">Projects Posted</h3>
+            </Row>
+            <Row className="portfolio-holder justify-content-center">
                 {organization.Photos ? <Portfolio photos={organization.Photos} /> : <p>Loading...</p> }
 
-            </div>
+            </Row>
         </div>
     );
 }
