@@ -50,7 +50,7 @@ class LoginHandler extends Component {
 
     render() {
         const {
-            isAuthenticated, handleLogout, errorMessage, history
+            isAuthenticated, handleLogout, errorMessage, history, userName
         } = this.props;
         return (
             <div className="login-handler">
@@ -62,7 +62,18 @@ class LoginHandler extends Component {
                 }
                 {
                     isAuthenticated
-                && <Button className="loglog" onClick={() => handleLogout(history)}>LOGOUT</Button>
+                && <div data-delay="0" data-hover="1" className="navbarlink w-dropdown">
+                    <div className="navbarlink w-dropdown-toggle">
+                        <div>{userName}</div>
+                        <div className="w-icon-dropdown-toggle"></div>
+                    </div>
+                    <nav className="w-dropdown-list">
+                        <a className="dropdown-link w-dropdown-link" onClick={() => history.push(`/${this.props.userInfo.userType}/${this.props.userInfo.userId}`)}>PROFILE</a>
+                        <a className="dropdown-link w-dropdown-link" onClick={() => handleLogout(history)}>LOGOUT</a>
+                    </nav>
+                </div>
+
+
                 }
                 <LoginModal showModal={this.state.loginModal}
                     showLoginModal={this.toggleLoginModal}
@@ -79,7 +90,8 @@ class LoginHandler extends Component {
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     errorMessage: state.auth.errorMessage,
-    userInfo: state.auth.user
+    userInfo: state.auth.user,
+    userName: state.profile.Name
 
 });
 
