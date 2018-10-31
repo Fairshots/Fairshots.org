@@ -69,7 +69,9 @@ export default function About(props) {
                                 </div>
                             </div>
                         </div>
-                        <h3 className="about-green-tittles">Or you can also make a donation</h3><a target="_blank" href="https://givealittle.co.nz/donate/cause/fairshotslaunch" className="contact-button w-button">Donate</a></div>
+                        <h3 className="about-green-tittles">Or you can also make a donation</h3>
+                        <a target="_blank" href="https://givealittle.co.nz/donate/cause/fairshotslaunch" className="contact-button w-button">Donate</a>
+                    </div>
                     <div>
                         <div className="w-row">
                             <div className="w-col w-col-6">
@@ -130,37 +132,43 @@ export default function About(props) {
                                             <div class="w-dyn-items">
                                                 <div data-ix="faq-show-and-hide" class="w-dyn-item">
                                                     <h5 class="about-green-tittles faq">&gt;How do I apply for an opportunity?</h5>
-                                                    <div class="faq-paragraph w-richtext"><p>First make sure you are already registered. Then visit an opportunity and click on the big green button that says 'Help this cause'.</p>
+                                                    <div class="faq-paragraph w-richtext" style={{ height: "auto" }}><p>First make sure you are already registered. Then visit an opportunity and click on the big green button that says 'Help this cause'.</p>
                                                     /div></div>
                                                     <div data-ix="faq-show-and-hide" class="w-dyn-item">
                                                         <h5 class="about-green-tittles faq">&gt;Can I apply for job opportunities outside my area? </h5>
-                                                        <div class="faq-paragraph w-richtext">
+                                                        <div class="faq-paragraph w-richtext" style={{ height: "auto" }}>
                                                             <p>Yes, but on the opportunity description you will find the organizations preference. &nbsp;We recommend that you follow their preference. If you will be travelling to the area where the job will happen that might be worth mentioning when applying.</p>
-                                                            </div>
-                                                            </div>
-                                                            <div data-ix="faq-show-and-hide" class="w-dyn-item">
-                                                                <h5 class="about-green-tittles faq">&gt; How do you distinguish professionals from amateur from students?</h5>
-                                                                <div class="faq-paragraph w-richtext" style="height: 0px; transition: height 1000ms ease 0s;">
-                                                                    <p>A professional photographer is anyone who generates income from working with photography. An amateur photographer is someone who might have plenty of skills but does not necessarily works with photography. A student is someone who is studying photography.</p>
-                                                                    </div>
-                                                                    </div>
-                                                                    <div data-ix="faq-show-and-hide" class="w-dyn-item">
-                                                                        <h5 class="about-green-tittles faq">&gt; Can anyone apply to become a listed photographer? </h5>
-                                                                        <div class="faq-paragraph w-richtext"><p>Yes, everyone can apply. But we do check to see if what you are saying is consistent to what we see in your portfolio. If it is not up to standards we might refuse your application. </p>
-                                                                        </div>
-                                                                        </div>
-                                                                        <div data-ix="faq-show-and-hide" class="w-dyn-item"><h5 class="about-green-tittles faq">&gt; Who owns the pictures created from fairshots assignments?</h5><div class="faq-paragraph w-richtext"><p>We leave that up to you. You can choose to maintaing all the rights for the images your create or give the organization right to it. We won't mess around with your personal preferences. </p></div></div></div>
+                                                        </div>
+                                                    </div>
+                                                    <div data-ix="faq-show-and-hide" class="w-dyn-item">
+                                                        <h5 class="about-green-tittles faq">&gt; How do you distinguish professionals from amateur from students?</h5>
+                                                        <div class="faq-paragraph w-richtext" style={{ height: "auto" }} >
+                                                            <p>A professional photographer is anyone who generates income from working with photography. An amateur photographer is someone who might have plenty of skills but does not necessarily works with photography. A student is someone who is studying photography.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div data-ix="faq-show-and-hide" class="w-dyn-item">
+                                                        <h5 class="about-green-tittles faq">&gt; Can anyone apply to become a listed photographer? </h5>
+                                                        <div class="faq-paragraph w-richtext"><p>Yes, everyone can apply. But we do check to see if what you are saying is consistent to what we see in your portfolio. If it is not up to standards we might refuse your application. </p>
+                                                        </div>
+                                                    </div>
+                                                    <div data-ix="faq-show-and-hide" class="w-dyn-item"><h5 class="about-green-tittles faq">&gt; Who owns the pictures created from fairshots assignments?</h5>
+                                                        <div class="faq-paragraph w-richtext">
+                                                            <p>We leave that up to you. You can choose to maintaing all the rights for the images your create or give the organization right to it. We won't mess around with your personal preferences. </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="w-col w-col-6"><img src="images/fairshots3.jpg" className="infographic"/>
+                                </div>
                             </div>
-                            <div className="w-col w-col-6"><img src="images/fairshots3.jpg" className="infographic"/></div>
                         </div>
                     </div>
                 </div>
+                <Contact/>
             </div>
-            <Contact/>
-
         </div>
     );
 }
