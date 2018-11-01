@@ -22,13 +22,17 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        const { match, token, getUserProfile } = this.props;
-        getUserProfile(match.params.userType, match.params.userId, token).then(() => {
-            if (this.props.userProfile.error) {
-                alert("please Login to continue");
-                setTimeout(this.props.history.push("/"), 5000);
-            }
-        });
+        const {
+            userProfile, match, token, getUserProfile
+        } = this.props;
+        if (!userProfile.Name) {
+            getUserProfile(match.params.userType, match.params.userId, token).then(() => {
+                if (this.props.userProfile.error) {
+                    alert("please Login to continue");
+                    setTimeout(this.props.history.push("/"), 5000);
+                }
+            });
+        }
     }
 
     toggleModal() {

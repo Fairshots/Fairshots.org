@@ -54,9 +54,7 @@ const validate = values => {
 
         const picture = document.querySelector("input.form-control-file[name='ProfilePic']");
         if (picture && picture.files[0]) {
-            if (picture.files[0].size > 200000) {
-                errors.ProfilePic = "Max file size is 200kB";
-            } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(picture.files[0].name)) {
+            if (!/\.(jpe?g|png|gif|bmp)$/i.test(picture.files[0].name)) {
                 errors.ProfilePic = "Invalid file";
             }
         }
@@ -77,9 +75,7 @@ const validate = values => {
 
         const logo = document.querySelector("input.form-control-file[name='Logo']");
         if (logo && logo.files[0]) {
-            if (logo.files[0].size > 200000) {
-                errors.Logo = "Max file size is 200kB";
-            } else if (!/\.(jpe?g|png|gif|bmp)$/i.test(logo.files[0].name)) {
+            if (!/\.(jpe?g|png|gif|bmp)$/i.test(logo.files[0].name)) {
                 errors.Logo = "Invalid file";
             }
         }
