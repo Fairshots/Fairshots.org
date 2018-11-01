@@ -7,7 +7,7 @@ import {
 
 export default function LoginModal(props) {
     return (
-        <Modal isOpen={props.showModal} toggle={props.showLoginModal}>
+        <Modal name="loginModal" isOpen={props.showModal} toggle={() => props.showLoginModal("loginModal")}>
             <ModalBody>
                 <Form onSubmit={props.handleSubmit}>
                     <Row className="justify-content-center">

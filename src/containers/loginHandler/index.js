@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-    Button
+    Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from "reactstrap";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
@@ -15,11 +15,12 @@ class LoginHandler extends Component {
         this.state = {
             email: "",
             password: "",
-            loginModal: false
+            loginModal: false,
+            profileNav: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.toggleLoginModal = this.toggleLoginModal.bind(this);
+        this.toggleOpenCloses = this.toggleOpenCloses.bind(this);
     }
 
     handleChange(event) {
@@ -36,8 +37,8 @@ class LoginHandler extends Component {
         this.props.doLogin(form);
     }
 
-    toggleLoginModal() {
-        this.setState(prevState => ({ loginModal: !prevState.loginModal }));
+    toggleOpenCloses(name) {
+        this.setState(prevState => ({ [name]: !prevState[name] }));
     }
 
     componentDidUpdate(prevProps) {
@@ -50,33 +51,33 @@ class LoginHandler extends Component {
 
     render() {
         const {
-            isAuthenticated, handleLogout, errorMessage, history, userName
+            isAuthenticated, handleLogout, errorMessage, history, userInfo
         } = this.props;
         return (
             <div className="login-handler">
                 { !isAuthenticated
                 && <div className="login-register">
-                    <Button className="mr-2 loglog" onClick={this.toggleLoginModal}>LOGIN</Button>
+                    <Button className="mr-2 loglog" name="loginModal" onClick={() => this.toggleOpenCloses("loginModal")}> LOGIN</Button>
                     <Button className="loglog"><Link to="/register#photographer">SIGN UP</Link></Button>
                 </div>
                 }
                 {
                     isAuthenticated
-                && <div data-delay="0" data-hover="1" className="navbarlink w-dropdown">
-                    <div className="navbarlink w-dropdown-toggle">
-                        <div>{userName}</div>
-                        <div className="w-icon-dropdown-toggle"></div>
-                    </div>
-                    <nav className="w-dropdown-list">
-                        <a className="dropdown-link w-dropdown-link" onClick={() => history.push(`/${this.props.userInfo.userType}/${this.props.userInfo.userId}`)}>PROFILE</a>
-                        <a className="dropdown-link w-dropdown-link" onClick={() => handleLogout(history)}>LOGOUT</a>
-                    </nav>
-                </div>
+                && <Dropdown name="profileNav" isOpen={this.state.profileNav} toggle={() => this.toggleOpenCloses("profileNav")}>
+                    <DropdownToggle className="profileNav loglog" onMouseEnter={() => this.toggleOpenCloses("profileNav")}
+                        caret>
+                        {userInfo.userName}
+                    </DropdownToggle>
+                    <DropdownMenu className="f-dropdown-menu" name="profileNav">
+                        <DropdownItem className="f-dropdown-link" onClick={() => history.push(`/${this.props.userInfo.userType}/${this.props.userInfo.userId}`)}>PROFILE</DropdownItem>
+                        <DropdownItem className="f-dropdown-link" onClick={() => handleLogout(history)}>LOGOUT</DropdownItem >
+                    </DropdownMenu>
+                </Dropdown>
 
 
                 }
                 <LoginModal showModal={this.state.loginModal}
-                    showLoginModal={this.toggleLoginModal}
+                    showLoginModal={this.toggleOpenCloses}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     email={this.state.email}
@@ -90,8 +91,7 @@ class LoginHandler extends Component {
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     errorMessage: state.auth.errorMessage,
-    userInfo: state.auth.user,
-    userName: state.profile.Name
+    userInfo: state.auth.user
 
 });
 
