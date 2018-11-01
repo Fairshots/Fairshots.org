@@ -1,11 +1,10 @@
 import { CLOUDINARY_API } from "./constants";
 
-export default async function sendPhotoGetUrl(file) {
+export default async function sendPhotoGetUrl(file, upreset = "kahvrgme") {
     try {
         const fd = new FormData(); // need to improve this
         fd.append("file", file);
-        fd.append("upload_preset", "kahvrgme");
-        fd.append("eager", "c_crop,g_face,h_400,r_0,w_400/c_scale,w_200");
+        fd.append("upload_preset", upreset);
         const imgUp = await fetch(CLOUDINARY_API, {
             method: "POST",
             body: fd

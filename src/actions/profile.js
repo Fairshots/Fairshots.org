@@ -52,11 +52,11 @@ export function update(userType, id, formProps, token) {
             let updateForm;
             if (formProps.ProfilePic || formProps.Logo) {
                 if (userType === "photographer") {
-                    imgRes = await sendPhotoGetUrl(formProps.ProfilePic[0]);
+                    imgRes = await sendPhotoGetUrl(formProps.ProfilePic[0], "lsofhgqb");
                     updateForm = { ...formProps, ProfilePic: imgRes.secure_url };
                     config.body = JSON.stringify(updateForm);
                 } else {
-                    imgRes = await sendPhotoGetUrl(formProps.Logo[0]);
+                    imgRes = await sendPhotoGetUrl(formProps.Logo[0], "lsofhgqb");
                     updateForm = { ...formProps, Logo: imgRes.secure_url, funding: formProps.funding === "Yes" };
                     config.body = JSON.stringify(updateForm);
                 }

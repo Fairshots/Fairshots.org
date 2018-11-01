@@ -9,9 +9,9 @@ export function register(userType, formProps) {
             let imgRes = { secure_url: "/images/org-logo.png" };
             if ((formProps.ProfilePic && formProps.ProfilePic[0]) || (formProps.Logo && formProps.Logo[0])) {
                 if (userType === "photographer") {
-                    imgRes = await sendPhotoGetUrl(formProps.ProfilePic[0]);
+                    imgRes = await sendPhotoGetUrl(formProps.ProfilePic[0], "lsofhgqb");
                 } else {
-                    imgRes = await sendPhotoGetUrl(formProps.Logo[0]);
+                    imgRes = await sendPhotoGetUrl(formProps.Logo[0], "lsofhgqb");
                 }
             }
             const config = {
