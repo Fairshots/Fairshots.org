@@ -3,7 +3,7 @@ import {
     Button, Row
 } from "reactstrap";
 
-import Portfolio from "../portfolio";
+import { Portfolio } from "../portfolio";
 
 import "./orgProfile.scss";
 

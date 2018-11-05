@@ -1,0 +1,38 @@
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+
+.carousel.slide {
+    width: 100%;
+
+
+
+    .carousel-control-prev { 
+        width: 8%;
+
+    }
+    .carousel-control-next { 
+        width: 8%;
+
+    }
+
+    .carousel-item.active {
+        @include flex-center;
+         .img-hold {
+            position: relative;
+            left: 1%;
+        }
+    
+    }
+    .close.btn-light {
+        color: white;
+        position: relative;
+        top: 1%;
+        right: 5%;
+        
+
+    }
+}
+

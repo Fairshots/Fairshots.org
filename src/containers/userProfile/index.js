@@ -7,6 +7,7 @@ import uploadPhoto from "../../actions/uploadPhoto";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
+import { DeletePhoto } from "../../components/portfolio";
 import "./userProfile.scss";
 
 /**
@@ -16,7 +17,8 @@ class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false
+            modal: false,
+            modalType: "UPLOAD_PROFILE"
         };
         this.toggleModal = this.toggleModal.bind(this);
     }
@@ -35,8 +37,20 @@ class UserProfile extends Component {
         }
     }
 
-    toggleModal() {
-        this.setState(prevState => ({ modal: !prevState.modal }));
+    toggleModal(modalType) {
+        this.setState(prevState => ({ modal: !prevState.modal, modalType }));
+    }
+
+    modalContent(type) {
+        switch (type) {
+        case "UPLOAD_PROFILE": {
+            return <UpdateProfile />;
+        }
+        case "DEL_PHOTO": {
+            return <DeletePhoto />;
+        }
+        default: return <UpdateProfile />;
+        }
     }
 
 
@@ -51,7 +65,7 @@ class UserProfile extends Component {
 
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                     <ModalBody>
-                        <UpdateProfile />
+                        {this.modalContent(this.state.modalType)}
                     </ModalBody>
                 </Modal>
             </div>

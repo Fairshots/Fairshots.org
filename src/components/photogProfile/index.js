@@ -3,7 +3,7 @@ import {
     Button
 } from "reactstrap";
 
-import Portfolio from "../portfolio";
+import { Portfolio } from "../portfolio";
 
 import "./photogProfile.scss";
 
@@ -31,7 +31,7 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal }
             </div>
             <div className="row">
                 <div className="col-sm-3 d-flex flex-column align-items-center">
-                    <Button color="success w-75 mb-2" onClick={toggleModal}>Edit Profile</Button>
+                    <Button color="success w-75 mb-2" onClick={() => toggleModal("UPLOAD_PROFILE")}>Edit Profile</Button>
                     <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>Upload Photos</Button>
                 </div>
                 <div className="col-sm-9 d-flex">
@@ -50,8 +50,7 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal }
                 <h3 className="portfolio-tittle">Portfolio</h3>
             </div>
             <div className="portfolio-holder row justify-content-center">
-                {photographer.Photos ? <Portfolio photos={photographer.Photos} /> : <p>Loading...</p> }
-
+                {photographer.Photos ? <Portfolio photos={photographer.Photos} toggleDelPhoto={toggleModal}/> : <p>Loading...</p> }
             </div>
         </div>
     );
