@@ -1,6 +1,6 @@
 import { CLOUDINARY_API, FAIRSHOTS_API } from "./constants";
 
-export default function uploadPhoto(userType, id, token, url) {
+export function uploadPhoto(userType, id, token, url) {
     return async dispatch => {
         try {
             const config = {
@@ -32,4 +32,25 @@ export default function uploadPhoto(userType, id, token, url) {
             );
         }
     };
+}
+
+export async function sendPhotoGetUrl(file, upreset = "kahvrgme") {
+    try {
+        const fd = new FormData(); // need to improve this
+        fd.append("file", file);
+        fd.append("upload_preset", upreset);
+        const imgUp = await fetch(`${CLOUDINARY_API}/upload`, {
+            method: "POST",
+            body: fd
+        });
+        const imgRes = await imgUp.json();
+        console.log(imgRes);
+        return imgRes;
+    } catch (e) {
+        throw e;
+    }
+}
+
+export function delPhoto(userType, id, token, photoItem) {
+    x.match(/\w+.jpg/g);
 }

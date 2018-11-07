@@ -3,7 +3,7 @@ import {
     Button
 } from "reactstrap";
 
-import { Portfolio } from "../portfolio";
+import Portfolio from "../portfolio";
 
 import "./photogProfile.scss";
 

@@ -11,7 +11,7 @@ import "./portfolio.scss";
 export default class Portfolio extends Component {
     constructor(props) {
         super(props);
-        this.state = { activeIndex: 0 };
+        this.state = { activeIndex: 0, slide: false };
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
         this.goToIndex = this.goToIndex.bind(this);
@@ -53,10 +53,12 @@ export default class Portfolio extends Component {
                 onExiting={this.onExiting}
                 onExited={this.onExited}
                 key={item.id}
+
             >
                 <div className="img-hold">
                     <img src={item.cloudlink} />
-                    <button type="button" className="close btn-light" aria-label="Close" onClick={() => toggleDelPhoto("DEL_PHOTO")}>
+                    <button type="button" className="close btn-light" aria-label="Close" onClick={() => toggleDelPhoto("DEL_PHOTO", item)
+                    }>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -68,6 +70,7 @@ export default class Portfolio extends Component {
                 activeIndex={activeIndex}
                 next={this.next}
                 previous={this.previous}
+
             >
 
                 <CarouselIndicators items={photos.map(i => ({ ...i, src: i.id }))} activeIndex={activeIndex} onClickHandler={this.goToIndex} />

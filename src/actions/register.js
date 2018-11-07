@@ -1,5 +1,5 @@
 import { FAIRSHOTS_API } from "./constants";
-import sendPhotoGetUrl from "./sendPhotoGetUrl";
+import { sendPhotoGetUrl } from "./photo-actions";
 import toggleLoading from "./toggleLoading";
 
 export function register(userType, formProps) {

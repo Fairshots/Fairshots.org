@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import { getProfile } from "../../actions/profile";
-import uploadPhoto from "../../actions/uploadPhoto";
+import { getProfile, uploadPhoto, delPhoto } from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
-import { DeletePhoto } from "../../components/portfolio";
+import DeletePhoto from "./deletephoto";
 import "./userProfile.scss";
 
 /**
@@ -18,7 +17,8 @@ class UserProfile extends Component {
         super(props);
         this.state = {
             modal: false,
-            modalType: "UPLOAD_PROFILE"
+            modalType: "UPLOAD_PROFILE",
+            photoToDel: ""
         };
         this.toggleModal = this.toggleModal.bind(this);
     }
@@ -37,8 +37,15 @@ class UserProfile extends Component {
         }
     }
 
-    toggleModal(modalType) {
-        this.setState(prevState => ({ modal: !prevState.modal, modalType }));
+
+    componentDidUpdate(prevProps) {
+        if ((JSON.stringify(this.props.userProfile) !== JSON.stringify(prevProps.userProfile)) && prevProps.userProfile.id !== undefined) {
+            this.toggleModal("UPLOAD_PROFILE");
+        }
+    }
+
+    toggleModal(modalType, item = "") {
+        this.setState(prevState => ({ modal: !prevState.modal, modalType, photoToDel: item }));
     }
 
     modalContent(type) {
@@ -47,7 +54,8 @@ class UserProfile extends Component {
             return <UpdateProfile />;
         }
         case "DEL_PHOTO": {
-            return <DeletePhoto />;
+            return <DeletePhoto photoItem={this.state.photoToDel} doDelPhoto={this.props.doDelPhoto}
+                toggleModal={this.toggleModal}/>;
         }
         default: return <UpdateProfile />;
         }
@@ -79,7 +87,8 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token)),
-    doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url))
+    doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
+    doDelPhoto: (userType, id, token, photoItem) => dispatch(delPhoto((userType, id, token, photoItem)))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfile));
