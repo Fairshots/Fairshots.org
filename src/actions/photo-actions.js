@@ -51,6 +51,18 @@ export async function sendPhotoGetUrl(file, upreset = "kahvrgme") {
     }
 }
 
-export function delPhoto(userType, id, token, photoItem) {
-    x.match(/\w+.jpg/g);
+export async function delPhoto(userType, id, token, photoItem) {
+    try {
+        const fd = new FormData(); // need to improve this
+        fd.append("public_id", photoItem.match(/w+.jpg/g));
+        const imgUp = await fetch(`${CLOUDINARY_API}/upload`, {
+            method: "POST",
+            body: fd
+        });
+        const imgRes = await imgUp.json();
+        console.log(imgRes);
+        return imgRes;
+    } catch (e) {
+        throw e;
+    }
 }
