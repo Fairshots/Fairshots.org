@@ -40,8 +40,13 @@ class UserProfile extends Component {
 
 
     componentDidUpdate(prevProps) {
-        if ((JSON.stringify(this.props.userProfile) !== JSON.stringify(prevProps.userProfile))
-        && prevProps.userProfile.id !== undefined) {
+        const prof = Object.assign({}, this.props.userProfile);
+        const prevProf = Object.assign({}, prevProps.userProfile);
+        prof.Photos = 0;
+        prevProf.Photos = 0;
+
+        if ((JSON.stringify(prof) !== JSON.stringify(prevProf))
+        && prevProps.userProfile.id) {
             this.toggleModal("UPLOAD_PROFILE");
         }
     }
