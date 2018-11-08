@@ -28,18 +28,20 @@ class UserProfile extends Component {
             userProfile, match, token, getUserProfile
         } = this.props;
         if (!userProfile.Name) {
-            getUserProfile(match.params.userType, match.params.userId, token).then(() => {
-                if (this.props.userProfile.error) {
-                    alert("please Login to continue");
-                    setTimeout(this.props.history.push("/"), 5000);
-                }
-            });
+            getUserProfile(match.params.userType, match.params.userId, token)
+                .then(() => {
+                    if (this.props.userProfile.error) {
+                        alert("please Login to continue");
+                        setTimeout(this.props.history.push("/"), 5000);
+                    }
+                });
         }
     }
 
 
     componentDidUpdate(prevProps) {
-        if ((JSON.stringify(this.props.userProfile) !== JSON.stringify(prevProps.userProfile)) && prevProps.userProfile.id !== undefined) {
+        if ((JSON.stringify(this.props.userProfile) !== JSON.stringify(prevProps.userProfile))
+        && prevProps.userProfile.id !== undefined) {
             this.toggleModal("UPLOAD_PROFILE");
         }
     }
@@ -49,12 +51,15 @@ class UserProfile extends Component {
     }
 
     modalContent(type) {
+        const {
+            match: { params: { userType, userId } }, token, doDelPhoto, clAPIKey, clAPISecret
+        } = this.props;
         switch (type) {
         case "UPLOAD_PROFILE": {
             return <UpdateProfile />;
         }
         case "DEL_PHOTO": {
-            return <DeletePhoto photoItem={this.state.photoToDel} doDelPhoto={this.props.doDelPhoto}
+            return <DeletePhoto photoItem={this.state.photoToDel} doDelPhoto={doDelPhoto(userType, userId, token, clAPIKey, clAPISecret)}
                 toggleModal={this.toggleModal}/>;
         }
         default: return <UpdateProfile />;
@@ -68,8 +73,10 @@ class UserProfile extends Component {
         } = this.props;
         return (
             <div>
-                { userType === "organization" ? <OrgProfile organization={userProfile} toggleModal={this.toggleModal} uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} />
-                    : <PhotogProfile photographer={userProfile} toggleModal={this.toggleModal} uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} /> }
+                { userType === "organization" ? <OrgProfile organization={userProfile} toggleModal={this.toggleModal}
+                    uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} />
+                    : <PhotogProfile photographer={userProfile} toggleModal={this.toggleModal}
+                        uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} /> }
 
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                     <ModalBody>
@@ -83,12 +90,14 @@ class UserProfile extends Component {
 
 const mapStateToProps = state => ({
     userProfile: state.profile,
-    token: state.auth.user.token
+    token: state.auth.user.token,
+    clAPIKey: state.auth.user.CL_apikey,
+    clAPISecret: state.auth.user.CL_apisecret
 });
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token)),
     doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
-    doDelPhoto: (userType, id, token, photoItem) => dispatch(delPhoto((userType, id, token, photoItem)))
+    doDelPhoto: (userType, id, token, clAPIKey, clAPISecret) => photoItem => dispatch(delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfile));

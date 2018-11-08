@@ -25,11 +25,11 @@ export function getProfile(userType, id, token) {
                 dispatch(toggleLoading());
             } else throw res;
         } catch (e) {
-            console.log(e);
+            console.log(e.toString());
             dispatch(
                 {
                     type: "PROFILE_ERROR",
-                    payload: typeof e === "object" ? e.statusText : e.toString()
+                    payload: e.statusText !== undefined ? e.statusText : e.toString()
                 }
             );
             dispatch(toggleLoading());
