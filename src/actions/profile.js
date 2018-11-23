@@ -37,6 +37,54 @@ export function getProfile(userType, id, token) {
     };
 }
 
+export function toggleActivateProfile(userType, id, token, currentStatus) {
+    return async dispatch => {
+        dispatch(toggleLoading());
+        console.log(`turning to ${!currentStatus}`);
+        const config = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `bearer ${token}`
+            },
+            body: JSON.stringify({
+                accountInactive: !currentStatus
+            })
+        };
+        try {
+            const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}`, config);
+            if (res.ok) {
+                const message = await res.json();
+                if (message.msg.match(/inactive/gi)) {
+                    dispatch(
+                        {
+                            type: "INACTIVATE_PROFILE",
+                            payload: message
+                        }
+                    );
+                } else if (message.msg.match(/reactivate/gi)) {
+                    dispatch(
+                        {
+                            type: "REACTIVATE_PROFILE",
+                            payload: message
+                        }
+                    );
+                }
+                dispatch(toggleLoading());
+            } else throw res;
+        } catch (e) {
+            console.log(e.toString());
+            dispatch(
+                {
+                    type: "PROFILE_ERROR",
+                    payload: e.statusText !== undefined ? e.statusText : e.toString()
+                }
+            );
+            dispatch(toggleLoading());
+        }
+    };
+}
+
 export function update(userType, id, formProps, token) {
     return async dispatch => {
         dispatch(toggleLoading());

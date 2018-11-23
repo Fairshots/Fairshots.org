@@ -32,7 +32,22 @@ export default function profile(state = {}, action) {
             error: false
         });
     }
-
+    case "INACTIVATE_PROFILE": {
+        const { apiMsg } = action.payload;
+        return Object.assign({}, state, {
+            accountInactive: true,
+            error: false,
+            apiMsg
+        });
+    }
+    case "REACTIVATE_PROFILE": {
+        const { apiMsg } = action.payload;
+        return Object.assign({}, state, {
+            accountInactive: false,
+            error: false,
+            apiMsg
+        });
+    }
     case "AUTH_LOGOUT": {
         return Object.assign({});
     }

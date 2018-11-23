@@ -33,6 +33,8 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal }
                 <div className="col-sm-3 d-flex flex-column align-items-center">
                     <Button color="success w-75 mb-2" onClick={() => toggleModal("UPLOAD_PROFILE")}>Edit Profile</Button>
                     <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>Upload Photos</Button>
+                    <Button color="secondary w-75 mb-2" onClick={() => toggleModal("INACTIVATE_PROFILE")}>
+                        {photographer.accountInactive ? "Reactivate" : "Inactivate"} Profile</Button>
                 </div>
                 <div className="col-sm-9 d-flex">
                     <div className="col-sm-6 d-flex p-0">

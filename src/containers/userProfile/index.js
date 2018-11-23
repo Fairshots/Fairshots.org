@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import { getProfile, uploadPhoto, delPhoto } from "../../actions";
+import {
+    getProfile, uploadPhoto, delPhoto, toggleActivateProfile
+} from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
 import DeletePhoto from "./deletephoto";
+import InactivateProfile from "./inactivate-profile";
 import "./userProfile.scss";
 
 /**
@@ -57,7 +60,7 @@ class UserProfile extends Component {
 
     modalContent(type) {
         const {
-            match: { params: { userType, userId } }, token, doDelPhoto, clAPIKey, clAPISecret
+            match: { params: { userType, userId } }, userProfile: { accountInactive }, token, doDelPhoto, doInactivateProfile, clAPIKey, clAPISecret
         } = this.props;
         switch (type) {
         case "UPLOAD_PROFILE": {
@@ -67,7 +70,11 @@ class UserProfile extends Component {
             return <DeletePhoto photoItem={this.state.photoToDel} doDelPhoto={doDelPhoto(userType, userId, token, clAPIKey, clAPISecret)}
                 toggleModal={this.toggleModal}/>;
         }
-        default: return <UpdateProfile />;
+        case "INACTIVATE_PROFILE": {
+            console.log(`current status ${accountInactive}`);
+            return <InactivateProfile doInactivateProfile={() => doInactivateProfile(userType, userId, token, accountInactive)} toggleModal={this.toggleModal}/>;
+        }
+        default: return undefined;
         }
     }
 
@@ -102,7 +109,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token)),
     doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
-    doDelPhoto: (userType, id, token, clAPIKey, clAPISecret) => photoItem => dispatch(delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem))
+    doDelPhoto: (userType, id, token, clAPIKey, clAPISecret) => photoItem => dispatch(delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem)),
+    doInactivateProfile: (userType, id, token, currentStatus) => dispatch(toggleActivateProfile(userType, id, token, currentStatus))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfile));
