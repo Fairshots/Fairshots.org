@@ -85,6 +85,10 @@ class UserProfile extends Component {
         } = this.props;
         return (
             <div>
+                <div className="feautured-h3" style={{
+                    width: "80%",
+                    margin: "auto"
+                }}>{userProfile.accountInactive && "Your account is currently inactive and is not being shown in community. Please reactivate to fully enjoy our platform"}</div>
                 { userType === "organization" ? <OrgProfile organization={userProfile} toggleModal={this.toggleModal}
                     uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} />
                     : <PhotogProfile photographer={userProfile} toggleModal={this.toggleModal}
