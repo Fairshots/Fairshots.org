@@ -1,4 +1,4 @@
-export default function mainFeatures(state = {}, action) {
+export default function mainFeatures(state = { }, action) {
     switch (action.type) {
     case "FEATURES_ERROR": {
         return Object.assign({}, state, {

@@ -5,7 +5,7 @@ import FeatureHolder from "../../containers/featureHolder";
 import BePart from "./bepart";
 
 
-export default function Home(props) {
+export default function Home() {
     return (
         <div>
             <HeroSlider />

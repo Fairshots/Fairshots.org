@@ -4,13 +4,14 @@ import { withRouter } from "react-router-dom";
 import {
     getFeatures
 } from "../../actions";
-import Featured from "../../components/home";
+import Featured from "../../components/featured";
 /**
  *
  */
 class FeatureHolder extends Component {
     componentDidMount() {
-        this.props.doGetFeatures();
+        const { mainFeatures, doGetFeatures } = this.props;
+        if (!mainFeatures.photographers) { doGetFeatures() }
     }
 
 

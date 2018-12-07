@@ -13,6 +13,7 @@ export default function getFeatures() {
             const res = await fetch(`${FAIRSHOTS_API}api/featured`, config);
             if (res.ok) {
                 const features = await res.json();
+                console.log(features);
                 dispatch(
                     {
                         type: "GET_FEATURES",
