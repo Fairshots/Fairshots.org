@@ -4,10 +4,12 @@ import auth from "./auth";
 import registration from "./registration";
 import profile from "./profile";
 import loading from "./loading";
+import mainFeatures from "./main-features";
 
 const rootReducer = combineReducers({
     auth,
     loading,
+    mainFeatures,
     registration,
     profile,
     form: formReducer

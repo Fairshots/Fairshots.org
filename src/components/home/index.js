@@ -1,7 +1,7 @@
 import React from "react";
 import HeroSlider from "./heroslider";
 import SoFarBanner from "./sofarbanner";
-import Featured from "./featured";
+import FeatureHolder from "../../containers/featureHolder";
 import BePart from "./bepart";
 
 
@@ -10,7 +10,7 @@ export default function Home(props) {
         <div>
             <HeroSlider />
             <SoFarBanner />
-            <Featured />
+            <FeatureHolder />
 
         </div>
     );
