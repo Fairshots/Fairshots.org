@@ -3,7 +3,14 @@
       background-color: #242424;
       border-color: #242424;
       color: white; 
-
+      .card-img-top-holder { 
+        height: 260px;
+        overflow: hidden;
+        .card-img-top {
+          height: inherit;
+          object-fit: cover;
+        }
+      }
       .card-title {
         font-family: Lato, sans-serif;
         font-size: 28px;
