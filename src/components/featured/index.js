@@ -16,7 +16,8 @@ export default function Featured(props) {
                     feats.photographers
                         ? feats.photographers.map(photographer => (<Card
                             key={photographer.id}>
-                            <CardImg top width="100%" src={photographer.ProfilePic} alt="Card image cap" />
+                            <div className="card-img-top-holder"><CardImg top src={photographer.Photos.length > 1 ? photographer.Photos[0] : photographer.ProfilePic} alt="Card image cap" />
+                            </div>
                             <CardBody>
                                 <CardImg className="feat-pic" src={photographer.ProfilePic}/>
                                 <CardTitle>{photographer.Name}</CardTitle>
