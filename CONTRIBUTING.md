@@ -3,10 +3,13 @@
 
 First off, thank you for considering contributing to Fairshots and putting effort to making it better. There are a number of ways to do that:
 
-1. File an issue with the project
-2. Read the existing issues. (Maybe you can help fix one? Reading issues is also a good way to know what direction we are heading with the project. Likewise, filing issues allows all developers to discuss problems and confer about new directions for the project.)
-3. Read or project Roadmap here [here](https://github.com/Fairshots/Fairshots.org/projects) and start collaborating
+1. First get familiarized with the project , documentation, etc. 
+2. You may also wish to join our SLACK. Please make contact through contact@fairshots.org to get an invitation.
+3. Read or project Roadmap [here](https://github.com/Fairshots/Fairshots.org/projects) and start collaborating with yet to be done 
+4. File an issue with the project
+5. Read the existing issues. (Maybe you can help fix one? Reading issues is also a good way to know what direction we are heading with the project. Likewise, filing issues allows all developers to discuss problems and confer about new directions for the project.)
 
+Obs. This is our Frontend Repository. If you wish to contribute for backend thak a look at [https://github.com/Fairshots/backend](https://github.com/Fairshots/backend) 
 
 #### How to file a bug report
 
