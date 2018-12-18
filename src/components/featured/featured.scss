@@ -1,8 +1,8 @@
 .card-deck {
     .card {
       background-color: #242424;
-      border-color: #242424;
       color: white; 
+      box-shadow: 0 0 7px 0 rgba(0, 0, 0, .56);
       .card-img-top-holder { 
         height: 260px;
         overflow: hidden;
@@ -51,6 +51,16 @@
         background-position: 50% 50%;
         background-size: cover;
         background-repeat: no-repeat;
+      }
+      .feat-biography { 
+          display: none;
+          z-index: 10;
+          position: absolute;
+          &:hover {
+            display: block;
+            background-color: rgba(0,0,0,0.4);
+          }
+        
       }
     }
 }

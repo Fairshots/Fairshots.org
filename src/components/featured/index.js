@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-    Card, CardTitle, CardSubtitle, CardText, CardImg, CardBody, Button, CardDeck
+    Card, CardTitle, CardSubtitle, CardText, CardImg, CardImgOverlay, CardBody, Button, CardDeck
 } from "reactstrap";
 
 import "./featured.scss";
@@ -16,7 +16,11 @@ export default function Featured(props) {
                     feats.photographers
                         ? feats.photographers.map(photographer => (<Card
                             key={photographer.id}>
-                            <div className="card-img-top-holder"><CardImg top src={photographer.Photos.length > 1 ? photographer.Photos[0] : photographer.ProfilePic} alt="Card image cap" />
+                            <div className="card-img-top-holder">
+                                <CardImg top src={photographer.Photos.length > 1 ? photographer.Photos[0] : photographer.ProfilePic} alt="Card image cap" />
+                                <CardImgOverlay className="feat-biography">
+                                    <CardSubtitle >{photographer.Biography}</CardSubtitle>
+                                </CardImgOverlay>
                             </div>
                             <CardBody>
                                 <CardImg className="feat-pic" src={photographer.ProfilePic}/>
