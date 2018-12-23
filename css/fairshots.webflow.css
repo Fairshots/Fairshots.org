@@ -203,12 +203,14 @@ body {
   font-weight: 300;
   text-decoration: none;
   text-transform: uppercase;
+  margin-top: 5px;
 }
 
 .text-link:hover {
   border-bottom: 1px solid #00a651;
-  font-size: 15px;
+  font-size: 17px;
   text-decoration: none;
+  color: #00a651;
 }
 
 .text-link.see-all {
