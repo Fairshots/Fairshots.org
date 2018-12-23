@@ -31,6 +31,7 @@ export default class NavBar extends Component {
                         </div>
                         <Link to="/about" className="navbarlink w-nav-link">About</Link>
                         <Link to="/contact-us" className="navbarlink w-nav-link">Contact</Link>
+                        <Link to="/blog" className="navbarlink w-nav-link">Blog</Link>
                     </nav>
                     <div className="w-nav-button">
                         <div className="w-icon-nav-menu"></div>
