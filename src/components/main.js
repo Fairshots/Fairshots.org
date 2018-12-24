@@ -3,7 +3,6 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./home";
 import About from "./about";
 import Contact from "./contact";
-import Blog from "./blog";
 
 import TermsandConditions from "./terms-and-conditions";
 import RegisterForm from "../containers/registerForm";
@@ -19,7 +18,6 @@ export default function Main() {
                 <Route path='/register' exact component={RegisterForm}/>
                 <Route path='/terms-and-conditions' exact component={TermsandConditions}/>
                 <Route path='/:userType/:userId' component={UserProfile}/>
-                <Route path='/blog' component={Blog}/>
             </Switch>
         </main>
     );
