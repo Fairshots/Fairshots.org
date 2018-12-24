@@ -10,13 +10,20 @@ module.exports = (env, argv) => (
 
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: "bundle.js",
+            filename: "[name].bundle.js",
+            chunkFilename: "[name].bundle.js",
             publicPath: "/"
         },
         devtool: "inline-source-map",
         devServer: {
             historyApiFallback: true,
+            disableHostCheck: true,
             hot: true
+        },
+        optimization: {
+            splitChunks: {
+                chunks: "all"
+            }
         },
 
         plugins: argv.mode === "production" ? [

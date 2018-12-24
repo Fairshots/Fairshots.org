@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./home";
 import About from "./about";
 import Contact from "./contact";
+
 import TermsandConditions from "./terms-and-conditions";
 import RegisterForm from "../containers/registerForm";
 import UserProfile from "../containers/userProfile";
