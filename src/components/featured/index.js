@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
     Card, CardTitle, CardSubtitle, CardText, CardImg, CardImgOverlay, CardBody, Button, CardDeck
 } from "reactstrap";
+import { Link } from "react-router-dom";
 
 import "./featured.scss";
 
@@ -55,6 +56,11 @@ export default class Featured extends Component {
         };
     }
 
+    componentWillUnmount() {
+        window.onscroll = null;
+    }
+
+
 
     render() {
         const { feats } = this.props;
@@ -86,7 +92,7 @@ export default class Featured extends Component {
 
                 </CardDeck>
 
-                <a href="photographers.html" className="text-link see-all mb-3">see all available photographers</a>
+                <Link to="/photographers" className="text-link see-all mb-3">see all available photographers</Link>
 
                 <h2 className="feautured-h3">Featured ORGANIZATIONS</h2>
 
@@ -105,7 +111,7 @@ export default class Featured extends Component {
                     }
 
                 </CardDeck>
-                <a href="organizations.html" className="text-link see-all mb-3">see all available ORGANIZATIONS</a>
+                <Link to="/organizations" className="text-link see-all mb-3">see all available ORGANIZATIONS</Link>
             </div>
         );
     }
