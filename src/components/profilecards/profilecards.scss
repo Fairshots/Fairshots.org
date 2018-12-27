@@ -4,6 +4,8 @@
       color: white; 
       box-shadow: 0 0 7px 0 rgba(0, 0, 0, .56);
       border: none;
+      min-width: 320px;
+      max-width: 450px;
       .card-img-top-holder { 
         height: 260px;
         overflow: hidden;

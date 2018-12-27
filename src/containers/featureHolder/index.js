@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
     getFeatures
 } from "../../actions";
-import Featured from "../../components/featured";
+import ProfileCards from "../../components/profilecards";
+
 /**
  *
  */
@@ -17,7 +18,17 @@ class FeatureHolder extends Component {
 
     render() {
         return (
-            <Featured feats={this.props.mainFeatures} />
+            <div className="featured">
+
+                <h2 className="feautured-h3">Featured photographers</h2>
+                <ProfileCards cards={this.props.mainFeatures.photographers}/>
+                <Link to="/photographers" className="text-link see-all mb-3">see all available photographers</Link>
+
+                <h2 className="feautured-h3">Featured ORGANIZATIONS</h2>
+                <ProfileCards cards={this.props.mainFeatures.photographers}/>
+
+                <Link to="/organizations" className="text-link see-all mb-3">see all available ORGANIZATIONS</Link>
+            </div>
         );
     }
 }

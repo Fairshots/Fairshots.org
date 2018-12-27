@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import {
     getAllPhotographers
 } from "../../actions";
-import Featured from "../../components/featured";
+import ProfileCards from "../../components/profilecards";
 
 /**
  * When mounted dispatches action to fetch basic info from all photographers and display in proper page routed in /photographers
@@ -19,7 +19,7 @@ class AllPhotographers extends Component {
 
     render() {
         return (
-            <Featured feats={this.props.mainFeatures} />
+            <ProfileCards cards={this.props.allPhotographers.photographers} />
         );
     }
 }

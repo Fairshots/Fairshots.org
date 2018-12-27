@@ -10,7 +10,7 @@ export default function getAllOrgs() {
             }
         };
         try {
-            const res = await fetch(`${FAIRSHOTS_API}api/organizations`, config);
+            const res = await fetch(`${FAIRSHOTS_API}api/organization/all`, config);
             if (res.ok) {
                 const allOrgs = await res.json();
                 console.log(allOrgs);
