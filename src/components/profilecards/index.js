@@ -19,16 +19,16 @@ export default class ProfileCards extends Component {
 
     componentDidMount() {
         window.onscroll = () => {
-            if (document.querySelector(".card-deck").scrollY <= 0) {
+            if (window.scrollY <= 100) {
                 this.setState({
                     zoomDeck: {
                         transform: "scaleX(0.85) scaleY(0.85) scaleZ(1)",
                         transition: "transform 800ms ease 0s"
                     }
                 });
-            } else if (document.querySelector(".card-deck").scrollY <= 0) {
+            } else if (window.scrollY >= 100) {
                 this.setState({
-                    zoomPhotographersDeck: {
+                    zoomDeck: {
                         transform: "scaleX(1) scaleY(1) scaleZ(1)",
                         transition: "transform 800ms ease 0s"
                     }
