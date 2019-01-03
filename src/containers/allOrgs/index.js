@@ -21,7 +21,11 @@ class AllOrgs extends Component {
         return (
             <div>
                 {allOrgs.organizations ? (
-                    <ProfileCards cards={allOrgs.organizations} />
+                    <ProfileCards
+                        userType="organization"
+                        cards={allOrgs.organizations}
+                        history={this.props.history}
+                    />
                 ) : (
                     "Loading"
                 )}
