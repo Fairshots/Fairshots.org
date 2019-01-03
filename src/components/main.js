@@ -7,6 +7,8 @@ import Contact from "./contact";
 import TermsandConditions from "./terms-and-conditions";
 import RegisterForm from "../containers/registerForm";
 import UserProfile from "../containers/userProfile";
+import AllOrgs from "../containers/allOrgs";
+import AllPhotographers from "../containers/allPhotographers";
 
 export default function Main() {
     return (
@@ -16,6 +18,8 @@ export default function Main() {
                 <Route path='/about' exact component={About}/>
                 <Route path='/contact-us' exact component={Contact}/>
                 <Route path='/register' exact component={RegisterForm}/>
+                <Route path='/photographers' exact component={AllPhotographers}/>
+                <Route path='/organizations' exact component={AllOrgs}/>
                 <Route path='/terms-and-conditions' exact component={TermsandConditions}/>
                 <Route path='/:userType/:userId' component={UserProfile}/>
             </Switch>

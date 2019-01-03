@@ -18,7 +18,7 @@ export default class NavBar extends Component {
                             <nav className="w-dropdown-list">
                                 <Link to="/register#organization" className="dropdown-link w-dropdown-link">register an organization</Link>
                                 <a href="create-a-project.html" className="dropdown-link w-dropdown-link">create a NEW PROJECT</a>
-                                <a href="photographers.html" className="dropdown-link w-dropdown-link">find a photographer</a></nav>
+                                <Link to="/photographers" className="dropdown-link w-dropdown-link">find a photographer</Link></nav>
                         </div>
                         <div data-delay="0" data-hover="1" className="navbarlink w-dropdown">
                             <div className="navbarlink w-dropdown-toggle">
@@ -26,7 +26,7 @@ export default class NavBar extends Component {
                                 <div className="w-icon-dropdown-toggle"></div>
                             </div>
                             <nav className="w-dropdown-list"><Link to="/register#photographer" className="dropdown-link w-dropdown-link">register as a photographer</Link>
-                                <a href="organizations.html" className="dropdown-link w-dropdown-link">find an ngo</a>
+                                <Link to="/organizations" className="dropdown-link w-dropdown-link">find an ngo</Link>
                                 <a href="current-opportunities.html" className="dropdown-link w-dropdown-link">CURRENT PROJECTS</a></nav>
                         </div>
                         <Link to="/about" className="navbarlink w-nav-link">About</Link>

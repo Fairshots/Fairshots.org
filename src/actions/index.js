@@ -3,3 +3,5 @@ export * from "./photo-actions";
 export * from "./login";
 export * from "./profile";
 export { default as getFeatures } from "./mainpage-features";
+export { default as getAllPhotographers } from "./getAllPhotographers";
+export { default as getAllOrgs } from "./getAllOrgs";
