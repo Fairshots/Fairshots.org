@@ -21,11 +21,7 @@ class AllPhotographers extends Component {
         return (
             <div>
                 {allPhotographers.photographers ? (
-                    <ProfileCards
-                        userType="organization"
-                        cards={allPhotographers.photographers}
-                        history={this.props.history}
-                    />
+                    <ProfileCards cards={allPhotographers.photographers} />
                 ) : (
                     "Loading"
                 )}
