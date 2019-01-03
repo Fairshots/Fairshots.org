@@ -5,7 +5,8 @@ import { getFeatures } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
 /**
- *
+ * When mounted dispatches action to fetch featured photographers and orgs and renders it in main page.
+ * @extends Component
  */
 class FeatureHolder extends Component {
     componentDidMount() {
@@ -22,8 +23,9 @@ class FeatureHolder extends Component {
                 <h2 className="feautured-h3">Featured photographers</h2>
                 {mainFeatures.photographers ? (
                     <ProfileCards
+                        userType="photographer"
                         cards={mainFeatures.photographers}
-                        scrollOffset={1100}
+                        history={this.props.history}
                     />
                 ) : (
                     "Loading..."
@@ -36,8 +38,9 @@ class FeatureHolder extends Component {
 
                 {mainFeatures.organizations ? (
                     <ProfileCards
+                        userType="organization"
                         cards={mainFeatures.organizations}
-                        scrollOffset={1400}
+                        history={this.props.history}
                     />
                 ) : (
                     "Loading..."

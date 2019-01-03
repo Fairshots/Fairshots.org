@@ -82,7 +82,7 @@ export default class ProfileCards extends Component {
                             <CardImg
                                 top
                                 src={
-                                    card.Photos[0] ? (
+                                    card.Photos && card.Photos[0] ? (
                                         card.Photos[0].cloudlink
                                     ) : (
                                         card.ProfilePic || card.Logo
@@ -90,7 +90,12 @@ export default class ProfileCards extends Component {
                                 }
                                 alt="card img cap"
                             />
-                            <CardImgOverlay className="feat-biography">
+                            <CardImgOverlay
+                                className="feat-biography"
+                                onClick={() => this.props.history.push(
+                                        `/${this.props.userType}/${card.id}`
+                                    )}
+                            >
                                 <p>{card.Biography || card.Background}</p>
                             </CardImgOverlay>
                         </div>
