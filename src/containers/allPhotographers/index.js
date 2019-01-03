@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {
-    getAllPhotographers
-} from "../../actions";
+import { getAllPhotographers } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
 /**
@@ -13,22 +11,32 @@ import ProfileCards from "../../components/profilecards";
 class AllPhotographers extends Component {
     componentDidMount() {
         const { allPhotographers, doGetPhotographers } = this.props;
-        if (!allPhotographers.photographers) { doGetPhotographers() }
+        if (!allPhotographers.photographers) {
+            doGetPhotographers();
+        }
     }
 
-
     render() {
+        const { allPhotographers } = this.props;
         return (
-            <ProfileCards cards={this.props.allPhotographers.photographers} />
+            <div>
+                {allPhotographers.photographers ? (
+                    <ProfileCards cards={allPhotographers.photographers} />
+                ) : (
+                    "Loading"
+                )}
+            </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    allPhotographers: state.allPhotographers,
+    allPhotographers: state.allPhotographers
 });
 const mapDispatchToProps = dispatch => ({
-    doGetPhotographers: () => dispatch(getAllPhotographers()),
+    doGetPhotographers: () => dispatch(getAllPhotographers())
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllPhotographers));
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(AllPhotographers)
+);
