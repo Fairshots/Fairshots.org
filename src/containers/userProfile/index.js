@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import {
-    getProfile, uploadPhoto, delPhoto, toggleActivateProfile
-} from "../../actions";
+import { getProfile, uploadPhoto, delPhoto, toggleActivateProfile } from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
@@ -27,20 +25,18 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        const {
-            userProfile, match, token, getUserProfile
-        } = this.props;
-        if (!userProfile.Name) {
-            getUserProfile(match.params.userType, match.params.userId, token)
-                .then(() => {
-                    if (this.props.userProfile.error) {
-                        alert("please Login to continue");
-                        setTimeout(this.props.history.push("/"), 5000);
-                    }
-                });
+        const { userProfile, match, token, getUserProfile } = this.props;
+        console.log(match.params.userId);
+        console.log(userProfile.id);
+        if (userProfile.id !== match.params.userId) {
+            getUserProfile(match.params.userType, match.params.userId, token).then(() => {
+                if (this.props.userProfile.error) {
+                    alert("please Login to continue");
+                    setTimeout(this.props.history.push("/"), 10000);
+                }
+            });
         }
     }
-
 
     componentDidUpdate(prevProps) {
         const prof = Object.assign({}, this.props.userProfile);
@@ -48,56 +44,97 @@ class UserProfile extends Component {
         prof.Photos = 0;
         prevProf.Photos = 0;
 
-        if ((JSON.stringify(prof) !== JSON.stringify(prevProf))
-        && prevProps.userProfile.id) {
+        if (JSON.stringify(prof) !== JSON.stringify(prevProf) && prevProps.userProfile.id) {
             this.toggleModal("UPLOAD_PROFILE");
         }
     }
 
     toggleModal(modalType, item = "") {
-        this.setState(prevState => ({ modal: !prevState.modal, modalType, photoToDel: item }));
+        this.setState(prevState => ({
+            modal: !prevState.modal,
+            modalType,
+            photoToDel: item
+        }));
     }
 
     modalContent(type) {
         const {
-            match: { params: { userType, userId } }, userProfile: { accountInactive }, token, doDelPhoto, doInactivateProfile, clAPIKey, clAPISecret
+            match: {
+                params: { userType, userId }
+            },
+            userProfile: { accountInactive },
+            token,
+            doDelPhoto,
+            doInactivateProfile,
+            clAPIKey,
+            clAPISecret
         } = this.props;
         switch (type) {
-        case "UPLOAD_PROFILE": {
-            return <UpdateProfile />;
-        }
-        case "DEL_PHOTO": {
-            return <DeletePhoto photoItem={this.state.photoToDel} doDelPhoto={doDelPhoto(userType, userId, token, clAPIKey, clAPISecret)}
-                toggleModal={this.toggleModal}/>;
-        }
-        case "INACTIVATE_PROFILE": {
-            console.log(`current status ${accountInactive}`);
-            return <InactivateProfile doInactivateProfile={() => doInactivateProfile(userType, userId, token, accountInactive)} toggleModal={this.toggleModal}/>;
-        }
-        default: return undefined;
+            case "UPLOAD_PROFILE": {
+                return <UpdateProfile />;
+            }
+            case "DEL_PHOTO": {
+                return (
+                    <DeletePhoto
+                        photoItem={this.state.photoToDel}
+                        doDelPhoto={doDelPhoto(userType, userId, token, clAPIKey, clAPISecret)}
+                        toggleModal={this.toggleModal}
+                    />
+                );
+            }
+            case "INACTIVATE_PROFILE": {
+                console.log(`current status ${accountInactive}`);
+                return (
+                    <InactivateProfile
+                        doInactivateProfile={() =>
+                            doInactivateProfile(userType, userId, token, accountInactive)
+                        }
+                        toggleModal={this.toggleModal}
+                    />
+                );
+            }
+            default:
+                return undefined;
         }
     }
 
-
     render() {
         const {
-            match: { params: { userType, userId } }, token, userProfile, doUploadPhoto
+            match: {
+                params: { userType, userId }
+            },
+            token,
+            userProfile,
+            doUploadPhoto
         } = this.props;
         return (
             <div>
-                <div className="feautured-h3" style={{
-                    width: "80%",
-                    margin: "auto"
-                }}>{userProfile.accountInactive && "Your account is currently inactive and is not being shown in community. Please reactivate to fully enjoy our platform"}</div>
-                { userType === "organization" ? <OrgProfile organization={userProfile} toggleModal={this.toggleModal}
-                    uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} />
-                    : <PhotogProfile photographer={userProfile} toggleModal={this.toggleModal}
-                        uploadPhoto={(url) => doUploadPhoto(userType, userId, token, url)} /> }
+                <div
+                    className="feautured-h3"
+                    style={{
+                        width: "80%",
+                        margin: "auto"
+                    }}
+                >
+                    {userProfile.accountInactive &&
+                        "Your account is currently inactive and is not being shown in community. Please reactivate to fully enjoy our platform"}
+                </div>
+                {userType === "organization" ? (
+                    <OrgProfile
+                        organization={userProfile}
+                        toggleModal={this.toggleModal}
+                        uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
+                    />
+                ) : (
+                    <PhotogProfile
+                        photographer={userProfile}
+                        toggleModal={this.toggleModal}
+                        uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
+                    />
+                )}
 
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
-                    <ModalBody>
-                        {this.modalContent(this.state.modalType)}
-                    </ModalBody>
+                    <ModalBody>{this.modalContent(this.state.modalType)}</ModalBody>
                 </Modal>
             </div>
         );
@@ -113,8 +150,15 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token)),
     doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
-    doDelPhoto: (userType, id, token, clAPIKey, clAPISecret) => photoItem => dispatch(delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem)),
-    doInactivateProfile: (userType, id, token, currentStatus) => dispatch(toggleActivateProfile(userType, id, token, currentStatus))
+    doDelPhoto: (userType, id, token, clAPIKey, clAPISecret) => photoItem =>
+        dispatch(delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem)),
+    doInactivateProfile: (userType, id, token, currentStatus) =>
+        dispatch(toggleActivateProfile(userType, id, token, currentStatus))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfile));
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(UserProfile)
+);
