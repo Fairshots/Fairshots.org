@@ -1,5 +1,5 @@
 .photogProfile {
-    @media (max-width: 767px ) {
+    @media (max-width: 767px) {
         .portfolio-holder {
             background-color: #242424;
             height: auto;
@@ -8,17 +8,16 @@
             }
         }
     }
-    @media (min-width: 768px ) {
+    @media (min-width: 768px) {
         .portfolio-holder {
             background-color: #242424;
             height: 700px;
             img {
-                max-width:800px;
-                max-height:600px;
+                max-width: 800px;
+                max-height: 600px;
                 width: auto;
                 height: auto;
             }
-
         }
     }
 }

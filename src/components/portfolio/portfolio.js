@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-    Carousel,
-    CarouselItem,
-    CarouselControl,
-    CarouselIndicators,
-} from "reactstrap";
+import { Carousel, CarouselItem, CarouselControl, CarouselIndicators } from "reactstrap";
 
 import "./portfolio.scss";
 
@@ -29,13 +24,19 @@ export default class Portfolio extends Component {
 
     next() {
         if (this.animating) return;
-        const nextIndex = this.state.activeIndex === this.props.photos.length - 1 ? 0 : this.state.activeIndex + 1;
+        const nextIndex =
+            this.state.activeIndex === this.props.photos.length - 1
+                ? 0
+                : this.state.activeIndex + 1;
         this.setState({ activeIndex: nextIndex });
     }
 
     previous() {
         if (this.animating) return;
-        const nextIndex = this.state.activeIndex === 0 ? this.props.photos.length - 1 : this.state.activeIndex - 1;
+        const nextIndex =
+            this.state.activeIndex === 0
+                ? this.props.photos.length - 1
+                : this.state.activeIndex - 1;
         this.setState({ activeIndex: nextIndex });
     }
 
@@ -48,17 +49,16 @@ export default class Portfolio extends Component {
         const { activeIndex } = this.state;
         const { photos, toggleDelPhoto } = this.props;
 
-        const slides = photos.map((item) => (
-            <CarouselItem
-                onExiting={this.onExiting}
-                onExited={this.onExited}
-                key={item.id}
-
-            >
+        const slides = photos.map(item => (
+            <CarouselItem onExiting={this.onExiting} onExited={this.onExited} key={item.id}>
                 <div className="img-hold">
                     <img src={item.cloudlink} />
-                    <button type="button" className="close btn-light" aria-label="Close" onClick={() => toggleDelPhoto("DEL_PHOTO", item)
-                    }>
+                    <button
+                        type="button"
+                        className="close btn-light"
+                        aria-label="Close"
+                        onClick={() => toggleDelPhoto("DEL_PHOTO", item)}
+                    >
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -66,16 +66,18 @@ export default class Portfolio extends Component {
         ));
 
         return (
-            <Carousel
-                activeIndex={activeIndex}
-                next={this.next}
-                previous={this.previous}
-
-            >
-
-                <CarouselIndicators items={photos.map(i => ({ ...i, src: i.id }))} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+            <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
+                <CarouselIndicators
+                    items={photos.map(i => ({ ...i, src: i.id }))}
+                    activeIndex={activeIndex}
+                    onClickHandler={this.goToIndex}
+                />
                 {slides}
-                <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+                <CarouselControl
+                    direction="prev"
+                    directionText="Previous"
+                    onClickHandler={this.previous}
+                />
                 <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
             </Carousel>
         );

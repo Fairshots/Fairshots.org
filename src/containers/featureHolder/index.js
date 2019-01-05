@@ -21,10 +21,7 @@ class FeatureHolder extends Component {
             <div className="featured">
                 <h2 className="feautured-h3">Featured photographers</h2>
                 {mainFeatures.photographers ? (
-                    <ProfileCards
-                        cards={mainFeatures.photographers}
-                        scrollOffset={1100}
-                    />
+                    <ProfileCards cards={mainFeatures.photographers} scrollOffset={1100} />
                 ) : (
                     "Loading..."
                 )}
@@ -35,10 +32,7 @@ class FeatureHolder extends Component {
                 <h2 className="feautured-h3">Featured ORGANIZATIONS</h2>
 
                 {mainFeatures.organizations ? (
-                    <ProfileCards
-                        cards={mainFeatures.organizations}
-                        scrollOffset={1400}
-                    />
+                    <ProfileCards cards={mainFeatures.organizations} scrollOffset={1400} />
                 ) : (
                     "Loading..."
                 )}
@@ -59,5 +53,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(FeatureHolder)
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(FeatureHolder)
 );

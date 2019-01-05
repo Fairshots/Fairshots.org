@@ -14,7 +14,12 @@
         "type": "git",
         "url": "git+https://github.com/Fairshots/Fairshots.org.git"
     },
-    "keywords": ["photography", "non-profit", "community", "ngo"],
+    "keywords": [
+        "photography",
+        "non-profit",
+        "community",
+        "ngo"
+    ],
     "author": "Nando",
     "license": "BSD-3-Clause",
     "bugs": {

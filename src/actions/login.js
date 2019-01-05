@@ -17,20 +17,16 @@ export function login(formProps) {
             const usertoSave = await res.json();
             console.log(usertoSave);
             localStorage.setItem("user", JSON.stringify(usertoSave));
-            dispatch(
-                {
-                    type: "AUTH_SUCCESS",
-                    payload: usertoSave
-                }
-            );
+            dispatch({
+                type: "AUTH_SUCCESS",
+                payload: usertoSave
+            });
             dispatch(toggleLoading());
         } catch (e) {
-            dispatch(
-                {
-                    type: "AUTH_ERROR",
-                    payload: "email or password incorrect or doesn`t exist"
-                }
-            );
+            dispatch({
+                type: "AUTH_ERROR",
+                payload: "email or password incorrect or doesn`t exist"
+            });
             dispatch(toggleLoading());
         }
     };
@@ -38,6 +34,6 @@ export function login(formProps) {
 
 export function logout() {
     return {
-        type: "AUTH_LOGOUT",
+        type: "AUTH_LOGOUT"
     };
 }
