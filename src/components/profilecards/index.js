@@ -82,11 +82,9 @@ export default class ProfileCards extends Component {
                             <CardImg
                                 top
                                 src={
-                                    card.Photos[0] ? (
-                                        card.Photos[0].cloudlink
-                                    ) : (
-                                        card.ProfilePic || card.Logo
-                                    )
+                                    card.Photos[0]
+                                        ? card.Photos[0].cloudlink
+                                        : card.ProfilePic || card.Logo
                                 }
                                 alt="card img cap"
                             />
@@ -95,15 +93,9 @@ export default class ProfileCards extends Component {
                             </CardImgOverlay>
                         </div>
                         <CardBody>
-                            <CardImg
-                                className="feat-pic"
-                                src={card.ProfilePic || card.Logo}
-                            />
+                            <CardImg className="feat-pic" src={card.ProfilePic || card.Logo} />
                             <CardTitle>{card.Name}</CardTitle>
-                            {card.skill && (
-                                <CardSubtitle
-                                >{`${card.Skill} card`}</CardSubtitle>
-                            )}
+                            {card.skill && <CardSubtitle>{`${card.Skill} card`}</CardSubtitle>}
                             <CardText>{card.Country}</CardText>
                         </CardBody>
                     </Card>

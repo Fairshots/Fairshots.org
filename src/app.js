@@ -14,7 +14,7 @@ class App extends Component {
                 <NavBar />
                 <Main />
                 <Footer />
-                <DonutSpin spinshow={this.props.loading}/>
+                <DonutSpin spinshow={this.props.loading} />
             </div>
         );
     }

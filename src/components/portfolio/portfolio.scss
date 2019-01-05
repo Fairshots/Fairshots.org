@@ -3,36 +3,27 @@
     justify-content: center;
 }
 
-
 .carousel {
     width: 100%;
 
-
-
-    .carousel-control-prev { 
+    .carousel-control-prev {
         width: 8%;
-
     }
-    .carousel-control-next { 
+    .carousel-control-next {
         width: 8%;
-
     }
 
     .carousel-item.active {
         @include flex-center;
-         .img-hold {
+        .img-hold {
             position: relative;
             left: 1%;
         }
-    
     }
     .close.btn-light {
         color: white;
         position: relative;
         top: 1%;
         right: 5%;
-        
-
     }
 }
-

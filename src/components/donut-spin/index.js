@@ -6,9 +6,8 @@ const DonutSpin = ({ spinshow }) => {
         display: spinshow ? "flex" : "none"
     };
     return (
-        <div className="donut-holder" style={donutStyle} >
-            <div className="donut"></div>
-
+        <div className="donut-holder" style={donutStyle}>
+            <div className="donut" />
         </div>
     );
 };

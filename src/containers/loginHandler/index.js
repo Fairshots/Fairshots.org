@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import {
-    Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem
-} from "reactstrap";
+import { Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { login, logout } from "../../actions";
@@ -45,38 +43,68 @@ class LoginHandler extends Component {
         if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
             this.toggleOpenCloses("loginModal");
             this.setState({ email: "", password: "" });
-            this.props.history.push(`/${this.props.userInfo.userType}/${this.props.userInfo.userId}`);
+            this.props.history.push(
+                `/${this.props.userInfo.userType}/${this.props.userInfo.userId}`
+            );
         }
     }
 
     render() {
-        const {
-            isAuthenticated, handleLogout, errorMessage, history, userInfo
-        } = this.props;
+        const { isAuthenticated, handleLogout, errorMessage, history, userInfo } = this.props;
         return (
             <div className="login-handler">
-                { !isAuthenticated
-                && <div className="login-register">
-                    <Button className="mr-2 loglog" name="loginModal" onClick={() => this.toggleOpenCloses("loginModal")}> LOGIN</Button>
-                    <Button className="loglog"><Link to="/register#photographer">SIGN UP</Link></Button>
-                </div>
-                }
-                {
-                    isAuthenticated
-                && <Dropdown name="profileNav" isOpen={this.state.profileNav} toggle={() => this.toggleOpenCloses("profileNav")}>
-                    <DropdownToggle className="profileNav loglog" onMouseEnter={() => this.toggleOpenCloses("profileNav")}
-                        caret>
-                        {userInfo.userName}
-                    </DropdownToggle>
-                    <DropdownMenu className="f-dropdown-menu" name="profileNav">
-                        <DropdownItem className="f-dropdown-link" onClick={() => history.push(`/${this.props.userInfo.userType}/${this.props.userInfo.userId}`)}>PROFILE</DropdownItem>
-                        <DropdownItem className="f-dropdown-link" onClick={() => handleLogout(history)}>LOGOUT</DropdownItem >
-                    </DropdownMenu>
-                </Dropdown>
-
-
-                }
-                <LoginModal showModal={this.state.loginModal}
+                {!isAuthenticated && (
+                    <div className="login-register">
+                        <Button
+                            className="mr-2 loglog"
+                            name="loginModal"
+                            onClick={() => this.toggleOpenCloses("loginModal")}
+                        >
+                            {" "}
+                            LOGIN
+                        </Button>
+                        <Button className="loglog">
+                            <Link to="/register#photographer">SIGN UP</Link>
+                        </Button>
+                    </div>
+                )}
+                {isAuthenticated && (
+                    <Dropdown
+                        name="profileNav"
+                        isOpen={this.state.profileNav}
+                        toggle={() => this.toggleOpenCloses("profileNav")}
+                    >
+                        <DropdownToggle
+                            className="profileNav loglog"
+                            onMouseEnter={() => this.toggleOpenCloses("profileNav")}
+                            caret
+                        >
+                            {userInfo.userName}
+                        </DropdownToggle>
+                        <DropdownMenu className="f-dropdown-menu" name="profileNav">
+                            <DropdownItem
+                                className="f-dropdown-link"
+                                onClick={() =>
+                                    history.push(
+                                        `/${this.props.userInfo.userType}/${
+                                            this.props.userInfo.userId
+                                        }`
+                                    )
+                                }
+                            >
+                                PROFILE
+                            </DropdownItem>
+                            <DropdownItem
+                                className="f-dropdown-link"
+                                onClick={() => handleLogout(history)}
+                            >
+                                LOGOUT
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                )}
+                <LoginModal
+                    showModal={this.state.loginModal}
                     showLoginModal={this.toggleOpenCloses}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
@@ -92,18 +120,21 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     errorMessage: state.auth.errorMessage,
     userInfo: state.auth.user
-
 });
 
 const mapDispatchToProps = dispatch => ({
     doLogin: formProps => {
         dispatch(login(formProps));
     },
-    handleLogout: (history) => {
+    handleLogout: history => {
         history.push("/");
         dispatch(logout());
     }
-
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginHandler));
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(LoginHandler)
+);
