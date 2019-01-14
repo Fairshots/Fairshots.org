@@ -20,26 +20,21 @@ export function uploadPhoto(userType, id, token, url) {
                     Authorization: `bearer ${token}`
                 },
                 body: JSON.stringify({ photos: [{ [`${userType}Id`]: id, cloudlink: url }] })
-
             };
             console.log(config);
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photos`, config);
             const ret = await res.json();
             console.log(ret);
-            dispatch(
-                {
-                    type: "PHOTO_UPLOADED",
-                    payload: ret
-                }
-            );
+            dispatch({
+                type: "PHOTO_UPLOADED",
+                payload: ret
+            });
         } catch (e) {
             console.log(e);
-            dispatch(
-                {
-                    type: "UPLOAD_ERROR",
-                    payload: "Oops! Something went wrong. Plase try again"
-                }
-            );
+            dispatch({
+                type: "UPLOAD_ERROR",
+                payload: "Oops! Something went wrong. Plase try again"
+            });
         }
     };
 }
@@ -90,27 +85,22 @@ export function delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem) 
                     Authorization: `bearer ${token}`
                 },
                 body: JSON.stringify({ photoIds: [photoItem.id] })
-
             };
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photos`, config);
             if (res.ok) {
                 const ret = await res.json();
                 console.log(ret);
-                dispatch(
-                    {
-                        type: "PHOTO_DELETED",
-                        payload: photoItem
-                    }
-                );
+                dispatch({
+                    type: "PHOTO_DELETED",
+                    payload: photoItem
+                });
             } else throw res;
         } catch (e) {
             console.log(e.toString());
-            dispatch(
-                {
-                    type: "PROFILE_ERROR",
-                    payload: e.statusText !== undefined ? e.statusText : e.toString()
-                }
-            );
+            dispatch({
+                type: "PROFILE_ERROR",
+                payload: e.statusText !== undefined ? e.statusText : e.toString()
+            });
         }
     };
 }

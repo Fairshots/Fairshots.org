@@ -62,5 +62,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(FeatureHolder)
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(FeatureHolder)
 );

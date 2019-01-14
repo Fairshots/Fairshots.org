@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Field, FieldArray } from "redux-form";
 import { Form, Button } from "reactstrap";
@@ -12,15 +11,39 @@ export default function PhotographerForm({ handleSubmit, renderField }) {
             <Field name="Email" label="E-mail: " component={renderField} type="Email" />
             <Field name="Password" label="Password: " component={renderField} type="Password" />
             <Field name="ProfilePic" label="Picture: " component={renderField} type="file" />
-            <Field name="Skill" label="Skill Level: " component={renderField} options={["", "Student", "Amateur", "Professional"]} type="select" />
+            <Field
+                name="Skill"
+                label="Skill Level: "
+                component={renderField}
+                options={["", "Student", "Amateur", "Professional"]}
+                type="select"
+            />
             <Field name="Biography" label="Biography: " component={renderField} type="textarea" />
             <Field name="webpage" label="Webpage: " component={renderField} type="url" />
             <Field name="facebook" label="Facebook: " component={renderField} type="url" />
             <Field name="instagram" label="Instagram: " component={renderField} type="url" />
-            <FieldArray className="languages" name="Languages" label="Languages: " component={checkboxesFormArray} options={languages} />
-            <FieldArray className="causes" name="Causes" label="Causes: " component={checkboxesFormArray} options={causes}/>
+            <FieldArray
+                className="languages"
+                name="Languages"
+                label="Languages: "
+                component={checkboxesFormArray}
+                options={languages}
+            />
+            <FieldArray
+                className="causes"
+                name="Causes"
+                label="Causes: "
+                component={checkboxesFormArray}
+                options={causes}
+            />
             <Field name="City" label="City: " component={renderField} options={[]} type="text" />
-            <Field name="Country" label="Country: " component={renderField} type="select" options={countrylist}/>
+            <Field
+                name="Country"
+                label="Country: "
+                component={renderField}
+                type="select"
+                options={countrylist}
+            />
 
             <Button type="submit">Submit</Button>
         </Form>
