@@ -82,7 +82,7 @@ export default class ProfileCards extends Component {
                             <CardImg
                                 top
                                 src={
-                                    card.Photos[0]
+                                    card.Photos && card.Photos[0]
                                         ? card.Photos[0].cloudlink
                                         : card.ProfilePic || card.Logo
                                 }
