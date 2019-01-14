@@ -34,6 +34,27 @@ export function getProfile(userType, id, token) {
     };
 }
 
+export function ThirdPartyUserProfile(thirdPartyProfile) {
+    return async dispatch => {
+        dispatch(toggleLoading());
+        const userProfile = thirdPartyProfile;
+        try {
+            dispatch({
+                type: "THIRD_PARTY_PROFILE",
+                payload: userProfile
+            });
+            dispatch(toggleLoading());
+        } catch (e) {
+            console.log(e.toString());
+            dispatch({
+                type: "PROFILE_ERROR",
+                payload: e.statusText !== undefined ? e.statusText : e.toString()
+            });
+            dispatch(toggleLoading());
+        }
+    };
+}
+
 export function toggleActivateProfile(userType, id, token, currentStatus) {
     return async dispatch => {
         dispatch(toggleLoading());

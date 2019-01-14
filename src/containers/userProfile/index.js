@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import { getProfile, uploadPhoto, delPhoto, toggleActivateProfile } from "../../actions";
+import {
+    ThirdPartyUserProfile,
+    getProfile,
+    uploadPhoto,
+    delPhoto,
+    toggleActivateProfile
+} from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
@@ -25,16 +31,23 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        const { userProfile, match, token, getUserProfile } = this.props;
-        console.log(match.params.userId);
-        console.log(userProfile.id);
-        if (userProfile.id !== match.params.userId) {
+        const {
+            userProfile,
+            authId,
+            match,
+            token,
+            getUserProfile,
+            loadThirdPartyUserProfile
+        } = this.props;
+        if (match.params.userId === authId) {
             getUserProfile(match.params.userType, match.params.userId, token).then(() => {
-                if (this.props.userProfile.error) {
+                if (userProfile.error) {
                     alert("please Login to continue");
                     setTimeout(this.props.history.push("/"), 10000);
                 }
             });
+        } else {
+            loadThirdPartyUserProfile(match.params.userType, match.params.userId);
         }
     }
 
@@ -144,16 +157,22 @@ class UserProfile extends Component {
 const mapStateToProps = state => ({
     userProfile: state.profile,
     token: state.auth.user.token,
+    authId: state.auth.user.userId,
     clAPIKey: state.auth.user.CL_apikey,
     clAPISecret: state.auth.user.CL_apisecret
 });
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token)),
+
     doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
+
     doDelPhoto: (userType, id, token, clAPIKey, clAPISecret) => photoItem =>
         dispatch(delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem)),
+
     doInactivateProfile: (userType, id, token, currentStatus) =>
-        dispatch(toggleActivateProfile(userType, id, token, currentStatus))
+        dispatch(toggleActivateProfile(userType, id, token, currentStatus)),
+
+    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
 });
 
 export default withRouter(
