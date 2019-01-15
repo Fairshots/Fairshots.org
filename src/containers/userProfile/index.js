@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import {
-    ThirdPartyUserProfile,
-    getProfile,
-    uploadPhoto,
-    delPhoto,
-    toggleActivateProfile
-} from "../../actions";
+import { getProfile, uploadPhoto, delPhoto, toggleActivateProfile } from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
@@ -17,7 +11,10 @@ import InactivateProfile from "./inactivate-profile";
 import "./userProfile.scss";
 
 /**
- *
+ * This container component holds and handle information about user profile being it self profile
+ * or third party, in this last case the profile must be injected into Redux "profile" state by
+ * the component that calls the push to the route associated with that profile
+ * @extends Component
  */
 class UserProfile extends Component {
     constructor(props) {
@@ -25,43 +22,54 @@ class UserProfile extends Component {
         this.state = {
             modal: false,
             modalType: "UPLOAD_PROFILE",
-            photoToDel: ""
+            photoToDel: "",
+            thirdParty: false
         };
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        const {
-            userProfile,
-            authId,
-            match,
-            token,
-            getUserProfile,
-            loadThirdPartyUserProfile
-        } = this.props;
+        const { userProfile, authId, match, token, getUserProfile } = this.props;
+        // if url matches the authenticated user Id load self profile if not yet loaded into redux
+        // state profile
         if (match.params.userId === authId) {
             getUserProfile(match.params.userType, match.params.userId, token).then(() => {
                 if (userProfile.error) {
+                    // if token is expired Alert user to login
                     alert("please Login to continue");
                     setTimeout(this.props.history.push("/"), 10000);
                 }
             });
-        } else {
-            loadThirdPartyUserProfile(match.params.userType, match.params.userId);
-        }
+            this.setState({ thirdParty: false });
+        } else this.setState({ thirdParty: true });
+        // else just get whatever profile is injected into state
     }
 
     componentDidUpdate(prevProps) {
+        const { authId, match, token, getUserProfile } = this.props;
         const prof = Object.assign({}, this.props.userProfile);
         const prevProf = Object.assign({}, prevProps.userProfile);
         prof.Photos = 0;
         prevProf.Photos = 0;
 
         if (JSON.stringify(prof) !== JSON.stringify(prevProf) && prevProps.userProfile.id) {
-            this.toggleModal("UPLOAD_PROFILE");
+            this.setState({ modal: false });
+        }
+        // tell the container to reload if user is not logged in but component is already mounted with profile of a third party user
+        if (
+            match.params.userId !== prevProps.match.params.userId &&
+            match.params.userId === authId
+        ) {
+            getUserProfile(match.params.userType, match.params.userId, token);
+            this.setState({ thirdParty: false });
         }
     }
 
+    /**
+     * Controls modal associated with self profile
+     * @param {*} modalType
+     * @param {*} item
+     */
     toggleModal(modalType, item = "") {
         this.setState(prevState => ({
             modal: !prevState.modal,
@@ -70,6 +78,10 @@ class UserProfile extends Component {
         }));
     }
 
+    /**
+     * Controls which type of content to load inside Modal asked to be open
+     * @param {*} type
+     */
     modalContent(type) {
         const {
             match: {
@@ -83,7 +95,7 @@ class UserProfile extends Component {
             clAPISecret
         } = this.props;
         switch (type) {
-            case "UPLOAD_PROFILE": {
+            case "UPDATE_PROFILE": {
                 return <UpdateProfile />;
             }
             case "DEL_PHOTO": {
@@ -137,12 +149,14 @@ class UserProfile extends Component {
                         organization={userProfile}
                         toggleModal={this.toggleModal}
                         uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
+                        thirdParty={this.state.thirdParty}
                     />
                 ) : (
                     <PhotogProfile
                         photographer={userProfile}
                         toggleModal={this.toggleModal}
                         uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
+                        thirdParty={this.state.thirdParty}
                     />
                 )}
 
@@ -170,9 +184,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem)),
 
     doInactivateProfile: (userType, id, token, currentStatus) =>
-        dispatch(toggleActivateProfile(userType, id, token, currentStatus)),
-
-    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
+        dispatch(toggleActivateProfile(userType, id, token, currentStatus))
 });
 
 export default withRouter(

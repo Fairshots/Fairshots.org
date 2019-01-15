@@ -5,7 +5,7 @@ import Portfolio from "../portfolio";
 
 import "./photogProfile.scss";
 
-export default function PhotogProfile({ photographer, uploadPhoto, toggleModal }) {
+export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, thirdParty }) {
     const { cloudinary } = window;
     const imgUploadWidget = cloudinary.createUploadWidget(
         { cloudName: "fairshots", uploadPreset: "kahvrgme" },
@@ -29,20 +29,25 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal }
                 </div>
             </div>
             <div className="row">
-                <div className="col-sm-3 d-flex flex-column align-items-center">
-                    <Button color="success w-75 mb-2" onClick={() => toggleModal("UPLOAD_PROFILE")}>
-                        Edit Profile
-                    </Button>
-                    <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>
-                        Upload Photos
-                    </Button>
-                    <Button
-                        color="secondary w-75 mb-2"
-                        onClick={() => toggleModal("INACTIVATE_PROFILE")}
-                    >
-                        {photographer.accountInactive ? "Reactivate" : "Inactivate"} Profile
-                    </Button>
-                </div>
+                {!thirdParty && (
+                    <div className="col-sm-3 d-flex flex-column align-items-center">
+                        <Button
+                            color="success w-75 mb-2"
+                            onClick={() => toggleModal("UPLOAD_PROFILE")}
+                        >
+                            Edit Profile
+                        </Button>
+                        <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>
+                            Upload Photos
+                        </Button>
+                        <Button
+                            color="secondary w-75 mb-2"
+                            onClick={() => toggleModal("INACTIVATE_PROFILE")}
+                        >
+                            {photographer.accountInactive ? "Reactivate" : "Inactivate"} Profile
+                        </Button>
+                    </div>
+                )}
                 <div className="col-sm-9 d-flex">
                     <div className="col-sm-6 d-flex p-0">
                         <img src="/images/place.png" height="40" />
@@ -74,7 +79,11 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal }
             </div>
             <div className="portfolio-holder row justify-content-center">
                 {photographer.Photos ? (
-                    <Portfolio photos={photographer.Photos} toggleDelPhoto={toggleModal} />
+                    <Portfolio
+                        photos={photographer.Photos}
+                        toggleDelPhoto={toggleModal}
+                        thirdParty={thirdParty}
+                    />
                 ) : (
                     <p>Loading...</p>
                 )}
