@@ -12,6 +12,15 @@ export default function profile(state = {}, action) {
                 error: false
             });
         }
+        case "THIRD_PARTY_PROFILE": {
+            return Object.assign(
+                {},
+                {
+                    ...action.payload,
+                    error: false
+                }
+            );
+        }
         case "PHOTO_UPLOADED": {
             return Object.assign({}, state, {
                 Photos: [

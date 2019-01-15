@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getAllOrgs } from "../../actions";
+import { getAllOrgs, ThirdPartyUserProfile } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
 /**
@@ -17,11 +17,18 @@ class AllOrgs extends Component {
     }
 
     render() {
-        const { allOrgs } = this.props;
+        const { allOrgs, loadThirdPartyUserProfile } = this.props;
         return (
             <div>
                 {allOrgs.organizations ? (
-                    <ProfileCards cards={allOrgs.organizations} />
+                    <ProfileCards
+                        userType="organization"
+                        cards={allOrgs.organizations}
+                        pushHistory={(profile, id) => {
+                            loadThirdPartyUserProfile(profile);
+                            this.props.history.push(`/organization/${id}`);
+                        }}
+                    />
                 ) : (
                     "Loading"
                 )}
@@ -34,9 +41,13 @@ const mapStateToProps = state => ({
     allOrgs: state.allOrgs
 });
 const mapDispatchToProps = dispatch => ({
-    doGetOrgs: () => dispatch(getAllOrgs())
+    doGetOrgs: () => dispatch(getAllOrgs()),
+    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
 });
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(AllOrgs)
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(AllOrgs)
 );

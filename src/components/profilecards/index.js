@@ -32,7 +32,8 @@ export default class ProfileCards extends Component {
         this.ref = React.createRef();
 
         /**
-         * Callback function called when an element observed by the Intersection Observer API is inside the threshold of the ViewPort
+         * Callback function called when an element observed by the Intersection Observer API is
+         * inside the threshold of the ViewPort
          * @param {Object[]} entries
          */
         const handleScroll = entries => {
@@ -88,7 +89,10 @@ export default class ProfileCards extends Component {
                                 }
                                 alt="card img cap"
                             />
-                            <CardImgOverlay className="feat-biography">
+                            <CardImgOverlay
+                                className="feat-biography"
+                                onClick={() => this.props.pushHistory(card, card.id)}
+                            >
                                 <p>{card.Biography || card.Background}</p>
                             </CardImgOverlay>
                         </div>

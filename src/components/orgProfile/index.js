@@ -5,7 +5,7 @@ import Portfolio from "../portfolio";
 
 import "./orgProfile.scss";
 
-export default function OrgProfile({ organization, uploadPhoto, toggleModal }) {
+export default function OrgProfile({ organization, uploadPhoto, toggleModal, thirdParty }) {
     const { cloudinary } = window;
     const imgUploadWidget = cloudinary.createUploadWidget(
         { cloudName: "fairshots", uploadPreset: "kahvrgme" },
@@ -31,17 +31,19 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal }) {
                 </div>
             </Row>
             <Row>
-                <div className="col-sm-3 d-flex flex-column align-items-center">
-                    <Button color="success w-75 mb-2" onClick={toggleModal}>
-                        Edit Profile
-                    </Button>
-                    <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>
-                        Upload Photos
-                    </Button>
-                    <Button color="success w-75 mb-2" onClick={() => true}>
-                        Create New Project
-                    </Button>
-                </div>
+                {!thirdParty && (
+                    <div className="col-sm-3 d-flex flex-column align-items-center">
+                        <Button color="success w-75 mb-2" onClick={toggleModal}>
+                            Edit Profile
+                        </Button>
+                        <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>
+                            Upload Photos
+                        </Button>
+                        <Button color="success w-75 mb-2" onClick={() => true}>
+                            Create New Project
+                        </Button>
+                    </div>
+                )}
                 <div className="col-sm-9 d-flex">
                     <div className="col-sm-6 p-0">
                         <Row>

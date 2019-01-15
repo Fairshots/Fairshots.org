@@ -47,20 +47,23 @@ export default class Portfolio extends Component {
 
     render() {
         const { activeIndex } = this.state;
-        const { photos, toggleDelPhoto } = this.props;
+        const { photos, toggleDelPhoto, thirdParty } = this.props;
 
         const slides = photos.map(item => (
             <CarouselItem onExiting={this.onExiting} onExited={this.onExited} key={item.id}>
                 <div className="img-hold">
                     <img src={item.cloudlink} />
-                    <button
-                        type="button"
-                        className="close btn-light"
-                        aria-label="Close"
-                        onClick={() => toggleDelPhoto("DEL_PHOTO", item)}
-                    >
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+
+                    {!thirdParty && (
+                        <button
+                            type="button"
+                            className="close btn-light"
+                            aria-label="Close"
+                            onClick={() => toggleDelPhoto("DEL_PHOTO", item)}
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    )}
                 </div>
             </CarouselItem>
         ));
