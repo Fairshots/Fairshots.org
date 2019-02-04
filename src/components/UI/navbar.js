@@ -28,6 +28,7 @@ class NavbarPage extends Component {
     };
 
     render() {
+        const { isAuthenticated, userType } = this.props;
         return (
             <MDBNavbar color="#444444" style={{ paddingRight: "6rem" }} dark expand="md">
                 <MDBNavbarBrand link="/">
@@ -47,7 +48,7 @@ class NavbarPage extends Component {
                                     >
                                         REGISTER AN ORGANIZATION
                                     </MDBDropdownItem>
-                                    {this.props.isAuthenticated && (
+                                    {isAuthenticated && userType !== "photographer" && (
                                         <MDBDropdownItem
                                             onClick={this.redirect("/create-a-project")}
                                         >

@@ -7,10 +7,10 @@ import Main from "./components/main";
 
 class App extends Component {
     render() {
-        const { isAuthenticated, loading, history } = this.props;
+        const { isAuthenticated, loading, history, userType } = this.props;
         return (
             <div>
-                <Navbar history={history} isAuthenticated={isAuthenticated} />
+                <Navbar history={history} isAuthenticated={isAuthenticated} userType={userType} />
                 <Main isAuthenticated={isAuthenticated} />
                 <Footer />
                 <DonutSpin spinshow={loading} />
@@ -21,7 +21,8 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     loading: state.loading,
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    userType: state.auth.user.userType
 });
 
 export default hot(module)(withRouter(connect(mapStateToProps)(App)));
