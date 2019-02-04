@@ -13,6 +13,7 @@ import {
     MDBDropdownItem
 } from "mdbreact";
 import LoginHandler from "../../containers/loginHandler";
+import { Link } from "react-router-dom";
 
 class NavbarPage extends Component {
     state = {
@@ -31,9 +32,9 @@ class NavbarPage extends Component {
         const { isAuthenticated, userType } = this.props;
         return (
             <MDBNavbar color="#444444" style={{ paddingRight: "6rem" }} dark expand="md">
-                <MDBNavbarBrand link="/">
+                <Link to="/" className="navbar-brand">
                     <img src="images/Fair-shotsV3.png" width="250" />
-                </MDBNavbarBrand>
+                </Link>
                 <MDBNavbarToggler onClick={this.toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
                     <MDBNavbarNav left>
