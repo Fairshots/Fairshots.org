@@ -14,11 +14,11 @@
     .profileNav.loglog:focus {
         background-color: #00a651;
     }
-    
+
     a {
         color: white;
     }
-    
+
     .f-dropdown-link {
         font-family: Lato, sans-serif;
         font-size: 15px;
@@ -41,5 +41,11 @@
     .f-dropdown-menu {
         background-color: #444;
     }
+}
 
+img.rounded-circle {
+    height: 35px;
+    width: 35px;
+    padding: 0px;
+    object-fit: cover;
 }

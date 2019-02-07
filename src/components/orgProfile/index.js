@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Row } from "reactstrap";
+import { MDBBtn, MDBIcon, MDBRow } from "mdbreact";
+import { Link } from "react-router-dom";
 
 import Portfolio from "../portfolio";
 
@@ -18,7 +19,7 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
 
     return (
         <div className="orgProfile container">
-            <Row>
+            <MDBRow>
                 <div className="col-sm-3">
                     <img className="profile-picture" src={organization.Logo} />
                 </div>
@@ -29,35 +30,41 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                     </p>
                     <p className="general-paragraph">{organization.Background}</p>
                 </div>
-            </Row>
-            <Row>
+            </MDBRow>
+            <MDBRow>
                 {!thirdParty && (
                     <div className="col-sm-3 d-flex flex-column align-items-center">
-                        <Button color="success w-75 mb-2" onClick={toggleModal}>
-                            Edit Profile
-                        </Button>
-                        <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>
-                            Upload Photos
-                        </Button>
-                        <Button color="success w-75 mb-2" onClick={() => true}>
-                            Create New Project
-                        </Button>
+                        <MDBBtn color="success" className="w-100 mb-2" onClick={toggleModal}>
+                            Edit Profile <MDBIcon className="ml-2" icon="cog" />
+                        </MDBBtn>
+                        <MDBBtn
+                            color="success"
+                            className="w-100 mb-2"
+                            onClick={() => imgUploadWidget.open()}
+                        >
+                            Upload Photos <MDBIcon className="ml-2" icon="file-upload" />
+                        </MDBBtn>
+                        <Link to="/create-a-project" className="w-100 m-1">
+                            <MDBBtn color="success" className="w-100 m-0 ">
+                                Create New Project <MDBIcon className="ml-2" icon="plus" />
+                            </MDBBtn>
+                        </Link>
                     </div>
                 )}
                 <div className="col-sm-9 d-flex">
                     <div className="col-sm-6 p-0">
-                        <Row>
+                        <MDBRow>
                             <img src="/images/place.png" height="40" />
                             <p className="general-paragraph ml-2">
-                                {`Based in ${organization.City}, ${organization.Country}`}{" "}
+                                {`Based in ${organization.City}, ${organization.Country}`}
                             </p>
-                        </Row>
-                        <Row className="flex-column mt-2">
+                        </MDBRow>
+                        <MDBRow className="flex-column mt-2">
                             <p className="featured-listing-bold-black ml-2">
-                                Primary supporting cause{" "}
+                                Primary supporting cause
                             </p>
                             <p className="general-paragraph ml-2">{organization.Causes}</p>
-                        </Row>
+                        </MDBRow>
                     </div>
                     <div className="col-sm-6">
                         {organization.website && (
@@ -72,17 +79,17 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                         )}
                     </div>
                 </div>
-            </Row>
-            <Row className="justify-content-center mt-2">
+            </MDBRow>
+            <MDBRow className="justify-content-center mt-2">
                 <h3 className="portfolio-tittle">Projects Posted</h3>
-            </Row>
-            <Row className="portfolio-holder justify-content-center">
+            </MDBRow>
+            <MDBRow className="portfolio-holder justify-content-center">
                 {organization.Photos ? (
                     <Portfolio photos={organization.Photos} />
                 ) : (
                     <p>Loading...</p>
                 )}
-            </Row>
+            </MDBRow>
         </div>
     );
 }

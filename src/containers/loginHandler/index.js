@@ -1,31 +1,33 @@
 import React, { Component } from "react";
-import { Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { login, logout } from "../../actions";
 import LoginModal from "../../components/loginModal";
+import {
+    MDBNavItem,
+    MDBNavLink,
+    MDBIcon,
+    MDBDropdown,
+    MDBDropdownToggle,
+    MDBDropdownItem,
+    MDBDropdownMenu
+} from "mdbreact";
 
 import "./login-handler.scss";
 
 class LoginHandler extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: "",
-            loginModal: false,
-            profileNav: false
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.toggleOpenCloses = this.toggleOpenCloses.bind(this);
-    }
+    state = {
+        email: "",
+        password: "",
+        loginModal: false,
+        profileNav: false
+    };
 
-    handleChange(event) {
+    handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
-    }
+    };
 
-    handleSubmit(event) {
+    handleSubmit = event => {
         event.preventDefault();
         const form = {
             email: this.state.email,
@@ -33,11 +35,16 @@ class LoginHandler extends Component {
         };
 
         this.props.doLogin(form);
-    }
+        this.props.getProfile(
+            this.props.userInfo.userType,
+            this.props.userInfo.userId,
+            this.props.userInfo.token
+        );
+    };
 
-    toggleOpenCloses(name) {
+    toggleOpenCloses = name => {
         this.setState(prevState => ({ [name]: !prevState[name] }));
-    }
+    };
 
     componentDidUpdate(prevProps) {
         if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
@@ -50,40 +57,43 @@ class LoginHandler extends Component {
     }
 
     render() {
-        const { isAuthenticated, handleLogout, errorMessage, history, userInfo } = this.props;
+        const {
+            isAuthenticated,
+            handleLogout,
+            errorMessage,
+            history,
+            userInfo,
+            profile
+        } = this.props;
+
         return (
-            <div className="login-handler">
+            <>
                 {!isAuthenticated && (
-                    <div className="login-register">
-                        <Button
-                            className="mr-2 loglog"
-                            name="loginModal"
-                            onClick={() => this.toggleOpenCloses("loginModal")}
-                        >
-                            {" "}
-                            LOGIN
-                        </Button>
-                        <Button className="loglog">
-                            <Link to="/register#photographer">SIGN UP</Link>
-                        </Button>
-                    </div>
+                    <>
+                        <MDBNavItem>
+                            <MDBNavLink to="#!" onClick={() => this.toggleOpenCloses("loginModal")}>
+                                <MDBIcon icon="user" className="mr-2" /> LOGIN
+                            </MDBNavLink>
+                        </MDBNavItem>
+                        <MDBNavItem>
+                            <MDBNavLink to="/register#photographer">
+                                <MDBIcon icon="user-plus" className="mr-2" /> SIGN UP
+                            </MDBNavLink>
+                        </MDBNavItem>
+                    </>
                 )}
                 {isAuthenticated && (
-                    <Dropdown
-                        name="profileNav"
-                        isOpen={this.state.profileNav}
-                        toggle={() => this.toggleOpenCloses("profileNav")}
-                    >
-                        <DropdownToggle
-                            className="profileNav loglog"
-                            onMouseEnter={() => this.toggleOpenCloses("profileNav")}
-                            caret
-                        >
+                    <MDBDropdown>
+                        <MDBDropdownToggle nav className="text-white">
+                            <img
+                                src={profile.Logo}
+                                className="rounded-circle z-depth-0 mr-2"
+                                alt=""
+                            />
                             {userInfo.userName}
-                        </DropdownToggle>
-                        <DropdownMenu className="f-dropdown-menu" name="profileNav">
-                            <DropdownItem
-                                className="f-dropdown-link"
+                        </MDBDropdownToggle>
+                        <MDBDropdownMenu>
+                            <MDBDropdownItem
                                 onClick={() =>
                                     history.push(
                                         `/${this.props.userInfo.userType}/${
@@ -92,16 +102,13 @@ class LoginHandler extends Component {
                                     )
                                 }
                             >
-                                PROFILE
-                            </DropdownItem>
-                            <DropdownItem
-                                className="f-dropdown-link"
-                                onClick={() => handleLogout(history)}
-                            >
-                                LOGOUT
-                            </DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
+                                <MDBIcon className="mr-2" icon="cog" /> PROFILE
+                            </MDBDropdownItem>
+                            <MDBDropdownItem onClick={() => handleLogout(history)}>
+                                <MDBIcon className="mr-2" icon="sign-in-alt" /> LOGOUT
+                            </MDBDropdownItem>
+                        </MDBDropdownMenu>
+                    </MDBDropdown>
                 )}
                 <LoginModal
                     showModal={this.state.loginModal}
@@ -112,14 +119,15 @@ class LoginHandler extends Component {
                     password={this.state.password}
                     errorMessage={errorMessage}
                 />
-            </div>
+            </>
         );
     }
 }
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     errorMessage: state.auth.errorMessage,
-    userInfo: state.auth.user
+    userInfo: state.auth.user,
+    profile: state.profile
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -129,7 +137,8 @@ const mapDispatchToProps = dispatch => ({
     handleLogout: history => {
         history.push("/");
         dispatch(logout());
-    }
+    },
+    getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token))
 });
 
 export default withRouter(
