@@ -11,7 +11,7 @@ class App extends Component {
         return (
             <div>
                 <Navbar history={history} isAuthenticated={isAuthenticated} userType={userType} />
-                <Main isAuthenticated={isAuthenticated} />
+                <Main isAuthenticated={isAuthenticated} userType={userType} />
                 <Footer />
                 <DonutSpin spinshow={loading} />
             </div>

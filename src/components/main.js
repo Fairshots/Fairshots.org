@@ -24,6 +24,8 @@ export default function Main(props) {
                 <Route path="/terms-and-conditions" exact component={TermsandConditions} />
                 <ProtectedRoute
                     isAuthenticated={props.isAuthenticated}
+                    userType={props.userType}
+                    allowOnly="organization"
                     path="/create-a-project"
                     exact
                     component={CreateProject}
