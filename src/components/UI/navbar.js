@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
     MDBNavbar,
-    MDBNavbarBrand,
     MDBNavbarNav,
     MDBNavItem,
     MDBNavLink,
