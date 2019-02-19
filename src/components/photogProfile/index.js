@@ -33,7 +33,7 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, 
                     <div className="col-sm-3 d-flex flex-column align-items-center">
                         <Button
                             color="success w-75 mb-2"
-                            onClick={() => toggleModal("UPLOAD_PROFILE")}
+                            onClick={() => toggleModal("UPDATE_PROFILE")}
                         >
                             Edit Profile
                         </Button>

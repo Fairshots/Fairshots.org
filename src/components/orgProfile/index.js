@@ -34,7 +34,11 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
             <MDBRow>
                 {!thirdParty && (
                     <div className="col-sm-3 d-flex flex-column align-items-center">
-                        <MDBBtn color="success" className="w-100 mb-2" onClick={toggleModal}>
+                        <MDBBtn
+                            color="success"
+                            className="w-100 mb-2"
+                            onClick={() => toggleModal("UPDATE_PROFILE")}
+                        >
                             Edit Profile <MDBIcon className="ml-2" icon="cog" />
                         </MDBBtn>
                         <MDBBtn
