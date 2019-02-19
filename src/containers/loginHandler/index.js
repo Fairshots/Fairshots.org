@@ -65,7 +65,7 @@ class LoginHandler extends Component {
             <>
                 {!isAuthenticated && (
                     <>
-                        <MDBNavItem>
+                        <MDBNavItem className="loglog">
                             <MDBNavLink to="#!" onClick={() => this.toggleOpenCloses("loginModal")}>
                                 <MDBIcon icon="user" className="mr-2" /> LOGIN
                             </MDBNavLink>
@@ -78,17 +78,18 @@ class LoginHandler extends Component {
                     </>
                 )}
                 {isAuthenticated && (
-                    <MDBDropdown>
-                        <MDBDropdownToggle nav className="text-white">
+                    <MDBDropdown className="profileNav">
+                        <MDBDropdownToggle nav className="loglog" caret>
                             <img
-                                src={profile.Logo}
+                                src={profile.Logo || profile.ProfilePic}
                                 className="rounded-circle z-depth-0 mr-2"
                                 alt=""
                             />
                             {userInfo.userName}
                         </MDBDropdownToggle>
-                        <MDBDropdownMenu>
+                        <MDBDropdownMenu className="f-dropdown-menu">
                             <MDBDropdownItem
+                                className="f-dropdown-link"
                                 onClick={() =>
                                     history.push(
                                         `/${this.props.userInfo.userType}/${
@@ -99,7 +100,10 @@ class LoginHandler extends Component {
                             >
                                 <MDBIcon className="mr-2" icon="cog" /> PROFILE
                             </MDBDropdownItem>
-                            <MDBDropdownItem onClick={() => handleLogout(history)}>
+                            <MDBDropdownItem
+                                className="f-dropdown-link"
+                                onClick={() => handleLogout(history)}
+                            >
                                 <MDBIcon className="mr-2" icon="sign-in-alt" /> LOGOUT
                             </MDBDropdownItem>
                         </MDBDropdownMenu>

@@ -13,6 +13,7 @@ import {
 } from "mdbreact";
 import { Link } from "react-router-dom";
 import LoginHandler from "../../containers/loginHandler";
+import "./navbar.scss";
 
 class NavbarPage extends Component {
     state = {
@@ -42,20 +43,25 @@ class NavbarPage extends Component {
                                 <MDBDropdownToggle nav color="#444444" caret>
                                     ORGANIZATIONS
                                 </MDBDropdownToggle>
-                                <MDBDropdownMenu right>
+                                <MDBDropdownMenu className="n-dropdown-menu" right>
                                     <MDBDropdownItem
+                                        className="n-dropdown-link"
                                         onClick={this.redirect("/register#organization")}
                                     >
                                         REGISTER AN ORGANIZATION
                                     </MDBDropdownItem>
                                     {isAuthenticated && userType !== "photographer" && (
                                         <MDBDropdownItem
+                                            className="n-dropdown-link"
                                             onClick={this.redirect("/create-a-project")}
                                         >
                                             CREATE A NEW PROJECT
                                         </MDBDropdownItem>
                                     )}
-                                    <MDBDropdownItem onClick={this.redirect("/photographers")}>
+                                    <MDBDropdownItem
+                                        className="n-dropdown-link"
+                                        onClick={this.redirect("/photographers")}
+                                    >
                                         FIND A PHOTOGRAPHER
                                     </MDBDropdownItem>
                                 </MDBDropdownMenu>
@@ -66,16 +72,23 @@ class NavbarPage extends Component {
                                 <MDBDropdownToggle nav color="#444444" caret>
                                     PHOTOGRAPHERS
                                 </MDBDropdownToggle>
-                                <MDBDropdownMenu right>
+                                <MDBDropdownMenu className="n-dropdown-menu" right>
                                     <MDBDropdownItem
+                                        className="n-dropdown-link"
                                         onClick={this.redirect("/register#photographer")}
                                     >
                                         REGISTER AS A PHOTOGRAPHER
                                     </MDBDropdownItem>
-                                    <MDBDropdownItem onClick={this.redirect("/organizations")}>
+                                    <MDBDropdownItem
+                                        className="n-dropdown-link"
+                                        onClick={this.redirect("/organizations")}
+                                    >
                                         FIND AN NGO
                                     </MDBDropdownItem>
-                                    <MDBDropdownItem onClick={this.redirect("/projectss")}>
+                                    <MDBDropdownItem
+                                        className="n-dropdown-link"
+                                        onClick={this.redirect("/projectss")}
+                                    >
                                         CURRENT PROJECTS
                                     </MDBDropdownItem>
                                 </MDBDropdownMenu>
@@ -88,7 +101,7 @@ class NavbarPage extends Component {
                             <MDBNavLink to="/contact-us">CONTACT</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
-                    <MDBNavbarNav right>
+                    <MDBNavbarNav className="login-handler" right>
                         <LoginHandler />
                     </MDBNavbarNav>
                 </MDBCollapse>
