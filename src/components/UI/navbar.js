@@ -11,8 +11,8 @@ import {
     MDBDropdownMenu,
     MDBDropdownItem
 } from "mdbreact";
-import LoginHandler from "../../containers/loginHandler";
 import { Link } from "react-router-dom";
+import LoginHandler from "../../containers/loginHandler";
 
 class NavbarPage extends Component {
     state = {
