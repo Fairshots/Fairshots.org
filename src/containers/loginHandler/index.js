@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { login, logout } from "../../actions";
-import LoginModal from "../../components/loginModal";
 import {
     MDBNavItem,
     MDBNavLink,
@@ -12,6 +10,8 @@ import {
     MDBDropdownItem,
     MDBDropdownMenu
 } from "mdbreact";
+import { login, logout } from "../../actions";
+import LoginModal from "../../components/loginModal";
 
 import "./login-handler.scss";
 
@@ -35,11 +35,6 @@ class LoginHandler extends Component {
         };
 
         this.props.doLogin(form);
-        this.props.getProfile(
-            this.props.userInfo.userType,
-            this.props.userInfo.userId,
-            this.props.userInfo.token
-        );
     };
 
     toggleOpenCloses = name => {
@@ -137,8 +132,7 @@ const mapDispatchToProps = dispatch => ({
     handleLogout: history => {
         history.push("/");
         dispatch(logout());
-    },
-    getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token))
+    }
 });
 
 export default withRouter(
