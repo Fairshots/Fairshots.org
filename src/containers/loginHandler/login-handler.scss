@@ -1,4 +1,3 @@
-
 .login-handler {
     .loglog {
         color: white !important;
@@ -12,6 +11,9 @@
 
     a {
         color: white;
+        &.general-paragraph {
+            color: darkgreen;
+        }
     }
 
     .f-dropdown-link {

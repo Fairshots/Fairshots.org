@@ -1,16 +1,18 @@
 import React from "react";
-import { Button, Input, Modal, ModalBody, Form, FormGroup, FormFeedback, Row } from "reactstrap";
+import { Input, Form, FormGroup, FormFeedback } from "reactstrap";
+import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBRow } from "mdbreact";
 
 export default function LoginModal(props) {
     return (
-        <Modal
+        <MDBModal
             name="loginModal"
             isOpen={props.showModal}
             toggle={() => props.showLoginModal("loginModal")}
         >
-            <ModalBody>
+            <MDBModalHeader toggle={() => props.showLoginModal("loginModal")} />
+            <MDBModalBody>
                 <Form onSubmit={props.handleSubmit}>
-                    <Row className="justify-content-center">
+                    <MDBRow className="justify-content-center">
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-2">
                             <Input
                                 type="email"
@@ -22,9 +24,9 @@ export default function LoginModal(props) {
                                 invalid={props.errorMessage !== ""}
                             />
                         </FormGroup>
-                    </Row>
-                    <Row className="justify-content-center">
-                        <FormGroup className="mb-2 mr-sm-2 mb-sm-2">
+                    </MDBRow>
+                    <MDBRow className="justify-content-center">
+                        <FormGroup className="form-group mb-2 mr-sm-2 mb-sm-2">
                             <Input
                                 type="password"
                                 name="password"
@@ -36,12 +38,19 @@ export default function LoginModal(props) {
                             />
                             <FormFeedback>{props.errorMessage}</FormFeedback>
                         </FormGroup>
-                    </Row>
-                    <Row className="justify-content-center">
-                        <Button>Login</Button>
-                    </Row>
+                    </MDBRow>
+                    <MDBRow className="justify-content-center">
+                        <a href="/forgot" className="general-paragraph">
+                            Forgot my password
+                        </a>
+                    </MDBRow>
+                    <MDBRow className="justify-content-center">
+                        <MDBBtn type="submit" color="dark-green">
+                            Login
+                        </MDBBtn>
+                    </MDBRow>
                 </Form>
-            </ModalBody>
-        </Modal>
+            </MDBModalBody>
+        </MDBModal>
     );
 }
