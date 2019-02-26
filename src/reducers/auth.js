@@ -24,6 +24,11 @@ export default function auth(state = INITIAL_STATE, action) {
                 errorMessage: ""
             });
         }
+        case "AUTH_FORGOT": {
+            return Object.assign({}, state, {
+                errorMessage: "An e-mail was sent with a link to reset your password"
+            });
+        }
         case "AUTH_LOGOUT": {
             localStorage.removeItem("user");
             return Object.assign({}, state, {

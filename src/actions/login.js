@@ -37,3 +37,30 @@ export function logout() {
         type: "AUTH_LOGOUT"
     };
 }
+
+export function resetPw(formProps) {
+    return async dispatch => {
+        dispatch(toggleLoading());
+        const config = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ Email: formProps.email })
+        };
+        try {
+            const res = await fetch(`${FAIRSHOTS_API}login/forgot`, config);
+            const info = await res.json();
+            console.log(info);
+            dispatch({
+                type: "AUTH_FORGOT",
+                payload: info
+            });
+            dispatch(toggleLoading());
+        } catch (e) {
+            dispatch({
+                type: "AUTH_ERROR",
+                payload: "email incorrect or user not registered"
+            });
+            dispatch(toggleLoading());
+        }
+    };
+}

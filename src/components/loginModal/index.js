@@ -1,5 +1,6 @@
 import React from "react";
 import { Input, Form, FormGroup, FormFeedback } from "reactstrap";
+import { Link } from "react-router-dom";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBRow } from "mdbreact";
 
 export default function LoginModal(props) {
@@ -27,27 +28,32 @@ export default function LoginModal(props) {
                     </MDBRow>
                     <MDBRow className="justify-content-center">
                         <FormGroup className="form-group mb-2 mr-sm-2 mb-sm-2">
-                            <Input
-                                type="password"
-                                name="password"
-                                id="Password"
-                                placeholder="password"
-                                value={props.password}
-                                onChange={props.handleChange}
-                                invalid={props.errorMessage !== ""}
-                            />
+                            {!props.forgotPass && (
+                                <Input
+                                    type="password"
+                                    name="password"
+                                    id="Password"
+                                    placeholder="password"
+                                    value={props.password}
+                                    onChange={props.handleChange}
+                                    invalid={props.errorMessage !== ""}
+                                />
+                            )}
                             <FormFeedback>{props.errorMessage}</FormFeedback>
                         </FormGroup>
                     </MDBRow>
                     <MDBRow className="justify-content-center">
-                        <a href="/forgot" className="general-paragraph">
-                            Forgot my password
+                        <a href="/#" className="general-paragraph" onClick={props.toggleForget}>
+                            {props.forgotPass ? "I know my password" : "Forgot my password"}
                         </a>
                     </MDBRow>
                     <MDBRow className="justify-content-center">
                         <MDBBtn type="submit" color="dark-green">
-                            Login
+                            {props.forgotPass ? "Send me an e-mail" : "Login"}
                         </MDBBtn>
+                        {props.forgotPass && props.errorMessage && (
+                            <p color="red">{`${props.errorMessage}`}</p>
+                        )}
                     </MDBRow>
                 </Form>
             </MDBModalBody>

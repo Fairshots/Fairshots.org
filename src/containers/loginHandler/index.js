@@ -10,7 +10,7 @@ import {
     MDBDropdownItem,
     MDBDropdownMenu
 } from "mdbreact";
-import { login, logout } from "../../actions";
+import { login, logout, resetPw } from "../../actions";
 import LoginModal from "../../components/loginModal";
 
 import "./login-handler.scss";
@@ -20,7 +20,8 @@ class LoginHandler extends Component {
         email: "",
         password: "",
         loginModal: false,
-        profileNav: false
+        profileNav: false,
+        forgotPass: false
     };
 
     handleChange = event => {
@@ -33,13 +34,19 @@ class LoginHandler extends Component {
             email: this.state.email,
             password: this.state.password
         };
-
-        this.props.doLogin(form);
+        if (this.state.forgotPass) {
+            this.props.resetPassword({ email: this.state.email });
+        } else this.props.doLogin(form);
     };
 
     toggleOpenCloses = name => {
         this.setState(prevState => ({ [name]: !prevState[name] }));
     };
+
+    toggleForget = () =>
+        this.setState(prevState => ({
+            forgotPass: !prevState.forgotPass
+        }));
 
     componentDidUpdate(prevProps) {
         if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
@@ -117,6 +124,8 @@ class LoginHandler extends Component {
                     email={this.state.email}
                     password={this.state.password}
                     errorMessage={errorMessage}
+                    forgotPass={this.state.forgotPass}
+                    toggleForget={this.toggleForget}
                 />
             </>
         );
@@ -132,6 +141,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     doLogin: formProps => {
         dispatch(login(formProps));
+    },
+    resetPassword: formProps => {
+        dispatch(resetPw(formProps));
     },
     handleLogout: history => {
         history.push("/");
