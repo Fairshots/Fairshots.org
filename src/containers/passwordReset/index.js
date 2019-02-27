@@ -1,37 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import { resetPw } from "../../actions";
 
-const PasswordReset = () => {
-    const [state, setState] = useState({ email: "", newpassword: "" });
+const PasswordReset = ({
+    resetPassword,
+    error,
+    notification,
+    match: {
+        params: { token }
+    }
+}) => {
+    const [password, setPw] = useState("");
+    const [retypePassword, setRetypePw] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(
+        () => {
+            setTimeout(() => setErrorMessage(""), 5000);
+        },
+        [errorMessage]
+    );
+
+    const handleSubmit = event => {
+        event.preventDefault();
+
+        if (password !== retypePassword) {
+            setErrorMessage("passwords need to match");
+            console.log(errorMessage);
+        } else if (password.length < 8) {
+            setErrorMessage("password must contain at least 8 characters");
+        } else {
+            resetPassword({ password, token });
+        }
+    };
+
     return (
         <MDBContainer>
             <MDBRow center>
                 <MDBCol md="6">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <p className="h4 text-center mt-4 mb-4">Set up your new password</p>
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="e-mail"
-                            className="form-control"
-                        />
                         <br />
                         <input
-                            type="new password"
-                            placeholder="password"
+                            type="password"
+                            placeholder="new password"
                             id="newpassword"
-                            className="form-control"
+                            className={`form-control ${errorMessage ? "is-invalid" : ""}`}
+                            value={password}
+                            onChange={event => {
+                                event.preventDefault();
+                                setPw(event.target.value);
+                            }}
                         />
                         <br />
                         <input
                             type="password"
                             placeholder="retype new password"
-                            id="newpassword"
-                            className="form-control"
+                            id="retypepassword"
+                            className={`form-control ${errorMessage ? "is-invalid" : ""}`}
+                            value={retypePassword}
+                            onChange={event => {
+                                event.preventDefault();
+                                setRetypePw(event.target.value);
+                            }}
                         />
+                        <div className="invalid-feedback">{errorMessage}</div>
                         <div className="text-center mt-4">
+                            <div color={error ? "red" : "green"}>{error || notification}</div>
                             <MDBBtn color="dark-green" type="submit">
-                                Login
+                                Save change
                             </MDBBtn>
                         </div>
                     </form>
@@ -41,4 +80,20 @@ const PasswordReset = () => {
     );
 };
 
-export default PasswordReset;
+const mapStateToProps = reduxState => ({
+    notification: reduxState.auth.notification,
+    error: reduxState.auth.errorMessage
+});
+
+const mapDispatchToProps = dispatch => ({
+    resetPassword: formProps => {
+        dispatch(resetPw(formProps));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(PasswordReset)
+);
