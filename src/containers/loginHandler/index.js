@@ -10,7 +10,7 @@ import {
     MDBDropdownItem,
     MDBDropdownMenu
 } from "mdbreact";
-import { login, logout, resetPw } from "../../actions";
+import { login, logout, forgotPw } from "../../actions";
 import LoginModal from "../../components/loginModal";
 
 import "./login-handler.scss";
@@ -35,7 +35,7 @@ class LoginHandler extends Component {
             password: this.state.password
         };
         if (this.state.forgotPass) {
-            this.props.resetPassword({ email: this.state.email });
+            this.props.forgotPassword({ email: this.state.email });
         } else this.props.doLogin(form);
     };
 
@@ -142,8 +142,8 @@ const mapDispatchToProps = dispatch => ({
     doLogin: formProps => {
         dispatch(login(formProps));
     },
-    resetPassword: formProps => {
-        dispatch(resetPw(formProps));
+    forgotPassword: formProps => {
+        dispatch(forgotPw(formProps));
     },
     handleLogout: history => {
         history.push("/");

@@ -38,7 +38,7 @@ export function logout() {
     };
 }
 
-export function resetPw(formProps) {
+export function forgotPw(formProps) {
     return async dispatch => {
         dispatch(toggleLoading());
         const config = {
@@ -58,7 +58,34 @@ export function resetPw(formProps) {
         } catch (e) {
             dispatch({
                 type: "AUTH_ERROR",
-                payload: "email incorrect or user not registered"
+                payload: e.statusText !== undefined ? e.statusText : e.toString()
+            });
+            dispatch(toggleLoading());
+        }
+    };
+}
+
+export function resetPw(formProps) {
+    return async dispatch => {
+        dispatch(toggleLoading());
+        const config = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ Password: formProps.password })
+        };
+        try {
+            const res = await fetch(`${FAIRSHOTS_API}login/pwreset/${formProps.token}`, config);
+            const info = await res.json();
+            console.log(info);
+            dispatch({
+                type: "AUTH_RESETPASSWORD",
+                payload: info
+            });
+            dispatch(toggleLoading());
+        } catch (e) {
+            dispatch({
+                type: "AUTH_ERROR",
+                payload: e.statusText !== undefined ? e.statusText : e.toString()
             });
             dispatch(toggleLoading());
         }
