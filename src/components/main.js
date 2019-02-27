@@ -9,6 +9,7 @@ import UserProfile from "../containers/userProfile";
 import AllOrgs from "../containers/allOrgs";
 import AllPhotographers from "../containers/allPhotographers";
 import CreateProject from "../containers/createProject";
+import Dashboard from "../containers/dashboard";
 import { ProtectedRoute } from "./UI/";
 
 export default function Main(props) {
@@ -22,6 +23,7 @@ export default function Main(props) {
                 <Route path="/photographers" exact component={AllPhotographers} />
                 <Route path="/organizations" exact component={AllOrgs} />
                 <Route path="/terms-and-conditions" exact component={TermsandConditions} />
+                <Route path="/dashboard" exact component={Dashboard} />
                 <ProtectedRoute
                     isAuthenticated={props.isAuthenticated}
                     userType={props.userType}

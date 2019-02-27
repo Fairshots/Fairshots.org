@@ -1,4 +1,4 @@
 module.exports = {
-  tabWidth: 4,
+  tabWidth: 2,
   printWidth: 100
 };
