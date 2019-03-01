@@ -32,7 +32,7 @@ export default function auth(state = INITIAL_STATE, action) {
         }
         case "AUTH_RESETPASSWORD": {
             return Object.assign({}, state, {
-                notification: "An e-mail was sent with a link to reset your password"
+                notification: action.payload.msg
             });
         }
         case "AUTH_LOGOUT": {
@@ -40,6 +40,12 @@ export default function auth(state = INITIAL_STATE, action) {
             return Object.assign({}, state, {
                 user: {},
                 isAuthenticated: false,
+                errorMessage: ""
+            });
+        }
+        case "AUTH_RESETMESSAGES": {
+            return Object.assign({}, state, {
+                notification: "",
                 errorMessage: ""
             });
         }

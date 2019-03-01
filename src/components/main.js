@@ -31,7 +31,7 @@ export default function Main(props) {
                     exact
                     component={CreateProject}
                 />
-                <Route path="/pwreset/:token" component={PasswordReset} />
+                <Route path="/login/pwreset/:token" component={PasswordReset} />
                 <Route path="/:userType/:userId" component={UserProfile} />
             </Switch>
         </main>

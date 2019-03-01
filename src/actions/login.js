@@ -66,6 +66,8 @@ export function forgotPw(formProps) {
 }
 
 export function resetPw(formProps) {
+    console.log(formProps);
+    const token = formProps.token.replace(/&/g, ".");
     return async dispatch => {
         dispatch(toggleLoading());
         const config = {
@@ -74,7 +76,7 @@ export function resetPw(formProps) {
             body: JSON.stringify({ Password: formProps.password })
         };
         try {
-            const res = await fetch(`${FAIRSHOTS_API}login/pwreset/${formProps.token}`, config);
+            const res = await fetch(`${FAIRSHOTS_API}login/pwreset/${token}`, config);
             const info = await res.json();
             console.log(info);
             dispatch({

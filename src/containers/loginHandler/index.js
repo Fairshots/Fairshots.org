@@ -56,6 +56,9 @@ class LoginHandler extends Component {
                 `/${this.props.userInfo.userType}/${this.props.userInfo.userId}`
             );
         }
+        if (this.props.errorMessage || this.props.notification) {
+            setTimeout(() => this.props.clearMessages(), 5000);
+        }
     }
 
     render() {
@@ -64,6 +67,7 @@ class LoginHandler extends Component {
             handleLogout,
             errorMessage,
             history,
+            notification,
             userInfo,
             profile
         } = this.props;
@@ -124,6 +128,7 @@ class LoginHandler extends Component {
                     email={this.state.email}
                     password={this.state.password}
                     errorMessage={errorMessage}
+                    notification={notification}
                     forgotPass={this.state.forgotPass}
                     toggleForget={this.toggleForget}
                 />
@@ -134,6 +139,7 @@ class LoginHandler extends Component {
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     errorMessage: state.auth.errorMessage,
+    notification: state.auth.notification,
     userInfo: state.auth.user,
     profile: state.profile
 });
@@ -148,7 +154,8 @@ const mapDispatchToProps = dispatch => ({
     handleLogout: history => {
         history.push("/");
         dispatch(logout());
-    }
+    },
+    clearMessages: () => dispatch({ type: "AUTH_RESETMESSAGES" })
 });
 
 export default withRouter(

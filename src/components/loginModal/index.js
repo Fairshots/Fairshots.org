@@ -51,8 +51,8 @@ export default function LoginModal(props) {
                         <MDBBtn type="submit" color="dark-green">
                             {props.forgotPass ? "Send me an e-mail" : "Login"}
                         </MDBBtn>
-                        {props.forgotPass && props.errorMessage && (
-                            <p color="red">{`${props.errorMessage}`}</p>
+                        {props.forgotPass && props.notification && (
+                            <p color="red">{`${props.notification}`}</p>
                         )}
                     </MDBRow>
                 </Form>
