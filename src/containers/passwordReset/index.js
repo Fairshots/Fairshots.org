@@ -6,8 +6,9 @@ import { resetPw } from "../../actions";
 
 const PasswordReset = ({
     resetPassword,
-    error,
     notification,
+    tokenError,
+    history,
     match: {
         params: { token }
     }
@@ -21,6 +22,13 @@ const PasswordReset = ({
             setTimeout(() => setErrorMessage(""), 5000);
         },
         [errorMessage]
+    );
+
+    useEffect(
+        () => {
+            if (notification) setTimeout(() => history.push("/"), 5000);
+        },
+        [notification]
     );
 
     const handleSubmit = event => {
@@ -68,7 +76,12 @@ const PasswordReset = ({
                         />
                         <div className="invalid-feedback">{errorMessage}</div>
                         <div className="text-center mt-4">
-                            <div color={error ? "red" : "green"}>{error || notification}</div>
+                            <div
+                                className={notification ? "text-success" : "text-danger"}
+                                style={{ minHeight: "30px" }}
+                            >
+                                {notification || tokenError}
+                            </div>
                             <MDBBtn color="dark-green" type="submit">
                                 Save change
                             </MDBBtn>
@@ -82,7 +95,7 @@ const PasswordReset = ({
 
 const mapStateToProps = reduxState => ({
     notification: reduxState.auth.notification,
-    error: reduxState.auth.errorMessage
+    tokenError: reduxState.auth.errorMessage
 });
 
 const mapDispatchToProps = dispatch => ({

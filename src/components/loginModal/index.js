@@ -48,12 +48,16 @@ export default function LoginModal(props) {
                         </a>
                     </MDBRow>
                     <MDBRow className="justify-content-center">
+                        {props.forgotPass && (
+                            <p
+                                className={props.notification ? "text-success" : "text-danger"}
+                            >{`${props.notification || props.errorMessage}`}</p>
+                        )}
+                    </MDBRow>
+                    <MDBRow className="justify-content-center">
                         <MDBBtn type="submit" color="dark-green">
                             {props.forgotPass ? "Send me an e-mail" : "Login"}
                         </MDBBtn>
-                        {props.forgotPass && props.notification && (
-                            <p color="red">{`${props.notification}`}</p>
-                        )}
                     </MDBRow>
                 </Form>
             </MDBModalBody>

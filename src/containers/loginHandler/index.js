@@ -58,6 +58,9 @@ class LoginHandler extends Component {
         }
         if (this.props.errorMessage || this.props.notification) {
             setTimeout(() => this.props.clearMessages(), 5000);
+            if (this.props.notification.includes("e-mail was sent")) {
+                setTimeout(() => this.toggleOpenCloses("loginModal"), 5000);
+            }
         }
     }
 
