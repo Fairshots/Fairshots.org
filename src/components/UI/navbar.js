@@ -31,9 +31,9 @@ class NavbarPage extends Component {
     render() {
         const { isAuthenticated, userType } = this.props;
         return (
-            <MDBNavbar color="#444444" style={{ paddingRight: "6rem" }} dark expand="md">
+            <MDBNavbar fixed="top" dark expand="lg">
                 <Link to="/" className="navbar-brand">
-                    <img src="images/Fair-shotsV3.png" width="250" />
+                    <img className="logo" src="images/Fair-shotsV3.png" />
                 </Link>
                 <MDBNavbarToggler onClick={this.toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
