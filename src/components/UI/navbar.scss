@@ -3,6 +3,22 @@
         color: white;
     }
 
+    .logo {
+        width: 250px;
+
+        @media screen and (max-width: 600px) {
+            width: 150px;
+        }
+    }
+
+    &.navbar-dark.fixed-top {
+        padding-right: 6rem;
+
+        @media screen and (max-width: 1000px) {
+            padding-right: 1rem;
+        }
+    }
+
     .n-dropdown-link {
         font-family: Lato, sans-serif;
         font-size: 15px;
