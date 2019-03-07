@@ -1,21 +1,45 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import DashboardLogin from "./dashboardLogin";
 import DashboardPannel from "./dashboardPannel";
-import RawDataTest from "./rawDataTest";
 import SideNavigation from "./sideNavigation";
+import { getAllOrgs, getAllPhotographers } from "../../actions";
 
 import "./dashboard.scss";
 
 class Dashboard extends Component {
+  componentDidMount() {
+    const { allPhotographers, doGetPhotographers, allOrgs, doGetOrgs } = this.props;
+    if (!allPhotographers.photographers) {
+      doGetPhotographers();
+    }
+    if (!allOrgs.organizations) {
+      doGetOrgs();
+    }
+  }
+
   render() {
+    const { allPhotographers, allOrgs } = this.props;
     return (
-      <div className="dash">
-        <RawDataTest />
-        {/* <DashboardPannel /> */}
-      </div>
+      <div className="dash">{allPhotographers.photographers.forEach(v => console.log(v))}</div>
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  allOrgs: state.allOrgs,
+  allPhotographers: state.allPhotographers
+});
+const mapDispatchToProps = dispatch => ({
+  doGetOrgs: () => dispatch(getAllOrgs()),
+  doGetPhotographers: () => dispatch(getAllPhotographers()),
+  loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Dashboard)
+);
