@@ -1,18 +1,39 @@
 import React, { Component } from "react";
-import { MDBListGroup, MDBListGroupItem, MDBBadge } from "mdbreact";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import DashboardPage from "./DashboardPage";
 import SideNavigation from "./sideNavigation";
+import OrgsGrid from "./orgsGrid";
+import PhotographersGrid from "./photographersGrid";
+import { getAllOrgs, getAllPhotographers } from "../../actions";
 
 class dashboardPannel extends Component {
+  componentDidMount() {
+    const { allPhotographers, doGetPhotographers, allOrgs, doGetOrgs } = this.props;
+    if (!allPhotographers.photographers) {
+      doGetPhotographers();
+    }
+    if (!allOrgs.organizations) {
+      doGetOrgs();
+    }
+  }
+
   render() {
+    const { allPhotographers, allOrgs } = this.props;
     return (
-      <div>
-        <div className="row">
-          <div className="col-2">
-            <SideNavigation />
+      <div class="container" style={{ paddingTop: 20 }}>
+        <div class="row">
+          <div class="col">
+            {allOrgs.organizations ? <OrgsGrid orgs={allOrgs.organizations} /> : ""}
           </div>
-          <div className="col-sm">
-            <DashboardPage />
+        </div>
+        <div class="row">
+          <div class="col">
+            {allPhotographers.photographers ? (
+              <PhotographersGrid photographers={allPhotographers.photographers} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
@@ -20,4 +41,18 @@ class dashboardPannel extends Component {
   }
 }
 
-export default dashboardPannel;
+const mapStateToProps = state => ({
+  allOrgs: state.allOrgs,
+  allPhotographers: state.allPhotographers
+});
+const mapDispatchToProps = dispatch => ({
+  doGetOrgs: () => dispatch(getAllOrgs()),
+  doGetPhotographers: () => dispatch(getAllPhotographers())
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(dashboardPannel)
+);
