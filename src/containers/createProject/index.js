@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import formConfiguration from "./formConfiguration.json";
-import { MultipartForm, DonutSpin } from "../../components/UI/";
+import { MultipartForm, DonutSpin } from "../../components/UI";
 
 class createProject extends Component {
     state = {
@@ -39,7 +39,7 @@ class createProject extends Component {
 
         const formData = {};
 
-        for (let inputIdentifier in this.state.form) {
+        for (const inputIdentifier in this.state.form) {
             formData[inputIdentifier] = this.state.form[inputIdentifier].config.value;
         }
 
@@ -50,7 +50,7 @@ class createProject extends Component {
     postData = formData => {
         // TODO: send data to the backend
         console.log(formData);
-        new Promise(function(resolve) {
+        new Promise(resolve => {
             setTimeout(resolve, 3000);
         }).then(() => this.setState({ loading: false, dataSend: true }));
     };
@@ -68,8 +68,8 @@ class createProject extends Component {
     };
 
     onBlur = inputIdentifier => e => {
-        const validationRules = this.state.form[inputIdentifier].config.validationRules;
-        const value = e.target.value;
+        const { validationRules } = this.state.form[inputIdentifier].config;
+        const { value } = e.target;
 
         const form = {
             ...this.state.form,
@@ -87,7 +87,7 @@ class createProject extends Component {
     };
 
     inputChangeHandler = inputIdentifier => e => {
-        const value = e.target.value;
+        const { value } = e.target;
 
         const form = {
             ...this.state.form,
@@ -105,7 +105,7 @@ class createProject extends Component {
 
     render() {
         const formElementsArray = [];
-        for (let key in this.state.form) {
+        for (const key in this.state.form) {
             formElementsArray.push({
                 id: key,
                 config: this.state.form[key]

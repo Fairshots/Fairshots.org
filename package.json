@@ -38,7 +38,7 @@
         "redux": "^4.0.0",
         "redux-form": "^7.4.2",
         "redux-thunk": "^2.3.0",
-        "sha1": "^1.1.1"
+        "@fortawesome/fontawesome-free": "^5.7.2"
     },
     "devDependencies": {
         "@babel/core": "^7.3.3",

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./form.scss";
-import InputType from "./inputType";
 import { Link } from "react-router-dom";
 import { MDBBtn, MDBRow, MDBIcon } from "mdbreact";
+import InputType from "./inputType";
 
 class MultipartForm extends Component {
     state = {
@@ -106,7 +106,7 @@ class MultipartForm extends Component {
                                     </MDBBtn>
                                 )}
                                 <MDBBtn id="nextBtn" onClick={this.nextStepHandler}>
-                                    {activeTab === 6 ? `Submit` : `Next step`}
+                                    {activeTab === 6 ? "Submit" : "Next step"}
                                 </MDBBtn>
                             </MDBRow>
                         </fieldset>

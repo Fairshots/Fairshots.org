@@ -9,7 +9,8 @@ import UserProfile from "../containers/userProfile";
 import AllOrgs from "../containers/allOrgs";
 import AllPhotographers from "../containers/allPhotographers";
 import CreateProject from "../containers/createProject";
-import { ProtectedRoute } from "./UI/";
+import PasswordReset from "../containers/passwordReset";
+import { ProtectedRoute } from "./UI";
 
 export default function Main(props) {
     return (
@@ -30,6 +31,7 @@ export default function Main(props) {
                     exact
                     component={CreateProject}
                 />
+                <Route path="/login/pwreset/:token" component={PasswordReset} />
                 <Route path="/:userType/:userId" component={UserProfile} />
             </Switch>
         </main>
