@@ -14,7 +14,6 @@ export default function getAllOrgs() {
       const res = await fetch(`${FAIRSHOTS_API}api/organization/all`, config);
       if (res.ok) {
         const allOrgs = await res.json();
-        console.log(allOrgs);
         dispatch({
           type: "GET_ALLOrgs",
           payload: allOrgs

@@ -14,7 +14,6 @@ export default function getAllPhotographers() {
       const res = await fetch(`${FAIRSHOTS_API}api/photographer/all`, config);
       if (res.ok) {
         const allPhotographers = await res.json();
-        console.log(allPhotographers);
         dispatch({
           type: "GET_ALLPHOTOGRAPHERS",
           payload: allPhotographers

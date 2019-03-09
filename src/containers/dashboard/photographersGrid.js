@@ -6,7 +6,8 @@ import {
   MDBTableBody,
   MDBTableHead,
   MDBRow,
-  MDBCol
+  MDBCol,
+  MDBDataTable
 } from "mdbreact";
 
 class PhotographersGrid extends Component {
