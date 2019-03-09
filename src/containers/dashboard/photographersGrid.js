@@ -30,7 +30,7 @@ class PhotographersGrid extends Component {
                   </MDBTableHead>
                   <MDBTableBody>
                     {photographers.map((photographer, i) => (
-                      <tr>
+                      <tr key={photographer.id}>
                         <td>{i}</td>
                         <td>{photographer.Name}</td>
                         <td>{photographer.Skill}</td>

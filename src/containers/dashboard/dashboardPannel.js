@@ -21,14 +21,14 @@ class dashboardPannel extends Component {
   render() {
     const { allPhotographers, allOrgs } = this.props;
     return (
-      <div class="container" style={{ paddingTop: 20 }}>
-        <div class="row">
-          <div class="col">
+      <div className="container" style={{ paddingTop: 20 }}>
+        <div className="row">
+          <div className="col">
             {allOrgs.organizations ? <OrgsGrid orgs={allOrgs.organizations} /> : ""}
           </div>
         </div>
-        <div class="row">
-          <div class="col">
+        <div className="row">
+          <div className="col">
             {allPhotographers.photographers ? (
               <PhotographersGrid photographers={allPhotographers.photographers} />
             ) : (

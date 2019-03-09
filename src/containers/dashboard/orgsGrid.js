@@ -29,7 +29,7 @@ class OrgsGrid extends Component {
                   </MDBTableHead>
                   <MDBTableBody>
                     {orgs.map((orgs, i) => (
-                      <tr>
+                      <tr key={orgs.id}>
                         <td>{i}</td>
                         <td>{orgs.Name}</td>
                         <td>{orgs.Country}</td>
