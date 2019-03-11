@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import DashboardPage from "./DashboardPage";
 import SideNavigation from "./sideNavigation";
+import Sidebar from "./Sidebar";
 import OrgsGrid from "./orgsGrid";
 import PhotographersGrid from "./photographersGrid";
 import { getAllOrgs, getAllPhotographers } from "../../actions";
@@ -21,19 +22,22 @@ class dashboardPannel extends Component {
   render() {
     const { allPhotographers, allOrgs } = this.props;
     return (
-      <div className="container" style={{ paddingTop: 20 }}>
-        <div className="row">
-          <div className="col">
-            {allOrgs.organizations ? <OrgsGrid orgs={allOrgs.organizations} /> : ""}
+      <div>
+        <Sidebar />
+        <div className="container" style={{ paddingTop: 20 }}>
+          <div className="row">
+            <div className="col">
+              {allOrgs.organizations ? <OrgsGrid orgs={allOrgs.organizations} /> : ""}
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            {allPhotographers.photographers ? (
-              <PhotographersGrid photographers={allPhotographers.photographers} />
-            ) : (
-              ""
-            )}
+          <div className="row">
+            <div className="col">
+              {allPhotographers.photographers ? (
+                <PhotographersGrid photographers={allPhotographers.photographers} />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
       </div>
