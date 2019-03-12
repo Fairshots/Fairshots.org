@@ -4,29 +4,28 @@ export default class Sidebar extends Component {
   render() {
     const arteste = [1, 2, 3, 4, 5];
     return (
-      <div>
-        <div className="nav col-md-2 d-none d-md-block bg-light sidebar">
-          <div className="sidebar-sticky">
-            <div>
-              <ul className="nav flex-column">
-                <li className="nav-item nav-link " style={{ fontSize: "1rem" }}>
-                  <strong> Histórico</strong>
-                </li>
-                {arteste.map((e, i) => {
-                  console.log("teste de map");
-                  return (
-                    <li key={i} className="nav-item nav-link border">
-                      teste de map
-                      <span style={{ cursor: "pointer" }} onClick={() => console.log("teste")}>
-                        Teste
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-        </div>
+      <div
+        style={{
+          height: "600px",
+          border: "1px solid #dee2e6",
+          boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.12)"
+        }}
+      >
+        <ul className="nav flex-column">
+          <li className="nav-item nav-link border">
+            <strong>Menus disponíveis</strong>
+          </li>
+          {arteste.map((e, i) => (
+            <li
+              key={i}
+              className="nav-item nav-link border"
+              style={{ cursor: "pointer" }}
+              onClick={() => console.log("teste")}
+            >
+              Menu {e}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

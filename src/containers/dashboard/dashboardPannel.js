@@ -23,21 +23,17 @@ class dashboardPannel extends Component {
     const { allPhotographers, allOrgs } = this.props;
     return (
       <div>
-        <Sidebar />
-        <div className="container" style={{ paddingTop: 20 }}>
-          <div className="row">
-            <div className="col">
-              {allOrgs.organizations ? <OrgsGrid orgs={allOrgs.organizations} /> : ""}
-            </div>
+        <div className="d-flex flex-row " style={{ display: "flex" }}>
+          <Sidebar />
+          <div className="p-4">
+            {allOrgs.organizations ? <OrgsGrid orgs={allOrgs.organizations} /> : ""}
           </div>
-          <div className="row">
-            <div className="col">
-              {allPhotographers.photographers ? (
-                <PhotographersGrid photographers={allPhotographers.photographers} />
-              ) : (
-                ""
-              )}
-            </div>
+          <div className="p-4">
+            {allPhotographers.photographers ? (
+              <PhotographersGrid photographers={allPhotographers.photographers} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
