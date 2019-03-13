@@ -7,19 +7,17 @@ const ProtectedRoute = ({
     allowOnly,
     component: Component,
     ...props
-}) => {
-    return (
-        <Route
-            {...props}
-            render={props =>
-                isAuthenticated === true && userType === allowOnly ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to="/" />
-                )
-            }
-        />
-    );
-};
+}) => (
+    <Route
+        {...props}
+        render={() =>
+            isAuthenticated === true && userType === allowOnly ? (
+                <Component {...props} />
+            ) : (
+                <Redirect to="/" />
+            )
+        }
+    />
+);
 
 export default ProtectedRoute;

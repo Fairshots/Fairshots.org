@@ -10,30 +10,32 @@ import AllOrgs from "../containers/allOrgs";
 import AllPhotographers from "../containers/allPhotographers";
 import CreateProject from "../containers/createProject";
 import Dashboard from "../containers/dashboard";
-import { ProtectedRoute } from "./UI/";
+import PasswordReset from "../containers/passwordReset";
+import { ProtectedRoute } from "./UI";
 
 export default function Main(props) {
-    return (
-        <main>
-            <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/about" exact component={About} />
-                <Route path="/contact-us" exact component={Contact} />
-                <Route path="/register" exact component={RegisterForm} />
-                <Route path="/photographers" exact component={AllPhotographers} />
-                <Route path="/organizations" exact component={AllOrgs} />
-                <Route path="/terms-and-conditions" exact component={TermsandConditions} />
-                <Route path="/dashboard" exact component={Dashboard} />
-                <ProtectedRoute
-                    isAuthenticated={props.isAuthenticated}
-                    userType={props.userType}
-                    allowOnly="organization"
-                    path="/create-a-project"
-                    exact
-                    component={CreateProject}
-                />
-                <Route path="/:userType/:userId" component={UserProfile} />
-            </Switch>
-        </main>
-    );
+  return (
+    <main>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/about" exact component={About} />
+        <Route path="/contact-us" exact component={Contact} />
+        <Route path="/register" exact component={RegisterForm} />
+        <Route path="/photographers" exact component={AllPhotographers} />
+        <Route path="/organizations" exact component={AllOrgs} />
+        <Route path="/terms-and-conditions" exact component={TermsandConditions} />
+        <Route path="/dashboard" exact component={Dashboard} />
+        <ProtectedRoute
+          isAuthenticated={props.isAuthenticated}
+          userType={props.userType}
+          allowOnly="organization"
+          path="/create-a-project"
+          exact
+          component={CreateProject}
+        />
+        <Route path="/login/pwreset/:token" component={PasswordReset} />
+        <Route path="/:userType/:userId" component={UserProfile} />
+      </Switch>
+    </main>
+  );
 }

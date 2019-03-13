@@ -3,6 +3,7 @@ const userSaved = localStorage.getItem("user");
 const INITIAL_STATE = {
     user: !(userSaved === "undefined" || userSaved === null) ? JSON.parse(userSaved) : {},
     errorMessage: "",
+    notification: "",
     isAuthenticated: !(userSaved === "undefined" || userSaved === null)
 };
 
@@ -24,11 +25,27 @@ export default function auth(state = INITIAL_STATE, action) {
                 errorMessage: ""
             });
         }
+        case "AUTH_FORGOT": {
+            return Object.assign({}, state, {
+                notification: "An e-mail was sent with a link to reset your password"
+            });
+        }
+        case "AUTH_RESETPASSWORD": {
+            return Object.assign({}, state, {
+                notification: action.payload.msg
+            });
+        }
         case "AUTH_LOGOUT": {
             localStorage.removeItem("user");
             return Object.assign({}, state, {
                 user: {},
                 isAuthenticated: false,
+                errorMessage: ""
+            });
+        }
+        case "AUTH_RESETMESSAGES": {
+            return Object.assign({}, state, {
+                notification: "",
                 errorMessage: ""
             });
         }
