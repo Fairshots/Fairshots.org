@@ -44,6 +44,10 @@ class LoginHandler extends Component {
       forgotPass: !prevState.forgotPass
     }));
 
+  toggleOpenCloses(name) {
+    this.setState(prevState => ({ [name]: !prevState[name] }));
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
       this.toggleOpenCloses("loginModal");
