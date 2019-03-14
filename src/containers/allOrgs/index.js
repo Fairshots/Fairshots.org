@@ -9,45 +9,45 @@ import ProfileCards from "../../components/profilecards";
  * @extends Component
  */
 class AllOrgs extends Component {
-    componentDidMount() {
-        const { allOrgs, doGetOrgs } = this.props;
-        if (!allOrgs.organizations) {
-            doGetOrgs();
-        }
+  componentDidMount() {
+    const { allOrgs, doGetOrgs } = this.props;
+    if (!allOrgs.organizations) {
+      doGetOrgs();
     }
+  }
 
-    render() {
-        const { allOrgs, loadThirdPartyUserProfile } = this.props;
-        return (
-            <div>
-                {allOrgs.organizations ? (
-                    <ProfileCards
-                        userType="organization"
-                        cards={allOrgs.organizations}
-                        pushHistory={(profile, id) => {
-                            loadThirdPartyUserProfile(profile);
-                            this.props.history.push(`/organization/${id}`);
-                        }}
-                    />
-                ) : (
-                    "Loading"
-                )}
-            </div>
-        );
-    }
+  render() {
+    const { allOrgs, loadThirdPartyUserProfile } = this.props;
+    return (
+      <div>
+        {allOrgs.organizations ? (
+          <ProfileCards
+            userType="organization"
+            cards={allOrgs.organizations}
+            pushHistory={(profile, id) => {
+              loadThirdPartyUserProfile(profile);
+              this.props.history.push(`/organization/${id}`);
+            }}
+          />
+        ) : (
+          "Loading"
+        )}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => ({
-    allOrgs: state.allOrgs
+  allOrgs: state.allOrgs
 });
 const mapDispatchToProps = dispatch => ({
-    doGetOrgs: () => dispatch(getAllOrgs()),
-    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
+  doGetOrgs: () => dispatch(getAllOrgs()),
+  loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AllOrgs)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(AllOrgs)
 );

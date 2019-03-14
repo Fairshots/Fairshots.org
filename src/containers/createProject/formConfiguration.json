@@ -1,0 +1,605 @@
+{
+    "form": {
+        "tittle": {
+            "elementType": "input",
+            "tabId": 1,
+            "config": {
+                "type": "text",
+                "placeholder": "Project tittle",
+                "label": "Project title",
+                "validationRules": { "required": true },
+                "touched": false,
+                "errorMessage": "This field is required",
+                "valid": false,
+                "value": ""
+            }
+        },
+        "primaryCause": {
+            "elementType": "select",
+            "tabId": 1,
+            "config": {
+                "label": "Project Primary cause",
+                "options": [
+                    { "displayedValue": "Animal Welfare" },
+                    { "displayedValue": "Arts and Culture" },
+                    { "displayedValue": "Children and youth" },
+                    { "displayedValue": "Community development" },
+                    { "displayedValue": "Education" },
+                    { "displayedValue": "Environmental" },
+                    { "displayedValue": "Gender Issues" },
+                    { "displayedValue": "Health and Safety" },
+                    { "displayedValue": "Humanitarian work" },
+                    { "displayedValue": "Political activism" },
+                    { "displayedValue": "Relief and crisis work" },
+                    { "displayedValue": "Other" }
+                ],
+                "value": "Animal Welfare",
+                "validationRules": { "required": true },
+                "touched": false,
+                "errorMessage": "This field is required",
+                "valid": true
+            }
+        },
+        "shortDescription": {
+            "elementType": "input",
+            "tabId": 1,
+            "config": {
+                "label": "Project description - short",
+                "type": "input",
+                "placeholder": "Project description - short",
+                "tooltipContent": "This short description will be used on search results",
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "longDescription": {
+            "elementType": "textarea",
+            "tabId": 1,
+            "config": {
+                "label": "Project description - long",
+                "type": "textarea",
+                "placeholder": "Describe your opportunity here...",
+                "tooltipContent": "Be very descriptive and try to anticipate as many questions as possible. This is your chance to recruit photographers to your cause.",
+                "value": "",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": false
+            }
+        },
+        "references": {
+            "elementType": "fileinput",
+            "tabId": 2,
+            "config": {
+                "label": "References",
+                "type": "fileinput",
+                "placeholder": "Upload up to 5 reference images.",
+                "tooltipContent": "Allowed file extensions: jpg, png, gif, jpeg, tif, tiffMax file size: 1 MB",
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": true,
+                "valid": true
+            }
+        },
+        "city": {
+            "elementType": "input",
+            "tabId": 3,
+            "config": {
+                "label": "City / Town",
+                "type": "text",
+                "placeholder": "City / Town",
+                "tooltipContent": "If job is across multiple cities or regions pick the most important one, or where most of the time will be spent. Make sure to include details these details in the description.",
+                "value": "",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": false
+            }
+        },
+        "state": {
+            "elementType": "input",
+            "tabId": 3,
+            "config": {
+                "label": "State / Region",
+                "type": "text",
+                "placeholder": "State / Region",
+                "value": "",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": false
+            }
+        },
+        "country": {
+            "elementType": "select",
+            "tabId": 3,
+            "config": {
+                "label": "Country",
+                "options": [
+                    { "displayedValue": "Afghanistan" },
+                    { "displayedValue": "Åland Islands" },
+                    { "displayedValue": "Albania" },
+                    { "displayedValue": "Algeria" },
+                    { "displayedValue": "American Samoa" },
+                    { "displayedValue": "Andorra" },
+                    { "displayedValue": "Angola" },
+                    { "displayedValue": "Anguilla" },
+                    { "displayedValue": "Antarctica" },
+                    { "displayedValue": "Antigua and Barbuda" },
+                    { "displayedValue": "Argentina" },
+                    { "displayedValue": "Armenia" },
+                    { "displayedValue": "Aruba" },
+                    { "displayedValue": "Australia" },
+                    { "displayedValue": "Austria" },
+                    { "displayedValue": "Azerbaijan" },
+                    { "displayedValue": "Bahamas" },
+                    { "displayedValue": "Bahrain" },
+                    { "displayedValue": "Bangladesh" },
+                    { "displayedValue": "Barbados" },
+                    { "displayedValue": "Belarus" },
+                    { "displayedValue": "Belgium" },
+                    { "displayedValue": "Belize" },
+                    { "displayedValue": "Benin" },
+                    { "displayedValue": "Bermuda" },
+                    { "displayedValue": "Bhutan" },
+                    { "displayedValue": "Bolivia, Plurinational State of" },
+                    { "displayedValue": "Bonaire, Sint Eustatius and Saba" },
+                    { "displayedValue": "Bosnia and Herzegovina" },
+                    { "displayedValue": "Botswana" },
+                    { "displayedValue": "Bouvet Island" },
+                    { "displayedValue": "Brazil" },
+                    { "displayedValue": "British Indian Ocean Territory" },
+                    { "displayedValue": "Brunei Darussalam" },
+                    { "displayedValue": "Bulgaria" },
+                    { "displayedValue": "Burkina Faso" },
+                    { "displayedValue": "Burundi" },
+                    { "displayedValue": "Cambodia" },
+                    { "displayedValue": "Cameroon" },
+                    { "displayedValue": "Canada" },
+                    { "displayedValue": "Cape Verde" },
+                    { "displayedValue": "Cayman Islands" },
+                    { "displayedValue": "Central African Republic" },
+                    { "displayedValue": "Chad" },
+                    { "displayedValue": "Chile" },
+                    { "displayedValue": "China" },
+                    { "displayedValue": "Christmas Island" },
+                    { "displayedValue": "Cocos (Keeling) Islands" },
+                    { "displayedValue": "Colombia" },
+                    { "displayedValue": "Comoros" },
+                    { "displayedValue": "Congo" },
+                    { "displayedValue": "Congo, the Democratic Republic of the" },
+                    { "displayedValue": "Cook Islands" },
+                    { "displayedValue": "Costa Rica" },
+                    { "displayedValue": "Côte d'Ivoire" },
+                    { "displayedValue": "Croatia" },
+                    { "displayedValue": "Cuba" },
+                    { "displayedValue": "Curaçao" },
+                    { "displayedValue": "Cyprus" },
+                    { "displayedValue": "Czech Republic" },
+                    { "displayedValue": "Denmark" },
+                    { "displayedValue": "Djibouti" },
+                    { "displayedValue": "Dominica" },
+                    { "displayedValue": "Dominican Republic" },
+                    { "displayedValue": "Ecuador" },
+                    { "displayedValue": "Egypt" },
+                    { "displayedValue": "El Salvador" },
+                    { "displayedValue": "Equatorial Guinea" },
+                    { "displayedValue": "Eritrea" },
+                    { "displayedValue": "Estonia" },
+                    { "displayedValue": "Ethiopia" },
+                    { "displayedValue": "Falkland Islands (Malvinas)" },
+                    { "displayedValue": "Faroe Islands" },
+                    { "displayedValue": "Fiji" },
+                    { "displayedValue": "Finland" },
+                    { "displayedValue": "France" },
+                    { "displayedValue": "French Guiana" },
+                    { "displayedValue": "French Polynesia" },
+                    { "displayedValue": "French Southern Territories" },
+                    { "displayedValue": "Gabon" },
+                    { "displayedValue": "Gambia" },
+                    { "displayedValue": "Georgia" },
+                    { "displayedValue": "Germany" },
+                    { "displayedValue": "Ghana" },
+                    { "displayedValue": "Gibraltar" },
+                    { "displayedValue": "Greece" },
+                    { "displayedValue": "Greenland" },
+                    { "displayedValue": "Grenada" },
+                    { "displayedValue": "Guadeloupe" },
+                    { "displayedValue": "Guam" },
+                    { "displayedValue": "Guatemala" },
+                    { "displayedValue": "Guernsey" },
+                    { "displayedValue": "Guinea" },
+                    { "displayedValue": "Guinea-Bissau" },
+                    { "displayedValue": "Guyana" },
+                    { "displayedValue": "Haiti" },
+                    { "displayedValue": "Heard Island and McDonald Islands" },
+                    { "displayedValue": "Holy See (Vatican City State)" },
+                    { "displayedValue": "Honduras" },
+                    { "displayedValue": "Hong Kong" },
+                    { "displayedValue": "Hungary" },
+                    { "displayedValue": "Iceland" },
+                    { "displayedValue": "India" },
+                    { "displayedValue": "Indonesia" },
+                    { "displayedValue": "Iran, Islamic Republic of" },
+                    { "displayedValue": "Iraq" },
+                    { "displayedValue": "Ireland" },
+                    { "displayedValue": "Isle of Man" },
+                    { "displayedValue": "Israel" },
+                    { "displayedValue": "Italy" },
+                    { "displayedValue": "Jamaica" },
+                    { "displayedValue": "Japan" },
+                    { "displayedValue": "Jersey" },
+                    { "displayedValue": "Jordan" },
+                    { "displayedValue": "Kazakhstan" },
+                    { "displayedValue": "Kenya" },
+                    { "displayedValue": "Kiribati" },
+                    { "displayedValue": "Korea, Democratic People's Republic of" },
+                    { "displayedValue": "Korea, Republic of" },
+                    { "displayedValue": "Kuwait" },
+                    { "displayedValue": "Kyrgyzstan" },
+                    { "displayedValue": "Lao People's Democratic Republic" },
+                    { "displayedValue": "Latvia" },
+                    { "displayedValue": "Lebanon" },
+                    { "displayedValue": "Lesotho" },
+                    { "displayedValue": "Liberia" },
+                    { "displayedValue": "Libya" },
+                    { "displayedValue": "Liechtenstein" },
+                    { "displayedValue": "Lithuania" },
+                    { "displayedValue": "Luxembourg" },
+                    { "displayedValue": "Macao" },
+                    { "displayedValue": "Macedonia, the former Yugoslav Republic of" },
+                    { "displayedValue": "Madagascar" },
+                    { "displayedValue": "Malawi" },
+                    { "displayedValue": "Malaysia" },
+                    { "displayedValue": "Maldives" },
+                    { "displayedValue": "Mali" },
+                    { "displayedValue": "Malta" },
+                    { "displayedValue": "Marshall Islands" },
+                    { "displayedValue": "Martinique" },
+                    { "displayedValue": "Mauritania" },
+                    { "displayedValue": "Mauritius" },
+                    { "displayedValue": "Mayotte" },
+                    { "displayedValue": "Mexico" },
+                    { "displayedValue": "Micronesia, Federated States of" },
+                    { "displayedValue": "Moldova, Republic of" },
+                    { "displayedValue": "Monaco" },
+                    { "displayedValue": "Mongolia" },
+                    { "displayedValue": "Montenegro" },
+                    { "displayedValue": "Montserrat" },
+                    { "displayedValue": "Morocco" },
+                    { "displayedValue": "Mozambique" },
+                    { "displayedValue": "Myanmar" },
+                    { "displayedValue": "Namibia" },
+                    { "displayedValue": "Nauru" },
+                    { "displayedValue": "Nepal" },
+                    { "displayedValue": "Netherlands" },
+                    { "displayedValue": "New Caledonia" },
+                    { "displayedValue": "New Zealand" },
+                    { "displayedValue": "Nicaragua" },
+                    { "displayedValue": "Niger" },
+                    { "displayedValue": "Nigeria" },
+                    { "displayedValue": "Niue" },
+                    { "displayedValue": "Norfolk Island" },
+                    { "displayedValue": "Northern Mariana Islands" },
+                    { "displayedValue": "Norway" },
+                    { "displayedValue": "Oman" },
+                    { "displayedValue": "Pakistan" },
+                    { "displayedValue": "Palau" },
+                    { "displayedValue": "Palestinian Territory, Occupied" },
+                    { "displayedValue": "Panama" },
+                    { "displayedValue": "Papua New Guinea" },
+                    { "displayedValue": "Paraguay" },
+                    { "displayedValue": "Peru" },
+                    { "displayedValue": "Philippines" },
+                    { "displayedValue": "Pitcairn" },
+                    { "displayedValue": "Poland" },
+                    { "displayedValue": "Portugal" },
+                    { "displayedValue": "Puerto Rico" },
+                    { "displayedValue": "Qatar" },
+                    { "displayedValue": "Réunion" },
+                    { "displayedValue": "Romania" },
+                    { "displayedValue": "Russian Federation" },
+                    { "displayedValue": "Rwanda" },
+                    { "displayedValue": "Saint Barthélemy" },
+                    { "displayedValue": "Saint Helena, Ascension and Tristan da Cunha" },
+                    { "displayedValue": "Saint Kitts and Nevis" },
+                    { "displayedValue": "Saint Lucia" },
+                    { "displayedValue": "Saint Martin (French part)" },
+                    { "displayedValue": "Saint Pierre and Miquelon" },
+                    { "displayedValue": "Saint Vincent and the Grenadines" },
+                    { "displayedValue": "Samoa" },
+                    { "displayedValue": "San Marino" },
+                    { "displayedValue": "Sao Tome and Principe" },
+                    { "displayedValue": "Saudi Arabia" },
+                    { "displayedValue": "Senegal" },
+                    { "displayedValue": "Serbia" },
+                    { "displayedValue": "Seychelles" },
+                    { "displayedValue": "Sierra Leone" },
+                    { "displayedValue": "Singapore" },
+                    { "displayedValue": "Sint Maarten (Dutch part)" },
+                    { "displayedValue": "Slovakia" },
+                    { "displayedValue": "Slovenia" },
+                    { "displayedValue": "Solomon Islands" },
+                    { "displayedValue": "Somalia" },
+                    { "displayedValue": "South Africa" },
+                    { "displayedValue": "South Georgia and the South Sandwich Islands" },
+                    { "displayedValue": "South Sudan" },
+                    { "displayedValue": "Spain" },
+                    { "displayedValue": "Sri Lanka" },
+                    { "displayedValue": "Sudan" },
+                    { "displayedValue": "Suriname" },
+                    { "displayedValue": "Svalbard and Jan Mayen" },
+                    { "displayedValue": "Swaziland" },
+                    { "displayedValue": "Sweden" },
+                    { "displayedValue": "Switzerland" },
+                    { "displayedValue": "Syrian Arab Republic" },
+                    { "displayedValue": "Taiwan, Province of China" },
+                    { "displayedValue": "Tajikistan" },
+                    { "displayedValue": "Tanzania, United Republic of" },
+                    { "displayedValue": "Thailand" },
+                    { "displayedValue": "Timor-Leste" },
+                    { "displayedValue": "Togo" },
+                    { "displayedValue": "Tokelau" },
+                    { "displayedValue": "Tonga" },
+                    { "displayedValue": "Trinidad and Tobago" },
+                    { "displayedValue": "Tunisia" },
+                    { "displayedValue": "Turkey" },
+                    { "displayedValue": "Turkmenistan" },
+                    { "displayedValue": "Turks and Caicos Islands" },
+                    { "displayedValue": "Tuvalu" },
+                    { "displayedValue": "Uganda" },
+                    { "displayedValue": "Ukraine" },
+                    { "displayedValue": "United Arab Emirates" },
+                    { "displayedValue": "United Kingdom" },
+                    { "displayedValue": "United States" },
+                    { "displayedValue": "United States Minor Outlying Islands" },
+                    { "displayedValue": "Uruguay" },
+                    { "displayedValue": "Uzbekistan" },
+                    { "displayedValue": "Vanuatu" },
+                    { "displayedValue": "Venezuela, Bolivarian Republic of" },
+                    { "displayedValue": "Viet Nam" },
+                    { "displayedValue": "Virgin Islands, British" },
+                    { "displayedValue": "Virgin Islands, U.S." },
+                    { "displayedValue": "Wallis and Futuna" },
+                    { "displayedValue": "Western Sahara" },
+                    { "displayedValue": "Yemen" },
+                    { "displayedValue": "Zambia" },
+                    { "displayedValue": "Zimbabwe" }
+                ],
+                "value": "Afghanistan",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "languages": {
+            "elementType": "input",
+            "tabId": 3,
+            "config": {
+                "label": "What languages will be spoken during this job?",
+                "type": "text",
+                "placeholder": "Order from most to least important",
+                "tooltipContent": "Separate by comma",
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "projectType": {
+            "elementType": "select",
+            "tabId": 4,
+            "config": {
+                "label": "Project Type",
+                "options": [
+                    { "displayedValue": "This project will happen at a specific date" },
+                    {
+                        "displayedValue": "This project will require multiple visits at specific dates"
+                    },
+                    {
+                        "displayedValue": "This is a creative contribution where dates are flexible"
+                    },
+                    { "displayedValue": "This is an ongoing project" }
+                ],
+                "value": "This project will happen at a specific date",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "startingDate": {
+            "elementType": "input",
+            "tabId": 4,
+            "config": {
+                "label": "Project starting date",
+                "type": "text",
+                "placeholder": "Order from most to least important",
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "projectDuration": {
+            "elementType": "select",
+            "tabId": 4,
+            "config": {
+                "label": "Project duration",
+                "options": [
+                    { "displayedValue": "1 to 3 hours" },
+                    { "displayedValue": "Half a day" },
+                    { "displayedValue": "1 full day" },
+                    { "displayedValue": "2 to 3 days" },
+                    { "displayedValue": "4 to 7 days" },
+                    { "displayedValue": "More than a week" }
+                ],
+                "value": "1 to 3 hours",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "acceptApplicantsUntil": {
+            "elementType": "input",
+            "tabId": 4,
+            "config": {
+                "label": "Accept applicants until",
+                "type": "number",
+                "placeholder": "Accept applicants until",
+                "value": "",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "imagesDeliveryDeadline": {
+            "elementType": "input",
+            "tabId": 4,
+            "config": {
+                "label": "Images delivery deadline",
+                "type": "number",
+                "placeholder": "Images delivery deadline",
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "fundingOptions": {
+            "elementType": "select",
+            "tabId": 5,
+            "config": {
+                "label": "Funding options",
+                "options": [
+                    {
+                        "displayedValue": "We have no funding avaliable for this job. We need someone who will do it for the Couse"
+                    },
+                    { "displayedValue": "We only have enough funding to cover expenses" },
+                    { "displayedValue": "We have funding avaliable for the photographer" }
+                ],
+                "value": "We have no funding avaliable for this job. We need someone who will do it for the Couse",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "fundingDetails": {
+            "elementType": "textarea",
+            "tabId": 5,
+            "config": {
+                "label": "Funding / incentives details ",
+                "type": "textarea",
+                "placeholder": "Funding / incentives details",
+                "tooltipContent": "If you have available funds please describe how are you planning on using it. If you don't have any funds don't stress: money isn't everything and most of our photographers are doing it for the cause, but if you can offer any other incentives here is your chance to  include them.",
+                "value": "",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": false
+            }
+        },
+        "needFundingHelp": {
+            "elementType": "switch",
+            "tabId": 5,
+            "config": {
+                "label": "Would you like Fairshots to help fund this project?",
+                "options": [
+                    {
+                        "displayedValue": "yes"
+                    },
+                    { "displayedValue": "No" }
+                ],
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "howManyPhotographers": {
+            "elementType": "input",
+            "tabId": 6,
+            "config": {
+                "label": "How many photographers do you need?",
+                "type": "text",
+                "placeholder": "How many photographers do you need?",
+                "value": "",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": false
+            }
+        },
+        "applicantsCategory:": {
+            "elementType": "switch",
+            "tabId": 6,
+            "config": {
+                "label": "Applicant's category",
+                "options": [
+                    {
+                        "displayedValue": "Only professional photographers can apply",
+                        "checked": true
+                    },
+                    { "displayedValue": "Amateurs and students are also welcome to apply" }
+                ],
+                "value": "Only professional photographers can apply",
+                "validationRules": { "required": true },
+                "touched": false,
+                "valid": false
+            }
+        },
+        "applicansFrom:": {
+            "elementType": "select",
+            "tabId": 6,
+            "config": {
+                "label": "Receive applicants from",
+                "options": [
+                    { "displayedValue": "Anywhere" },
+                    { "displayedValue": "The same continent as the opportunity" },
+                    { "displayedValue": "The country as the opportunity" },
+                    { "displayedValue": "The same region/state as the opportunity" },
+                    { "displayedValue": "The same city/town as the opportunity" }
+                ],
+                "value": "Anywhere",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "specificQuestion1": {
+            "elementType": "input",
+            "tabId": 6,
+            "config": {
+                "label": "Specific Question #1",
+                "type": "text",
+                "placeholder": "Specific Question #1",
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "specificQuestion2": {
+            "elementType": "input",
+            "tabId": 6,
+            "config": {
+                "label": "Specific Question #2",
+                "type": "text",
+                "placeholder": "Specific Question #2",
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        },
+        "specificQuestion3": {
+            "elementType": "input",
+            "tabId": 6,
+            "config": {
+                "label": "Specific Question #3",
+                "type": "text",
+                "placeholder": "Specific Question #3",
+                "value": "",
+                "validationRules": { "required": false },
+                "touched": false,
+                "valid": true
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+.navbar {
+    a {
+        color: white;
+    }
+
+    .n-dropdown-link {
+        font-family: Lato, sans-serif;
+        font-size: 15px;
+        font-weight: 100;
+        text-transform: uppercase;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+        white-space: nowrap;
+        padding: 10px 20px;
+        display: block;
+        -webkit-transition: background-color 200ms ease;
+        transition: background-color 200ms ease;
+        color: #fff;
+        background-color: #444;
+    }
+    .n-dropdown-link:hover {
+        background-color: #00a651;
+    }
+    .n-dropdown-menu {
+        background-color: #444;
+    }
+}

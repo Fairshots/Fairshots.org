@@ -1,16 +1,19 @@
 import React from "react";
-import { Button, Input, Modal, ModalBody, Form, FormGroup, FormFeedback, Row } from "reactstrap";
+import { Input, Form, FormGroup, FormFeedback } from "reactstrap";
+import { Link } from "react-router-dom";
+import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBRow } from "mdbreact";
 
 export default function LoginModal(props) {
     return (
-        <Modal
+        <MDBModal
             name="loginModal"
             isOpen={props.showModal}
             toggle={() => props.showLoginModal("loginModal")}
         >
-            <ModalBody>
+            <MDBModalHeader toggle={() => props.showLoginModal("loginModal")} />
+            <MDBModalBody>
                 <Form onSubmit={props.handleSubmit}>
-                    <Row className="justify-content-center">
+                    <MDBRow className="justify-content-center">
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-2">
                             <Input
                                 type="email"
@@ -22,26 +25,42 @@ export default function LoginModal(props) {
                                 invalid={props.errorMessage !== ""}
                             />
                         </FormGroup>
-                    </Row>
-                    <Row className="justify-content-center">
-                        <FormGroup className="mb-2 mr-sm-2 mb-sm-2">
-                            <Input
-                                type="password"
-                                name="password"
-                                id="Password"
-                                placeholder="password"
-                                value={props.password}
-                                onChange={props.handleChange}
-                                invalid={props.errorMessage !== ""}
-                            />
+                    </MDBRow>
+                    <MDBRow className="justify-content-center">
+                        <FormGroup className="form-group mb-2 mr-sm-2 mb-sm-2">
+                            {!props.forgotPass && (
+                                <Input
+                                    type="password"
+                                    name="password"
+                                    id="Password"
+                                    placeholder="password"
+                                    value={props.password}
+                                    onChange={props.handleChange}
+                                    invalid={props.errorMessage !== ""}
+                                />
+                            )}
                             <FormFeedback>{props.errorMessage}</FormFeedback>
                         </FormGroup>
-                    </Row>
-                    <Row className="justify-content-center">
-                        <Button>Login</Button>
-                    </Row>
+                    </MDBRow>
+                    <MDBRow className="justify-content-center">
+                        <a href="/#" className="general-paragraph" onClick={props.toggleForget}>
+                            {props.forgotPass ? "I know my password" : "Forgot my password"}
+                        </a>
+                    </MDBRow>
+                    <MDBRow className="justify-content-center">
+                        {props.forgotPass && (
+                            <p
+                                className={props.notification ? "text-success" : "text-danger"}
+                            >{`${props.notification || props.errorMessage}`}</p>
+                        )}
+                    </MDBRow>
+                    <MDBRow className="justify-content-center">
+                        <MDBBtn type="submit" color="dark-green">
+                            {props.forgotPass ? "Send me an e-mail" : "Login"}
+                        </MDBBtn>
+                    </MDBRow>
                 </Form>
-            </ModalBody>
-        </Modal>
+            </MDBModalBody>
+        </MDBModal>
     );
 }

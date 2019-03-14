@@ -1,15 +1,10 @@
-
-
-module.exports = function (api) {
+module.exports = function(api) {
     api.cache(true);
     return {
-        presets: [
-            "@babel/preset-env",
-            "@babel/preset-react"
-        ],
+        presets: ["@babel/preset-env", "@babel/preset-react"],
         plugins: [
-
-            ["@babel/plugin-transform-runtime",
+            [
+                "@babel/plugin-transform-runtime",
                 {
                     corejs: 2
                 }
@@ -40,7 +35,7 @@ module.exports = function (api) {
             ],
             "@babel/plugin-proposal-nullish-coalescing-operator",
             "@babel/plugin-proposal-do-expressions",
-            "@babel/plugin-proposal-function-bind",
+            "@babel/plugin-proposal-function-bind"
         ]
     };
 };

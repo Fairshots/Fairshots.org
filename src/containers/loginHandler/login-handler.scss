@@ -1,12 +1,6 @@
 .login-handler {
     .loglog {
-        font-family: Lato, sans-serif;
-        font-weight: 100;
-        font-size: 15px;
-        background-color: transparent;
-        border-color: transparent;
-        border-radius: 0;
-        height: 62.4px;
+        color: white !important;
     }
     .profileNav.loglog:hover {
         background-color: #00a651;
@@ -14,11 +8,14 @@
     .profileNav.loglog:focus {
         background-color: #00a651;
     }
-    
+
     a {
         color: white;
+        &.general-paragraph {
+            color: darkgreen;
+        }
     }
-    
+
     .f-dropdown-link {
         font-family: Lato, sans-serif;
         font-size: 15px;
@@ -41,5 +38,11 @@
     .f-dropdown-menu {
         background-color: #444;
     }
+}
 
+img.rounded-circle {
+    height: 35px;
+    width: 35px;
+    padding: 0px;
+    object-fit: cover;
 }

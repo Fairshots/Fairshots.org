@@ -10,45 +10,45 @@ import ProfileCards from "../../components/profilecards";
  * @extends Component
  */
 class AllPhotographers extends Component {
-    componentDidMount() {
-        const { allPhotographers, doGetPhotographers } = this.props;
-        if (!allPhotographers.photographers) {
-            doGetPhotographers();
-        }
+  componentDidMount() {
+    const { allPhotographers, doGetPhotographers } = this.props;
+    if (!allPhotographers.photographers) {
+      doGetPhotographers();
     }
+  }
 
-    render() {
-        const { allPhotographers, loadThirdPartyUserProfile } = this.props;
-        return (
-            <div>
-                {allPhotographers.photographers ? (
-                    <ProfileCards
-                        userType="organization"
-                        cards={allPhotographers.photographers}
-                        pushHistory={(profile, id) => {
-                            loadThirdPartyUserProfile(profile);
-                            this.props.history.push(`/photographer/${id}`);
-                        }}
-                    />
-                ) : (
-                    "Loading"
-                )}
-            </div>
-        );
-    }
+  render() {
+    const { allPhotographers, loadThirdPartyUserProfile } = this.props;
+    return (
+      <div>
+        {allPhotographers.photographers ? (
+          <ProfileCards
+            userType="organization"
+            cards={allPhotographers.photographers}
+            pushHistory={(profile, id) => {
+              loadThirdPartyUserProfile(profile);
+              this.props.history.push(`/photographer/${id}`);
+            }}
+          />
+        ) : (
+          "Loading"
+        )}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => ({
-    allPhotographers: state.allPhotographers
+  allPhotographers: state.allPhotographers
 });
 const mapDispatchToProps = dispatch => ({
-    doGetPhotographers: () => dispatch(getAllPhotographers()),
-    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
+  doGetPhotographers: () => dispatch(getAllPhotographers()),
+  loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(AllPhotographers)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(AllPhotographers)
 );

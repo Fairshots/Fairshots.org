@@ -4,12 +4,10 @@ module.exports = {
     es6: true,
     "jest/globals": true
   },
-  extends: [
-    "airbnb-base",
-    "plugin:jest/recommended",
-    "plugin:prettier/recommended"
-  ],
+  extends: ["airbnb-base", "plugin:jest/recommended", "plugin:prettier/recommended"],
+  parser: "babel-eslint",
   parserOptions: {
+    ecmaVersion: 10,
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
       jsx: true
