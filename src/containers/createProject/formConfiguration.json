@@ -5,7 +5,7 @@
             "tabId": 1,
             "config": {
                 "type": "text",
-                "placeholder": "Project tittle",
+                "placeholder": "Project title",
                 "label": "Project title",
                 "validationRules": { "required": true },
                 "touched": false,

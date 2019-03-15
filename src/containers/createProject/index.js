@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import formConfiguration from "./formConfiguration.json";
 import { MultipartForm, DonutSpin } from "../../components/UI";
 
@@ -36,23 +38,16 @@ class createProject extends Component {
 
     formSubmitHanlder = e => {
         e.preventDefault();
+        const { form } = this.state;
 
-        const formData = {};
+        let formData;
 
-        for (const inputIdentifier in this.state.form) {
-            formData[inputIdentifier] = this.state.form[inputIdentifier].config.value;
+        for (const inputIdentifier in form) {
+            formData[inputIdentifier] = form[inputIdentifier].config.value;
         }
-
-        this.postData(formData);
-        this.setState({ loading: true });
-    };
-
-    postData = formData => {
-        // TODO: send data to the backend
         console.log(formData);
-        new Promise(resolve => {
-            setTimeout(resolve, 3000);
-        }).then(() => this.setState({ loading: false, dataSend: true }));
+        this.props.postProjectData(formData);
+        this.setState({ loading: true });
     };
 
     checkValidity = (value, rules) => {
@@ -133,4 +128,17 @@ class createProject extends Component {
     }
 }
 
-export default createProject;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+    postProjectData: formProps => {
+        dispatch(postProject(formProps));
+    }
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(createProject)
+);
