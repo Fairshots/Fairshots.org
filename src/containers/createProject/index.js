@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import formConfiguration from "./formConfiguration.json";
+import formConfiguration from "./formConfiguration";
 import { MultipartForm, DonutSpin } from "../../components/UI";
 
 class createProject extends Component {
@@ -36,16 +36,18 @@ class createProject extends Component {
         form: formConfiguration.form
     };
 
-    formSubmitHanlder = e => {
+    formSubmitHandler = e => {
         e.preventDefault();
         const { form } = this.state;
 
-        let formData;
+        const formData = Object.keys(form)
+            .map(i => ({ [i]: form[i].config.value }))
+            .reduce((acc, cur) => ({ ...acc, ...cur }));
 
-        for (const inputIdentifier in form) {
-            formData[inputIdentifier] = form[inputIdentifier].config.value;
-        }
-        console.log(formData);
+        // for (const inputIdentifier in form) {
+        //    formData[inputIdentifier] = form[inputIdentifier].config.value;
+        // }
+
         this.props.postProjectData(formData);
         this.setState({ loading: true });
     };
@@ -99,21 +101,17 @@ class createProject extends Component {
     };
 
     render() {
-        const formElementsArray = [];
-        for (const key in this.state.form) {
-            formElementsArray.push({
-                id: key,
-                config: this.state.form[key]
-            });
-        }
-
-        const { activeStep, steps, loading, dataSend } = this.state;
+        const { activeStep, steps, loading, dataSend, form } = this.state;
+        const formElementsArray = Object.keys(form).map(key => ({
+            id: key,
+            config: form[key]
+        }));
 
         return (
             <div className="d-flex flex-column flex-wrap align-items-center">
                 {loading && <DonutSpin spinshow={loading} />}
                 <MultipartForm
-                    onSubmit={this.formSubmitHanlder}
+                    onSubmit={this.formSubmitHandler}
                     activeStep={activeStep}
                     steps={steps}
                     data={formElementsArray}

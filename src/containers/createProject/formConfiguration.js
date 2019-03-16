@@ -51,7 +51,7 @@ export default {
             tabId: 2,
             config: {
                 label: "References",
-                type: "fileinput",
+                type: "button",
                 placeholder: "Upload up to 5 reference images.",
                 tooltipContent:
                     "Allowed file extensions: jpg, png, gif, jpeg, tif, tiffMax file size: 1 MB",
@@ -131,28 +131,21 @@ export default {
             tabId: 4,
             config: {
                 label: "Project starting date",
-                type: "text",
+                type: "date",
                 placeholder: "Order from most to least important",
                 value: "",
-                validationRules: { required: false },
+                validationRules: { required: true },
                 touched: false,
                 valid: true
             }
         },
         duration: {
-            elementType: "select",
+            elementType: "input",
             tabId: 4,
             config: {
-                label: "Project duration",
-                options: [
-                    { displayedValue: "1 to 3 hours" },
-                    { displayedValue: "Half a day" },
-                    { displayedValue: "1 full day" },
-                    { displayedValue: "2 to 3 days" },
-                    { displayedValue: "4 to 7 days" },
-                    { displayedValue: "More than a week" }
-                ],
-                value: "1 to 3 hours",
+                label: "Project duration in days",
+                type: "number",
+                value: "",
                 validationRules: { required: true },
                 touched: false,
                 valid: true
@@ -163,7 +156,7 @@ export default {
             tabId: 4,
             config: {
                 label: "Accept applicants until",
-                type: "number",
+                type: "date",
                 placeholder: "Accept applicants until",
                 value: "",
                 validationRules: { required: true },
@@ -176,7 +169,7 @@ export default {
             tabId: 4,
             config: {
                 label: "Images delivery deadline",
-                type: "number",
+                type: "date",
                 placeholder: "Images delivery deadline",
                 value: "",
                 validationRules: { required: false },
@@ -192,7 +185,7 @@ export default {
                 options: [
                     {
                         displayedValue:
-                            "We have no funding avaliable for this job. We need someone who will do it for the Couse"
+                            "We have no funding avaliable for this job. We need someone who will do it for the cause"
                     },
                     { displayedValue: "We only have enough funding to cover expenses" },
                     { displayedValue: "We have funding avaliable for the photographer" }
