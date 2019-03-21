@@ -1,6 +1,5 @@
 import { CLOUDINARY_API, FAIRSHOTS_API } from "./constants";
 
-
 export function uploadPhoto(userType, id, token, url) {
     return async dispatch => {
         try {

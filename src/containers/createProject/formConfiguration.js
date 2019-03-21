@@ -46,7 +46,7 @@ export default {
                 valid: false
             }
         },
-        references: {
+        photos: {
             elementType: "fileinput",
             tabId: 2,
             config: {
@@ -55,7 +55,7 @@ export default {
                 placeholder: "Upload up to 5 reference images.",
                 tooltipContent:
                     "Allowed file extensions: jpg, png, gif, jpeg, tif, tiffMax file size: 1 MB",
-                value: "",
+                value: [],
                 validationRules: { required: false },
                 touched: true,
                 valid: true

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import formConfiguration from "./formConfiguration";
 import { MultipartForm, DonutSpin } from "../../components/UI";
+import input from "../../components/UI/multipartForm/inputType";
 
 class createProject extends Component {
     state = {
@@ -84,19 +85,26 @@ class createProject extends Component {
     };
 
     inputChangeHandler = inputIdentifier => e => {
-        const { value } = e.target;
+        let form;
+        if (inputIdentifier === "photos") {
+            form = {
+                ...this.state.form
+            };
+            form.photos.config.value.push({ cloudlink: e });
+        } else {
+            const { value } = e.target;
 
-        const form = {
-            ...this.state.form,
-            [inputIdentifier]: {
-                ...this.state.form[inputIdentifier],
-                config: {
-                    ...this.state.form[inputIdentifier].config,
-                    value
+            form = {
+                ...this.state.form,
+                [inputIdentifier]: {
+                    ...this.state.form[inputIdentifier],
+                    config: {
+                        ...this.state.form[inputIdentifier].config,
+                        value
+                    }
                 }
-            }
-        };
-
+            };
+        }
         this.setState({ form });
     };
 
