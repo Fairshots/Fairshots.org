@@ -18,13 +18,13 @@ const fileInput = ({ name, config, changeHandler }) => {
         <>
             <div className="form-group">
                 <label htmlFor={name}>{config.label}</label>
-                <input
-                    type="button"
+                <button
                     className="form-control-file btn"
                     id={name}
-                    placeholder={config.placeholder}
                     onClick={() => imgUploadWidget(changeHandler)}
-                />
+                >
+                    {config.placeholder}
+                </button>
             </div>
         </>
     );
