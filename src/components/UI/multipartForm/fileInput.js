@@ -7,8 +7,10 @@ const fileInput = ({ name, config, changeHandler }) => {
         () => () => {
             // clear imgUploadWidget iframes on unmounting
             const iframes = document.querySelectorAll("iframe");
-            for (let i = 0; i < iframes.length; i += 1) {
-                iframes[i].parentNode.removeChild(iframes[i]);
+            if (iframes.length > 1) {
+                for (let i = 0; i < iframes.length; i += 1) {
+                    iframes[i].parentNode.removeChild(iframes[i]);
+                }
             }
         },
         []
@@ -21,7 +23,10 @@ const fileInput = ({ name, config, changeHandler }) => {
                 <button
                     className="form-control-file btn"
                     id={name}
-                    onClick={() => imgUploadWidget(changeHandler)}
+                    onClick={e => {
+                        e.preventDefault();
+                        imgUploadWidget(changeHandler);
+                    }}
                 >
                     {config.placeholder}
                 </button>

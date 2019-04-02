@@ -4,10 +4,10 @@ import { withRouter } from "react-router-dom";
 import formConfiguration from "./formConfiguration";
 import { MultipartForm, DonutSpin } from "../../components/UI";
 import input from "../../components/UI/multipartForm/inputType";
+import { postProject } from "../../actions";
 
 class createProject extends Component {
     state = {
-        loading: false,
         activeStep: 0,
         dataSend: false,
         steps: [
@@ -42,15 +42,34 @@ class createProject extends Component {
         const { form } = this.state;
 
         const formData = Object.keys(form)
-            .map(i => ({ [i]: form[i].config.value }))
+            .map(i => {
+                // adjusts data collected to conform with backend API
+                if (i === "fundingOptions") {
+                    if (form[i].config.value.includes("no fund")) return { [i]: "No Funds" };
+                    if (form[i].config.value.includes("expenses")) return { [i]: "Expenses" };
+                    if (form[i].config.value.includes("photographer"))
+                        return { [i]: "Photographer" };
+                } else if (form[i] === "geographicRestriction") {
+                    if (form[i].config.value.includes("anywhere")) return { [i]: "Anywhere" };
+                    if (form[i].config.value.includes("continent")) return { [i]: "Continent" };
+                    if (form[i].config.value.includes("country")) return { [i]: "Country" };
+                    if (form[i].config.value.includes("region")) return { [i]: "Region" };
+                    if (form[i].config.value.includes("town")) return { [i]: "Region" };
+                } else if (i === "professionalOnly") {
+                    if (form[i].config.value.includes("Only professional")) return { [i]: true };
+                    return { [i]: false };
+                } else if (i === "fundsFairshot") {
+                    if (form[i].config.value === "yes") return { [i]: true };
+                    return { [i]: false };
+                } else if (i === "duration") return { [i]: parseInt(form[i].config.value, 10) };
+                else if (i === "photographersNeeded")
+                    return { [i]: parseInt(form[i].config.value, 10) };
+
+                return { [i]: form[i].config.value };
+            })
             .reduce((acc, cur) => ({ ...acc, ...cur }));
 
-        // for (const inputIdentifier in form) {
-        //    formData[inputIdentifier] = form[inputIdentifier].config.value;
-        // }
-
-        this.props.postProjectData(formData);
-        this.setState({ loading: true });
+        this.props.postProjectData(formData, this.props.authId, this.props.token);
     };
 
     checkValidity = (value, rules) => {
@@ -109,7 +128,7 @@ class createProject extends Component {
     };
 
     render() {
-        const { activeStep, steps, loading, dataSend, form } = this.state;
+        const { activeStep, steps, dataSend, form } = this.state;
         const formElementsArray = Object.keys(form).map(key => ({
             id: key,
             config: form[key]
@@ -117,7 +136,6 @@ class createProject extends Component {
 
         return (
             <div className="d-flex flex-column flex-wrap align-items-center">
-                {loading && <DonutSpin spinshow={loading} />}
                 <MultipartForm
                     onSubmit={this.formSubmitHandler}
                     activeStep={activeStep}
@@ -134,11 +152,14 @@ class createProject extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    token: state.auth.user.token,
+    authId: state.auth.user.userId
+});
 
 const mapDispatchToProps = dispatch => ({
-    postProjectData: formProps => {
-        dispatch(postProject(formProps));
+    postProjectData: (formProps, id, token) => {
+        dispatch(postProject(formProps, id, token));
     }
 });
 

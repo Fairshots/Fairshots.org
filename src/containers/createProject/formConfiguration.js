@@ -212,7 +212,7 @@ export default {
                 valid: false
             }
         },
-        fundsFairshots: {
+        fundsFairshot: {
             elementType: "switch",
             tabId: 5,
             config: {
@@ -242,7 +242,7 @@ export default {
                 valid: false
             }
         },
-        "professionalOnly:": {
+        professionalOnly: {
             elementType: "switch",
             tabId: 6,
             config: {
@@ -260,7 +260,7 @@ export default {
                 valid: false
             }
         },
-        "geographicRestriction:": {
+        geographicRestriction: {
             elementType: "select",
             tabId: 6,
             config: {
