@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, FieldArray } from "redux-form";
 import { Form, Button } from "reactstrap";
-import { countrylist, causes, languages } from "./select-options";
+import { countrylist, causes, languages } from "../../helpers/form-data-options";
 import checkboxesFormArray from "../../components/checkboxesFormArray";
 
 export default function OrganizationForm({ handleSubmit, renderField }) {

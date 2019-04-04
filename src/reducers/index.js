@@ -7,6 +7,7 @@ import loading from "./loading";
 import mainFeatures from "./main-features";
 import allPhotographers from "./allPhotographers";
 import allOrgs from "./allOrgs";
+import project from "./project";
 
 const rootReducer = combineReducers({
     auth,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     allOrgs,
     registration,
     profile,
+    project,
     form: formReducer
 });
 

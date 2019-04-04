@@ -40,7 +40,7 @@ class MultipartForm extends Component {
     };
 
     render() {
-        const { children, steps, data, changeHandler, onBlur, dataSend } = this.props;
+        const { children, steps, data, changeHandler, onBlur, dataSend, errorMessage } = this.props;
         const { activeTab, fieldsetValidity } = this.state;
 
         return (
@@ -58,10 +58,9 @@ class MultipartForm extends Component {
                 </ul>
                 {dataSend ? (
                     <div className="form d-flex justify-content-center">
-                        <h4>Thank you, Your application has been successfully sent!</h4>
+                        <h4>Thank you, Your project has been successfully created!</h4>
                         <MDBIcon icon="paper-plane" className="m-5" />
-                        <p>You should wait till your request gets approved by admin.</p>{" "}
-                        <p>In the meantime check out our photographer's portfolios.</p>
+                        <p>You can start checking out our photographers portfolios.</p>
                         <Link to="/photographers">
                             <MDBBtn>
                                 FIND A PHOTOGRAPHER
@@ -90,11 +89,14 @@ class MultipartForm extends Component {
                                 }
                             })}
 
-                            {!fieldsetValidity && (
+                            {(!fieldsetValidity || errorMessage) && (
                                 <>
                                     <p className="form__warning text-center pt-4">
-                                        <span>Please carefully fill out all required fields</span>{" "}
-                                        ⚠️
+                                        <span>
+                                            {errorMessage ||
+                                                "Please carefully fill out all required fields"}
+                                        </span>
+                                        )} ⚠️
                                     </p>
                                 </>
                             )}

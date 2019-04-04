@@ -1,14 +1,4 @@
-import sha1 from "sha1";
 import { CLOUDINARY_API, FAIRSHOTS_API } from "./constants";
-
-function GenSignature(params, apisecret) {
-    const paramsToSign = { ...params };
-    console.log(paramsToSign);
-    const keys = Object.keys(paramsToSign).sort();
-    const stringbuilder = keys.map(key => `${key}=${paramsToSign[key]}`).join("&");
-    console.log(stringbuilder);
-    return sha1(`${stringbuilder}${apisecret}`);
-}
 
 export function uploadPhoto(userType, id, token, url) {
     return async dispatch => {
@@ -59,25 +49,6 @@ export async function sendPhotoGetUrl(file, upreset = "kahvrgme") {
 export function delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem) {
     return async dispatch => {
         try {
-            /*
-            const regexp = /((\w+)\.(jpe?g|png|gif|bmp|)$)/gi;
-            regexp.lastIndex = 0;
-            const publicId = regexp.exec(photoItem.cloudlink)[2];
-            const timestamp = Math.floor(Date.now() / 1000).toString();
-            const signature = GenSignature({ publicId, timestamp }, clAPISecret);
-            const fd = new FormData();
-            fd.append("public_id", publicId);
-            fd.append("api_key", clAPIKey);
-            fd.append("timestamp", timestamp);
-            fd.append("signature", signature);
-            let config = {
-                method: "POST",
-                body: fd
-            };
-            console.log(config);
-            const imgDel = await fetch(`${CLOUDINARY_API}/destroy`, config);
-            */
-
             const config = {
                 method: "DELETE",
                 headers: {
