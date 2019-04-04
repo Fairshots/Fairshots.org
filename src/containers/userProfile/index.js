@@ -36,8 +36,11 @@ class UserProfile extends Component {
             getUserProfile(match.params.userType, match.params.userId, token).then(() => {
                 if (userProfile.error) {
                     // if token is expired Alert user to login
-                    alert("please Login to continue");
-                    setTimeout(this.props.history.push("/"), 10000);
+
+                    setTimeout(() => {
+                        alert("please Login to continue");
+                        this.props.history.push("/");
+                    }, 500);
                 }
             });
             this.setState({ thirdParty: false });

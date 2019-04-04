@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { object } from "prop-types";
 import formConfiguration from "./formConfiguration";
-import { MultipartForm, DonutSpin } from "../../components/UI";
-import input from "../../components/UI/multipartForm/inputType";
+import { MultipartForm } from "../../components/UI";
 import { postProject } from "../../actions";
 
 class createProject extends Component {
@@ -72,6 +72,15 @@ class createProject extends Component {
         this.props.postProjectData(formData, this.props.authId, this.props.token);
     };
 
+    componentDidUpdate(prevProps) {
+        if (
+            Object.keys(this.props.projectsCreated).length >
+            Object.keys(prevProps.projectsCreated).length
+        ) {
+            this.setState({ dataSend: !this.state.dataSend });
+        }
+    }
+
     checkValidity = (value, rules) => {
         let isValid = false;
 
@@ -109,7 +118,13 @@ class createProject extends Component {
             form = {
                 ...this.state.form
             };
-            form.photos.config.value.push({ cloudlink: e });
+            if (e.includes("del")) {
+                const el = e.split(" ")[1];
+                const filtered = form.photos.config.value.filter(val => val.cloudlink !== el);
+                form.photos.config.value = filtered;
+            } else {
+                form.photos.config.value.push({ cloudlink: e });
+            }
         } else {
             const { value } = e.target;
 
@@ -129,6 +144,7 @@ class createProject extends Component {
 
     render() {
         const { activeStep, steps, dataSend, form } = this.state;
+        const { errorMessage } = this.props;
         const formElementsArray = Object.keys(form).map(key => ({
             id: key,
             config: form[key]
@@ -144,6 +160,7 @@ class createProject extends Component {
                     changeHandler={this.inputChangeHandler}
                     onBlur={this.onBlur}
                     dataSend={dataSend}
+                    errorMessage={errorMessage}
                 >
                     Create a new project
                 </MultipartForm>
@@ -154,7 +171,9 @@ class createProject extends Component {
 
 const mapStateToProps = state => ({
     token: state.auth.user.token,
-    authId: state.auth.user.userId
+    authId: state.auth.user.userId,
+    errorMessage: state.project.error,
+    projectsCreated: state.project
 });
 
 const mapDispatchToProps = dispatch => ({
