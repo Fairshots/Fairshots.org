@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import DashboardPage from "./DashboardPage";
 import SideNavigation from "./sideNavigation";
 import Sidebar from "./Sidebar";
-import OrgsGrid from "./orgsGrid";
-import PhotographersGrid from "./photographersGrid";
+import OrgsCard from "./orgsCard";
+import PhotographersCard from "./photographersCard";
 import { getAllOrgs, getAllPhotographers } from "../../actions";
 
 class dashboardPannel extends Component {
@@ -26,11 +26,11 @@ class dashboardPannel extends Component {
         <div className="d-flex flex-row " style={{ display: "flex" }}>
           <Sidebar />
           <div className="p-4">
-            {allOrgs.organizations ? <OrgsGrid orgs={allOrgs.organizations} /> : ""}
+            {allOrgs.organizations ? <OrgsCard orgs={allOrgs.organizations} /> : ""}
           </div>
           <div className="p-4">
             {allPhotographers.photographers ? (
-              <PhotographersGrid photographers={allPhotographers.photographers} />
+              <PhotographersCard photographers={allPhotographers.photographers} />
             ) : (
               ""
             )}

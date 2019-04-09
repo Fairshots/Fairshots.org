@@ -7,10 +7,26 @@ import {
   MDBTableHead,
   MDBRow,
   MDBCol,
-  MDBDataTable
+  MDBDataTable,
+  MDBBtn,
+  MDBModalHeader,
+  MDBModalBody,
+  MDBModalFooter,
+  MDBModal,
+  MDBButton
 } from "mdbreact";
 
 class PhotographersGrid extends Component {
+  state = {
+    modal: false
+  };
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  };
+
   render() {
     const currentJson = [
       {
@@ -202,6 +218,7 @@ class PhotographersGrid extends Component {
     return (
       <div>
         <MDBCard>
+          <MDBBtn onClick={this.toggle}>Modal</MDBBtn>
           <MDBCardBody>
             <MDBTable hover>
               <MDBTableHead color="blue-grey lighten-4">
@@ -225,6 +242,16 @@ class PhotographersGrid extends Component {
                 ))}
               </MDBTableBody>
             </MDBTable>
+            <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+              <MDBModalHeader toggle={this.toggle}>MDBModal title</MDBModalHeader>
+              <MDBModalBody>(...)</MDBModalBody>
+              <MDBModalFooter>
+                <MDBBtn color="secondary" onClick={this.toggle}>
+                  Close
+                </MDBBtn>
+                <MDBBtn color="primary">Save changes</MDBBtn>
+              </MDBModalFooter>
+            </MDBModal>
           </MDBCardBody>
         </MDBCard>
       </div>
