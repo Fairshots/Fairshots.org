@@ -2,7 +2,7 @@ import React from "react";
 import { MDBBtn, MDBIcon, MDBRow } from "mdbreact";
 import { Link } from "react-router-dom";
 
-import Portfolio from "../portfolio";
+import ProfileCards from "../profilecards";
 
 import "./orgProfile.scss";
 
@@ -88,8 +88,14 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                 <h3 className="portfolio-tittle">Projects Posted</h3>
             </MDBRow>
             <MDBRow className="portfolio-holder justify-content-center">
-                {organization.Photos ? (
-                    <Portfolio photos={organization.Photos} />
+                {organization.Projects ? (
+                    <ProfileCards
+                        userType="project"
+                        cards={organization.Projects}
+                        pushHistory={(proj, id) => {
+                            this.props.history.push(`/project/${id}`);
+                        }}
+                    />
                 ) : (
                     <p>Loading...</p>
                 )}
