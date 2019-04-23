@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./form.scss";
 import { Link } from "react-router-dom";
-import { MDBBtn, MDBRow, MDBIcon } from "mdbreact";
+import { Button, Row } from "reactstrap";
+import { FaImages, FaPaperPlane } from "react-icons/fa";
 import InputType from "./inputType";
 
 class MultipartForm extends Component {
@@ -59,13 +60,13 @@ class MultipartForm extends Component {
                 {dataSend ? (
                     <div className="form d-flex justify-content-center">
                         <h4>Thank you, Your project has been successfully created!</h4>
-                        <MDBIcon icon="paper-plane" className="m-5" />
+                        <FaPaperPlane />
                         <p>You can start checking out our photographers portfolios.</p>
                         <Link to="/photographers">
-                            <MDBBtn>
+                            <Button>
                                 FIND A PHOTOGRAPHER
-                                <MDBIcon far className="ml-2" icon="images" />
-                            </MDBBtn>
+                                <FaImages />
+                            </Button>
                         </Link>
                     </div>
                 ) : (
@@ -101,16 +102,16 @@ class MultipartForm extends Component {
                                 </>
                             )}
 
-                            <MDBRow end>
+                            <Row end>
                                 {activeTab !== 1 && (
-                                    <MDBBtn id="previousBtn" onClick={this.previousStepHandler}>
+                                    <Button id="previousBtn" onClick={this.previousStepHandler}>
                                         Previous step
-                                    </MDBBtn>
+                                    </Button>
                                 )}
-                                <MDBBtn id="nextBtn" onClick={this.nextStepHandler}>
+                                <Button id="nextBtn" onClick={this.nextStepHandler}>
                                     {activeTab === 6 ? "Submit" : "Next step"}
-                                </MDBBtn>
-                            </MDBRow>
+                                </Button>
+                            </Row>
                         </fieldset>
                     </form>
                 )}

@@ -1,19 +1,27 @@
 import React from "react";
-import { Input, Form, FormGroup, FormFeedback } from "reactstrap";
-import { Link } from "react-router-dom";
-import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBRow } from "mdbreact";
+import {
+    Input,
+    Form,
+    FormGroup,
+    FormFeedback,
+    Button,
+    Modal,
+    ModalBody,
+    ModalHeader,
+    Row
+} from "reactstrap";
 
 export default function LoginModal(props) {
     return (
-        <MDBModal
+        <Modal
             name="loginModal"
             isOpen={props.showModal}
             toggle={() => props.showLoginModal("loginModal")}
         >
-            <MDBModalHeader toggle={() => props.showLoginModal("loginModal")} />
-            <MDBModalBody>
+            <ModalHeader toggle={() => props.showLoginModal("loginModal")} />
+            <ModalBody>
                 <Form onSubmit={props.handleSubmit}>
-                    <MDBRow className="justify-content-center">
+                    <Row className="justify-content-center">
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-2">
                             <Input
                                 type="email"
@@ -25,8 +33,8 @@ export default function LoginModal(props) {
                                 invalid={props.errorMessage !== ""}
                             />
                         </FormGroup>
-                    </MDBRow>
-                    <MDBRow className="justify-content-center">
+                    </Row>
+                    <Row className="justify-content-center">
                         <FormGroup className="form-group mb-2 mr-sm-2 mb-sm-2">
                             {!props.forgotPass && (
                                 <Input
@@ -41,26 +49,26 @@ export default function LoginModal(props) {
                             )}
                             <FormFeedback>{props.errorMessage}</FormFeedback>
                         </FormGroup>
-                    </MDBRow>
-                    <MDBRow className="justify-content-center">
+                    </Row>
+                    <Row className="justify-content-center">
                         <a href="/#" className="general-paragraph" onClick={props.toggleForget}>
                             {props.forgotPass ? "I know my password" : "Forgot my password"}
                         </a>
-                    </MDBRow>
-                    <MDBRow className="justify-content-center">
+                    </Row>
+                    <Row className="justify-content-center">
                         {props.forgotPass && (
                             <p
                                 className={props.notification ? "text-success" : "text-danger"}
                             >{`${props.notification || props.errorMessage}`}</p>
                         )}
-                    </MDBRow>
-                    <MDBRow className="justify-content-center">
-                        <MDBBtn type="submit" color="dark-green">
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Button type="submit" color="dark-green">
                             {props.forgotPass ? "Send me an e-mail" : "Login"}
-                        </MDBBtn>
-                    </MDBRow>
+                        </Button>
+                    </Row>
                 </Form>
-            </MDBModalBody>
-        </MDBModal>
+            </ModalBody>
+        </Modal>
     );
 }

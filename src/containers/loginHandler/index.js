@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
-    MDBNavItem,
-    MDBNavLink,
-    MDBIcon,
-    MDBDropdown,
-    MDBDropdownToggle,
-    MDBDropdownItem,
-    MDBDropdownMenu
-} from "mdbreact";
+    NavItem,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownItem,
+    DropdownMenu
+} from "reactstrap";
+import { FaCog, FaUser, FaUserPlus, FaSignInAlt } from "react-icons/fa";
 import { login, logout, forgotPw } from "../../actions";
 import LoginModal from "../../components/loginModal";
 
@@ -79,30 +78,30 @@ class LoginHandler extends Component {
             <>
                 {!isAuthenticated && (
                     <>
-                        <MDBNavItem className="loglog">
-                            <MDBNavLink to="#!" onClick={() => this.toggleOpenCloses("loginModal")}>
-                                <MDBIcon icon="user" className="mr-2" /> LOGIN
-                            </MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="/register#photographer">
-                                <MDBIcon icon="user-plus" className="mr-2" /> SIGN UP
-                            </MDBNavLink>
-                        </MDBNavItem>
+                        <NavItem className="loglog">
+                            <Link to="#!" onClick={() => this.toggleOpenCloses("loginModal")}>
+                                <FaUser /> LOGIN
+                            </Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link to="/register#photographer">
+                                <FaUserPlus /> SIGN UP
+                            </Link>
+                        </NavItem>
                     </>
                 )}
                 {isAuthenticated && (
-                    <MDBDropdown className="profileNav">
-                        <MDBDropdownToggle nav className="loglog" caret>
+                    <UncontrolledDropdown className="profileNav">
+                        <DropdownToggle nav className="loglog" caret>
                             <img
                                 src={profile.Logo || profile.ProfilePic}
                                 className="rounded-circle z-depth-0 mr-2"
                                 alt=""
                             />
                             {userInfo.userName}
-                        </MDBDropdownToggle>
-                        <MDBDropdownMenu className="f-dropdown-menu">
-                            <MDBDropdownItem
+                        </DropdownToggle>
+                        <DropdownMenu className="f-dropdown-menu">
+                            <DropdownItem
                                 className="f-dropdown-link"
                                 onClick={() =>
                                     history.push(
@@ -112,16 +111,16 @@ class LoginHandler extends Component {
                                     )
                                 }
                             >
-                                <MDBIcon className="mr-2" icon="cog" /> PROFILE
-                            </MDBDropdownItem>
-                            <MDBDropdownItem
+                                <FaCog /> PROFILE
+                            </DropdownItem>
+                            <DropdownItem
                                 className="f-dropdown-link"
                                 onClick={() => handleLogout(history)}
                             >
-                                <MDBIcon className="mr-2" icon="sign-in-alt" /> LOGOUT
-                            </MDBDropdownItem>
-                        </MDBDropdownMenu>
-                    </MDBDropdown>
+                                <FaSignInAlt /> LOGOUT
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </UncontrolledDropdown>
                 )}
                 <LoginModal
                     showModal={this.state.loginModal}

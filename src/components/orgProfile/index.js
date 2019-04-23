@@ -1,5 +1,6 @@
 import React from "react";
-import { MDBBtn, MDBIcon, MDBRow } from "mdbreact";
+import { Button, Row } from "reactstrap";
+import { FaCog, FaFileUpload, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import ProfileCards from "../profilecards";
@@ -19,7 +20,7 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
 
     return (
         <div className="orgProfile container">
-            <MDBRow>
+            <Row>
                 <div className="col-sm-3">
                     <img className="profile-picture" src={organization.Logo} />
                 </div>
@@ -30,45 +31,45 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                     </p>
                     <p className="general-paragraph">{organization.Background}</p>
                 </div>
-            </MDBRow>
-            <MDBRow>
+            </Row>
+            <Row>
                 {!thirdParty && (
                     <div className="col-sm-3 d-flex flex-column align-items-center">
-                        <MDBBtn
+                        <Button
                             color="success"
                             className="w-100 mb-2"
                             onClick={() => toggleModal("UPDATE_PROFILE")}
                         >
-                            Edit Profile <MDBIcon className="ml-2" icon="cog" />
-                        </MDBBtn>
-                        <MDBBtn
+                            Edit Profile <FaCog />
+                        </Button>
+                        <Button
                             color="success"
                             className="w-100 mb-2"
                             onClick={() => imgUploadWidget.open()}
                         >
-                            Upload Photos <MDBIcon className="ml-2" icon="file-upload" />
-                        </MDBBtn>
+                            Upload Photos <FaFileUpload />
+                        </Button>
                         <Link to="/create-a-project" className="w-100 m-1">
-                            <MDBBtn color="success" className="w-100 m-0 ">
-                                Create New Project <MDBIcon className="ml-2" icon="plus" />
-                            </MDBBtn>
+                            <Button color="success" className="w-100 m-0 ">
+                                Create New Project <FaPlus />
+                            </Button>
                         </Link>
                     </div>
                 )}
                 <div className="col-sm-9 d-flex">
                     <div className="col-sm-6 p-0">
-                        <MDBRow>
+                        <Row>
                             <img src="/images/place.png" height="40" />
                             <p className="general-paragraph ml-2">
                                 {`Based in ${organization.City}, ${organization.Country}`}
                             </p>
-                        </MDBRow>
-                        <MDBRow className="flex-column mt-2">
+                        </Row>
+                        <Row className="flex-column mt-2">
                             <p className="featured-listing-bold-black ml-2">
                                 Primary supporting cause
                             </p>
                             <p className="general-paragraph ml-2">{organization.Causes}</p>
-                        </MDBRow>
+                        </Row>
                     </div>
                     <div className="col-sm-6">
                         {organization.website && (
@@ -83,11 +84,11 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                         )}
                     </div>
                 </div>
-            </MDBRow>
-            <MDBRow className="justify-content-center mt-2">
+            </Row>
+            <Row className="justify-content-center mt-2">
                 <h3 className="portfolio-tittle">Projects Posted</h3>
-            </MDBRow>
-            <MDBRow className="portfolio-holder justify-content-center">
+            </Row>
+            <Row className="portfolio-holder justify-content-center">
                 {organization.Projects ? (
                     <ProfileCards
                         userType="project"
@@ -99,7 +100,7 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                 ) : (
                     <p>Loading...</p>
                 )}
-            </MDBRow>
+            </Row>
         </div>
     );
 }
