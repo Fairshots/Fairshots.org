@@ -104,10 +104,10 @@ class NavbarPage extends Component {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className="p-3">
                             <Link to="/about">ABOUT</Link>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className="p-3">
                             <Link to="/contact-us">CONTACT</Link>
                         </NavItem>
                     </Nav>

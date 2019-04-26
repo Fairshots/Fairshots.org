@@ -35,7 +35,7 @@ export default {
             elementType: "textarea",
             tabId: 1,
             config: {
-                label: "Project description - long",
+                label: "Project description",
                 type: "textarea",
                 placeholder: "Describe your opportunity here...",
                 tooltipContent:

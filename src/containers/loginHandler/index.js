@@ -78,12 +78,12 @@ class LoginHandler extends Component {
             <>
                 {!isAuthenticated && (
                     <>
-                        <NavItem className="loglog">
+                        <NavItem className="loglog p-3">
                             <Link to="#!" onClick={() => this.toggleOpenCloses("loginModal")}>
                                 <FaUser /> LOGIN
                             </Link>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className="p-3">
                             <Link to="/register#photographer">
                                 <FaUserPlus /> SIGN UP
                             </Link>

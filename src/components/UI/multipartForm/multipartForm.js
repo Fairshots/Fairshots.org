@@ -97,7 +97,7 @@ class MultipartForm extends Component {
                                             {errorMessage ||
                                                 "Please carefully fill out all required fields"}
                                         </span>
-                                        )} ⚠️
+                                        ⚠️
                                     </p>
                                 </>
                             )}
