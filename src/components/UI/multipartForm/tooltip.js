@@ -1,18 +1,19 @@
 import React from "react";
-import { Tooltip } from "reactstrap";
+import { UncontrolledTooltip } from "reactstrap";
 
 const tooltip = Component => props => {
     if (props.config.tooltipContent) {
         return (
             <div className="form__group">
-                <Component {...props} id={props.config.label} />
-                <Tooltip
+                <Component {...props} />
+                <UncontrolledTooltip
                     placement="right"
                     tag="div"
-                    tooltipContent={props.config.tooltipContent}
                     tooltipClass="custom-tooltip"
-                    target={props.config.label}
-                />
+                    target={props.name}
+                >
+                    {props.config.tooltipContent}
+                </UncontrolledTooltip>
             </div>
         );
     }

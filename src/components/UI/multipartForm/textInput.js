@@ -22,6 +22,7 @@ const textInput = ({ name, config, changeHandler, onBlur }) => {
                 required={config.validationRules.required}
                 value={config.value}
                 onChange={changeHandler}
+                id={name}
             />
             <div className="invalid-feedback">This field is required</div>
         </>

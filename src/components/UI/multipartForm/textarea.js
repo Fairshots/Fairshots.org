@@ -22,7 +22,7 @@ const textarea = ({ rows = "5", name, config, onBlur, changeHandler, id, ...prop
                 required={config.validationRules.required}
                 value={config.value}
                 onChange={changeHandler}
-                id={id}
+                id={name}
             />
             <div className="invalid-feedback">This field is required</div>
         </>
