@@ -1,6 +1,6 @@
-import MultipartForm from "./multipartForm/multipartForm.js";
-import Footer from "./footer.js";
-import Navbar from "./navbar.js";
+import MultipartForm from "./multipartForm/multipartForm";
+import Footer from "./footer";
+import Navbar from "./navbar";
 import DonutSpin from "./donut-spin";
 import ProtectedRoute from "./protectedRoute";
 

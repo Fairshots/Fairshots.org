@@ -78,12 +78,12 @@ class LoginHandler extends Component {
             <>
                 {!isAuthenticated && (
                     <>
-                        <NavItem className="loglog p-3">
+                        <NavItem className="loglog p-3 navbarlink">
                             <Link to="#!" onClick={() => this.toggleOpenCloses("loginModal")}>
                                 <FaUser /> LOGIN
                             </Link>
                         </NavItem>
-                        <NavItem className="p-3">
+                        <NavItem className="p-3 navbarlink">
                             <Link to="/register#photographer">
                                 <FaUserPlus /> SIGN UP
                             </Link>
@@ -92,7 +92,7 @@ class LoginHandler extends Component {
                 )}
                 {isAuthenticated && (
                     <UncontrolledDropdown className="profileNav">
-                        <DropdownToggle nav className="loglog" caret>
+                        <DropdownToggle nav className="loglog navbarlink" caret>
                             <img
                                 src={profile.Logo || profile.ProfilePic}
                                 className="rounded-circle z-depth-0 mr-2"

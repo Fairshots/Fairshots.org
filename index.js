@@ -8,6 +8,9 @@ import rootReducer from "./src/reducers";
 import App from "./src/app";
 
 import "./node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./css/normalize.css";
+import "./css/webflow.css";
+import "./css/main.css";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -50,7 +50,7 @@ class NavbarPage extends Component {
                     <Nav className="align-items-center">
                         <NavItem>
                             <UncontrolledDropdown>
-                                <DropdownToggle nav color="#444444" caret>
+                                <DropdownToggle nav color="#444444" className="navbarlink" caret>
                                     ORGANIZATIONS
                                 </DropdownToggle>
                                 <DropdownMenu className="n-dropdown-menu" right>
@@ -79,7 +79,7 @@ class NavbarPage extends Component {
                         </NavItem>
                         <NavItem>
                             <UncontrolledDropdown>
-                                <DropdownToggle nav color="#444444" caret>
+                                <DropdownToggle nav color="#444444" className="navbarlink" caret>
                                     PHOTOGRAPHERS
                                 </DropdownToggle>
                                 <DropdownMenu className="n-dropdown-menu" right>
@@ -104,10 +104,10 @@ class NavbarPage extends Component {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </NavItem>
-                        <NavItem className="p-3">
+                        <NavItem className="p-3 navbarlink">
                             <Link to="/about">ABOUT</Link>
                         </NavItem>
-                        <NavItem className="p-3">
+                        <NavItem className="p-3 navbarlink">
                             <Link to="/contact-us">CONTACT</Link>
                         </NavItem>
                     </Nav>
