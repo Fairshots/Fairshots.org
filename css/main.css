@@ -6,89 +6,12 @@ body {
     line-height: 20px;
 }
 
-.homepagehero {
-    margin-top: 0px;
-}
-
-.homepageheroslider {
-    height: 800px;
-}
-
-.hero-sentence {
-    position: relative;
-    left: 0%;
-    top: 0%;
-    right: 0%;
-    bottom: 0%;
-    z-index: 3;
-    display: block;
-    width: 550px;
-    margin: 0px auto 11px;
-    clear: none;
-    font-family: Lato, sans-serif;
-    color: #fff;
-    font-size: 51px;
-    line-height: 53px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.hero-undertittle {
-    position: relative;
-    z-index: 3;
-    display: block;
-    width: 500px;
-    margin-top: 0px;
-    margin-right: auto;
-    margin-left: auto;
-    font-family: Lato, sans-serif;
-    color: #fff;
-    font-size: 31px;
-    font-weight: 200;
-    text-align: center;
-    text-transform: uppercase;
-}
-
 .darken {
     position: absolute;
     z-index: 2;
     width: 100%;
     height: 800px;
     background-color: rgba(0, 0, 0, 0.2);
-}
-
-.hero-text-holder {
-    position: absolute;
-    left: 0px;
-    top: 131px;
-    right: 0px;
-    display: block;
-    width: 80%;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.hero-slider-image {
-    width: 100%;
-}
-
-.mask-darken {
-    z-index: 1;
-    display: block;
-    width: 100%;
-    max-width: 1440px;
-    margin-right: auto;
-    margin-left: auto;
-    background-color: rgba(0, 0, 0, 0.55);
-}
-
-.hero-and-slider-section {
-    font-size: 13px;
-    text-align: center;
-}
-
-.hero-and-slider-section.mobile {
-    display: none;
 }
 
 .content-section {
@@ -379,55 +302,6 @@ body {
 
 .listing-link.empty.small {
     max-width: 200px;
-}
-
-.profile-picture {
-    display: block;
-    width: 200px;
-    height: 200px;
-    margin-top: 20px;
-    margin-right: auto;
-    margin-left: auto;
-    border: 4px solid #fff;
-    border-radius: 100%;
-    background-color: #fff;
-    background-image: url("'../images/example-bg.png");
-    background-position: 50% 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.profile-picture.thumbnail {
-    width: 35px;
-    height: 35px;
-    border-width: 1px;
-}
-
-.profile-picture.empty {
-    width: 50px;
-    height: 50px;
-    border-style: none;
-    border-width: 0px;
-    background-color: #000;
-    background-image: url("'../images/org-logo-home-64px.png");
-    background-size: contain;
-}
-
-.profile-picture.organization {
-    background-size: contain;
-}
-
-.profile-tittle {
-    margin-bottom: 0px;
-    font-family: Lato, sans-serif;
-    color: #00a651;
-    font-weight: 200;
-    text-transform: uppercase;
-}
-
-.profile-tittle.inline {
-    display: inline-block;
-    margin-right: 9px;
 }
 
 .general-paragraph {
@@ -1637,49 +1511,6 @@ html.w-mod-js *[data-ix="grow-on-scroll"] {
 }
 
 @media (max-width: 767px) {
-    .homepageheroslider {
-        display: block;
-        width: 100%;
-        height: 100%;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    .hero-sentence {
-        width: 70%;
-        margin-bottom: 0px;
-        font-size: 28px;
-        line-height: 36px;
-    }
-    .hero-undertittle {
-        width: 65%;
-        font-size: 19px;
-        line-height: 19px;
-    }
-    .darken {
-        height: 315px;
-    }
-    .hero-slider-image {
-        display: block;
-        overflow: hidden;
-        width: 100%;
-        height: 100%;
-        max-width: auto;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    .hero-and-slider-section {
-        display: none;
-    }
-    .hero-and-slider-section.mobile {
-        display: block;
-        overflow: hidden;
-        width: 100%;
-        margin-top: 0px;
-        margin-right: auto;
-        margin-left: auto;
-        padding-top: 60px;
-        text-align: center;
-    }
     .so-far-paragraph {
         font-size: 21px;
     }
@@ -1799,19 +1630,7 @@ html.w-mod-js *[data-ix="grow-on-scroll"] {
     .navbarlink.w--open {
         width: 100%;
     }
-    .homepageheroslider {
-        width: 100%;
-        height: 100%;
-    }
-    .hero-sentence {
-        top: 6%;
-        margin-top: 7px;
-        font-size: 17px;
-        line-height: 26px;
-    }
-    .hero-undertittle {
-        font-size: 13px;
-    }
+
     .darken {
         height: 180px;
     }

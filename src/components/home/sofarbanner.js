@@ -14,7 +14,6 @@ export default class SoFarBanner extends Component {
                             FAIRSHOTS is successfully CONNECting PHOTOGRAPHERS TO NGOS in:
                         </p>
                         <br />
-                        <div className="w-embed w-iframe d-flex align-items-center" />
                     </div>
                 </div>
             </div>
