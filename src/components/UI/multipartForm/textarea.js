@@ -1,7 +1,7 @@
 import React from "react";
 import withTooltip from "./tooltip";
 
-const textarea = ({ rows = "5", name, config, onBlur, changeHandler, ...props }) => {
+const textarea = ({ rows = "5", name, config, onBlur, changeHandler, id, ...props }) => {
     let inputClasses = ["form-control"];
 
     if (!config.valid && config.touched) {
@@ -22,6 +22,7 @@ const textarea = ({ rows = "5", name, config, onBlur, changeHandler, ...props })
                 required={config.validationRules.required}
                 value={config.value}
                 onChange={changeHandler}
+                id={name}
             />
             <div className="invalid-feedback">This field is required</div>
         </>

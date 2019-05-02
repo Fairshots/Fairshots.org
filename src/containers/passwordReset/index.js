@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import { Container, Row, Col, Button } from "reactstrap";
 import { resetPw } from "../../actions";
 
 const PasswordReset = ({
@@ -45,9 +45,9 @@ const PasswordReset = ({
     };
 
     return (
-        <MDBContainer>
-            <MDBRow center>
-                <MDBCol md="6">
+        <Container>
+            <Row center>
+                <Col md="6">
                     <form onSubmit={handleSubmit}>
                         <p className="h4 text-center mt-4 mb-4">Set up your new password</p>
                         <br />
@@ -82,14 +82,14 @@ const PasswordReset = ({
                             >
                                 {notification || tokenError}
                             </div>
-                            <MDBBtn color="dark-green" type="submit">
+                            <Button color="dark-green" type="submit">
                                 Save change
-                            </MDBBtn>
+                            </Button>
                         </div>
                     </form>
-                </MDBCol>
-            </MDBRow>
-        </MDBContainer>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 

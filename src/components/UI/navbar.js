@@ -1,23 +1,28 @@
 import React, { Component } from "react";
 import {
-    MDBNavbar,
-    MDBNavbarNav,
-    MDBNavItem,
-    MDBNavLink,
-    MDBNavbarToggler,
-    MDBCollapse,
-    MDBDropdown,
-    MDBDropdownToggle,
-    MDBDropdownMenu,
-    MDBDropdownItem
-} from "mdbreact";
+    Navbar,
+    Nav,
+    NavItem,
+    NavbarToggler,
+    Collapse,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from "reactstrap";
 import { Link } from "react-router-dom";
 import LoginHandler from "../../containers/loginHandler";
 import "./navbar.scss";
 
 class NavbarPage extends Component {
     state = {
-        isOpen: false
+        isOpen: false,
+        orgsisOpen: false,
+        photisOpen: false
+    };
+
+    toggleOpenCloses = name => {
+        this.setState(prevState => ({ [name]: !prevState[name] }));
     };
 
     toggleCollapse = () => {
@@ -31,81 +36,86 @@ class NavbarPage extends Component {
     render() {
         const { isAuthenticated, userType } = this.props;
         return (
-            <MDBNavbar color="#444444" style={{ paddingRight: "6rem" }} dark expand="md">
+            <Navbar color="#444444" style={{ paddingRight: "6rem" }} dark expand="md">
                 <Link to="/" className="navbar-brand">
                     <img src="images/Fair-shotsV3.png" width="250" />
                 </Link>
-                <MDBNavbarToggler onClick={this.toggleCollapse} />
-                <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-                    <MDBNavbarNav left>
-                        <MDBNavItem>
-                            <MDBDropdown>
-                                <MDBDropdownToggle nav color="#444444" caret>
+                <NavbarToggler onClick={this.toggleCollapse} />
+                <Collapse
+                    className="justify-content-between"
+                    id="navbarCollapse3"
+                    isOpen={this.state.isOpen}
+                    navbar
+                >
+                    <Nav className="align-items-center">
+                        <NavItem>
+                            <UncontrolledDropdown>
+                                <DropdownToggle nav color="#444444" className="navbarlink" caret>
                                     ORGANIZATIONS
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu className="n-dropdown-menu" right>
-                                    <MDBDropdownItem
+                                </DropdownToggle>
+                                <DropdownMenu className="n-dropdown-menu" right>
+                                    <DropdownItem
                                         className="n-dropdown-link"
                                         onClick={this.redirect("/register#organization")}
                                     >
                                         REGISTER AN ORGANIZATION
-                                    </MDBDropdownItem>
+                                    </DropdownItem>
                                     {isAuthenticated && userType !== "photographer" && (
-                                        <MDBDropdownItem
+                                        <DropdownItem
                                             className="n-dropdown-link"
                                             onClick={this.redirect("/create-a-project")}
                                         >
                                             CREATE A NEW PROJECT
-                                        </MDBDropdownItem>
+                                        </DropdownItem>
                                     )}
-                                    <MDBDropdownItem
+                                    <DropdownItem
                                         className="n-dropdown-link"
                                         onClick={this.redirect("/photographers")}
                                     >
                                         FIND A PHOTOGRAPHER
-                                    </MDBDropdownItem>
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBDropdown>
-                                <MDBDropdownToggle nav color="#444444" caret>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </NavItem>
+                        <NavItem>
+                            <UncontrolledDropdown>
+                                <DropdownToggle nav color="#444444" className="navbarlink" caret>
                                     PHOTOGRAPHERS
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu className="n-dropdown-menu" right>
-                                    <MDBDropdownItem
+                                </DropdownToggle>
+                                <DropdownMenu className="n-dropdown-menu" right>
+                                    <DropdownItem
                                         className="n-dropdown-link"
                                         onClick={this.redirect("/register#photographer")}
                                     >
                                         REGISTER AS A PHOTOGRAPHER
-                                    </MDBDropdownItem>
-                                    <MDBDropdownItem
+                                    </DropdownItem>
+                                    <DropdownItem
                                         className="n-dropdown-link"
                                         onClick={this.redirect("/organizations")}
                                     >
                                         FIND AN NGO
-                                    </MDBDropdownItem>
-                                    <MDBDropdownItem
+                                    </DropdownItem>
+                                    <DropdownItem
                                         className="n-dropdown-link"
                                         onClick={this.redirect("/projectss")}
                                     >
                                         CURRENT PROJECTS
-                                    </MDBDropdownItem>
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="/about">ABOUT</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="/contact-us">CONTACT</MDBNavLink>
-                        </MDBNavItem>
-                    </MDBNavbarNav>
-                    <MDBNavbarNav className="login-handler" right>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </NavItem>
+                        <NavItem className="p-3 navbarlink">
+                            <Link to="/about">ABOUT</Link>
+                        </NavItem>
+                        <NavItem className="p-3 navbarlink">
+                            <Link to="/contact-us">CONTACT</Link>
+                        </NavItem>
+                    </Nav>
+                    <Nav className="login-handler" right>
                         <LoginHandler />
-                    </MDBNavbarNav>
-                </MDBCollapse>
-            </MDBNavbar>
+                    </Nav>
+                </Collapse>
+            </Navbar>
         );
     }
 }

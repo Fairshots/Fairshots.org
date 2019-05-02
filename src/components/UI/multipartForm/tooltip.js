@@ -1,18 +1,19 @@
 import React from "react";
-import { MDBTooltip } from "mdbreact";
+import { UncontrolledTooltip } from "reactstrap";
 
 const tooltip = Component => props => {
     if (props.config.tooltipContent) {
         return (
             <div className="form__group">
-                <MDBTooltip
+                <Component {...props} />
+                <UncontrolledTooltip
                     placement="right"
                     tag="div"
-                    tooltipContent={props.config.tooltipContent}
                     tooltipClass="custom-tooltip"
+                    target={props.name}
                 >
-                    <Component {...props} />
-                </MDBTooltip>
+                    {props.config.tooltipContent}
+                </UncontrolledTooltip>
             </div>
         );
     }

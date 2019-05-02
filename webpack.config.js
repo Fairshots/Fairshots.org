@@ -71,6 +71,7 @@ module.exports = (env, argv) => ({
                     }
                 }
             },
+            /*
             { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader" },
             { test: /\.(woff|woff2)$/, loader: "url-loader?prefix=font/&limit=5000" },
             {
@@ -81,6 +82,7 @@ module.exports = (env, argv) => ({
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
                 loader: "url-loader"
             },
+            */
             {
                 test: /\.s?css$/,
                 use: [
