@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { UncontrolledCarousel, Container } from "reactstrap";
+
 import "./heroslider.scss";
 
 export default class HeroSlider extends Component {
@@ -48,30 +49,49 @@ export default class HeroSlider extends Component {
                 src: "images/Fairshots-mobile-slideshow-04.jpg",
                 header: ""
             }
-        ]
+        ],
+        screenSize: 1024
+    };
+
+    componentDidMount() {
+        window.addEventListener("resize", this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions = () => {
+        this.setState({ screenSize: window.innerWidth });
     };
 
     render() {
         return (
             <div className="hero-slider">
-                <div className="darken" />
+                {this.state.screenSize > 600 && <div className="darken" />}
                 <Container>
                     <UncontrolledCarousel
-                        // eslint-disable-next-line no-restricted-globals
-                        items={screen.width > 500 ? this.state.items : this.state.items_mobile}
+                        items={
+                            this.state.screenSize > 600 ? this.state.items : this.state.items_mobile
+                        }
                     />
+                </Container>
+
+                <div className="hero-text-holder">
+                    {this.state.screenSize > 600 && (
+                        <div>
+                            <h1 className="hero-sentence">A better world one click at a time</h1>
+                            <h2 class="hero-undertitle">
+                                connecting socially engaged photographers with world changing NGOS
+                            </h2>
+                        </div>
+                    )}
                     <div className="join-button-and-text">
                         <Link to="/register" className="join-button w-button">
                             I WANT TO JOIN
                         </Link>
                         <p className="general-paragraph hero">Quickly while it is still free :)</p>
                     </div>
-                </Container>
-                <div className="hero-text-holder">
-                    <h1 className="hero-sentence">A better world one click at a time</h1> />
-                    <h2 class="hero-undertitle">
-                        connecting socially engaged photographers with world changing NGOS
-                    </h2>
                 </div>
             </div>
         );

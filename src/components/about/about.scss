@@ -1,0 +1,96 @@
+.about-green-tittles {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-family: Lato, sans-serif;
+    color: #00a651;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.about-green-tittles.faq {
+    display: block;
+    margin-top: 0px;
+    margin-right: 4px;
+    float: none;
+    -webkit-transition: font-size 317ms ease, opacity 200ms ease;
+    transition: font-size 317ms ease, opacity 200ms ease;
+}
+
+.about-green-tittles.faq:hover {
+    font-size: 15px;
+    font-weight: 300;
+    text-decoration: underline;
+}
+.about-us-image {
+    width: 100%;
+    height: 400px;
+}
+
+.about-us-image-section {
+    height: 400px;
+    background-image: url("../../../images/fairshots-family.jpg");
+    background-position: 50% 0px;
+    background-size: 100%;
+}
+.team-list {
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 37px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.team-member-image {
+    width: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 100px;
+}
+.team-div {
+    display: none;
+    margin-top: 50px;
+}
+.help-div {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.infographic {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    border: 3px solid #00a651;
+}
+
+.faq-paragraph {
+    overflow: hidden;
+    height: 0px;
+    color: #878787;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.faq-arrow {
+    display: inline-block;
+    width: 7px;
+    margin-right: 5px;
+    float: left;
+}
+@media (max-width: 991px) {
+    .about-us-image-section {
+        height: 300px;
+        padding-top: 56px;
+        background-position: 50% 43px;
+    }
+}

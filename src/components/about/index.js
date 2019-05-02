@@ -1,6 +1,8 @@
 import React from "react";
 import Contact from "../contact";
 
+import "./about.scss";
+
 export default function About() {
     return (
         <div>
@@ -296,14 +298,17 @@ export default function About() {
                                     </div>
                                     <div>
                                         <h4 className="portfolio-tittle">For Photographers</h4>
-                                        <div class="w-dyn-list">
-                                            <div class="w-dyn-items">
-                                                <div data-ix="faq-show-and-hide" class="w-dyn-item">
-                                                    <h5 class="about-green-tittles faq">
+                                        <div className="w-dyn-list">
+                                            <div className="w-dyn-items">
+                                                <div
+                                                    data-ix="faq-show-and-hide"
+                                                    className="w-dyn-item"
+                                                >
+                                                    <h5 className="about-green-tittles faq">
                                                         &gt;How do I apply for an opportunity?
                                                     </h5>
                                                     <div
-                                                        class="faq-paragraph w-richtext"
+                                                        className="faq-paragraph w-richtext"
                                                         style={{ height: "auto" }}
                                                     >
                                                         <p>
@@ -316,14 +321,14 @@ export default function About() {
                                                     </div>
                                                     <div
                                                         data-ix="faq-show-and-hide"
-                                                        class="w-dyn-item"
+                                                        className="w-dyn-item"
                                                     >
-                                                        <h5 class="about-green-tittles faq">
+                                                        <h5 className="about-green-tittles faq">
                                                             &gt;Can I apply for job opportunities
                                                             outside my area?{" "}
                                                         </h5>
                                                         <div
-                                                            class="faq-paragraph w-richtext"
+                                                            className="faq-paragraph w-richtext"
                                                             style={{ height: "auto" }}
                                                         >
                                                             <p>
@@ -340,15 +345,15 @@ export default function About() {
                                                     </div>
                                                     <div
                                                         data-ix="faq-show-and-hide"
-                                                        class="w-dyn-item"
+                                                        className="w-dyn-item"
                                                     >
-                                                        <h5 class="about-green-tittles faq">
+                                                        <h5 className="about-green-tittles faq">
                                                             &gt; How do you distinguish
                                                             professionals from amateur from
                                                             students?
                                                         </h5>
                                                         <div
-                                                            class="faq-paragraph w-richtext"
+                                                            className="faq-paragraph w-richtext"
                                                             style={{ height: "auto" }}
                                                         >
                                                             <p>
@@ -365,13 +370,13 @@ export default function About() {
                                                     </div>
                                                     <div
                                                         data-ix="faq-show-and-hide"
-                                                        class="w-dyn-item"
+                                                        className="w-dyn-item"
                                                     >
-                                                        <h5 class="about-green-tittles faq">
+                                                        <h5 className="about-green-tittles faq">
                                                             &gt; Can anyone apply to become a listed
                                                             photographer?{" "}
                                                         </h5>
-                                                        <div class="faq-paragraph w-richtext">
+                                                        <div className="faq-paragraph w-richtext">
                                                             <p>
                                                                 Yes, everyone can apply. But we do
                                                                 check to see if what you are saying
@@ -384,13 +389,13 @@ export default function About() {
                                                     </div>
                                                     <div
                                                         data-ix="faq-show-and-hide"
-                                                        class="w-dyn-item"
+                                                        className="w-dyn-item"
                                                     >
-                                                        <h5 class="about-green-tittles faq">
+                                                        <h5 className="about-green-tittles faq">
                                                             &gt; Who owns the pictures created from
                                                             fairshots assignments?
                                                         </h5>
-                                                        <div class="faq-paragraph w-richtext">
+                                                        <div className="faq-paragraph w-richtext">
                                                             <p>
                                                                 We leave that up to you. You can
                                                                 choose to maintaing all the rights
