@@ -68,17 +68,17 @@ export default class HeroSlider extends Component {
     render() {
         return (
             <div className="hero-slider">
-                {this.state.screenSize > 600 && <div className="darken" />}
-                <Container>
+                {this.state.screenSize > 768 && <div className="darken" />}
+                <Container fluid>
                     <UncontrolledCarousel
                         items={
-                            this.state.screenSize > 600 ? this.state.items : this.state.items_mobile
+                            this.state.screenSize > 768 ? this.state.items : this.state.items_mobile
                         }
                     />
                 </Container>
 
                 <div className="hero-text-holder">
-                    {this.state.screenSize > 600 && (
+                    {this.state.screenSize > 768 && (
                         <div>
                             <h1 className="hero-sentence">A better world one click at a time</h1>
                             <h2 class="hero-undertitle">
