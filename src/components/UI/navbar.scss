@@ -12,16 +12,17 @@
     }
 
     .navbarlink {
-        -webkit-transition: background-color 200ms ease;
-        transition: background-color 200ms ease;
         color: #fff;
         font-size: 15px;
-        font-weight: 100;
+        font-weight: 200;
         text-transform: uppercase;
-    }
-
-    .navbarlink:hover {
-        background-color: #00a651;
+        .nav-link {
+            -webkit-transition: background-color 500ms ease;
+            transition: background-color 500ms ease;
+        }
+        .nav-link:hover {
+            background-color: #00a651;
+        }
     }
 
     .n-dropdown-link {

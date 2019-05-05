@@ -36,7 +36,7 @@ class NavbarPage extends Component {
     render() {
         const { isAuthenticated, userType } = this.props;
         return (
-            <Navbar color="#444444" style={{ paddingRight: "6rem" }} dark expand="md">
+            <Navbar color="#444444" dark expand="md">
                 <Link to="/" className="navbar-brand">
                     <img src="images/Fair-shotsV3.png" width="250" />
                 </Link>
@@ -48,9 +48,9 @@ class NavbarPage extends Component {
                     navbar
                 >
                     <Nav className="align-items-center">
-                        <NavItem>
+                        <NavItem className="navbarlink">
                             <UncontrolledDropdown>
-                                <DropdownToggle nav color="#444444" className="navbarlink" caret>
+                                <DropdownToggle nav color="#444444" caret>
                                     ORGANIZATIONS
                                 </DropdownToggle>
                                 <DropdownMenu className="n-dropdown-menu" right>
@@ -77,9 +77,9 @@ class NavbarPage extends Component {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className="p-3 navbarlink">
                             <UncontrolledDropdown>
-                                <DropdownToggle nav color="#444444" className="navbarlink" caret>
+                                <DropdownToggle nav color="#444444" caret>
                                     PHOTOGRAPHERS
                                 </DropdownToggle>
                                 <DropdownMenu className="n-dropdown-menu" right>
@@ -105,10 +105,14 @@ class NavbarPage extends Component {
                             </UncontrolledDropdown>
                         </NavItem>
                         <NavItem className="p-3 navbarlink">
-                            <Link to="/about">ABOUT</Link>
+                            <Link to="/about" className="nav-link">
+                                ABOUT
+                            </Link>
                         </NavItem>
                         <NavItem className="p-3 navbarlink">
-                            <Link to="/contact-us">CONTACT</Link>
+                            <Link to="/contact-us" className="nav-link">
+                                CONTACT
+                            </Link>
                         </NavItem>
                     </Nav>
                     <Nav className="login-handler" right>
