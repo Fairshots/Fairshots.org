@@ -4,6 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import { getFeatures, ThirdPartyUserProfile } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
+import "./featured.scss";
 /**
  * When mounted dispatches action to fetch featured photographers and orgs and renders it in main page.
  * @extends Component

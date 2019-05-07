@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./sofarbanner.scss";
 
 export default class SoFarBanner extends Component {
     render() {
