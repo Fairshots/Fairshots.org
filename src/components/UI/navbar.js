@@ -77,7 +77,7 @@ class NavbarPage extends Component {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </NavItem>
-                        <NavItem className="p-3 navbarlink">
+                        <NavItem className="navbarlink">
                             <UncontrolledDropdown>
                                 <DropdownToggle nav color="#444444" caret>
                                     PHOTOGRAPHERS
@@ -104,12 +104,12 @@ class NavbarPage extends Component {
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </NavItem>
-                        <NavItem className="p-3 navbarlink">
+                        <NavItem className="navbarlink">
                             <Link to="/about" className="nav-link">
                                 ABOUT
                             </Link>
                         </NavItem>
-                        <NavItem className="p-3 navbarlink">
+                        <NavItem className="navbarlink">
                             <Link to="/contact-us" className="nav-link">
                                 CONTACT
                             </Link>

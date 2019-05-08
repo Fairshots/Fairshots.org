@@ -6,6 +6,10 @@ body {
     line-height: 20px;
 }
 
+main {
+    padding-top: 60px;
+}
+
 .content-section {
     padding: 60px 20px 20px;
 }

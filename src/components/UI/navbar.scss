@@ -1,4 +1,4 @@
-.navbar {
+.navbar.navbar-dark {
     position: fixed;
     width: 100%;
     background-color: #444;
@@ -6,6 +6,9 @@
     color: #fff;
     font-weight: 400;
     z-index: 10;
+    height: 60px;
+    padding-top: 0;
+    padding-bottom: 0;
 
     a {
         color: white;
