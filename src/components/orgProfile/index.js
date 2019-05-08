@@ -3,7 +3,7 @@ import { Button, Row } from "reactstrap";
 import { FaCog, FaFileUpload, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import ProfileCards from "../profilecards";
+import ProjectCards from "../projectCards";
 
 import "./orgProfile.scss";
 
@@ -88,12 +88,13 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
             <Row className="justify-content-center mt-2">
                 <h3 className="portfolio-tittle">Projects Posted</h3>
             </Row>
-            <Row className="portfolio-holder justify-content-center">
+            <Row className="justify-content-center">
                 {organization.Projects ? (
-                    <ProfileCards
+                    <ProjectCards
                         userType="project"
                         cards={organization.Projects}
-                        pushHistory={(proj, id) => {
+                        orgsInfo={{ Name: organization.Name, Country: organization.Country }}
+                        pushHistory={id => {
                             this.props.history.push(`/project/${id}`);
                         }}
                     />

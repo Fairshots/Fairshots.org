@@ -1,4 +1,10 @@
 .register-form {
+    .tab-arrow.noshow {
+        opacity: 0;
+        -webkit-transform: translate(0px, -10px) scale(1, 0.3);
+        -ms-transform: translate(0px, -10px) scale(1, 0.3);
+        transform: translate(0px, -10px) scale(1, 0.3);
+    }
     .register-tabs {
         .f-tab-link {
             display: inline-block;
