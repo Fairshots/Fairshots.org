@@ -9,6 +9,7 @@ import UserProfile from "../containers/userProfile";
 import AllOrgs from "../containers/allOrgs";
 import AllPhotographers from "../containers/allPhotographers";
 import CreateProject from "../containers/createProject";
+import ProjectPage from "../containers/projectPage";
 import PasswordReset from "../containers/passwordReset";
 import { ProtectedRoute } from "./UI";
 
@@ -32,6 +33,7 @@ export default function Main(props) {
                     component={CreateProject}
                 />
                 <Route path="/login/pwreset/:token" component={PasswordReset} />
+                <Route path="/project/:projId" component={ProjectPage} />
                 <Route path="/:userType/:userId" component={UserProfile} />
             </Switch>
         </main>

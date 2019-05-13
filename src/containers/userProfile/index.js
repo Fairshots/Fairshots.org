@@ -153,6 +153,7 @@ class UserProfile extends Component {
                         toggleModal={this.toggleModal}
                         uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
                         thirdParty={this.state.thirdParty}
+                        history={this.props.history}
                     />
                 ) : (
                     <PhotogProfile

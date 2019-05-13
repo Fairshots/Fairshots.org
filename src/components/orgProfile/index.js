@@ -7,7 +7,13 @@ import ProjectCards from "../projectCards";
 
 import "./orgProfile.scss";
 
-export default function OrgProfile({ organization, uploadPhoto, toggleModal, thirdParty }) {
+export default function OrgProfile({
+    organization,
+    uploadPhoto,
+    toggleModal,
+    thirdParty,
+    history
+}) {
     const { cloudinary } = window;
     const imgUploadWidget = cloudinary.createUploadWidget(
         { cloudName: "fairshots", uploadPreset: "kahvrgme" },
@@ -25,7 +31,7 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                     <img className="profile-picture" src={organization.Logo} />
                 </div>
                 <div className="col-sm-9">
-                    <h1 className="profile-tittle">{organization.Name}</h1>
+                    <h1 className="green-tittle">{organization.Name}</h1>
                     <p className="listing-subtittle page">
                         Member since {`${new Date(organization.createdAt).toLocaleDateString()}`}
                     </p>
@@ -95,7 +101,7 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                         cards={organization.Projects}
                         orgsInfo={{ Name: organization.Name, Country: organization.Country }}
                         pushHistory={id => {
-                            this.props.history.push(`/project/${id}`);
+                            history.push(`/project/${id}`);
                         }}
                     />
                 ) : (
