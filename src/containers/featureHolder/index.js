@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
+import { Spinner } from "reactstrap";
 import { getFeatures, ThirdPartyUserProfile } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
@@ -32,14 +33,12 @@ class FeatureHolder extends Component {
                         }}
                     />
                 ) : (
-                    "Loading..."
+                    <Spinner type="grow" color="success" />
                 )}
                 <Link to="/photographers" className="text-link see-all mb-3">
                     see all available photographers
                 </Link>
-
                 <h2 className="feautured-h3">Featured ORGANIZATIONS</h2>
-
                 {mainFeatures.organizations ? (
                     <ProfileCards
                         userType="organization"
@@ -50,12 +49,12 @@ class FeatureHolder extends Component {
                         }}
                     />
                 ) : (
-                    "Loading..."
+                    <Spinner type="grow" color="success" />
                 )}
-
                 <Link to="/organizations" className="text-link see-all mb-3">
                     see all available ORGANIZATIONS
                 </Link>
+                S
             </div>
         );
     }

@@ -42,14 +42,14 @@ export default class ProfileCards extends Component {
                     this.setState({
                         zoomDeck: {
                             transform: "scaleX(1) scaleY(1) scaleZ(1)",
-                            transition: "transform 800ms ease 0s"
+                            transition: "transform 1500ms ease 0s"
                         }
                     });
                 } else {
                     this.setState({
                         zoomDeck: {
                             transform: "scaleX(0.85) scaleY(0.85) scaleZ(1)",
-                            transition: "transform 800ms ease 0s"
+                            transition: "transform 1500ms ease 0s"
                         }
                     });
                 }

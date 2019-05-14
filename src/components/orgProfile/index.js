@@ -3,7 +3,7 @@ import { Button, Row } from "reactstrap";
 import { FaCog, FaFileUpload, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import ProjectCards from "../projectCards";
+import ProjectCards from "../projectComponents/projectCards";
 
 import "./orgProfile.scss";
 
