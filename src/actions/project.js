@@ -35,4 +35,33 @@ export function postProject(formProps, id, token) {
     };
 }
 
-export function getProjects(formProps) {}
+export function getProject(id, token) {
+    return async dispatch => {
+        dispatch(toggleLoading());
+        const config = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `bearer ${token}`
+            }
+        };
+        try {
+            const res = await fetch(`${FAIRSHOTS_API}api/project/${id}`, config);
+            if (res.ok) {
+                const info = await res.json();
+                console.log(info);
+                dispatch({
+                    type: "GET_PROJECT",
+                    payload: info
+                });
+                dispatch(toggleLoading());
+            } else throw await res.text();
+        } catch (e) {
+            dispatch({
+                type: "PROJECT_ERROR",
+                payload: e
+            });
+            dispatch(toggleLoading());
+        }
+    };
+}

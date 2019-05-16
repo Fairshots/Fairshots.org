@@ -29,8 +29,8 @@
     "dependencies": {
         "@babel/runtime-corejs2": "^7.1.2",
         "bootstrap": "^4.3.1",
-        "react": "^16.8.2",
-        "react-dom": "^16.8.2",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
         "react-icons": "^3.6.1",
         "react-redux": "^5.0.7",
         "react-router-dom": "^4.3.1",

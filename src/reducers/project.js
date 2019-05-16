@@ -12,6 +12,12 @@ export default function project(state = {}, action) {
                 error: false
             });
         }
+        case "GET_PROJECT": {
+            return Object.assign({}, state, {
+                [action.payload.id]: { ...action.payload },
+                error: false
+            });
+        }
 
         default:
             return state;

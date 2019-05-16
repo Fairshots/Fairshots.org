@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Container, Row } from "reactstrap";
 import { ProjectSidebar, ProjectMain } from "../../components/projectComponents";
+import { getProject } from "../../actions";
 import "./projectPage.scss";
 
 /**
@@ -62,14 +63,10 @@ const images = [
 ];
 
 const ProjectPage = props => {
-    /*
-    useEffect(
-        () => {
-            if (notification) setTimeout(() => props.history.push("/"), 5000);
-        },
-        [notification]
-    );
-    */
+    useEffect(() => {
+        props.getProjectInfo(props.match.params.projId, props.token);
+    }, []);
+
     return (
         <Container className="project" fluid>
             <Row className="justify-content-between">
@@ -87,7 +84,9 @@ const mapStateToProps = state => ({
     clAPIKey: state.auth.user.CL_apikey,
     clAPISecret: state.auth.user.CL_apisecret
 });
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    getProjectInfo: (id, token) => dispatch(getProject(id, token))
+});
 
 export default withRouter(
     connect(

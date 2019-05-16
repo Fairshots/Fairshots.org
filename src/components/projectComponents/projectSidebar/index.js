@@ -8,7 +8,7 @@ const ProjectSidebar = ({ projectInfo }) => (
             <Button className="mb-2" color="success" outline>
                 Apply
             </Button>
-            <Button className="mb-2 success" outline>
+            <Button className="mb-2" color="success" outline>
                 Help this cause
             </Button>
         </ButtonGroup>
