@@ -16,19 +16,37 @@ const ProjectSidebar = ({ projectInfo }) => (
             <tbody>
                 <tr>
                     <th scope="row">Primary Cause</th>
-                    <td>Community</td>
+                    <td>{projectInfo.Cause}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Photographers Needed</th>
+                    <td>{projectInfo.PhotographersNeeded}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Experience required</th>
+                    <td>
+                        {projectInfo.ProfessionalOnly ? "Professional Only" : "Students welcome"}
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">Application Deadline</th>
-                    <td>Mark</td>
-                </tr>
-                <tr>
-                    <th scope="row">Project Type</th>
-                    <td>Jacob</td>
+                    <td>{new Date(projectInfo.ApplicationDate).toLocaleDateString()}</td>
                 </tr>
                 <tr>
                     <th scope="row">Starting Date</th>
-                    <td>Larry</td>
+                    <td>{new Date(projectInfo.StartingDate).toLocaleDateString()}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Duration</th>
+                    <td>{projectInfo.Duration}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Delivery Deadline</th>
+                    <td>{new Date(projectInfo.Delivery).toLocaleDateString()}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Location</th>
+                    <td>{`${projectInfo.City}, ${projectInfo.Country}`}</td>
                 </tr>
             </tbody>
         </Table>

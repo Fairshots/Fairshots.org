@@ -63,16 +63,24 @@ const images = [
 ];
 
 const ProjectPage = props => {
+    const {
+        match: {
+            params: { projId }
+        }
+    } = props;
+
     useEffect(() => {
-        props.getProjectInfo(props.match.params.projId, props.token);
+        props.getProjectInfo(projId, props.token);
     }, []);
 
     return (
         <Container className="project" fluid>
-            <Row className="justify-content-between">
-                <ProjectSidebar />
-                <ProjectMain images={images} />
-            </Row>
+            {props.project[projId] && (
+                <Row className="justify-content-between">
+                    <ProjectSidebar projectInfo={props.project[projId]} />
+                    <ProjectMain projectInfo={props.project[projId]} />
+                </Row>
+            )}
         </Container>
     );
 };
@@ -81,8 +89,7 @@ const mapStateToProps = state => ({
     userProfile: state.profile,
     token: state.auth.user.token,
     authId: state.auth.user.userId,
-    clAPIKey: state.auth.user.CL_apikey,
-    clAPISecret: state.auth.user.CL_apisecret
+    project: state.project
 });
 const mapDispatchToProps = dispatch => ({
     getProjectInfo: (id, token) => dispatch(getProject(id, token))
