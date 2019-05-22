@@ -11,6 +11,23 @@ const ProjectMain = ({ projectInfo }) => (
             <Row>
                 <h5 className="general-paragraph">{projectInfo.Description}</h5>
             </Row>
+            <Row className="listing-subtittle page mt-3">Funding</Row>
+            <Row className="general-paragraph">
+                {// eslint-disable-next-line no-nested-ternary
+                projectInfo.FundsFairshot ? (
+                    <>
+                        <Col>
+                            project will be funded by
+                            <img src="images/Fair-shotsV3.png" />
+                        </Col>
+                    </>
+                ) : projectInfo.FundsAvailable === "no" ? (
+                    "There are no funds available for this project"
+                ) : (
+                    projectInfo.FundsDetails
+                )}
+            </Row>
+
             {projectInfo.Photos[0] && (
                 <Row className="listing-subtittle page mt-3">Visual References</Row>
             )}
