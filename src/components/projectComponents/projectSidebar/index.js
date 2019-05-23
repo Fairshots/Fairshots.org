@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row, Table } from "reactstrap";
 import ProjButtons from "./projButtons";
 
-const ProjectSidebar = ({ projectInfo, userType }) => {
+const ProjectSidebar = ({ projectInfo, userType, toggleModal }) => {
     const currentDate = new Date();
     const applicationDate = new Date(projectInfo.ApplicationDate);
     const projectExpired = applicationDate > currentDate;
@@ -10,7 +10,7 @@ const ProjectSidebar = ({ projectInfo, userType }) => {
     return (
         <Col md="3" className="project__sidebar justify-content-center">
             <img className="profile-picture" src="images/org-logo.png" />
-            <ProjButtons userType={userType} />
+            <ProjButtons userType={userType} toggleModal={toggleModal} />
             {projectExpired && (
                 <Row className="justify-content-center" style={{ color: "red" }}>
                     This project is no longer accepting applications
