@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { object } from "prop-types";
 import formConfiguration from "./formConfiguration";
 import { MultipartForm } from "../../components/UI";
 import { postProject } from "../../actions";
@@ -16,8 +15,7 @@ class createProject extends Component {
             },
             {
                 title: "References",
-                description:
-                    "Upload up to 5 reference images. A visual reference can help you describe what type of images you are after. These can be images of previous jobs you have done or something you might have seen online, not necessarily only photographs, but styles and brands can help enforce what you are trying to convey. You can upload as many as 5 visual references. Max individual files size 1mb."
+                description: "Upload up to 5 reference images. A visual reference can help you describe what type of images you are after. These can be images of previous jobs you have done or something you might have seen online, not necessarily only photographs, but styles and brands can help enforce what you are trying to convey. You can upload as many as 5 visual references. Max individual files size 1mb."
             },
             {
                 title: "Location",

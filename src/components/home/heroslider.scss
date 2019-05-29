@@ -20,6 +20,11 @@
             }
         }
     }
+    .carousel-control-prev,
+    .carousel-control-next {
+        z-index: 3;
+        cursor: pointer;
+    }
 }
 .hero-text-holder {
     position: absolute;

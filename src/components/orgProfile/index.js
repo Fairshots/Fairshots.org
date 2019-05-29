@@ -3,11 +3,17 @@ import { Button, Row } from "reactstrap";
 import { FaCog, FaFileUpload, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import ProfileCards from "../profilecards";
+import ProjectCards from "../projectComponents/projectCards";
 
 import "./orgProfile.scss";
 
-export default function OrgProfile({ organization, uploadPhoto, toggleModal, thirdParty }) {
+export default function OrgProfile({
+    organization,
+    uploadPhoto,
+    toggleModal,
+    thirdParty,
+    history
+}) {
     const { cloudinary } = window;
     const imgUploadWidget = cloudinary.createUploadWidget(
         { cloudName: "fairshots", uploadPreset: "kahvrgme" },
@@ -25,7 +31,7 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
                     <img className="profile-picture" src={organization.Logo} />
                 </div>
                 <div className="col-sm-9">
-                    <h1 className="profile-tittle">{organization.Name}</h1>
+                    <h1 className="green-tittle">{organization.Name}</h1>
                     <p className="listing-subtittle page">
                         Member since {`${new Date(organization.createdAt).toLocaleDateString()}`}
                     </p>
@@ -88,13 +94,14 @@ export default function OrgProfile({ organization, uploadPhoto, toggleModal, thi
             <Row className="justify-content-center mt-2">
                 <h3 className="portfolio-tittle">Projects Posted</h3>
             </Row>
-            <Row className="portfolio-holder justify-content-center">
+            <Row className="justify-content-center">
                 {organization.Projects ? (
-                    <ProfileCards
+                    <ProjectCards
                         userType="project"
                         cards={organization.Projects}
-                        pushHistory={(proj, id) => {
-                            this.props.history.push(`/project/${id}`);
+                        orgsInfo={{ Name: organization.Name, Country: organization.Country }}
+                        pushHistory={id => {
+                            history.push(`/project/${id}`);
                         }}
                     />
                 ) : (

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { Spinner } from "reactstrap";
 import { getAllPhotographers, ThirdPartyUserProfile } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
@@ -31,7 +32,7 @@ class AllPhotographers extends Component {
                         }}
                     />
                 ) : (
-                    "Loading"
+                    <Spinner type="grow" color="success" />
                 )}
             </div>
         );

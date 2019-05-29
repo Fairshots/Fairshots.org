@@ -23,7 +23,7 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, 
                     <img className="profile-picture" src={photographer.ProfilePic} />
                 </div>
                 <div className="col-sm-9">
-                    <h1 className="profile-tittle">{photographer.Name}</h1>
+                    <h1 className="green-tittle">{photographer.Name}</h1>
                     <p className="listing-subtittle page">{`${photographer.Skill} Photographer`}</p>
                     <p className="general-paragraph">{photographer.Biography}</p>
                 </div>

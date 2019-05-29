@@ -9,16 +9,16 @@ import {
     CardBody
 } from "reactstrap";
 
-import "./profilecards.scss";
+import "./projectcards.scss";
 
 /**
- * Renders a deck of cards. Each one has basic profile info to be showed
+ * Renders a deck of cards. Each one has basic project info
  * @extends Component
  * @author [leovcunha](https://github.com/leovcunha)
  */
-export default class ProfileCards extends Component {
+export default class ProjectCards extends Component {
     /**
-     *  profile cards constructor
+     *  project cards constructor
      * @param {Object[]}props.cards - array of objects card infos
      */
     constructor(props) {
@@ -37,29 +37,28 @@ export default class ProfileCards extends Component {
          * @param {Object[]} entries
          */
         const handleScroll = entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.setState({
-                        zoomDeck: {
-                            transform: "scaleX(1) scaleY(1) scaleZ(1)",
-                            transition: "transform 1500ms ease 0s"
-                        }
-                    });
-                } else {
-                    this.setState({
-                        zoomDeck: {
-                            transform: "scaleX(0.85) scaleY(0.85) scaleZ(1)",
-                            transition: "transform 1500ms ease 0s"
-                        }
-                    });
-                }
-            });
+            console.log(entries[0].intersectionRatio);
+            if (entries[0].intersectionRatio > 0.1 && window.scrollY > 80) {
+                this.setState({
+                    zoomDeck: {
+                        transform: "scaleX(1) scaleY(1) scaleZ(1)",
+                        transition: "transform 800ms ease 0s"
+                    }
+                });
+            } else {
+                this.setState({
+                    zoomDeck: {
+                        transform: "scaleX(0.85) scaleY(0.85) scaleZ(1)",
+                        transition: "transform 800ms ease 0s"
+                    }
+                });
+            }
         };
 
         this.observer = new IntersectionObserver(handleScroll, {
             root: null, // indicates root component or viewport
             rootMargin: "0px",
-            threshold: 0 // once inside the viewport triggers the callback
+            threshold: [0, 0.02, 0.1, 0.2] // once inside the viewport triggers the callback
         });
     }
 
@@ -72,11 +71,11 @@ export default class ProfileCards extends Component {
     }
 
     render() {
-        const { cards } = this.props;
+        const { cards, orgsInfo } = this.props;
         const { zoomDeck } = this.state;
 
         return (
-            <div className="card-deck" ref={this.ref}>
+            <div className="proj-card-deck row" ref={this.ref}>
                 {cards.map(card => (
                     <Card key={card.id} style={zoomDeck}>
                         <div className="card-img-top-holder">
@@ -85,22 +84,21 @@ export default class ProfileCards extends Component {
                                 src={
                                     card.Photos && card.Photos[0]
                                         ? card.Photos[0].cloudlink
-                                        : card.ProfilePic || card.Logo
+                                        : "images/org-logo.png"
                                 }
                                 alt="card img cap"
                             />
                             <CardImgOverlay
                                 className="feat-biography"
-                                onClick={() => this.props.pushHistory(card, card.id)}
+                                onClick={() => this.props.pushHistory(card.id)}
                             >
-                                <p>{card.Biography || card.Background}</p>
+                                <p>{card.Description}</p>
                             </CardImgOverlay>
                         </div>
                         <CardBody>
-                            <CardImg className="feat-pic" src={card.ProfilePic || card.Logo} />
-                            <CardTitle>{card.Name}</CardTitle>
-                            {card.skill && <CardSubtitle>{orgInfo.Name}</CardSubtitle>}
-                            <CardText>{card.Country}</CardText>
+                            <CardTitle>{card.Title}</CardTitle>
+                            <CardSubtitle>{orgsInfo.Name}</CardSubtitle>
+                            <CardText>{orgsInfo.Country}</CardText>
                         </CardBody>
                     </Card>
                 ))}
