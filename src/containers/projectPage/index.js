@@ -61,6 +61,7 @@ const ProjectPage = props => {
             <Modal
                 isOpen={modalState.show}
                 toggle={() => setModalState({ ...modalState, show: !modalState.show })}
+                size="lg"
             >
                 <ModalBody>{projModalContent(modalState.type)}</ModalBody>
             </Modal>
