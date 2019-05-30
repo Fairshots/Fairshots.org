@@ -8,7 +8,7 @@ import RegisterForm from "../containers/registerForm";
 import UserProfile from "../containers/userProfile";
 import AllOrgs from "../containers/allOrgs";
 import AllPhotographers from "../containers/allPhotographers";
-import CreateProject from "../containers/createProject";
+import ProjectForm from "../containers/projectForm";
 import ProjectPage from "../containers/projectPage";
 import PasswordReset from "../containers/passwordReset";
 import { ProtectedRoute } from "./UI";
@@ -30,7 +30,8 @@ export default function Main(props) {
                     allowOnly="organization"
                     path="/create-a-project"
                     exact
-                    component={CreateProject}
+                    new
+                    component={ProjectForm}
                 />
                 <Route path="/login/pwreset/:token" component={PasswordReset} />
                 <Route path="/project/:projId" component={ProjectPage} />

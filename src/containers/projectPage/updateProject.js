@@ -1,6 +1,6 @@
 import React from "react";
-import CreateProject from "../createProject";
+import ProjectForm from "../projectForm";
 
-const updateProject = () => <CreateProject />;
+const updateProject = () => <ProjectForm />;
 
 export default updateProject;

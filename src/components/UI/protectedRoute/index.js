@@ -5,6 +5,7 @@ const ProtectedRoute = ({
     isAuthenticated,
     userType,
     allowOnly,
+    newOne,
     component: Component,
     ...props
 }) => (
@@ -12,7 +13,7 @@ const ProtectedRoute = ({
         {...props}
         render={() =>
             isAuthenticated === true && userType === allowOnly ? (
-                <Component {...props} />
+                <Component {...props} newOne />
             ) : (
                 <Redirect to="/" />
             )
