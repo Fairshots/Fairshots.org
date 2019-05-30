@@ -5,12 +5,15 @@ import ProjButtons from "./projButtons";
 const ProjectSidebar = ({ projectInfo, userType, toggleModal }) => {
     const currentDate = new Date();
     const applicationDate = new Date(projectInfo.ApplicationDate);
-    const projectExpired = applicationDate > currentDate;
-
+    const projectExpired = applicationDate < currentDate;
     return (
         <Col md="3" className="project__sidebar justify-content-center">
             <img className="profile-picture" src="images/org-logo.png" />
-            <ProjButtons userType={userType} toggleModal={toggleModal} />
+            <ProjButtons
+                userType={userType}
+                toggleModal={toggleModal}
+                projectExpired={projectExpired}
+            />
             {projectExpired && (
                 <Row className="justify-content-center" style={{ color: "red" }}>
                     This project is no longer accepting applications

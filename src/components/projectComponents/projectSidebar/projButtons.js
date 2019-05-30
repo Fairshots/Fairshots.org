@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonGroup, Button } from "reactstrap";
 
-const projButtons = ({ userType, toggleModal }) => {
+const projButtons = ({ userType, toggleModal, projectExpired }) => {
     console.log(userType);
     return (
         <ButtonGroup className="w-100" vertical>
@@ -22,14 +22,16 @@ const projButtons = ({ userType, toggleModal }) => {
                 </>
             ) : userType === "photographer" ? (
                 <>
-                    <Button
-                        className="mb-2"
-                        color="success"
-                        outline
-                        onClick={() => toggleModal({ show: true, type: "APPLICATION" })}
-                    >
-                        Apply
-                    </Button>
+                    {!projectExpired && (
+                        <Button
+                            className="mb-2"
+                            color="success"
+                            outline
+                            onClick={() => toggleModal({ show: true, type: "APPLICATION" })}
+                        >
+                            Apply
+                        </Button>
+                    )}
                     <Button className="mb-2" color="success" outline>
                         Help this Cause
                     </Button>
