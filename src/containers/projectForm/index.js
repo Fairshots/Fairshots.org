@@ -43,25 +43,25 @@ class ProjectForm extends Component {
         const formData = Object.keys(form)
             .map(i => {
                 // adjusts data collected to conform with backend API
-                if (i === "fundingOptions") {
+                if (i === "FundingOptions") {
                     if (form[i].config.value.includes("no fund")) return { [i]: "No Funds" };
                     if (form[i].config.value.includes("expenses")) return { [i]: "Expenses" };
                     if (form[i].config.value.includes("photographer"))
                         return { [i]: "Photographer" };
-                } else if (form[i] === "geographicRestriction") {
+                } else if (i === "GeographicRestriction") {
                     if (form[i].config.value.includes("anywhere")) return { [i]: "Anywhere" };
                     if (form[i].config.value.includes("continent")) return { [i]: "Continent" };
                     if (form[i].config.value.includes("country")) return { [i]: "Country" };
                     if (form[i].config.value.includes("region")) return { [i]: "Region" };
                     if (form[i].config.value.includes("town")) return { [i]: "Region" };
-                } else if (i === "professionalOnly") {
+                } else if (i === "ProfessionalOnly") {
                     if (form[i].config.value.includes("Only professional")) return { [i]: true };
                     return { [i]: false };
-                } else if (i === "fundsFairshot") {
+                } else if (i === "FundsFairshot") {
                     if (form[i].config.value === "yes") return { [i]: true };
                     return { [i]: false };
-                } else if (i === "duration") return { [i]: parseInt(form[i].config.value, 10) };
-                else if (i === "photographersNeeded")
+                } else if (i === "Duration") return { [i]: parseInt(form[i].config.value, 10) };
+                else if (i === "PhotographersNeeded")
                     return { [i]: parseInt(form[i].config.value, 10) };
 
                 return { [i]: form[i].config.value };
@@ -71,9 +71,26 @@ class ProjectForm extends Component {
         this.props.postProjectData(formData, this.props.authId, this.props.token);
     };
 
+    mapUpdateForm = projId => {
+        const { form } = this.state;
+        const project = this.props.projects[projId];
+
+        const formData = Object.keys(form)
+            .map(i => ({
+                [i]: {
+                    ...form[i],
+                    config: { ...form[i].config, value: project[i], valid: true, touched: true }
+                }
+            }))
+            .reduce((acc, cur) => ({ ...acc, ...cur }));
+        console.log(formData);
+        this.setState({ form: formData });
+    };
+
     componentDidMount() {
         if (!this.props.newOne) {
             const { projId } = this.props.match.params;
+            this.mapUpdateForm(projId);
         }
     }
 
