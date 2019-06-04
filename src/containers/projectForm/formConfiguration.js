@@ -164,7 +164,7 @@ export default {
                 valid: true
             }
         },
-        DeliveryDate: {
+        Delivery: {
             elementType: "input",
             tabId: 4,
             config: {

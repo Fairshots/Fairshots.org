@@ -1,5 +1,4 @@
 export default function project(state = {}, action) {
-    console.log(action);
     switch (action.type) {
         case "PROJECT_ERROR": {
             return Object.assign({}, state, {
@@ -9,6 +8,12 @@ export default function project(state = {}, action) {
         case "PROJECT_CREATED": {
             return Object.assign({}, state, {
                 [action.payload.id]: { ...action.payload },
+                error: false
+            });
+        }
+        case "PROJECT_UPDATED": {
+            return Object.assign({}, state, {
+                [action.payload.id]: { ...state[action.payload.id], ...action.payload },
                 error: false
             });
         }

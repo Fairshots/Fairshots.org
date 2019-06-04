@@ -3,8 +3,13 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import formConfiguration from "./formConfiguration";
 import { MultipartForm } from "../../components/UI";
-import { postProject } from "../../actions";
+import { postProject, putProject } from "../../actions";
 
+/**
+ * Holds and handle form to create or update projects
+ * @extends Component
+ * @param newOne true if new project , undefined or false if update Project
+ */
 class ProjectForm extends Component {
     state = {
         activeStep: 0,
@@ -36,10 +41,7 @@ class ProjectForm extends Component {
         form: formConfiguration.form
     };
 
-    formSubmitHandler = e => {
-        e.preventDefault();
-        const { form } = this.state;
-
+    preprocessFormBeforeSubmit = form => {
         const formData = Object.keys(form)
             .map(i => {
                 // adjusts data collected to conform with backend API
@@ -55,6 +57,7 @@ class ProjectForm extends Component {
                     if (form[i].config.value.includes("region")) return { [i]: "Region" };
                     if (form[i].config.value.includes("town")) return { [i]: "Region" };
                 } else if (i === "ProfessionalOnly") {
+                    if (form[i].config.value) return true;
                     if (form[i].config.value.includes("Only professional")) return { [i]: true };
                     return { [i]: false };
                 } else if (i === "FundsFairshot") {
@@ -68,10 +71,32 @@ class ProjectForm extends Component {
             })
             .reduce((acc, cur) => ({ ...acc, ...cur }));
 
-        this.props.postProjectData(formData, this.props.authId, this.props.token);
+        if (!this.props.newOne) {
+            const { projId } = this.props.match.params;
+            const project = this.props.projects[projId];
+
+            const updateForm = Object.keys(formData)
+                .filter(key => formData[key] !== project[key])
+                .reduce((obj, i) => ({ ...obj, [i]: formData[i] }), {});
+            return updateForm;
+        }
+        return formData;
     };
 
-    mapUpdateForm = projId => {
+    formSubmitHandler = e => {
+        e.preventDefault();
+        const { form } = this.state;
+
+        const formData = this.preprocessFormBeforeSubmit(form);
+
+        if (this.props.newOne)
+            this.props.createProject(formData, this.props.authId, this.props.token);
+        else {
+            this.props.updateProject(formData, this.props.match.params.projId, this.props.token);
+        }
+    };
+
+    populateUpdateForm = projId => {
         const { form } = this.state;
         const project = this.props.projects[projId];
 
@@ -79,18 +104,26 @@ class ProjectForm extends Component {
             .map(i => ({
                 [i]: {
                     ...form[i],
-                    config: { ...form[i].config, value: project[i], valid: true, touched: true }
+                    config: {
+                        ...form[i].config,
+                        value:
+                            i.includes("Date") || i.includes("Delivery")
+                                ? project[i].split("T")[0]
+                                : project[i],
+                        valid: true,
+                        touched: true
+                    }
                 }
             }))
             .reduce((acc, cur) => ({ ...acc, ...cur }));
-        console.log(formData);
+
         this.setState({ form: formData });
     };
 
     componentDidMount() {
         if (!this.props.newOne) {
             const { projId } = this.props.match.params;
-            this.mapUpdateForm(projId);
+            this.populateUpdateForm(projId);
         }
     }
 
@@ -133,16 +166,16 @@ class ProjectForm extends Component {
 
     inputChangeHandler = inputIdentifier => e => {
         let form;
-        if (inputIdentifier === "photos") {
+        if (inputIdentifier === "Photos") {
             form = {
                 ...this.state.form
             };
             if (e.includes("del")) {
                 const el = e.split(" ")[1];
-                const filtered = form.photos.config.value.filter(val => val.cloudlink !== el);
-                form.photos.config.value = filtered;
+                const filtered = form.Photos.config.value.filter(val => val.cloudlink !== el);
+                form.Photos.config.value = filtered;
             } else {
-                form.photos.config.value.push({ cloudlink: e });
+                form.Photos.config.value.push({ cloudlink: e });
             }
         } else {
             const { value } = e.target;
@@ -196,8 +229,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    postProjectData: (formProps, id, token) => {
+    createProject: (formProps, id, token) => {
         dispatch(postProject(formProps, id, token));
+    },
+    updateProject: (formProps, id, token) => {
+        dispatch(putProject(formProps, id, token));
     }
 });
 
