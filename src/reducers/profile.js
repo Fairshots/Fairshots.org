@@ -21,7 +21,7 @@ export default function profile(state = {}, action) {
                 }
             );
         }
-        case "PHOTO_UPLOADED": {
+        case "PROFILE_PHOTO_UPLOADED": {
             return Object.assign({}, state, {
                 Photos: [
                     ...state.Photos,
@@ -31,7 +31,7 @@ export default function profile(state = {}, action) {
             });
         }
 
-        case "PHOTO_DELETED": {
+        case "PROFILE_PHOTO_DELETED": {
             const photosArray = state.Photos.filter((el, i) => el.id !== action.payload.id);
             console.log(photosArray);
             return Object.assign({}, state, { Photos: [...photosArray] });

@@ -13,17 +13,19 @@ export function uploadPhoto(userType, id, token, url) {
             };
             console.log(config);
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photos`, config);
-            const ret = await res.json();
-            console.log(ret);
-            dispatch({
-                type: "PHOTO_UPLOADED",
-                payload: ret
-            });
+            if (res.ok) {
+                const ret = await res.json();
+                console.log(ret);
+                dispatch({
+                    type: userType === "project" ? "PHOTO_UPLOADED" : "PROFILE_PHOTO_UPLOADED",
+                    payload: ret
+                });
+            } else throw await res.text();
         } catch (e) {
             console.log(e);
             dispatch({
-                type: "UPLOAD_ERROR",
-                payload: "Oops! Something went wrong. Plase try again"
+                type: userType === "project" ? "PROJECT_ERROR" : "UPLOAD_ERROR",
+                payload: e
             });
         }
     };
@@ -46,7 +48,7 @@ export async function sendPhotoGetUrl(file, upreset = "kahvrgme") {
     }
 }
 
-export function delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem) {
+export function delPhoto(userType, id, token, photoItem) {
     return async dispatch => {
         try {
             const config = {
@@ -62,15 +64,14 @@ export function delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem) 
                 const ret = await res.json();
                 console.log(ret);
                 dispatch({
-                    type: "PHOTO_DELETED",
+                    type: userType === "project" ? "PHOTO_DELETED" : "PROFILE_PHOTO_DELETED",
                     payload: photoItem
                 });
-            } else throw res;
+            } else throw await res.text();
         } catch (e) {
-            console.log(e.toString());
             dispatch({
-                type: "PROFILE_ERROR",
-                payload: e.statusText !== undefined ? e.statusText : e.toString()
+                type: userType === "project" ? "PROJECT_ERROR" : "UPLOAD_ERROR",
+                payload: e
             });
         }
     };

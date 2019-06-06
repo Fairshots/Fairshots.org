@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./home";
 import About from "./about";
 import Contact from "./contact";
@@ -11,7 +11,6 @@ import AllPhotographers from "../containers/allPhotographers";
 import ProjectForm from "../containers/projectForm";
 import ProjectPage from "../containers/projectPage";
 import PasswordReset from "../containers/passwordReset";
-import { ProtectedRoute } from "./UI";
 
 export default function Main(props) {
     return (
@@ -24,14 +23,15 @@ export default function Main(props) {
                 <Route path="/photographers" exact component={AllPhotographers} />
                 <Route path="/organizations" exact component={AllOrgs} />
                 <Route path="/terms-and-conditions" exact component={TermsandConditions} />
-                <ProtectedRoute
-                    isAuthenticated={props.isAuthenticated}
-                    userType={props.userType}
-                    allowOnly="organization"
+                <Route
                     path="/create-a-project"
-                    exact
-                    new
-                    component={ProjectForm}
+                    render={() =>
+                        props.isAuthenticated === true && props.userType === "organization" ? (
+                            <ProjectForm newProject />
+                        ) : (
+                            <Redirect to="/" />
+                        )
+                    }
                 />
                 <Route path="/login/pwreset/:token" component={PasswordReset} />
                 <Route path="/project/:projId" component={ProjectPage} />

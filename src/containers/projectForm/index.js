@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import formConfiguration from "./formConfiguration";
 import { MultipartForm } from "../../components/UI";
-import { postProject, putProject } from "../../actions";
+import { postProject, putProject, uploadPhoto, delPhoto } from "../../actions";
 
 /**
  * Holds and handle form to create or update projects
  * @extends Component
- * @param newOne true if new project , undefined or false if update Project
+ * @param newProject true if new project , undefined or false if update Project
  */
 class ProjectForm extends Component {
     state = {
@@ -71,13 +71,19 @@ class ProjectForm extends Component {
             })
             .reduce((acc, cur) => ({ ...acc, ...cur }));
 
-        if (!this.props.newOne) {
+        if (!this.props.newProject) {
             const { projId } = this.props.match.params;
             const project = this.props.projects[projId];
 
             const updateForm = Object.keys(formData)
-                .filter(key => formData[key] !== project[key])
+                .filter(key => {
+                    if (key === "Photos") {
+                        return true;
+                    }
+                    return formData[key] !== project[key];
+                })
                 .reduce((obj, i) => ({ ...obj, [i]: formData[i] }), {});
+            console.log(updateForm);
             return updateForm;
         }
         return formData;
@@ -86,19 +92,41 @@ class ProjectForm extends Component {
     formSubmitHandler = e => {
         e.preventDefault();
         const { form } = this.state;
+        const {
+            match: {
+                params: { projId }
+            },
+            token,
+            authId,
+            newProject,
+            doDelPhoto,
+            doUploadPhoto
+        } = this.props;
+        const project = this.props.projects[projId];
 
         const formData = this.preprocessFormBeforeSubmit(form);
 
-        if (this.props.newOne)
-            this.props.createProject(formData, this.props.authId, this.props.token);
+        if (newProject) this.props.createProject(formData, authId, token);
         else {
-            this.props.updateProject(formData, this.props.match.params.projId, this.props.token);
+            if (formData.Photos) {
+                const { Photos } = formData;
+                const photosToDelete = project.Photos.filter(val => !Photos.includes(val));
+                const photosToAdd = Photos.filter(val => !project.Photos.includes(val));
+
+                if (photosToDelete.length > 0)
+                    photosToDelete.map(item => doDelPhoto("project", projId, token, item));
+                if (photosToAdd.length > 0)
+                    photosToAdd.map(item =>
+                        doUploadPhoto("project", projId, token, item.cloudlink)
+                    );
+            }
+            this.props.updateProject(formData, projId, token);
         }
     };
 
     populateUpdateForm = projId => {
         const { form } = this.state;
-        const project = this.props.projects[projId];
+        const project = { ...this.props.projects[projId] };
 
         const formData = Object.keys(form)
             .map(i => ({
@@ -107,8 +135,11 @@ class ProjectForm extends Component {
                     config: {
                         ...form[i].config,
                         value:
+                            // eslint-disable-next-line no-nested-ternary
                             i.includes("Date") || i.includes("Delivery")
                                 ? project[i].split("T")[0]
+                                : i.includes("Photos")
+                                ? [...project[i]]
                                 : project[i],
                         valid: true,
                         touched: true
@@ -121,7 +152,7 @@ class ProjectForm extends Component {
     };
 
     componentDidMount() {
-        if (!this.props.newOne) {
+        if (!this.props.newProject) {
             const { projId } = this.props.match.params;
             this.populateUpdateForm(projId);
         }
@@ -196,7 +227,7 @@ class ProjectForm extends Component {
 
     render() {
         const { activeStep, steps, dataSend, form } = this.state;
-        const { errorMessage, newOne } = this.props;
+        const { errorMessage, newProject } = this.props;
         const formElementsArray = Object.keys(form).map(key => ({
             id: key,
             config: form[key]
@@ -214,7 +245,7 @@ class ProjectForm extends Component {
                     dataSend={dataSend}
                     errorMessage={errorMessage}
                 >
-                    {newOne ? "Create a new project" : "Update project"}
+                    {newProject ? "Create a new project" : "Update project"}
                 </MultipartForm>
             </div>
         );
@@ -234,7 +265,11 @@ const mapDispatchToProps = dispatch => ({
     },
     updateProject: (formProps, id, token) => {
         dispatch(putProject(formProps, id, token));
-    }
+    },
+    doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
+
+    doDelPhoto: (userType, id, token, photoItem) =>
+        dispatch(delPhoto(userType, id, token, photoItem))
 });
 
 export default withRouter(

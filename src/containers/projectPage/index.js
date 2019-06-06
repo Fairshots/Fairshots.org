@@ -24,6 +24,8 @@ const ProjectPage = props => {
         props.getProjectInfo(projId, props.token);
     }, []);
 
+    useEffect(() => setModalState({ ...modalState, show: false }), [props.project]);
+
     /**
      * Controls which type of content to load inside Modal asked to be open
      * @param {*} type
