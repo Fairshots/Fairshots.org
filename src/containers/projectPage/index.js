@@ -24,7 +24,7 @@ const ProjectPage = props => {
         props.getProjectInfo(projId, props.token);
     }, []);
 
-    useEffect(() => setModalState({ ...modalState, show: false }), [props.project]);
+    useEffect(() => setModalState({ ...modalState, show: false }), [props.project[projId]]);
 
     /**
      * Controls which type of content to load inside Modal asked to be open
@@ -36,7 +36,13 @@ const ProjectPage = props => {
                 return <UpdateProject />;
             }
             case "APPLICATION": {
-                return <ApplytoProject />;
+                return (
+                    <ApplytoProject
+                        Question1={props.project[projId].Question1}
+                        Question2={props.project[projId].Question3}
+                        Question3={props.project[projId].Question2}
+                    />
+                );
             }
 
             default:
