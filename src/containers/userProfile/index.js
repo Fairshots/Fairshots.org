@@ -93,9 +93,7 @@ class UserProfile extends Component {
             userProfile: { accountInactive },
             token,
             doDelPhoto,
-            doInactivateProfile,
-            clAPIKey,
-            clAPISecret
+            doInactivateProfile
         } = this.props;
         switch (type) {
             case "UPDATE_PROFILE": {
@@ -105,7 +103,7 @@ class UserProfile extends Component {
                 return (
                     <DeletePhoto
                         photoItem={this.state.photoToDel}
-                        doDelPhoto={doDelPhoto(userType, userId, token, clAPIKey, clAPISecret)}
+                        doDelPhoto={doDelPhoto(userType, userId, token)}
                         toggleModal={this.toggleModal}
                     />
                 );
@@ -175,17 +173,15 @@ class UserProfile extends Component {
 const mapStateToProps = state => ({
     userProfile: state.profile,
     token: state.auth.user.token,
-    authId: state.auth.user.userId,
-    clAPIKey: state.auth.user.CL_apikey,
-    clAPISecret: state.auth.user.CL_apisecret
+    authId: state.auth.user.userId
 });
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token)),
 
     doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
 
-    doDelPhoto: (userType, id, token, clAPIKey, clAPISecret) => photoItem =>
-        dispatch(delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem)),
+    doDelPhoto: (userType, id, token) => photoItem =>
+        dispatch(delPhoto(userType, id, token, photoItem)),
 
     doInactivateProfile: (userType, id, token, currentStatus) =>
         dispatch(toggleActivateProfile(userType, id, token, currentStatus))

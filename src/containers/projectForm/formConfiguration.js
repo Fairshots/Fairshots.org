@@ -2,7 +2,7 @@ import { countrylist, causes } from "../../helpers/form-data-options";
 
 export default {
     form: {
-        title: {
+        Title: {
             elementType: "input",
             tabId: 1,
             config: {
@@ -16,7 +16,7 @@ export default {
                 value: ""
             }
         },
-        cause: {
+        Cause: {
             elementType: "select",
             tabId: 1,
             config: {
@@ -31,7 +31,7 @@ export default {
                 valid: true
             }
         },
-        description: {
+        Description: {
             elementType: "textarea",
             tabId: 1,
             config: {
@@ -46,7 +46,7 @@ export default {
                 valid: false
             }
         },
-        photos: {
+        Photos: {
             elementType: "fileinput",
             tabId: 2,
             config: {
@@ -61,7 +61,7 @@ export default {
                 valid: true
             }
         },
-        city: {
+        City: {
             elementType: "input",
             tabId: 3,
             config: {
@@ -76,7 +76,7 @@ export default {
                 valid: false
             }
         },
-        country: {
+        Country: {
             elementType: "select",
             tabId: 3,
             config: {
@@ -90,7 +90,7 @@ export default {
                 valid: true
             }
         },
-        languages: {
+        Languages: {
             elementType: "input",
             tabId: 3,
             config: {
@@ -104,7 +104,7 @@ export default {
                 valid: true
             }
         },
-        projectType: {
+        ProjectType: {
             elementType: "select",
             tabId: 4,
             config: {
@@ -126,7 +126,7 @@ export default {
                 valid: true
             }
         },
-        startingDate: {
+        StartingDate: {
             elementType: "input",
             tabId: 4,
             config: {
@@ -139,7 +139,7 @@ export default {
                 valid: true
             }
         },
-        duration: {
+        Duration: {
             elementType: "input",
             tabId: 4,
             config: {
@@ -151,7 +151,7 @@ export default {
                 valid: true
             }
         },
-        applicationDate: {
+        ApplicationDate: {
             elementType: "input",
             tabId: 4,
             config: {
@@ -164,7 +164,7 @@ export default {
                 valid: true
             }
         },
-        deliveryDate: {
+        Delivery: {
             elementType: "input",
             tabId: 4,
             config: {
@@ -177,7 +177,7 @@ export default {
                 valid: true
             }
         },
-        fundingOptions: {
+        FundingOptions: {
             elementType: "select",
             tabId: 5,
             config: {
@@ -197,7 +197,7 @@ export default {
                 valid: true
             }
         },
-        fundsDetails: {
+        FundsDetails: {
             elementType: "textarea",
             tabId: 5,
             config: {
@@ -212,7 +212,7 @@ export default {
                 valid: false
             }
         },
-        fundsFairshot: {
+        FundsFairshot: {
             elementType: "switch",
             tabId: 5,
             config: {
@@ -229,7 +229,7 @@ export default {
                 valid: true
             }
         },
-        photographersNeeded: {
+        PhotographersNeeded: {
             elementType: "input",
             tabId: 6,
             config: {
@@ -242,7 +242,7 @@ export default {
                 valid: false
             }
         },
-        professionalOnly: {
+        ProfessionalOnly: {
             elementType: "switch",
             tabId: 6,
             config: {
@@ -260,7 +260,7 @@ export default {
                 valid: false
             }
         },
-        geographicRestriction: {
+        GeographicRestriction: {
             elementType: "select",
             tabId: 6,
             config: {
@@ -278,7 +278,7 @@ export default {
                 valid: true
             }
         },
-        question1: {
+        Question1: {
             elementType: "input",
             tabId: 6,
             config: {
@@ -291,7 +291,7 @@ export default {
                 valid: true
             }
         },
-        question2: {
+        Question2: {
             elementType: "input",
             tabId: 6,
             config: {
@@ -304,7 +304,7 @@ export default {
                 valid: true
             }
         },
-        question3: {
+        Question3: {
             elementType: "input",
             tabId: 6,
             config: {
