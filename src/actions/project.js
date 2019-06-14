@@ -98,3 +98,36 @@ export function putProject(formProps, id, token) {
         }
     };
 }
+
+export function applyProject(projId, userId, answers, token) {
+    return async dispatch => {
+        dispatch(toggleLoading());
+        const config = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `bearer ${token}`
+            },
+            body: JSON.stringify({ ...answers, photographerId: userId })
+        };
+        console.log(config);
+        try {
+            const res = await fetch(`${FAIRSHOTS_API}api/project/${projId}`, config);
+            if (res.ok) {
+                const info = await res.json();
+                console.log(info);
+                dispatch({
+                    type: "PROJECT_APPLICATION_DONE",
+                    payload: { id: projId, newApply: { id: userId, Application: { answers } } }
+                });
+                dispatch(toggleLoading());
+            } else throw await res.text();
+        } catch (e) {
+            dispatch({
+                type: "PROJECT_ERROR",
+                payload: e
+            });
+            dispatch(toggleLoading());
+        }
+    };
+}

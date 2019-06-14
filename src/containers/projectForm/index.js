@@ -57,7 +57,6 @@ class ProjectForm extends Component {
                     if (form[i].config.value.includes("region")) return { [i]: "Region" };
                     if (form[i].config.value.includes("town")) return { [i]: "Region" };
                 } else if (i === "ProfessionalOnly") {
-                    if (form[i].config.value) return true;
                     if (form[i].config.value.includes("Only professional")) return { [i]: true };
                     return { [i]: false };
                 } else if (i === "FundsFairshot") {
@@ -70,7 +69,7 @@ class ProjectForm extends Component {
                 return { [i]: form[i].config.value };
             })
             .reduce((acc, cur) => ({ ...acc, ...cur }));
-
+        console.log(formData);
         if (!this.props.newProject) {
             const { projId } = this.props.match.params;
             const project = this.props.projects[projId];

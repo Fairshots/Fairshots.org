@@ -57,7 +57,7 @@ class MultipartForm extends Component {
                         </li>
                     ))}
                 </ul>
-                {dataSend ? (
+                {dataSend && !errorMessage ? (
                     <div className="form d-flex justify-content-center">
                         <h4>Thank you, Your project has been successfully created!</h4>
                         <FaPaperPlane />

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Container, Row, Modal, ModalBody } from "reactstrap";
 import { ProjectSidebar, ProjectMain } from "../../components/projectComponents";
-import { getProject } from "../../actions";
+import { getProject, applyProject } from "../../actions";
 import UpdateProject from "./updateProject";
 import ApplytoProject from "./applytoProject";
 import "./projectPage.scss";
@@ -41,6 +41,9 @@ const ProjectPage = props => {
                         Question1={props.project[projId].Question1}
                         Question2={props.project[projId].Question3}
                         Question3={props.project[projId].Question2}
+                        applyProject={answers =>
+                            props.applyToProject(projId, props.authId, answers, props.token)
+                        }
                     />
                 );
             }
@@ -85,7 +88,9 @@ const mapStateToProps = state => ({
     userType: state.auth.user.userType
 });
 const mapDispatchToProps = dispatch => ({
-    getProjectInfo: (id, token) => dispatch(getProject(id, token))
+    getProjectInfo: (id, token) => dispatch(getProject(id, token)),
+    applyToProject: (projId, userId, questionAnswers, token) =>
+        dispatch(applyProject(projId, userId, questionAnswers, token))
 });
 
 export default withRouter(

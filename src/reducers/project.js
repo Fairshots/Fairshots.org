@@ -17,6 +17,18 @@ export default function project(state = {}, action) {
                 error: false
             });
         }
+        case "PROJECT_APPLICATION_DONE": {
+            return Object.assign({}, state, {
+                [action.payload.id]: {
+                    ...state[action.payload.id],
+                    Photographers: [
+                        ...state[action.payload.id].Photographers,
+                        { ...action.payload.newApply }
+                    ]
+                },
+                error: false
+            });
+        }
         case "GET_PROJECT": {
             return Object.assign({}, state, {
                 [action.payload.id]: { ...action.payload },
