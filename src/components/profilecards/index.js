@@ -72,7 +72,7 @@ export default class ProfileCards extends Component {
     }
 
     render() {
-        const { cards } = this.props;
+        const { cards, pushHistory } = this.props;
         const { zoomDeck } = this.state;
 
         return (
@@ -91,7 +91,7 @@ export default class ProfileCards extends Component {
                             />
                             <CardImgOverlay
                                 className="feat-biography"
-                                onClick={() => this.props.pushHistory(card, card.id)}
+                                onClick={() => pushHistory(card, card.id)}
                             >
                                 <p>{card.Biography || card.Background}</p>
                             </CardImgOverlay>

@@ -24,7 +24,7 @@ class AllPhotographers extends Component {
             <div>
                 {allPhotographers.photographers ? (
                     <ProfileCards
-                        userType="organization"
+                        userType="photographer"
                         cards={allPhotographers.photographers}
                         pushHistory={(profile, id) => {
                             loadThirdPartyUserProfile(profile);

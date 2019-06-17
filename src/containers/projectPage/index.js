@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Container, Row, Modal, ModalBody } from "reactstrap";
 import { ProjectSidebar, ProjectMain } from "../../components/projectComponents";
-import { getProject, applyProject } from "../../actions";
+import { getProject, applyProject, ThirdPartyUserProfile } from "../../actions";
 import UpdateProject from "./updateProject";
 import ApplytoProject from "./applytoProject";
 import "./projectPage.scss";
@@ -16,7 +16,9 @@ const ProjectPage = props => {
     const {
         match: {
             params: { projId }
-        }
+        },
+        history,
+        loadThirdPartyUserProfile
     } = props;
     const [modalState, setModalState] = useState({ show: false, type: "UPDATE_PROJECT" });
 
@@ -26,6 +28,10 @@ const ProjectPage = props => {
 
     useEffect(() => setModalState({ ...modalState, show: false }), [props.project[projId]]);
 
+    const pushHistoryProfile = (profile, id) => {
+        loadThirdPartyUserProfile(profile);
+        history.push(`/photographer/${id}`);
+    };
     /**
      * Controls which type of content to load inside Modal asked to be open
      * @param {*} type
@@ -66,7 +72,15 @@ const ProjectPage = props => {
                         }
                         toggleModal={setModalState}
                     />
-                    <ProjectMain projectInfo={props.project[projId]} />
+                    <ProjectMain
+                        projectInfo={props.project[projId]}
+                        userType={
+                            props.authId === props.project[projId].organizationId
+                                ? "owner"
+                                : props.userType
+                        }
+                        pushHistory={pushHistoryProfile}
+                    />
                 </Row>
             )}
             <Modal
@@ -90,7 +104,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getProjectInfo: (id, token) => dispatch(getProject(id, token)),
     applyToProject: (projId, userId, questionAnswers, token) =>
-        dispatch(applyProject(projId, userId, questionAnswers, token))
+        dispatch(applyProject(projId, userId, questionAnswers, token)),
+    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
 });
 
 export default withRouter(

@@ -1,8 +1,9 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import Gallery from "../../gallery";
+import ProfileCards from "../../profilecards";
 
-const ProjectMain = ({ projectInfo }) => (
+const ProjectMain = ({ projectInfo, userType, pushHistory }) => (
     <Col md="9" className="project__main">
         <Container fluid>
             <Row className="justify-content-center">
@@ -34,6 +35,17 @@ const ProjectMain = ({ projectInfo }) => (
             <Row className="justify-content-center">
                 {projectInfo.Photos[0] && <Gallery imageArray={projectInfo.Photos} />}
             </Row>
+
+            {userType === "owner" && projectInfo.Photographers.length > 0 && (
+                <>
+                    <Row className="listing-subtittle page mt-3">Applicants</Row>
+                    <ProfileCards
+                        userType="photographer"
+                        cards={projectInfo.Photographers}
+                        pushHistory={pushHistory}
+                    />
+                </>
+            )}
         </Container>
     </Col>
 );
