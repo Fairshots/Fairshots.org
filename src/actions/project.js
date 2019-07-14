@@ -131,3 +131,34 @@ export function applyProject(projId, userId, answers, token) {
         }
     };
 }
+
+export function getAllProjects(token) {
+    return async dispatch => {
+        dispatch(toggleLoading());
+        const config = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `bearer ${token}`
+            }
+        };
+        try {
+            const res = await fetch(`${FAIRSHOTS_API}api/project/all`, config);
+            if (res.ok) {
+                const info = await res.json();
+                console.log(info);
+                dispatch({
+                    type: "GET_ALL_PROJECTS",
+                    payload: info
+                });
+                dispatch(toggleLoading());
+            } else throw await res.text();
+        } catch (e) {
+            dispatch({
+                type: "PROJECT_ERROR",
+                payload: e
+            });
+            dispatch(toggleLoading());
+        }
+    };
+}
