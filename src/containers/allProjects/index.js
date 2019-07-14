@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getAllProjects, loadProject } from "../../actions";
-import ProfileCards from "../../components/profilecards";
+import { getAllProjects } from "../../actions";
+import { ProjectCards } from "../../components/projectComponents";
 
 /**
  * When mounted dispatches action to fetch basic info from all current projects and display in proper
@@ -10,26 +10,61 @@ import ProfileCards from "../../components/profilecards";
  * @extends Component
  */
 class AllProjects extends Component {
+    state = {
+        expiredProjects: null,
+        validProjects: null
+    };
+
     componentDidMount() {
-        const { allProjects, doGetProjects } = this.props;
-        if (!allProjects.projects) {
-            doGetProjects();
+        const { doGetProjects, token } = this.props;
+        doGetProjects(token);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.allProjects !== prevProps.allProjects) {
+            this.separateExpiredandValidProjects();
         }
     }
 
-    render() {
+    separateExpiredandValidProjects = () => {
         const { allProjects } = this.props;
+        const currentDate = new Date();
+
+        this.setState({
+            expiredProjects: Object.values(allProjects).filter(
+                val => new Date(val.ApplicationDate) < currentDate
+            ),
+            validProjects: Object.values(allProjects).filter(
+                val => new Date(val.ApplicationDate) > currentDate
+            )
+        });
+    };
+
+    render() {
+        const { allProjects, history } = this.props;
+        const { validProjects, expiredProjects } = this.state;
+
         return (
             <div>
-                {allProjects.projects ? (
-                    <ProfileCards
-                        userType="project"
-                        cards={allProjects.projects}
-                        pushHistory={(proj, id) => {
-                            loadProject(proj);
-                            this.props.history.push(`/project/${id}`);
-                        }}
-                    />
+                {validProjects ? (
+                    <>
+                        <h2 className="feautured-h3">Open Projects </h2>
+                        <ProjectCards
+                            userType="project"
+                            cards={validProjects} // don't take last line of redux store (error)
+                            pushHistory={id => {
+                                history.push(`/project/${id}`);
+                            }}
+                        />
+                        <h2 className="feautured-h3">Past Projects </h2>
+                        <ProjectCards
+                            userType="project"
+                            cards={expiredProjects} // don't take last line of redux store (error)
+                            pushHistory={id => {
+                                history.push(`/project/${id}`);
+                            }}
+                        />
+                    </>
                 ) : (
                     "Loading"
                 )}
@@ -39,11 +74,11 @@ class AllProjects extends Component {
 }
 
 const mapStateToProps = state => ({
-    allProjects: state.allProjects
+    allProjects: state.project,
+    token: state.auth.user.token
 });
 const mapDispatchToProps = dispatch => ({
-    doGetProjects: () => dispatch(getAllProjects()),
-    loadProject: () => true
+    doGetProjects: token => dispatch(getAllProjects(token))
 });
 
 export default withRouter(

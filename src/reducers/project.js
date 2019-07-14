@@ -36,6 +36,17 @@ export default function project(state = {}, action) {
             });
         }
 
+        case "GET_ALL_PROJECTS": {
+            return Object.assign({}, state, {
+                ...action.payload
+                    .map(proj => ({
+                        [proj.id]: { ...proj }
+                    }))
+                    .reduce((acc, current) => ({ ...acc, ...current })),
+                error: false
+            });
+        }
+
         default:
             return state;
     }

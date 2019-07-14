@@ -73,35 +73,40 @@ export default class ProjectCards extends Component {
     render() {
         const { cards, orgsInfo } = this.props;
         const { zoomDeck } = this.state;
+        console.log(cards);
 
         return (
             <div className="proj-card-deck row" ref={this.ref}>
-                {cards.map(card => (
-                    <Card key={card.id} style={zoomDeck}>
-                        <div className="card-img-top-holder">
-                            <CardImg
-                                top
-                                src={
-                                    card.Photos && card.Photos[0]
-                                        ? card.Photos[0].cloudlink
-                                        : "images/org-logo.png"
-                                }
-                                alt="card img cap"
-                            />
-                            <CardImgOverlay
-                                className="feat-biography"
-                                onClick={() => this.props.pushHistory(card.id)}
-                            >
-                                <p>{card.Description}</p>
-                            </CardImgOverlay>
-                        </div>
-                        <CardBody>
-                            <CardTitle>{card.Title}</CardTitle>
-                            <CardSubtitle>{orgsInfo.Name}</CardSubtitle>
-                            <CardText>{orgsInfo.Country}</CardText>
-                        </CardBody>
-                    </Card>
-                ))}
+                {cards.length ? (
+                    cards.map(card => (
+                        <Card key={card.id} style={zoomDeck}>
+                            <div className="card-img-top-holder">
+                                <CardImg
+                                    top
+                                    src={
+                                        card.Photos && card.Photos[0]
+                                            ? card.Photos[0].cloudlink
+                                            : "images/org-logo.png"
+                                    }
+                                    alt="card img cap"
+                                />
+                                <CardImgOverlay
+                                    className="feat-biography"
+                                    onClick={() => this.props.pushHistory(card.id)}
+                                >
+                                    <p>{card.Description}</p>
+                                </CardImgOverlay>
+                            </div>
+                            <CardBody>
+                                <CardTitle>{card.Title}</CardTitle>
+                                <CardSubtitle>{card.Organization.Name}</CardSubtitle>
+                                <CardText>{card.Country}</CardText>
+                            </CardBody>
+                        </Card>
+                    ))
+                ) : (
+                    <p>No projects here yet</p>
+                )}
             </div>
         );
     }

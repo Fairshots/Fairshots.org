@@ -97,7 +97,7 @@ class NavbarPage extends Component {
                                     </DropdownItem>
                                     <DropdownItem
                                         className="n-dropdown-link"
-                                        onClick={this.redirect("/projectss")}
+                                        onClick={this.redirect("/projects")}
                                     >
                                         CURRENT PROJECTS
                                     </DropdownItem>
