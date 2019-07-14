@@ -6,7 +6,8 @@ import {
     CardText,
     CardImg,
     CardImgOverlay,
-    CardBody
+    CardBody,
+    Badge
 } from "reactstrap";
 
 import "./projectcards.scss";
@@ -38,7 +39,7 @@ export default class ProjectCards extends Component {
          */
         const handleScroll = entries => {
             console.log(entries[0].intersectionRatio);
-            if (entries[0].intersectionRatio > 0.1 && window.scrollY > 80) {
+            if (entries[0].intersectionRatio > 0.1) {
                 this.setState({
                     zoomDeck: {
                         transform: "scaleX(1) scaleY(1) scaleZ(1)",
@@ -102,6 +103,11 @@ export default class ProjectCards extends Component {
                                 <CardSubtitle>{card.Organization.Name}</CardSubtitle>
                                 <CardText>{card.Country}</CardText>
                             </CardBody>
+                            <p id="cause-badge">
+                                <Badge color="success" pill>
+                                    {card.Cause}
+                                </Badge>
+                            </p>
                         </Card>
                     ))
                 ) : (
