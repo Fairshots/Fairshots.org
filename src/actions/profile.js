@@ -21,6 +21,10 @@ export function getProfile(userType, id, token) {
                     type: "GET_PROFILE",
                     payload: userProfile
                 });
+                dispatch({
+                    type: "AUTH_PROFILE_THUMBNAIL",
+                    payload: { thumbnail: userProfile.ProfilePic || userProfile.Logo }
+                });
                 dispatch(toggleLoading());
             } else throw res;
         } catch (e) {
