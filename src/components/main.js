@@ -25,6 +25,19 @@ export default function Main(props) {
                 <Route path="/organizations" exact component={AllOrgs} />
                 <Route path="/projects" exact component={AllProjects} />
                 <Route path="/terms-and-conditions" exact component={TermsandConditions} />
+                <Route path="/terms-and-conditions" exact component={TermsandConditions} />
+                <Route
+                    path="/stories"
+                    component={() => (
+                        <iframe
+                            width="100%"
+                            height={window.innerHeight}
+                            frameBorder="0"
+                            src="http://fairshots.org/stories"
+                            style={{ top: "-60px", position: "relative" }}
+                        />
+                    )}
+                />
                 <Route
                     path="/create-a-project"
                     render={() =>
