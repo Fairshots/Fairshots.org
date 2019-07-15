@@ -1,26 +1,7 @@
 .photogProfile {
-    @media (max-width: 767px) {
-        .portfolio-holder {
-            background-color: #242424;
-            height: auto;
-            img {
-                height: auto;
-            }
-        }
+    .portfolio-holder {
+        background-color: #242424;
     }
-    @media (min-width: 768px) {
-        .portfolio-holder {
-            background-color: #242424;
-            height: 700px;
-            img {
-                max-width: 800px;
-                max-height: 600px;
-                width: auto;
-                height: auto;
-            }
-        }
-    }
-
     .profile-picture {
         display: block;
         width: 200px;

@@ -77,7 +77,7 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, 
             <div className="row justify-content-center">
                 <h3 className="portfolio-tittle">Portfolio</h3>
             </div>
-            <div className="portfolio-holder row justify-content-center">
+            <div className="portfolio-holder">
                 {photographer.Photos ? (
                     <Portfolio
                         photos={photographer.Photos}
