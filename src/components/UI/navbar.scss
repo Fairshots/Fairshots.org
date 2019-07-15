@@ -10,6 +10,12 @@
     padding-top: 0;
     padding-bottom: 0;
 
+    @media (max-width: 768px) {
+        a.navbar-brand {
+            width: 200px;
+        }
+    }
+
     a {
         color: white;
     }
@@ -19,6 +25,9 @@
         font-size: 15px;
         font-weight: 300;
         text-transform: uppercase;
+        @media (max-width: 768px) {
+            width: 100%;
+        }
         .nav-link {
             -webkit-transition: background-color 500ms ease;
             transition: background-color 500ms ease;
@@ -48,6 +57,10 @@
         background-color: #00a651;
     }
     .n-dropdown-menu {
+        background-color: #444;
+    }
+
+    #navbarCollapse3 {
         background-color: #444;
     }
 }

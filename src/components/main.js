@@ -20,12 +20,6 @@ export default function Main(props) {
                 <Route path="/" exact component={Home} />
                 <Route path="/about" exact component={About} />
                 <Route path="/contact-us" exact component={Contact} />
-                <Route path="/register" exact component={RegisterForm} />
-                <Route path="/photographers" exact component={AllPhotographers} />
-                <Route path="/organizations" exact component={AllOrgs} />
-                <Route path="/projects" exact component={AllProjects} />
-                <Route path="/terms-and-conditions" exact component={TermsandConditions} />
-                <Route path="/terms-and-conditions" exact component={TermsandConditions} />
                 <Route
                     path="/stories"
                     component={() => (
@@ -38,6 +32,12 @@ export default function Main(props) {
                         />
                     )}
                 />
+                <Route path="/register" exact component={RegisterForm} />
+                <Route path="/photographers" exact component={AllPhotographers} />
+                <Route path="/organizations" exact component={AllOrgs} />
+                <Route path="/projects" exact component={AllProjects} />
+                <Route path="/terms-and-conditions" exact component={TermsandConditions} />
+
                 <Route
                     path="/create-a-project"
                     render={() =>

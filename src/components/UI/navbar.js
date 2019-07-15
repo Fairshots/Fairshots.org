@@ -49,7 +49,7 @@ class NavbarPage extends Component {
                 >
                     <Nav className="align-items-center">
                         <NavItem className="navbarlink">
-                            <Link to="stories" className="nav-link">
+                            <Link to="/stories" className="nav-link">
                                 Stories
                             </Link>
                         </NavItem>
