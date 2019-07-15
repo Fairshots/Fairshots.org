@@ -49,6 +49,11 @@ class NavbarPage extends Component {
                 >
                     <Nav className="align-items-center">
                         <NavItem className="navbarlink">
+                            <Link to="stories" className="nav-link">
+                                Stories
+                            </Link>
+                        </NavItem>
+                        <NavItem className="navbarlink">
                             <UncontrolledDropdown>
                                 <DropdownToggle nav color="#444444" caret>
                                     ORGANIZATIONS
