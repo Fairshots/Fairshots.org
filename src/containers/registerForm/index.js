@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
+import { Modal, ModalBody } from "reactstrap";
+
 import PhotographerForm from "./photographerform";
 import OrganizationForm from "./organizationform";
 import { register, checkForm, resetMessages } from "../../actions/register";
 import { renderField, validate } from "./helper-functions";
 import "./registerForm.scss";
+import TermsandConditions from "../../components/terms-and-conditions";
 
 /**
  *

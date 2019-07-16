@@ -58,7 +58,23 @@ export default function OrganizationForm({ handleSubmit, renderField }) {
                 options={countrylist}
             />
 
-            <Button type="submit">Submit</Button>
+            <Field
+                name="agreement"
+                label={
+                    <p>
+                        I agree with{" "}
+                        <a id="term-agree" href="#">
+                            terms and conditions:
+                        </a>
+                    </p>
+                }
+                component={renderField}
+                type="checkbox"
+            />
+
+            <Button color="success" type="submit">
+                Submit
+            </Button>
         </Form>
     );
 }

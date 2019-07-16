@@ -19,6 +19,7 @@ export default function PhotographerForm({ handleSubmit, renderField }) {
                 type="select"
             />
             <Field name="Biography" label="Biography: " component={renderField} type="textarea" />
+            <Field name="Phone" label="Phone: " component={renderField} type="Telephone" />
             <Field name="webpage" label="Webpage: " component={renderField} type="url" />
             <Field name="facebook" label="Facebook: " component={renderField} type="url" />
             <Field name="instagram" label="Instagram: " component={renderField} type="url" />
@@ -44,8 +45,23 @@ export default function PhotographerForm({ handleSubmit, renderField }) {
                 type="select"
                 options={countrylist}
             />
-
-            <Button type="submit">Submit</Button>
+            <Field
+                name="agreement"
+                label={
+                    <p>
+                        I agree with{" "}
+                        <a id="term-agree" href="#">
+                            terms and conditions:
+                        </a>
+                    </p>
+                }
+                component={renderField}
+                type="checkbox"
+            />
+            <br />
+            <Button color="success" type="submit">
+                Submit
+            </Button>
         </Form>
     );
 }

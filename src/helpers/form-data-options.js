@@ -225,14 +225,41 @@ const causes = [
     "Other"
 ];
 const languages = [
-    "Chinese",
-    "Spanish",
-    "English",
-    "Hindi",
+    "Afrikaans",
     "Arabic",
-    "Portuguese",
     "Bengali",
-    "Russian"
+    "Danish",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Greek",
+    "Hausa",
+    "Hebrew",
+    "Hindi",
+    "Igbo",
+    "Italian",
+    "Japanese",
+    "Javanese",
+    "Korean",
+    "Lahnda",
+    "Malay",
+    "Mandarin",
+    "Persian",
+    "Polish",
+    "Portuguese",
+    "Romanian",
+    "Russian",
+    "Spanish",
+    "Swahili",
+    "Swedish",
+    "Thai",
+    "Turkish",
+    "Ukrainian",
+    "Urdu",
+    "Vietnamese",
+    "Yoruba",
+    "Other(s)"
 ];
 
 export { countrylist, causes, languages };
