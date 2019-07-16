@@ -1,21 +1,11 @@
 import React from "react";
 import { Button } from "reactstrap";
-
+import imgUploadWidget from "../../helpers/imgUploadWidget";
 import Portfolio from "../portfolio";
 
 import "./photogProfile.scss";
 
 export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, thirdParty }) {
-    const { cloudinary } = window;
-    const imgUploadWidget = cloudinary.createUploadWidget(
-        { cloudName: "fairshots", uploadPreset: "kahvrgme" },
-        (error, result) => {
-            if (result.event === "success") {
-                uploadPhoto(result.info.secure_url);
-            }
-        }
-    );
-
     return (
         <div className="photogProfile container">
             <div className="row">
@@ -37,7 +27,10 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, 
                         >
                             Edit Profile
                         </Button>
-                        <Button color="success w-75 mb-2" onClick={() => imgUploadWidget.open()}>
+                        <Button
+                            color="success w-75 mb-2"
+                            onClick={() => imgUploadWidget(uploadPhoto)}
+                        >
                             Upload Photos
                         </Button>
                         <Button
