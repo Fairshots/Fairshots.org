@@ -1,19 +1,4 @@
 .orgProfile {
-    @media (max-width: 767px) {
-        .portfolio-holder {
-            background-color: #242424;
-            height: auto;
-            img {
-                height: auto;
-            }
-        }
-    }
-    @media (min-width: 768px) {
-        .portfolio-holder {
-            background-color: #242424;
-        }
-    }
-
     .profile-picture {
         display: block;
         width: 200px;
@@ -28,6 +13,8 @@
         background-position: 50% 50%;
         background-size: cover;
         background-repeat: no-repeat;
+        object-fit: cover;
+        object-position: center;
     }
 
     .profile-picture.thumbnail {

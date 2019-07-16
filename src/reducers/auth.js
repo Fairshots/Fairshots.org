@@ -25,6 +25,9 @@ export default function auth(state = INITIAL_STATE, action) {
                 errorMessage: ""
             });
         }
+        case "AUTH_PROFILE_THUMBNAIL": {
+            return Object.assign({}, state, { user: { ...state.user, ...action.payload } });
+        }
         case "AUTH_FORGOT": {
             return Object.assign({}, state, {
                 notification: "An e-mail was sent with a link to reset your password"

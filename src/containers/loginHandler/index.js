@@ -98,7 +98,7 @@ class LoginHandler extends Component {
                     <UncontrolledDropdown className="profileNav navbarlink">
                         <DropdownToggle nav className="loglog nav-link" caret>
                             <img
-                                src={profile.Logo || profile.ProfilePic}
+                                src={userInfo.thumbnail}
                                 className="rounded-circle z-depth-0 mr-2"
                                 alt=""
                             />
@@ -108,11 +108,7 @@ class LoginHandler extends Component {
                             <DropdownItem
                                 className="f-dropdown-link"
                                 onClick={() =>
-                                    history.push(
-                                        `/${this.props.userInfo.userType}/${
-                                            this.props.userInfo.userId
-                                        }`
-                                    )
+                                    history.push(`/${userInfo.userType}/${userInfo.userId}`)
                                 }
                             >
                                 <FaCog /> PROFILE

@@ -1,4 +1,5 @@
 import { CLOUDINARY_API, FAIRSHOTS_API } from "./constants";
+import toggleLoading from "./toggleLoading";
 
 export function uploadPhoto(userType, id, token, url) {
     return async dispatch => {
@@ -12,6 +13,7 @@ export function uploadPhoto(userType, id, token, url) {
                 body: JSON.stringify({ photos: [{ [`${userType}Id`]: id, cloudlink: url }] })
             };
             console.log(config);
+
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photos`, config);
             if (res.ok) {
                 const ret = await res.json();
@@ -23,6 +25,7 @@ export function uploadPhoto(userType, id, token, url) {
             } else throw await res.text();
         } catch (e) {
             console.log(e);
+
             dispatch({
                 type: userType === "project" ? "PROJECT_ERROR" : "UPLOAD_ERROR",
                 payload: e
@@ -59,6 +62,7 @@ export function delPhoto(userType, id, token, photoItem) {
                 },
                 body: JSON.stringify({ photoIds: [photoItem.id] })
             };
+            dispatch(toggleLoading());
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photos`, config);
             if (res.ok) {
                 const ret = await res.json();
@@ -67,12 +71,14 @@ export function delPhoto(userType, id, token, photoItem) {
                     type: userType === "project" ? "PHOTO_DELETED" : "PROFILE_PHOTO_DELETED",
                     payload: photoItem
                 });
+                dispatch(toggleLoading());
             } else throw await res.text();
         } catch (e) {
             dispatch({
                 type: userType === "project" ? "PROJECT_ERROR" : "UPLOAD_ERROR",
                 payload: e
             });
+            dispatch(toggleLoading());
         }
     };
 }

@@ -48,6 +48,11 @@ class UserProfile extends Component {
         // else just get whatever profile is injected into state
     }
 
+    componentWillUnmount() {
+        const iframes = document.querySelectorAll("iframe");
+        iframes.forEach(el => el.parentNode.removeChild(el));
+    }
+
     componentDidUpdate(prevProps) {
         const { authId, match, token, getUserProfile } = this.props;
         const prof = Object.assign({}, this.props.userProfile);
