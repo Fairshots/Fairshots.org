@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
-import { Modal, ModalBody } from "reactstrap";
 
 import PhotographerForm from "./photographerform";
 import OrganizationForm from "./organizationform";
 import { register, checkForm, resetMessages } from "../../actions/register";
 import { renderField, validate } from "./helper-functions";
-import "./registerForm.scss";
+import ReusableModal from "../../components/UI/reusableModal";
 import TermsandConditions from "../../components/terms-and-conditions";
+import "./registerForm.scss";
 
 /**
  *
@@ -17,7 +17,7 @@ import TermsandConditions from "../../components/terms-and-conditions";
 class RegisterForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { userType: "photographer" };
+        this.state = { userType: "photographer", modalShow: false };
     }
 
     componentDidUpdate(prevProps) {
@@ -100,11 +100,17 @@ class RegisterForm extends Component {
                             <PhotographerForm
                                 handleSubmit={handleSubmit(doRegister(this.state.userType))}
                                 renderField={renderField}
+                                modalShow={() =>
+                                    this.setState({ modalShow: !this.state.modalShow })
+                                }
                             />
                         ) : (
                             <OrganizationForm
                                 handleSubmit={handleSubmit(doRegister(this.state.userType))}
                                 renderField={renderField}
+                                modalShow={() =>
+                                    this.setState({ modalShow: !this.state.modalShow })
+                                }
                             />
                         )}
                         {regmsg.message && (
@@ -118,6 +124,12 @@ class RegisterForm extends Component {
                         )}
                     </div>
                 </div>
+                <ReusableModal
+                    Component={TermsandConditions}
+                    size="lg"
+                    show={this.state.modalShow}
+                    setShow={() => this.setState({ modalShow: !this.state.modalShow })}
+                />
             </div>
         );
     }

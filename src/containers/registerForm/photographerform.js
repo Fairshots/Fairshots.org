@@ -4,7 +4,7 @@ import { Form, Button } from "reactstrap";
 import { countrylist, causes, languages } from "../../helpers/form-data-options";
 import checkboxesFormArray from "../../components/checkboxesFormArray";
 
-export default function PhotographerForm({ handleSubmit, renderField }) {
+export default function PhotographerForm({ handleSubmit, renderField, modalShow }) {
     return (
         <Form className="container" onSubmit={handleSubmit}>
             <Field name="Name" label="Name: " component={renderField} type="text" />
@@ -50,7 +50,14 @@ export default function PhotographerForm({ handleSubmit, renderField }) {
                 label={
                     <p>
                         I agree with{" "}
-                        <a id="term-agree" href="#">
+                        <a
+                            id="term-agree"
+                            href="#"
+                            onClick={e => {
+                                e.preventDefault();
+                                modalShow();
+                            }}
+                        >
                             terms and conditions:
                         </a>
                     </p>
