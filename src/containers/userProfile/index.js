@@ -21,7 +21,7 @@ class UserProfile extends Component {
         super(props);
         this.state = {
             modal: false,
-            modalType: "UPLOAD_PROFILE",
+            modalType: "UPDATE_PROFILE",
             photoToDel: "",
             thirdParty: false
         };

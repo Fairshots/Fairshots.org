@@ -78,7 +78,7 @@ class LoginHandler extends Component {
             <>
                 {!isAuthenticated && (
                     <>
-                        <NavItem className="loglog p-3 navbarlink">
+                        <NavItem className="loglog navbarlink">
                             <Link
                                 to="#!"
                                 className="nav-link"
@@ -87,7 +87,7 @@ class LoginHandler extends Component {
                                 <FaUser /> LOGIN
                             </Link>
                         </NavItem>
-                        <NavItem className="p-3 navbarlink">
+                        <NavItem className="navbarlink">
                             <Link className="nav-link" to="/register#photographer">
                                 <FaUserPlus /> SIGN UP
                             </Link>

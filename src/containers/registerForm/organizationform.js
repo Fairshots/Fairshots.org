@@ -75,26 +75,28 @@ export default function OrganizationForm({ handleSubmit, renderField, modalShow 
                     options={countrylist}
                 />
 
-                <Field
-                    name="agreement"
-                    label={
-                        <p>
-                            I agree with{" "}
-                            <a
-                                id="term-agree"
-                                href="#"
-                                onClick={e => {
-                                    e.preventDefault();
-                                    modalShow();
-                                }}
-                            >
-                                terms and conditions:
-                            </a>
-                        </p>
-                    }
-                    component={renderField}
-                    type="checkbox"
-                />
+                {modalShow !== "update" && (
+                    <Field
+                        name="agreement"
+                        label={
+                            <p>
+                                I agree with{" "}
+                                <a
+                                    id="term-agree"
+                                    href="#"
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        modalShow();
+                                    }}
+                                >
+                                    terms and conditions:
+                                </a>
+                            </p>
+                        }
+                        component={renderField}
+                        type="checkbox"
+                    />
+                )}
 
                 <Button color="success" type="submit">
                     Submit

@@ -27,6 +27,7 @@ class UpdateProfile extends Component {
                             doUpdate(this.state.userType, id, initialValues, token)
                         )}
                         renderField={renderField}
+                        modalShow="update"
                     />
                 ) : (
                     <OrganizationForm
@@ -34,6 +35,7 @@ class UpdateProfile extends Component {
                             doUpdate(this.state.userType, id, initialValues, token)
                         )}
                         renderField={renderField}
+                        modalShow="update"
                     />
                 )}
             </div>

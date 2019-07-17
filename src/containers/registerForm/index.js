@@ -17,7 +17,10 @@ import "./registerForm.scss";
 class RegisterForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { userType: "photographer", modalShow: false };
+        this.state = {
+            userType: window.location.href.split("#")[1] || "photographer",
+            modalShow: false
+        };
     }
 
     componentDidUpdate(prevProps) {
@@ -71,7 +74,10 @@ class RegisterForm extends Component {
                         <Link
                             to={{ pathname, hash: "#organization" }}
                             className="f-tab-link"
-                            onClick={this.props.reset}
+                            onClick={() => {
+                                this.props.destroy();
+                                this.props.initialize();
+                            }}
                         >
                             <div>JOIN AS AN organization</div>
                             <img
@@ -84,7 +90,10 @@ class RegisterForm extends Component {
                         <Link
                             to={{ pathname, hash: "#photographer" }}
                             className="f-tab-link"
-                            onClick={this.props.reset}
+                            onClick={() => {
+                                this.props.destroy();
+                                this.props.initialize();
+                            }}
                         >
                             <div>JOIN AS AN photographer</div>
                             <img
@@ -148,7 +157,9 @@ const mapDispatchToProps = dispatch => ({
 
 export default reduxForm({
     form: "registerNewForm",
-    validate
+    validate,
+    enableReinitialize: true,
+    keepDirty: true
 })(
     connect(
         mapStateToProps,
