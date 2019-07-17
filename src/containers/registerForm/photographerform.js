@@ -4,7 +4,7 @@ import { Form, Button } from "reactstrap";
 import { countrylist, causes, languages } from "../../helpers/form-data-options";
 import checkboxesFormArray from "../../components/checkboxesFormArray";
 
-export default function PhotographerForm({ handleSubmit, renderField }) {
+export default function PhotographerForm({ handleSubmit, renderField, modalShow }) {
     return (
         <Form className="container" onSubmit={handleSubmit}>
             <Field name="Name" label="Name: " component={renderField} type="text" />
@@ -19,6 +19,7 @@ export default function PhotographerForm({ handleSubmit, renderField }) {
                 type="select"
             />
             <Field name="Biography" label="Biography: " component={renderField} type="textarea" />
+            <Field name="Phone" label="Phone: " component={renderField} type="Telephone" />
             <Field name="webpage" label="Webpage: " component={renderField} type="url" />
             <Field name="facebook" label="Facebook: " component={renderField} type="url" />
             <Field name="instagram" label="Instagram: " component={renderField} type="url" />
@@ -44,8 +45,32 @@ export default function PhotographerForm({ handleSubmit, renderField }) {
                 type="select"
                 options={countrylist}
             />
+            {modalShow !== "update" && (
+                <Field
+                    name="agreement"
+                    label={
+                        <p>
+                            I agree with{" "}
+                            <a
+                                id="term-agree"
+                                href="#"
+                                onClick={e => {
+                                    e.preventDefault();
+                                    modalShow();
+                                }}
+                            >
+                                terms and conditions:
+                            </a>
+                        </p>
+                    }
+                    component={renderField}
+                    type="checkbox"
+                />
+            )}
 
-            <Button type="submit">Submit</Button>
+            <Button color="success" type="submit">
+                Submit
+            </Button>
         </Form>
     );
 }

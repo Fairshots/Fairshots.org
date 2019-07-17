@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
+
 import PhotographerForm from "./photographerform";
 import OrganizationForm from "./organizationform";
 import { register, checkForm, resetMessages } from "../../actions/register";
 import { renderField, validate } from "./helper-functions";
+import ReusableModal from "../../components/UI/reusableModal";
+import TermsandConditions from "../../components/terms-and-conditions";
 import "./registerForm.scss";
 
 /**
@@ -14,7 +17,10 @@ import "./registerForm.scss";
 class RegisterForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { userType: "photographer" };
+        this.state = {
+            userType: window.location.href.split("#")[1] || "photographer",
+            modalShow: false
+        };
     }
 
     componentDidUpdate(prevProps) {
@@ -68,7 +74,10 @@ class RegisterForm extends Component {
                         <Link
                             to={{ pathname, hash: "#organization" }}
                             className="f-tab-link"
-                            onClick={this.props.reset}
+                            onClick={() => {
+                                this.props.destroy();
+                                this.props.initialize();
+                            }}
                         >
                             <div>JOIN AS AN organization</div>
                             <img
@@ -81,7 +90,10 @@ class RegisterForm extends Component {
                         <Link
                             to={{ pathname, hash: "#photographer" }}
                             className="f-tab-link"
-                            onClick={this.props.reset}
+                            onClick={() => {
+                                this.props.destroy();
+                                this.props.initialize();
+                            }}
                         >
                             <div>JOIN AS AN photographer</div>
                             <img
@@ -97,11 +109,17 @@ class RegisterForm extends Component {
                             <PhotographerForm
                                 handleSubmit={handleSubmit(doRegister(this.state.userType))}
                                 renderField={renderField}
+                                modalShow={() =>
+                                    this.setState({ modalShow: !this.state.modalShow })
+                                }
                             />
                         ) : (
                             <OrganizationForm
                                 handleSubmit={handleSubmit(doRegister(this.state.userType))}
                                 renderField={renderField}
+                                modalShow={() =>
+                                    this.setState({ modalShow: !this.state.modalShow })
+                                }
                             />
                         )}
                         {regmsg.message && (
@@ -115,6 +133,12 @@ class RegisterForm extends Component {
                         )}
                     </div>
                 </div>
+                <ReusableModal
+                    Component={TermsandConditions}
+                    size="lg"
+                    show={this.state.modalShow}
+                    setShow={() => this.setState({ modalShow: !this.state.modalShow })}
+                />
             </div>
         );
     }
@@ -133,7 +157,9 @@ const mapDispatchToProps = dispatch => ({
 
 export default reduxForm({
     form: "registerNewForm",
-    validate
+    validate,
+    enableReinitialize: true,
+    keepDirty: true
 })(
     connect(
         mapStateToProps,

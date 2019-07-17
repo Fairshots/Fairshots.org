@@ -10,8 +10,8 @@
     padding-top: 0;
     padding-bottom: 0;
 
-    @media (max-width: 768px) {
-        a.navbar-brand {
+    a.navbar-brand {
+        @media (max-width: 768px) {
             width: 200px;
         }
     }
@@ -61,6 +61,8 @@
     }
 
     #navbarCollapse3 {
-        background-color: #444;
+        @media (max-width: 768px) {
+            background-color: #444;
+        }
     }
 }

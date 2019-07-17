@@ -41,6 +41,9 @@ const validate = values => {
         } else if (values.Password.length < 8) {
             errors.Password = "minimum 8 characters";
         }
+        if (!values.agreement) {
+            errors.agreement = "You need to click the box above";
+        }
     }
     if (!values.City) {
         errors.City = "Required";
