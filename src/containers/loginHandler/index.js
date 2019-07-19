@@ -9,6 +9,7 @@ import {
     DropdownMenu
 } from "reactstrap";
 import { FaCog, FaUser, FaUserPlus, FaSignInAlt } from "react-icons/fa";
+import auth0 from "auth0-js";
 import { login, logout, forgotPw } from "../../actions";
 import LoginModal from "../../components/loginModal";
 
@@ -133,6 +134,16 @@ class LoginHandler extends Component {
                     notification={notification}
                     forgotPass={this.state.forgotPass}
                     toggleForget={this.toggleForget}
+                    auth0={
+                        new auth0.WebAuth({
+                            domain: "curly-waterfall-1934.auth0.com",
+                            clientID: "Sw0UdTyMoz6UnDkyAWQcJL1Kwj6yxA2g",
+                            responseType: "token id_token",
+                            audience: " http://3.18.104.39:8080",
+                            redirectUri: "http://localhost:8080/login/callback",
+                            scope: "openid profile"
+                        })
+                    }
                 />
             </>
         );

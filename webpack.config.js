@@ -56,6 +56,12 @@ module.exports = (env, argv) => ({
                       template: "./index.html",
                       filename: path.join(__dirname, "dist", "index.html")
                   }),
+                  new HtmlWebpackPlugin({
+                      // development
+                      hash: false,
+                      template: "./popup_response.html",
+                      filename: path.join(__dirname, "dist", "popup_response.html")
+                  }),
                   new webpack.HotModuleReplacementPlugin()
               ],
 
