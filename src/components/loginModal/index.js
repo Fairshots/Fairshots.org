@@ -96,7 +96,11 @@ export default function LoginModal(props) {
                             style={{ "font-size": "16px", width: "50%" }}
                             iconSize="16px"
                             size="40px"
-                            onClick={() => props.auth0.authorize({ connection: "facebook" })}
+                            onClick={() =>
+                                props.auth0.authorize({
+                                    connection: "facebook"
+                                })
+                            }
                         />
                     </Row>
                     <Row className="justify-content-center m-2">
@@ -105,9 +109,8 @@ export default function LoginModal(props) {
                             iconSize="16px"
                             size="40px"
                             onClick={() =>
-                                props.auth0.popup.authorize({
-                                    connection: "google-oauth2",
-                                    redirectUri: "http://localhost:8080/popup_response.html"
+                                props.auth0.authorize({
+                                    connection: "google-oauth2"
                                 })
                             }
                         />
