@@ -6,21 +6,15 @@ import Auth0 from "./auth0-webauth";
 
 const SocialLogin = props => {
     useEffect(
-        Auth0.parseHash({ hash: window.location.hash }, (err, authResult) => {
-            if (err) {
-                return console.log(err);
-            }
-            console.log(authResult.token);
-            props.doSocial(authResult.token);
-        }),
+        () =>
+            Auth0.parseHash({ hash: window.location.hash }, (err, authResult) => {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log(authResult);
+                props.doSocial(authResult.accessToken);
+            }),
         []
-    );
-
-    useEffect(
-        () => {
-            if (props.isAuthenticated) props.history.push("/");
-        },
-        [props.isAuthenticated]
     );
 
     return <div />;
@@ -47,7 +41,9 @@ const mapDispatchToProps = dispatch => ({
     clearMessages: () => dispatch({ type: "AUTH_RESETMESSAGES" })
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SocialLogin);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(SocialLogin)
+);

@@ -12,11 +12,7 @@ import {
     Col
 } from "reactstrap";
 
-import {
-    FacebookLoginButton,
-    GoogleLoginButton,
-    InstagramLoginButton
-} from "react-social-login-buttons";
+import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
