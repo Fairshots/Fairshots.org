@@ -7,7 +7,7 @@ const Auth0 = new auth0.WebAuth({
     responseType: "token id_token",
     audience: `${FAIRSHOTS_API.slice(0, -1)}`,
     redirectUri: "http://localhost:8080/login/callback",
-    scope: "openid profile"
+    scope: "openid profile email"
 });
 
 export default Auth0;

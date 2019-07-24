@@ -34,7 +34,7 @@ export function login(formProps) {
     };
 }
 
-export function social(token) {
+export function social(userInfo, token) {
     return async dispatch => {
         dispatch(toggleLoading());
         const config = {
@@ -59,8 +59,8 @@ export function social(token) {
         } catch (e) {
             console.log(e);
             dispatch({
-                type: "AUTH_ERROR",
-                payload: "Profile not found"
+                type: "FORWARD_SIGN_UP",
+                payload: userInfo
             });
             dispatch(toggleLoading());
         }

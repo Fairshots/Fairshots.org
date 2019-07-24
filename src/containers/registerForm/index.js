@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
-
+import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+import Auth0 from "../loginHandler/auth0-webauth";
 import PhotographerForm from "./photographerform";
 import OrganizationForm from "./organizationform";
 import { register, checkForm, resetMessages } from "../../actions/register";
@@ -75,7 +76,6 @@ class RegisterForm extends Component {
                             to={{ pathname, hash: "#organization" }}
                             className="f-tab-link"
                             onClick={() => {
-                                this.props.destroy();
                                 this.props.initialize();
                             }}
                         >
@@ -91,7 +91,6 @@ class RegisterForm extends Component {
                             to={{ pathname, hash: "#photographer" }}
                             className="f-tab-link"
                             onClick={() => {
-                                this.props.destroy();
                                 this.props.initialize();
                             }}
                         >
@@ -103,6 +102,32 @@ class RegisterForm extends Component {
                                 }`}
                             />
                         </Link>
+                    </div>
+                    <div className="row mt-5 justify-content-center">
+                        <FacebookLoginButton
+                            style={{ "font-size": "16px", width: "50%" }}
+                            iconSize="16px"
+                            size="40px"
+                            onClick={() =>
+                                Auth0.authorize({
+                                    connection: "facebook"
+                                })
+                            }
+                        >
+                            <span>Sign up with Facebook</span>
+                        </FacebookLoginButton>
+                        <GoogleLoginButton
+                            style={{ "font-size": "16px", width: "50%" }}
+                            iconSize="16px"
+                            size="40px"
+                            onClick={() =>
+                                Auth0.authorize({
+                                    connection: "google-oauth2"
+                                })
+                            }
+                        >
+                            <span>Sign up with Google</span>
+                        </GoogleLoginButton>
                     </div>
                     <div className="w-tab-content">
                         {this.state.userType === "photographer" ? (
@@ -144,7 +169,8 @@ class RegisterForm extends Component {
     }
 }
 const mapStateToProps = state => ({
-    regmsg: state.registration
+    regmsg: state.registration,
+    initialValues: state.auth.prefilled_signup
 });
 const mapDispatchToProps = dispatch => ({
     doRegister: userType => formFilled => {
@@ -155,14 +181,14 @@ const mapDispatchToProps = dispatch => ({
     doResetMessages: () => dispatch(resetMessages())
 });
 
-export default reduxForm({
+const registerform = reduxForm({
     form: "registerNewForm",
     validate,
     enableReinitialize: true,
-    keepDirty: true
-})(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(RegisterForm)
-);
+    keepDirtyOnReinitialize: true
+})(RegisterForm);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(registerform);

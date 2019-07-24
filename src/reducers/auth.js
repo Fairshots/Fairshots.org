@@ -52,6 +52,11 @@ export default function auth(state = INITIAL_STATE, action) {
                 errorMessage: ""
             });
         }
+        case "FORWARD_SIGN_UP": {
+            return Object.assign({}, state, {
+                prefilled_signup: action.payload
+            });
+        }
         default:
             return state;
     }
