@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
-import { social } from "../../actions";
+import { withRouter } from "react-router-dom";
+import { social, saveAuth0Token } from "../../actions";
 import Auth0 from "./auth0-webauth";
+import ForwardSignup from "./forward-signup";
+import ReusableModal from "../../components/UI/reusableModal";
 
 const SocialLogin = props => {
+    const [modalShow, setModalShow] = useState(false);
+
     useEffect(
         () =>
             Auth0.parseHash({ hash: window.location.hash }, (err, authResult) => {
@@ -12,6 +16,7 @@ const SocialLogin = props => {
                     return console.log(err);
                 }
                 console.log(authResult);
+                props.doSaveAuth0Token(authResult.accessToken);
 
                 Auth0.client.userInfo(authResult.accessToken, (err2, profile) => {
                     if (err2) console.log(err2);
@@ -29,9 +34,27 @@ const SocialLogin = props => {
             }),
         []
     );
-    if (props.forward_signup) return <Redirect to="/register#photographer" />;
+    useEffect(
+        () => {
+            if (props.forward_signup) setModalShow(true);
+        },
+        [props.forward_signup]
+    );
 
-    return <div />;
+    return (
+        <div style={{ height: "600px" }}>
+            <ReusableModal
+                Component={() => (
+                    <ForwardSignup
+                        redirect={userType => props.history.push(`/register#${userType}`)}
+                    />
+                )}
+                size="lg"
+                show={modalShow}
+                setShow={() => setModalShow(!modalShow)}
+            />
+        </div>
+    );
 };
 
 const mapStateToProps = state => ({
@@ -44,6 +67,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     doSocial: (userInfo, token) => {
         dispatch(social(userInfo, token));
+    },
+    doSaveAuth0Token: token => {
+        dispatch(saveAuth0Token(token));
     },
     forgotPassword: formProps => {
         dispatch(forgotPw(formProps));

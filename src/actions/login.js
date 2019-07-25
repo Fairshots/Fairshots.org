@@ -67,6 +67,13 @@ export function social(userInfo, token) {
     };
 }
 
+export function saveAuth0Token(token) {
+    return {
+        type: "AUTH0_TOKEN",
+        payload: token
+    };
+}
+
 export function logout() {
     return {
         type: "AUTH_LOGOUT"

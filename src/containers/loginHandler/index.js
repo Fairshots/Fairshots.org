@@ -50,7 +50,7 @@ class LoginHandler extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
-            this.toggleOpenCloses("loginModal");
+            if (!this.props.userInfo.auth0Token) this.toggleOpenCloses("loginModal"); // if not social login
             this.setState({ email: "", password: "" });
             this.props.history.push(
                 `/${this.props.userInfo.userType}/${this.props.userInfo.userId}`
