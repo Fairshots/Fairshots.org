@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm } from "redux-form";
+import { reduxForm, formValueSelector } from "redux-form";
 import { Link } from "react-router-dom";
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import Auth0 from "../loginHandler/auth0-webauth";
@@ -60,7 +60,9 @@ class RegisterForm extends Component {
             handleSubmit,
             regmsg,
             valid,
-            location: { pathname }
+            location: { pathname },
+            profilePic,
+            logo
         } = this.props;
         return (
             <div className="register-form d-flex flex-column flex-wrap align-items-center">
@@ -105,7 +107,7 @@ class RegisterForm extends Component {
                     </div>
                     <div className="row mt-5 justify-content-center">
                         <FacebookLoginButton
-                            style={{ "font-size": "16px", width: "50%" }}
+                            style={{ "font-size": "14px", width: "50%" }}
                             iconSize="16px"
                             size="40px"
                             onClick={() =>
@@ -114,10 +116,10 @@ class RegisterForm extends Component {
                                 })
                             }
                         >
-                            <span>Sign up with Facebook</span>
+                            <span>Continue with Facebook</span>
                         </FacebookLoginButton>
                         <GoogleLoginButton
-                            style={{ "font-size": "16px", width: "50%" }}
+                            style={{ "font-size": "14px", width: "50%" }}
                             iconSize="16px"
                             size="40px"
                             onClick={() =>
@@ -126,7 +128,7 @@ class RegisterForm extends Component {
                                 })
                             }
                         >
-                            <span>Sign up with Google</span>
+                            <span>Continue with Google</span>
                         </GoogleLoginButton>
                     </div>
                     <div className="w-tab-content">
@@ -137,6 +139,7 @@ class RegisterForm extends Component {
                                 modalShow={() =>
                                     this.setState({ modalShow: !this.state.modalShow })
                                 }
+                                profilePic={profilePic}
                             />
                         ) : (
                             <OrganizationForm
@@ -145,6 +148,7 @@ class RegisterForm extends Component {
                                 modalShow={() =>
                                     this.setState({ modalShow: !this.state.modalShow })
                                 }
+                                logo={logo}
                             />
                         )}
                         {regmsg.message && (
@@ -168,9 +172,12 @@ class RegisterForm extends Component {
         );
     }
 }
+const selector = formValueSelector("registerNewForm");
 const mapStateToProps = state => ({
     regmsg: state.registration,
-    initialValues: state.auth.prefilled_signup
+    initialValues: state.auth.prefilled_signup,
+    profilePic: selector(state, "ProfilePic"),
+    logo: selector(state, "Logo")
 });
 const mapDispatchToProps = dispatch => ({
     doRegister: userType => formFilled => {

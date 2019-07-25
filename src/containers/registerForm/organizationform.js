@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Field, FieldArray } from "redux-form";
 import { Form, Button } from "reactstrap";
 import { countrylist, causes, languages } from "../../helpers/form-data-options";
 import checkboxesFormArray from "../../components/checkboxesFormArray";
 
-export default function OrganizationForm({ handleSubmit, renderField, modalShow }) {
+export default function OrganizationForm({ handleSubmit, renderField, modalShow, logo }) {
+    const [picUrl, setPicUrl] = useState("");
+
+    useEffect(
+        () => {
+            if (typeof profilePic === "string") setPicUrl(logo);
+        },
+        [logo]
+    );
     return (
         <div>
             <Form className="container" onSubmit={handleSubmit}>
@@ -31,6 +39,7 @@ export default function OrganizationForm({ handleSubmit, renderField, modalShow 
                 <Field name="Password" label="Password: " component={renderField} type="Password" />
                 <Field name="Phone" label="Phone: " component={renderField} type="Telephone" />
                 <Field name="Logo" label="Logo: " component={renderField} type="file" />
+                {picUrl !== "" && <img src={picUrl} height="128" width="128" />}
                 <Field
                     name="ContactPerson"
                     label="Contact Person: "

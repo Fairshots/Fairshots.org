@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Field, FieldArray } from "redux-form";
 import { Form, Button } from "reactstrap";
 import { countrylist, causes, languages } from "../../helpers/form-data-options";
 import checkboxesFormArray from "../../components/checkboxesFormArray";
 
-export default function PhotographerForm({ handleSubmit, renderField, modalShow }) {
+export default function PhotographerForm({ handleSubmit, renderField, modalShow, profilePic }) {
+    const [picUrl, setPicUrl] = useState("");
+
+    useEffect(
+        () => {
+            if (typeof profilePic === "string") setPicUrl(profilePic);
+        },
+        [profilePic]
+    );
+
     return (
         <Form className="container" onSubmit={handleSubmit}>
             <Field name="Name" label="Name: " component={renderField} type="text" />
             <Field name="Email" label="E-mail: " component={renderField} type="Email" />
             <Field name="Password" label="Password: " component={renderField} type="Password" />
             <Field name="ProfilePic" label="Picture: " component={renderField} type="file" />
+            {picUrl !== "" && <img src={picUrl} height="128" width="128" />}
             <Field
                 name="Skill"
                 label="Skill Level: "
