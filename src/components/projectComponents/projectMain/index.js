@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Table } from "reactstrap";
 import Gallery from "../../gallery";
 import ProfileCards from "../../profilecards";
 
@@ -39,11 +39,34 @@ const ProjectMain = ({ projectInfo, userType, pushHistory }) => (
             {userType === "owner" && projectInfo.Photographers.length > 0 && (
                 <>
                     <Row className="listing-subtittle page mt-3">Applicants</Row>
-                    <ProfileCards
-                        userType="photographer"
-                        cards={projectInfo.Photographers}
-                        pushHistory={pushHistory}
-                    />
+
+                    <Table hover>
+                        <thead>
+                            <tr>
+                                <th>Picture</th>
+                                <th>Name</th>
+                                <th>Application answers</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {projectInfo.Photographers.map(p => (
+                                <tr
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => pushHistory(p, p.id)}
+                                >
+                                    <td>
+                                        <img src={p.ProfilePic} width="128" />
+                                    </td>
+                                    <td>{p.Name}</td>
+                                    <td>
+                                        {Object.values(p.Application).map(v => (
+                                            <p>{v}</p>
+                                        ))}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
                 </>
             )}
         </Container>
