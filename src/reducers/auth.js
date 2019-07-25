@@ -20,9 +20,14 @@ export default function auth(state = INITIAL_STATE, action) {
         case "AUTH_SUCCESS": {
             console.log(action.payload);
             return Object.assign({}, state, {
-                user: action.payload,
+                user: { ...state.user, ...action.payload },
                 isAuthenticated: true,
                 errorMessage: ""
+            });
+        }
+        case "AUTH0_TOKEN": {
+            return Object.assign({}, state, {
+                user: { ...state.user, auth0Token: action.payload }
             });
         }
         case "AUTH_PROFILE_THUMBNAIL": {
@@ -50,6 +55,11 @@ export default function auth(state = INITIAL_STATE, action) {
             return Object.assign({}, state, {
                 notification: "",
                 errorMessage: ""
+            });
+        }
+        case "FORWARD_SIGN_UP": {
+            return Object.assign({}, state, {
+                prefilled_signup: action.payload
             });
         }
         default:

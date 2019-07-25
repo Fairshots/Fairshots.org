@@ -12,11 +12,7 @@ import {
     Col
 } from "reactstrap";
 
-import {
-    FacebookLoginButton,
-    GoogleLoginButton,
-    InstagramLoginButton
-} from "react-social-login-buttons";
+import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -96,7 +92,11 @@ export default function LoginModal(props) {
                             style={{ "font-size": "16px", width: "50%" }}
                             iconSize="16px"
                             size="40px"
-                            onClick={() => alert("Hello")}
+                            onClick={() =>
+                                props.auth0.authorize({
+                                    connection: "facebook"
+                                })
+                            }
                         />
                     </Row>
                     <Row className="justify-content-center m-2">
@@ -104,15 +104,11 @@ export default function LoginModal(props) {
                             style={{ "font-size": "16px", width: "50%" }}
                             iconSize="16px"
                             size="40px"
-                            onClick={() => alert("Hello")}
-                        />
-                    </Row>
-                    <Row className="justify-content-center m-2">
-                        <InstagramLoginButton
-                            style={{ "font-size": "16px", width: "50%" }}
-                            iconSize="16px"
-                            size="40px"
-                            onClick={() => alert("Hello")}
+                            onClick={() =>
+                                props.auth0.authorize({
+                                    connection: "google-oauth2"
+                                })
+                            }
                         />
                     </Row>
                 </Form>

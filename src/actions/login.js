@@ -34,6 +34,46 @@ export function login(formProps) {
     };
 }
 
+export function social(userInfo, token) {
+    return async dispatch => {
+        dispatch(toggleLoading());
+        const config = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `bearer ${token}`
+            }
+        };
+        try {
+            const res = await fetch(`${FAIRSHOTS_API}login/auth0`, config);
+            if (res.ok) {
+                const usertoSave = await res.json();
+                console.log(usertoSave);
+                localStorage.setItem("user", JSON.stringify(usertoSave));
+                dispatch({
+                    type: "AUTH_SUCCESS",
+                    payload: usertoSave
+                });
+                dispatch(toggleLoading());
+            } else throw res;
+        } catch (e) {
+            console.log(e);
+            dispatch({
+                type: "FORWARD_SIGN_UP",
+                payload: userInfo
+            });
+            dispatch(toggleLoading());
+        }
+    };
+}
+
+export function saveAuth0Token(token) {
+    return {
+        type: "AUTH0_TOKEN",
+        payload: token
+    };
+}
+
 export function logout() {
     return {
         type: "AUTH_LOGOUT"

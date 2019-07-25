@@ -9,6 +9,7 @@ import {
     DropdownMenu
 } from "reactstrap";
 import { FaCog, FaUser, FaUserPlus, FaSignInAlt } from "react-icons/fa";
+import Auth0 from "./auth0-webauth";
 import { login, logout, forgotPw } from "../../actions";
 import LoginModal from "../../components/loginModal";
 
@@ -49,7 +50,7 @@ class LoginHandler extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.isAuthenticated && !prevProps.isAuthenticated) {
-            this.toggleOpenCloses("loginModal");
+            if (!this.props.userInfo.auth0Token) this.toggleOpenCloses("loginModal"); // if not social login
             this.setState({ email: "", password: "" });
             this.props.history.push(
                 `/${this.props.userInfo.userType}/${this.props.userInfo.userId}`
@@ -133,6 +134,7 @@ class LoginHandler extends Component {
                     notification={notification}
                     forgotPass={this.state.forgotPass}
                     toggleForget={this.toggleForget}
+                    auth0={Auth0}
                 />
             </>
         );

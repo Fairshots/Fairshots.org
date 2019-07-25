@@ -12,6 +12,7 @@ import AllProjects from "../containers/allProjects";
 import ProjectForm from "../containers/projectForm";
 import ProjectPage from "../containers/projectPage";
 import PasswordReset from "../containers/passwordReset";
+import SocialLogin from "../containers/loginHandler/socialLogin";
 
 export default function Main(props) {
     return (
@@ -22,6 +23,7 @@ export default function Main(props) {
                 <Route path="/contact-us" exact component={Contact} />
                 <Route
                     path="/stories"
+                    exact
                     component={() => (
                         <iframe
                             width="100%"
@@ -48,9 +50,10 @@ export default function Main(props) {
                         )
                     }
                 />
-                <Route path="/login/pwreset/:token" component={PasswordReset} />
-                <Route path="/project/:projId" component={ProjectPage} />
-                <Route path="/:userType/:userId" component={UserProfile} />
+                <Route path="/login/callback" exact render={() => <SocialLogin {...props} />} />
+                <Route path="/login/pwreset/:token" exact component={PasswordReset} />
+                <Route path="/project/:projId" exact component={ProjectPage} />
+                <Route path="/:userType/:userId" exact component={UserProfile} />
             </Switch>
         </main>
     );

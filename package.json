@@ -28,6 +28,7 @@
     "homepage": "https://github.com/Fairshots/Fairshots.org#readme",
     "dependencies": {
         "@babel/runtime-corejs2": "^7.4.5",
+        "auth0-js": "^9.11.2",
         "bootstrap": "^4.3.1",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
