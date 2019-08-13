@@ -21,10 +21,10 @@ class AllOrgs extends Component {
         const { allOrgs, loadThirdPartyUserProfile } = this.props;
         return (
             <div>
-                {allOrgs.organizations ? (
+                {allOrgs ? (
                     <ProfileCards
                         userType="organization"
-                        cards={allOrgs.organizations}
+                        cards={Object.values(allOrgs)}
                         pushHistory={(profile, id) => {
                             loadThirdPartyUserProfile(profile);
                             this.props.history.push(`/organization/${id}`);

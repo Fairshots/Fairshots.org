@@ -7,7 +7,11 @@ export default function allPhotographers(state = {}, action) {
         }
         case "GET_ALLPHOTOGRAPHERS": {
             return Object.assign({}, state, {
-                photographers: action.payload,
+                ...action.payload
+                    .map(photographer => ({
+                        [photographer.id]: { ...photographer }
+                    }))
+                    .reduce((acc, current) => ({ ...acc, ...current })),
                 error: false
             });
         }

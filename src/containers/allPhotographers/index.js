@@ -22,10 +22,10 @@ class AllPhotographers extends Component {
         const { allPhotographers, loadThirdPartyUserProfile } = this.props;
         return (
             <div>
-                {allPhotographers.photographers ? (
+                {allPhotographers ? (
                     <ProfileCards
                         userType="photographer"
-                        cards={allPhotographers.photographers}
+                        cards={Object.values(allPhotographers)}
                         pushHistory={(profile, id) => {
                             loadThirdPartyUserProfile(profile);
                             this.props.history.push(`/photographer/${id}`);
