@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Spinner } from "reactstrap";
-import { getAllPhotographers, ThirdPartyUserProfile } from "../../actions";
+import { getAllPhotographers } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
 /**
@@ -19,15 +19,14 @@ class AllPhotographers extends Component {
     }
 
     render() {
-        const { allPhotographers, loadThirdPartyUserProfile } = this.props;
+        const { allPhotographers } = this.props;
         return (
             <div>
                 {allPhotographers ? (
                     <ProfileCards
                         userType="photographer"
                         cards={Object.values(allPhotographers)}
-                        pushHistory={(profile, id) => {
-                            loadThirdPartyUserProfile(profile);
+                        pushHistory={id => {
                             this.props.history.push(`/photographer/${id}`);
                         }}
                     />
@@ -43,8 +42,7 @@ const mapStateToProps = state => ({
     allPhotographers: state.allPhotographers
 });
 const mapDispatchToProps = dispatch => ({
-    doGetPhotographers: () => dispatch(getAllPhotographers()),
-    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
+    doGetPhotographers: () => dispatch(getAllPhotographers())
 });
 
 export default withRouter(

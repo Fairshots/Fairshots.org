@@ -50,10 +50,7 @@ const ProjectMain = ({ projectInfo, userType, pushHistory }) => (
                         </thead>
                         <tbody>
                             {projectInfo.Photographers.map(p => (
-                                <tr
-                                    style={{ cursor: "pointer" }}
-                                    onClick={() => pushHistory(p, p.id)}
-                                >
+                                <tr style={{ cursor: "pointer" }} onClick={() => pushHistory(p.id)}>
                                     <td>
                                         <img src={p.ProfilePic} width="128" />
                                     </td>

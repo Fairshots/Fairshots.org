@@ -38,20 +38,30 @@ export function getProfile(userType, id, token) {
     };
 }
 
-export function ThirdPartyUserProfile(thirdPartyProfile) {
+export function getOneFromAll(userType, id) {
     return async dispatch => {
         dispatch(toggleLoading());
-        const userProfile = thirdPartyProfile;
+        const config = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
         try {
-            dispatch({
-                type: "THIRD_PARTY_PROFILE",
-                payload: userProfile
-            });
-            dispatch(toggleLoading());
+            const res = await fetch(`${FAIRSHOTS_API}api/${userType}/all/${id}`, config);
+            if (res.ok) {
+                const photographer = await res.json();
+                console.log(photographer);
+                dispatch({
+                    type: "GET_ONEFROMALLPHOTOGRAPHERS",
+                    payload: photographer
+                });
+                dispatch(toggleLoading());
+            } else throw res;
         } catch (e) {
             console.log(e.toString());
             dispatch({
-                type: "PROFILE_ERROR",
+                type: "allPhotographers_ERROR",
                 payload: e.statusText !== undefined ? e.statusText : e.toString()
             });
             dispatch(toggleLoading());

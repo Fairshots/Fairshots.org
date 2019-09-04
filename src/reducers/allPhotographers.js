@@ -15,6 +15,11 @@ export default function allPhotographers(state = {}, action) {
                 error: false
             });
         }
+        case "GET_ONEFROMALLPHOTOGRAPHERS": {
+            return Object.assign({}, state, {
+                [action.payload.id]: { ...action.payload }
+            });
+        }
         default:
             return state;
     }

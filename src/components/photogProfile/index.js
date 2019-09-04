@@ -45,7 +45,9 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, 
                     <div className="col-sm-6 d-flex p-0">
                         <img src="/images/place.png" height="40" />
                         <p className="general-paragraph ml-2">
-                            {`Based in ${photographer.City}, ${photographer.Country}`}{" "}
+                            {`Based in ${photographer.City || ""}${photographer.City ? "," : ""} ${
+                                photographer.Country
+                            }`}
                         </p>
                     </div>
                     <div className="col-sm-6">

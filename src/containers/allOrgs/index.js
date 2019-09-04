@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Spinner } from "reactstrap";
-import { getAllOrgs, ThirdPartyUserProfile } from "../../actions";
+import { getAllOrgs } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
 /**
@@ -18,15 +18,14 @@ class AllOrgs extends Component {
     }
 
     render() {
-        const { allOrgs, loadThirdPartyUserProfile } = this.props;
+        const { allOrgs } = this.props;
         return (
             <div>
                 {allOrgs ? (
                     <ProfileCards
                         userType="organization"
                         cards={Object.values(allOrgs)}
-                        pushHistory={(profile, id) => {
-                            loadThirdPartyUserProfile(profile);
+                        pushHistory={id => {
                             this.props.history.push(`/organization/${id}`);
                         }}
                     />
@@ -42,8 +41,7 @@ const mapStateToProps = state => ({
     allOrgs: state.allOrgs
 });
 const mapDispatchToProps = dispatch => ({
-    doGetOrgs: () => dispatch(getAllOrgs()),
-    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
+    doGetOrgs: () => dispatch(getAllOrgs())
 });
 
 export default withRouter(

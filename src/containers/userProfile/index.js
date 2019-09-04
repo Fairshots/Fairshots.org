@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import { getProfile, uploadPhoto, delPhoto, toggleActivateProfile } from "../../actions";
+import {
+    getProfile,
+    getOneFromAll,
+    uploadPhoto,
+    delPhoto,
+    toggleActivateProfile
+} from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
@@ -23,13 +29,14 @@ class UserProfile extends Component {
             modal: false,
             modalType: "UPDATE_PROFILE",
             photoToDel: "",
-            thirdParty: false
+            thirdParty: false,
+            profileToLoad: {}
         };
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        const { userProfile, authId, match, token, getUserProfile } = this.props;
+        const { userProfile, authId, match, token, getUserProfile, doGetOneFromAll } = this.props;
         // if url matches the authenticated user Id load self profile if not yet loaded into redux
         // state profile
         if (match.params.userId === authId) {
@@ -44,7 +51,10 @@ class UserProfile extends Component {
                 }
             });
             this.setState({ thirdParty: false });
-        } else this.setState({ thirdParty: true });
+        } else {
+            this.setState({ thirdParty: true });
+            doGetOneFromAll(match.params.userType, match.params.userId);
+        }
         // else just get whatever profile is injected into state
     }
 
@@ -136,8 +146,11 @@ class UserProfile extends Component {
             },
             token,
             userProfile,
-            doUploadPhoto
+            doUploadPhoto,
+            allOrgs,
+            allPhotographers
         } = this.props;
+        const { thirdParty } = this.state;
         return (
             <div>
                 <div
@@ -152,18 +165,18 @@ class UserProfile extends Component {
                 </div>
                 {userType === "organization" ? (
                     <OrgProfile
-                        organization={userProfile}
+                        organization={thirdParty ? allOrgs[userId] : userProfile}
                         toggleModal={this.toggleModal}
                         uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
-                        thirdParty={this.state.thirdParty}
+                        thirdParty={thirdParty}
                         history={this.props.history}
                     />
                 ) : (
                     <PhotogProfile
-                        photographer={userProfile}
+                        photographer={thirdParty ? allPhotographers[userId] : userProfile}
                         toggleModal={this.toggleModal}
                         uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
-                        thirdParty={this.state.thirdParty}
+                        thirdParty={thirdParty}
                     />
                 )}
 
@@ -178,10 +191,14 @@ class UserProfile extends Component {
 const mapStateToProps = state => ({
     userProfile: state.profile,
     token: state.auth.user.token,
-    authId: state.auth.user.userId
+    authId: state.auth.user.userId,
+    allPhotographers: state.allPhotographers,
+    allOrgs: state.allOrgs
 });
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token)),
+
+    doGetOneFromAll: (userType, id) => dispatch(getOneFromAll(userType, id)),
 
     doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
 
