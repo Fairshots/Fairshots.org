@@ -36,7 +36,15 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        const { userProfile, authId, match, token, getUserProfile, doGetOneFromAll } = this.props;
+        const {
+            userProfile,
+            isAuthenticated,
+            authId,
+            match,
+            token,
+            getUserProfile,
+            doGetOneFromAll
+        } = this.props;
         // if url matches the authenticated user Id load self profile if not yet loaded into redux
         // state profile
         if (match.params.userId === authId) {
@@ -53,7 +61,11 @@ class UserProfile extends Component {
             this.setState({ thirdParty: false });
         } else {
             this.setState({ thirdParty: true });
-            doGetOneFromAll(match.params.userType, match.params.userId);
+            if (isAuthenticated) {
+                getUserProfile(match.params.userType, match.params.userId, token, true);
+            } else {
+                doGetOneFromAll(match.params.userType, match.params.userId);
+            }
         }
         // else just get whatever profile is injected into state
     }
@@ -191,12 +203,14 @@ class UserProfile extends Component {
 const mapStateToProps = state => ({
     userProfile: state.profile,
     token: state.auth.user.token,
+    isAuthenticated: state.auth.isAuthenticated,
     authId: state.auth.user.userId,
     allPhotographers: state.allPhotographers,
     allOrgs: state.allOrgs
 });
 const mapDispatchToProps = dispatch => ({
-    getUserProfile: (userType, id, token) => dispatch(getProfile(userType, id, token)),
+    getUserProfile: (userType, id, token, thirdParty) =>
+        dispatch(getProfile(userType, id, token, thirdParty)),
 
     doGetOneFromAll: (userType, id) => dispatch(getOneFromAll(userType, id)),
 

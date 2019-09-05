@@ -15,6 +15,11 @@ export default function allOrgs(state = {}, action) {
                 error: false
             });
         }
+        case "GET_ONEFROMALLORGS": {
+            return Object.assign({}, state, {
+                [action.payload.id]: { ...action.payload }
+            });
+        }
         default:
             return state;
     }

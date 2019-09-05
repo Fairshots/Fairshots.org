@@ -2,7 +2,7 @@ import { FAIRSHOTS_API } from "./constants";
 import { sendPhotoGetUrl } from "./photo-actions";
 import toggleLoading from "./toggleLoading";
 
-export function getProfile(userType, id, token) {
+export function getProfile(userType, id, token, thirdParty = false) {
     return async dispatch => {
         dispatch(toggleLoading());
         const config = {
@@ -17,14 +17,26 @@ export function getProfile(userType, id, token) {
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}`, config);
             if (res.ok) {
                 const userProfile = await res.json();
-                dispatch({
-                    type: "GET_PROFILE",
-                    payload: userProfile
-                });
-                dispatch({
-                    type: "AUTH_PROFILE_THUMBNAIL",
-                    payload: { thumbnail: userProfile.ProfilePic || userProfile.Logo }
-                });
+                if (!thirdParty) {
+                    dispatch({
+                        type: "GET_PROFILE",
+                        payload: userProfile
+                    });
+                    dispatch({
+                        type: "AUTH_PROFILE_THUMBNAIL",
+                        payload: { thumbnail: userProfile.ProfilePic || userProfile.Logo }
+                    });
+                } else if (userType === "photographer") {
+                    dispatch({
+                        type: "GET_ONEFROMALLPHOTOGRAPHERS",
+                        payload: userProfile
+                    });
+                } else {
+                    dispatch({
+                        type: "GET_ONEFROMALLORGS",
+                        payload: userProfile
+                    });
+                }
                 dispatch(toggleLoading());
             } else throw res;
         } catch (e) {
@@ -50,11 +62,11 @@ export function getOneFromAll(userType, id) {
         try {
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/all/${id}`, config);
             if (res.ok) {
-                const photographer = await res.json();
-                console.log(photographer);
+                const userProfile = await res.json();
+                console.log(userProfile);
                 dispatch({
                     type: "GET_ONEFROMALLPHOTOGRAPHERS",
-                    payload: photographer
+                    payload: userProfile
                 });
                 dispatch(toggleLoading());
             } else throw res;

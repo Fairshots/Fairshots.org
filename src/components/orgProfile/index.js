@@ -72,7 +72,7 @@ export default function OrgProfile({
                             <img src="/images/place.png" height="40" />
                             <p className="general-paragraph ml-2">
                                 {`Based in ${organization.City || ""}${
-                                    organization.city ? "," : ""
+                                    organization.City ? "," : ""
                                 } ${organization.Country}`}
                             </p>
                         </Row>
