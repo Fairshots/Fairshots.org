@@ -41,7 +41,7 @@ class AllProjects extends Component {
     };
 
     render() {
-        const { allProjects, history } = this.props;
+        const { allProjects, history, isAuthenticated } = this.props;
         const { validProjects, expiredProjects } = this.state;
 
         return (
@@ -53,7 +53,10 @@ class AllProjects extends Component {
                             userType="project"
                             cards={validProjects} // don't take last line of redux store (error)
                             pushHistory={id => {
-                                history.push(`/project/${id}`);
+                                const h = isAuthenticated
+                                    ? history.push(`/project/${id}`)
+                                    : history.push("/projects");
+                                return h;
                             }}
                         />
                         <h2 className="feautured-h3">Past Projects </h2>
@@ -61,7 +64,10 @@ class AllProjects extends Component {
                             userType="project"
                             cards={expiredProjects} // don't take last line of redux store (error)
                             pushHistory={id => {
-                                history.push(`/project/${id}`);
+                                const h = isAuthenticated
+                                    ? history.push(`/project/${id}`)
+                                    : history.push("/projects");
+                                return h;
                             }}
                         />
                     </>
@@ -75,7 +81,8 @@ class AllProjects extends Component {
 
 const mapStateToProps = state => ({
     allProjects: state.project,
-    token: state.auth.user.token
+    token: state.auth.user.token,
+    isAuthenticated: state.auth.isAuthenticated
 });
 const mapDispatchToProps = dispatch => ({
     doGetProjects: token => dispatch(getAllProjects(token))

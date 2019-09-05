@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { Spinner } from "reactstrap";
-import { getFeatures, ThirdPartyUserProfile } from "../../actions";
+import { getFeatures } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
 import "./featured.scss";
@@ -27,8 +27,7 @@ class FeatureHolder extends Component {
                     <ProfileCards
                         userType="photographer"
                         cards={mainFeatures.photographers}
-                        pushHistory={(profile, id) => {
-                            loadThirdPartyUserProfile(profile);
+                        pushHistory={id => {
                             this.props.history.push(`/photographer/${id}`);
                         }}
                     />
@@ -43,8 +42,7 @@ class FeatureHolder extends Component {
                     <ProfileCards
                         userType="organization"
                         cards={mainFeatures.organizations}
-                        pushHistory={(profile, id) => {
-                            loadThirdPartyUserProfile(profile);
+                        pushHistory={id => {
                             this.props.history.push(`/organization/${id}`);
                         }}
                     />
@@ -64,8 +62,7 @@ const mapStateToProps = state => ({
     mainFeatures: state.mainFeatures
 });
 const mapDispatchToProps = dispatch => ({
-    doGetFeatures: () => dispatch(getFeatures()),
-    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
+    doGetFeatures: () => dispatch(getFeatures())
 });
 
 export default withRouter(

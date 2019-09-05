@@ -33,7 +33,11 @@ export default function OrgProfile({
                 <div className="col-sm-9">
                     <h1 className="green-tittle">{organization.Name}</h1>
                     <p className="listing-subtittle page">
-                        Member since {`${new Date(organization.createdAt).toLocaleDateString()}`}
+                        {organization.createdAt
+                            ? `Member since ${new Date(
+                                  organization.createdAt
+                              ).toLocaleDateString()}`
+                            : ""}
                     </p>
                     <p className="general-paragraph">{organization.Background}</p>
                 </div>
@@ -67,7 +71,9 @@ export default function OrgProfile({
                         <Row>
                             <img src="/images/place.png" height="40" />
                             <p className="general-paragraph ml-2">
-                                {`Based in ${organization.City}, ${organization.Country}`}
+                                {`Based in ${organization.City || ""}${
+                                    organization.City ? "," : ""
+                                } ${organization.Country}`}
                             </p>
                         </Row>
                         <Row className="flex-column mt-2">

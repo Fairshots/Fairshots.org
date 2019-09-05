@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Container, Row, Modal, ModalBody } from "reactstrap";
 import { ProjectSidebar, ProjectMain } from "../../components/projectComponents";
-import { getProject, applyProject, ThirdPartyUserProfile } from "../../actions";
+import { getProject, applyProject } from "../../actions";
 import UpdateProject from "./updateProject";
 import ApplytoProject from "./applytoProject";
 import "./projectPage.scss";
@@ -17,8 +17,7 @@ const ProjectPage = props => {
         match: {
             params: { projId }
         },
-        history,
-        loadThirdPartyUserProfile
+        history
     } = props;
     const [modalState, setModalState] = useState({ show: false, type: "UPDATE_PROJECT" });
 
@@ -28,8 +27,7 @@ const ProjectPage = props => {
 
     useEffect(() => setModalState({ ...modalState, show: false }), [props.project[projId]]);
 
-    const pushHistoryProfile = (profile, id) => {
-        loadThirdPartyUserProfile(profile);
+    const pushHistoryProfile = id => {
         history.push(`/photographer/${id}`);
     };
     /**
@@ -99,13 +97,13 @@ const mapStateToProps = state => ({
     token: state.auth.user.token,
     authId: state.auth.user.userId,
     project: state.project,
-    userType: state.auth.user.userType
+    userType: state.auth.user.userType,
+    allPhotographers: state.allPhotographers
 });
 const mapDispatchToProps = dispatch => ({
     getProjectInfo: (id, token) => dispatch(getProject(id, token)),
     applyToProject: (projId, userId, questionAnswers, token) =>
-        dispatch(applyProject(projId, userId, questionAnswers, token)),
-    loadThirdPartyUserProfile: profile => dispatch(ThirdPartyUserProfile(profile))
+        dispatch(applyProject(projId, userId, questionAnswers, token))
 });
 
 export default withRouter(

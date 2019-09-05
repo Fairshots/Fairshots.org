@@ -91,7 +91,7 @@ export default class ProfileCards extends Component {
                             />
                             <CardImgOverlay
                                 className="feat-biography"
-                                onClick={() => pushHistory(card, card.id)}
+                                onClick={() => pushHistory(card.id)}
                             >
                                 <p>{card.Biography || card.Background}</p>
                             </CardImgOverlay>

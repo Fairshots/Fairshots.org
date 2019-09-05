@@ -2,7 +2,7 @@ import { FAIRSHOTS_API } from "./constants";
 import { sendPhotoGetUrl } from "./photo-actions";
 import toggleLoading from "./toggleLoading";
 
-export function getProfile(userType, id, token) {
+export function getProfile(userType, id, token, thirdParty = false) {
     return async dispatch => {
         dispatch(toggleLoading());
         const config = {
@@ -17,14 +17,26 @@ export function getProfile(userType, id, token) {
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}`, config);
             if (res.ok) {
                 const userProfile = await res.json();
-                dispatch({
-                    type: "GET_PROFILE",
-                    payload: userProfile
-                });
-                dispatch({
-                    type: "AUTH_PROFILE_THUMBNAIL",
-                    payload: { thumbnail: userProfile.ProfilePic || userProfile.Logo }
-                });
+                if (!thirdParty) {
+                    dispatch({
+                        type: "GET_PROFILE",
+                        payload: userProfile
+                    });
+                    dispatch({
+                        type: "AUTH_PROFILE_THUMBNAIL",
+                        payload: { thumbnail: userProfile.ProfilePic || userProfile.Logo }
+                    });
+                } else if (userType === "photographer") {
+                    dispatch({
+                        type: "GET_ONEFROMALLPHOTOGRAPHERS",
+                        payload: userProfile
+                    });
+                } else {
+                    dispatch({
+                        type: "GET_ONEFROMALLORGS",
+                        payload: userProfile
+                    });
+                }
                 dispatch(toggleLoading());
             } else throw res;
         } catch (e) {
@@ -38,20 +50,30 @@ export function getProfile(userType, id, token) {
     };
 }
 
-export function ThirdPartyUserProfile(thirdPartyProfile) {
+export function getOneFromAll(userType, id) {
     return async dispatch => {
         dispatch(toggleLoading());
-        const userProfile = thirdPartyProfile;
+        const config = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
         try {
-            dispatch({
-                type: "THIRD_PARTY_PROFILE",
-                payload: userProfile
-            });
-            dispatch(toggleLoading());
+            const res = await fetch(`${FAIRSHOTS_API}api/${userType}/all/${id}`, config);
+            if (res.ok) {
+                const userProfile = await res.json();
+                console.log(userProfile);
+                dispatch({
+                    type: "GET_ONEFROMALLPHOTOGRAPHERS",
+                    payload: userProfile
+                });
+                dispatch(toggleLoading());
+            } else throw res;
         } catch (e) {
             console.log(e.toString());
             dispatch({
-                type: "PROFILE_ERROR",
+                type: "allPhotographers_ERROR",
                 payload: e.statusText !== undefined ? e.statusText : e.toString()
             });
             dispatch(toggleLoading());

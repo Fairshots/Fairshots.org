@@ -7,8 +7,17 @@ export default function allOrgs(state = {}, action) {
         }
         case "GET_ALLOrgs": {
             return Object.assign({}, state, {
-                organizations: action.payload,
+                ...action.payload
+                    .map(org => ({
+                        [org.id]: { ...org }
+                    }))
+                    .reduce((acc, current) => ({ ...acc, ...current })),
                 error: false
+            });
+        }
+        case "GET_ONEFROMALLORGS": {
+            return Object.assign({}, state, {
+                [action.payload.id]: { ...action.payload }
             });
         }
         default:
