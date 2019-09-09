@@ -15,7 +15,9 @@ const ProjectSidebar = ({ projectInfo, userType, toggleModal, alreadyApplied }) 
                 projectExpired={projectExpired}
             />
             {projectExpired && (
-                <Row style={{ color: "red" }}>This project is no longer accepting applications</Row>
+                <Row className="justify-content-center" style={{ color: "red" }}>
+                    This project is no longer accepting applications
+                </Row>
             )}
 
             {alreadyApplied && (
