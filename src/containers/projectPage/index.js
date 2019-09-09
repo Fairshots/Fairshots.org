@@ -17,6 +17,7 @@ const ProjectPage = props => {
         match: {
             params: { projId }
         },
+        userProfile,
         history
     } = props;
     const [modalState, setModalState] = useState({ show: false, type: "UPDATE_PROJECT" });
@@ -69,6 +70,9 @@ const ProjectPage = props => {
                                 : props.userType
                         }
                         toggleModal={setModalState}
+                        alreadyApplied={userProfile.Projects.map(
+                            proj => proj.id === parseInt(projId, 10)
+                        ).reduce((acc, el) => acc || el)}
                     />
                     <ProjectMain
                         projectInfo={props.project[projId]}

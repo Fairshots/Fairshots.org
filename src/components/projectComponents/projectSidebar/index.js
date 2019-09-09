@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row, Table } from "reactstrap";
 import ProjButtons from "./projButtons";
 
-const ProjectSidebar = ({ projectInfo, userType, toggleModal }) => {
+const ProjectSidebar = ({ projectInfo, userType, toggleModal, alreadyApplied }) => {
     const currentDate = new Date();
     const applicationDate = new Date(projectInfo.ApplicationDate);
     const projectExpired = applicationDate < currentDate;
@@ -17,6 +17,12 @@ const ProjectSidebar = ({ projectInfo, userType, toggleModal }) => {
             {projectExpired && (
                 <Row className="justify-content-center" style={{ color: "red" }}>
                     This project is no longer accepting applications
+                </Row>
+            )}
+
+            {alreadyApplied && (
+                <Row className="justify-content-center" style={{ color: "green" }}>
+                    You've applied for this project
                 </Row>
             )}
             <Table hover>
