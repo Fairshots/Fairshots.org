@@ -1,5 +1,5 @@
 import React from "react";
-import Contact from "../contact";
+import { Contact } from "../contact";
 
 import "./about.scss";
 

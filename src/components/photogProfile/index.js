@@ -5,7 +5,13 @@ import Portfolio from "../portfolio";
 
 import "./photogProfile.scss";
 
-export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, thirdParty }) {
+export default function PhotogProfile({
+    photographer,
+    uploadPhoto,
+    toggleModal,
+    thirdParty,
+    isAuthenticated
+}) {
     return (
         <>
             {photographer && (
@@ -23,6 +29,17 @@ export default function PhotogProfile({ photographer, uploadPhoto, toggleModal, 
                         </div>
                     </div>
                     <div className="row">
+                        {isAuthenticated && thirdParty && (
+                            <div className="col-sm-3 d-flex flex-column align-items-center">
+                                <Button
+                                    className="contact-button"
+                                    color="success w-75 mb-2"
+                                    onClick={() => toggleModal("MAKE_CONTACT")}
+                                >
+                                    Contact this Photographer
+                                </Button>
+                            </div>
+                        )}
                         {!thirdParty && (
                             <div className="col-sm-3 d-flex flex-column align-items-center">
                                 <Button

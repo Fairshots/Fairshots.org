@@ -12,7 +12,8 @@ export default function OrgProfile({
     uploadPhoto,
     toggleModal,
     thirdParty,
-    history
+    history,
+    isAuthenticated
 }) {
     const { cloudinary } = window;
     const imgUploadWidget = cloudinary.createUploadWidget(
@@ -45,6 +46,17 @@ export default function OrgProfile({
                         </div>
                     </Row>
                     <Row>
+                        {isAuthenticated && thirdParty && (
+                            <div className="col-sm-3 d-flex flex-column align-items-center">
+                                <Button
+                                    className="contact-button"
+                                    color="success w-75 mb-2"
+                                    onClick={() => toggleModal("MAKE_CONTACT")}
+                                >
+                                    Contact this NGO
+                                </Button>
+                            </div>
+                        )}
                         {!thirdParty && (
                             <div className="col-sm-3 d-flex flex-column align-items-center">
                                 <Button
