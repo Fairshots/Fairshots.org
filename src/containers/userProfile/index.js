@@ -121,8 +121,11 @@ class UserProfile extends Component {
             },
             userProfile: { accountInactive },
             token,
+            authId,
             doDelPhoto,
-            doInactivateProfile
+            doInactivateProfile,
+            messaging,
+            doSendMessage
         } = this.props;
         switch (type) {
             case "UPDATE_PROFILE": {
@@ -150,7 +153,14 @@ class UserProfile extends Component {
             }
 
             case "MAKE_CONTACT": {
-                return <MailForm />;
+                return (
+                    <MailForm
+                        sendMessage={(subject, message) =>
+                            doSendMessage(authId, userId, token, subject, message)
+                        }
+                        messaging={messaging}
+                    />
+                );
             }
 
             default:
@@ -216,7 +226,8 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     authId: state.auth.user.userId,
     allPhotographers: state.allPhotographers,
-    allOrgs: state.allOrgs
+    allOrgs: state.allOrgs,
+    messaging: state.messaging
 });
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token, thirdParty) =>
@@ -232,7 +243,7 @@ const mapDispatchToProps = dispatch => ({
     doInactivateProfile: (userType, id, token, currentStatus) =>
         dispatch(toggleActivateProfile(userType, id, token, currentStatus)),
 
-    doSendMessage: (fromId, toId, subject, message, token) =>
+    doSendMessage: (fromId, toId, token, subject, message) =>
         dispatch(sendMessage(fromId, toId, subject, message, token))
 });
 

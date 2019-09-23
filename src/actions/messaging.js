@@ -1,3 +1,6 @@
+import toggleLoading from "./toggleLoading";
+import { FAIRSHOTS_API } from "./constants";
+
 export function sendMessage(fromId, toId, subject, message, token) {
     return async dispatch => {
         dispatch(toggleLoading());
@@ -10,12 +13,12 @@ export function sendMessage(fromId, toId, subject, message, token) {
             body: JSON.stringify({ fromId, toId, subject, message })
         };
         try {
-            const res = await fetch(`${FAIRSHOTS_API}login/forgot`, config);
+            const res = await fetch(`${FAIRSHOTS_API}api/mail`, config);
             if (res.ok) {
                 const info = await res.json();
                 console.log(info);
                 dispatch({
-                    type: "AUTH_FORGOT",
+                    type: "MAIL_SENT",
                     payload: info
                 });
                 dispatch(toggleLoading());
@@ -23,11 +26,12 @@ export function sendMessage(fromId, toId, subject, message, token) {
         } catch (e) {
             console.log(e);
             dispatch({
-                type: "AUTH_ERROR",
+                type: "MAIL_ERROR",
                 payload: e
             });
             dispatch(toggleLoading());
         }
     };
 }
+
 export function contactUs(params) {}
