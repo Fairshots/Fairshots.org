@@ -8,13 +8,15 @@ import mainFeatures from "./main-features";
 import allPhotographers from "./allPhotographers";
 import allOrgs from "./allOrgs";
 import project from "./project";
+import messaging from "./messaging";
 
 const rootReducer = combineReducers({
     auth,
-    loading,
-    mainFeatures,
     allPhotographers,
     allOrgs,
+    loading,
+    messaging,
+    mainFeatures,
     registration,
     profile,
     project,

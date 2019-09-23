@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./home";
 import About from "./about";
-import Contact from "./contact";
+import { Contact } from "./contact";
 import TermsandConditions from "./terms-and-conditions";
 import RegisterForm from "../containers/registerForm";
 import UserProfile from "../containers/userProfile";

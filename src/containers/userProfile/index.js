@@ -7,11 +7,13 @@ import {
     getOneFromAll,
     uploadPhoto,
     delPhoto,
-    toggleActivateProfile
+    toggleActivateProfile,
+    sendMessage
 } from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
+import { MailForm } from "../../components/contact";
 import DeletePhoto from "./deletephoto";
 import InactivateProfile from "./inactivate-profile";
 import "./userProfile.scss";
@@ -119,8 +121,11 @@ class UserProfile extends Component {
             },
             userProfile: { accountInactive },
             token,
+            authId,
             doDelPhoto,
-            doInactivateProfile
+            doInactivateProfile,
+            messaging,
+            doSendMessage
         } = this.props;
         switch (type) {
             case "UPDATE_PROFILE": {
@@ -146,6 +151,18 @@ class UserProfile extends Component {
                     />
                 );
             }
+
+            case "MAKE_CONTACT": {
+                return (
+                    <MailForm
+                        sendMessage={(subject, message) =>
+                            doSendMessage(authId, userId, token, subject, message)
+                        }
+                        messaging={messaging}
+                    />
+                );
+            }
+
             default:
                 return undefined;
         }
@@ -160,7 +177,8 @@ class UserProfile extends Component {
             userProfile,
             doUploadPhoto,
             allOrgs,
-            allPhotographers
+            allPhotographers,
+            isAuthenticated
         } = this.props;
         const { thirdParty } = this.state;
         return (
@@ -182,6 +200,7 @@ class UserProfile extends Component {
                         uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
                         thirdParty={thirdParty}
                         history={this.props.history}
+                        isAuthenticated={isAuthenticated}
                     />
                 ) : (
                     <PhotogProfile
@@ -189,6 +208,7 @@ class UserProfile extends Component {
                         toggleModal={this.toggleModal}
                         uploadPhoto={url => doUploadPhoto(userType, userId, token, url)}
                         thirdParty={thirdParty}
+                        isAuthenticated={isAuthenticated}
                     />
                 )}
 
@@ -206,7 +226,8 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     authId: state.auth.user.userId,
     allPhotographers: state.allPhotographers,
-    allOrgs: state.allOrgs
+    allOrgs: state.allOrgs,
+    messaging: state.messaging
 });
 const mapDispatchToProps = dispatch => ({
     getUserProfile: (userType, id, token, thirdParty) =>
@@ -220,7 +241,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(delPhoto(userType, id, token, photoItem)),
 
     doInactivateProfile: (userType, id, token, currentStatus) =>
-        dispatch(toggleActivateProfile(userType, id, token, currentStatus))
+        dispatch(toggleActivateProfile(userType, id, token, currentStatus)),
+
+    doSendMessage: (fromId, toId, token, subject, message) =>
+        dispatch(sendMessage(fromId, toId, subject, message, token))
 });
 
 export default withRouter(
