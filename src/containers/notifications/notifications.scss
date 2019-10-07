@@ -1,0 +1,18 @@
+.toast {
+    position: fixed;
+    bottom: -200px;
+    right: 5px;
+    z-index: 50;
+    &.show {
+        transition: all 1s ease-in-out;
+        bottom: 5px !important;
+    }
+    .toast-header {
+        color: white;
+        background: transparent;
+    }
+    .toast-body {
+        color: white;
+        background: transparent;
+    }
+}

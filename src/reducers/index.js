@@ -9,6 +9,7 @@ import allPhotographers from "./allPhotographers";
 import allOrgs from "./allOrgs";
 import project from "./project";
 import messaging from "./messaging";
+import notifications from "./notifications";
 
 const rootReducer = combineReducers({
     auth,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     loading,
     messaging,
     mainFeatures,
+    notifications,
     registration,
     profile,
     project,

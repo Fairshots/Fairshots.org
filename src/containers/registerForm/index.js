@@ -48,9 +48,9 @@ class RegisterForm extends Component {
             typeof prevProps.regmsg.message === "undefined"
         ) {
             // show registration success and push to home page
-            window.alert(regmsg.message);
-            setTimeout(this.props.doResetMessages, 3000);
-            setTimeout(history.push("/"), 3001);
+            // window.alert(regmsg.message)
+            setTimeout(() => this.props.doResetMessages, 5000);
+            setTimeout(() => history.push("/"), 5001);
         }
     }
 

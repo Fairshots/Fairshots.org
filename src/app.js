@@ -3,6 +3,7 @@ import { hot, setConfig } from "react-hot-loader";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Footer, Navbar, DonutSpin } from "./components/UI";
+import Notifications from "./containers/notifications";
 import Main from "./components/main";
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
                 <Main isAuthenticated={isAuthenticated} userType={userType} />
                 <Footer />
                 <DonutSpin spinshow={loading} />
+                <Notifications />
             </div>
         );
     }
