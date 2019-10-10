@@ -66,13 +66,6 @@ export default function OrgProfile({
                                 >
                                     Edit Profile <FaCog />
                                 </Button>
-                                <Button
-                                    color="success"
-                                    className="w-100 mb-2"
-                                    onClick={() => imgUploadWidget.open()}
-                                >
-                                    Upload Photos <FaFileUpload />
-                                </Button>
                                 <Link to="/create-a-project" className="w-100 m-1">
                                     <Button color="success" className="w-100 m-0 ">
                                         Create New Project <FaPlus />
