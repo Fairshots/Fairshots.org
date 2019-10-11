@@ -24,6 +24,12 @@ export default function OrganizationForm({ handleSubmit, renderField, modalShow,
                 />
                 <Field name="Email" label="E-mail: " component={renderField} type="Email" />
                 <Field name="Password" label="Password: " component={renderField} type="Password" />
+                <Field
+                    name="ConfirmPassword"
+                    label="Confirm Password: "
+                    component={renderField}
+                    type="Password"
+                />
                 <Field name="Phone" label="Phone: " component={renderField} type="Telephone" />
                 <Field name="Logo" label="Logo: " component={renderField} type="file" />
                 {picUrl !== "" && <img src={picUrl} height="128" width="128" />}

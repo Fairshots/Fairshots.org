@@ -19,6 +19,12 @@ export default function PhotographerForm({ handleSubmit, renderField, modalShow,
             <Field name="Name" label="Name: " component={renderField} type="text" />
             <Field name="Email" label="E-mail: " component={renderField} type="Email" />
             <Field name="Password" label="Password: " component={renderField} type="Password" />
+            <Field
+                name="ConfirmPassword"
+                label="Confirm Password: "
+                component={renderField}
+                type="Password"
+            />
             <Field name="ProfilePic" label="Picture: " component={renderField} type="file" />
             {picUrl !== "" && <img src={picUrl} height="128" width="128" />}
             <Field
