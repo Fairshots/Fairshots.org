@@ -22,11 +22,11 @@ const renderField = ({ input, label, type, options, meta: { touched, error, warn
     </FormGroup>
 );
 
-const validate = values => {
+const validate = (values, props) => {
     const errors = {};
     const userType = window.location.href.match("photographer") ? "photographer" : "organization";
     const formType = window.location.href.match("register") ? "register" : "update";
-
+    console.log(props);
     if (!values.Name) {
         errors.Name = "Required";
     }
@@ -35,6 +35,15 @@ const validate = values => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.Email)) {
         errors.Email = "Invalid email address";
     }
+
+    if (values.Password !== values.ConfirmPassword) {
+        if (!props.initialValues) {
+            errors.Password = "Passwords don't match";
+        } else if (values.Password !== props.initialValues.Password) {
+            errors.Password = "Passwords don't match";
+        }
+    }
+
     if (formType === "register") {
         if (!values.Password) {
             errors.Password = "Required";

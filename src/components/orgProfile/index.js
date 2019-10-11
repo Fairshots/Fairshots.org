@@ -87,7 +87,9 @@ export default function OrgProfile({
                                     <p className="featured-listing-bold-black ml-2">
                                         Primary supporting cause
                                     </p>
-                                    <p className="general-paragraph ml-2">{organization.Causes}</p>
+                                    <p className="general-paragraph ml-2">
+                                        {organization.PrimaryCause}
+                                    </p>
                                 </Row>
                             </div>
                             <div className="col-sm-6">

@@ -22,21 +22,14 @@ export default function OrganizationForm({ handleSubmit, renderField, modalShow,
                     component={renderField}
                     type="text"
                 />
-                <Field
-                    name="_parent"
-                    label="Parent Org (if any): "
-                    component={renderField}
-                    type="text"
-                />
-                <Field
-                    name="FundingPartner"
-                    label="Are you a Funding Partner ?: "
-                    component={renderField}
-                    type="select"
-                    options={["Yes", "No"]}
-                />
                 <Field name="Email" label="E-mail: " component={renderField} type="Email" />
                 <Field name="Password" label="Password: " component={renderField} type="Password" />
+                <Field
+                    name="ConfirmPassword"
+                    label="Confirm Password: "
+                    component={renderField}
+                    type="Password"
+                />
                 <Field name="Phone" label="Phone: " component={renderField} type="Telephone" />
                 <Field name="Logo" label="Logo: " component={renderField} type="file" />
                 {picUrl !== "" && <img src={picUrl} height="128" width="128" />}
@@ -49,7 +42,7 @@ export default function OrganizationForm({ handleSubmit, renderField, modalShow,
                 <Field name="Position" label="Position: " component={renderField} type="text" />
                 <Field
                     name="Background"
-                    label="Background: "
+                    label="About this organization: "
                     component={renderField}
                     type="textarea"
                 />
@@ -62,11 +55,12 @@ export default function OrganizationForm({ handleSubmit, renderField, modalShow,
                     component={checkboxesFormArray}
                     options={languages}
                 />
-                <FieldArray
+                <Field
                     className="Causes"
-                    name="Causes"
-                    label="Causes: "
-                    component={checkboxesFormArray}
+                    name="PrimaryCause"
+                    label="Primary Cause: "
+                    type="select"
+                    component={renderField}
                     options={causes}
                 />
                 <Field
