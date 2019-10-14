@@ -58,7 +58,7 @@ class NavbarPage extends Component {
                                 <DropdownToggle nav color="#444444" caret>
                                     ORGANIZATIONS
                                 </DropdownToggle>
-                                <DropdownMenu className="n-dropdown-menu" right>
+                                <DropdownMenu className="n-dropdown-menu">
                                     <DropdownItem
                                         className="n-dropdown-link"
                                         onClick={this.redirect("/register#organization")}
@@ -87,7 +87,7 @@ class NavbarPage extends Component {
                                 <DropdownToggle nav color="#444444" caret>
                                     PHOTOGRAPHERS
                                 </DropdownToggle>
-                                <DropdownMenu className="n-dropdown-menu" right>
+                                <DropdownMenu className="n-dropdown-menu">
                                     <DropdownItem
                                         className="n-dropdown-link"
                                         onClick={this.redirect("/register#photographer")}

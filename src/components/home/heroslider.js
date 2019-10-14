@@ -81,7 +81,7 @@ export default class HeroSlider extends Component {
                     {this.state.screenSize > 768 && (
                         <div>
                             <h1 className="hero-sentence">A better world one click at a time</h1>
-                            <h2 class="hero-undertitle">
+                            <h2 className="hero-undertitle">
                                 connecting socially engaged photographers with world changing NGOS
                             </h2>
                         </div>
