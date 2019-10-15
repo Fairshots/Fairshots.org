@@ -77,8 +77,8 @@ export default class ProfileCards extends Component {
 
         return (
             <div className="card-deck" ref={this.ref}>
-                {cards.map(card => (
-                    <Card key={card.id} style={zoomDeck}>
+                {cards.map((card, i) => (
+                    <Card key={i} style={zoomDeck}>
                         <div className="card-img-top-holder">
                             <CardImg
                                 top

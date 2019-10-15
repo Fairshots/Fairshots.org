@@ -9,45 +9,55 @@ export default class HeroSlider extends Component {
         items: [
             {
                 src: "images/hero-shot.jpg",
-                header: ""
+                header: "",
+                caption: ""
             },
             {
                 src: "images/Fotolia_91498983_L.jpg",
-                header: ""
+                header: "",
+                caption: ""
             },
             {
                 src: "images/carroussel_03.jpg",
-                header: ""
+                header: "",
+                caption: ""
             },
             {
                 src: "images/Fotolia_75859919_L.jpg",
-                header: ""
+                header: "",
+                caption: ""
             },
             {
                 src: "images/Fotolia_58758895_L.jpg",
-                header: ""
+                header: "",
+                caption: ""
             },
             {
                 src: "images/Fotolia_93354406_L.jpg",
-                header: ""
+                header: "",
+                caption: ""
             }
         ],
         items_mobile: [
             {
                 src: "images/Fairshots-mobile-slideshow-02.jpg",
-                header: ""
+                header: "",
+                caption: ""
             },
             {
                 src: "images/Fairshots-mobile-slideshow-03.jpg",
-                header: ""
+                header: "",
+                caption: ""
             },
             {
                 src: "images/Fairshots-mobile-slideshow.jpg",
-                header: ""
+                header: "",
+                caption: ""
             },
             {
                 src: "images/Fairshots-mobile-slideshow-04.jpg",
-                header: ""
+                header: "",
+                caption: ""
             }
         ],
         screenSize: 1024

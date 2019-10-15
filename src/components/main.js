@@ -1,5 +1,5 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import Home from "./home";
 import About from "./about";
 import ContactPage from "../containers/contactPage";
@@ -15,6 +15,15 @@ import PasswordReset from "../containers/passwordReset";
 import SocialLogin from "../containers/loginHandler/socialLogin";
 
 export default function Main(props) {
+    const { pathname } = useLocation();
+
+    useEffect(
+        () => {
+            window.scrollTo(0, 0);
+        },
+        [pathname]
+    );
+
     return (
         <main>
             <Switch>

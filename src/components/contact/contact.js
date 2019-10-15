@@ -20,16 +20,12 @@ export default function Contact({
                 <Col onSubmit={handleSubmit}>
                     <Form>
                         <FormGroup>
-                            <label for="name" className="about-green-tittles">
-                                Your Name:
-                            </label>
+                            <label className="about-green-tittles">Your Name:</label>
                             <Input
                                 type="text"
                                 id="name"
                                 name="name"
-                                data-name="Name"
                                 placeholder="Enter your name"
-                                maxlength="256"
                                 className="w-input"
                                 value={uname}
                                 onChange={e => {
@@ -40,15 +36,11 @@ export default function Contact({
                             />
                         </FormGroup>
                         <FormGroup>
-                            <label for="email" className="about-green-tittles">
-                                Your email address:
-                            </label>
+                            <label className="about-green-tittles">Your email address:</label>
                             <Input
                                 type="Email"
                                 className="w-input"
-                                maxlength="256"
                                 name="email"
-                                data-name="Email"
                                 placeholder="Enter your email address"
                                 id="email"
                                 value={email}
@@ -60,14 +52,13 @@ export default function Contact({
                             />
                         </FormGroup>
                         <FormGroup>
-                            <label for="Message-type" className="about-green-tittles">
+                            <label className="about-green-tittles">
                                 What would you like to do?
                             </label>
                             <Input
                                 type="select"
                                 id="Message-type"
                                 name="Message-type"
-                                data-name="Message type"
                                 required=""
                                 className="w-select"
                                 value={subject}
@@ -86,17 +77,12 @@ export default function Contact({
                             </Input>
                         </FormGroup>
                         <FormGroup>
-                            <label for="Message" className="about-green-tittles">
-                                Message:
-                            </label>
+                            <label className="about-green-tittles">Message:</label>
                             <Input
                                 type="textarea"
                                 id="Message"
                                 name="Message"
                                 placeholder="Type your message here"
-                                maxlength="5000"
-                                data-name="Message"
-                                required=""
                                 className="message-text-box w-input"
                                 value={message}
                                 onChange={e => {

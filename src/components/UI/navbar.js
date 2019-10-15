@@ -120,7 +120,7 @@ class NavbarPage extends Component {
                             </Link>
                         </NavItem>
                     </Nav>
-                    <Nav className="login-handler" right>
+                    <Nav className="login-handler">
                         <LoginHandler />
                     </Nav>
                 </Collapse>
