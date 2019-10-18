@@ -70,6 +70,8 @@
             background-position: 50% 50%;
             background-size: cover;
             background-repeat: no-repeat;
+            object-fit: cover;
+            object-position: center;
         }
         .feat-biography {
             z-index: 10;
