@@ -1,28 +1,12 @@
 import React, { Component } from "react";
-import {
-    Navbar,
-    Nav,
-    NavItem,
-    NavbarToggler,
-    Collapse,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
-} from "reactstrap";
+import { Navbar, Nav, NavItem, NavbarToggler, Collapse } from "reactstrap";
 import { Link } from "react-router-dom";
 import LoginHandler from "../../containers/loginHandler";
 import "./navbar.scss";
 
 class NavbarPage extends Component {
     state = {
-        isOpen: false,
-        orgsisOpen: false,
-        photisOpen: false
-    };
-
-    toggleOpenCloses = name => {
-        this.setState(prevState => ({ [name]: !prevState[name] }));
+        isOpen: false
     };
 
     toggleCollapse = () => {
@@ -34,7 +18,6 @@ class NavbarPage extends Component {
     };
 
     render() {
-        const { isAuthenticated, userType } = this.props;
         return (
             <Navbar color="#444444" dark expand="md">
                 <Link to="/" className="navbar-brand">
@@ -54,60 +37,19 @@ class NavbarPage extends Component {
                             </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
-                            <UncontrolledDropdown>
-                                <DropdownToggle nav color="#444444" caret>
-                                    ORGANIZATIONS
-                                </DropdownToggle>
-                                <DropdownMenu className="n-dropdown-menu">
-                                    <DropdownItem
-                                        className="n-dropdown-link"
-                                        onClick={this.redirect("/register#organization")}
-                                    >
-                                        REGISTER AN ORGANIZATION
-                                    </DropdownItem>
-                                    {isAuthenticated && userType !== "photographer" && (
-                                        <DropdownItem
-                                            className="n-dropdown-link"
-                                            onClick={this.redirect("/create-a-project")}
-                                        >
-                                            CREATE A NEW PROJECT
-                                        </DropdownItem>
-                                    )}
-                                    <DropdownItem
-                                        className="n-dropdown-link"
-                                        onClick={this.redirect("/photographers")}
-                                    >
-                                        FIND A PHOTOGRAPHER
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            <Link to="/projects" className="nav-link">
+                                PROJECTS
+                            </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
-                            <UncontrolledDropdown>
-                                <DropdownToggle nav color="#444444" caret>
-                                    PHOTOGRAPHERS
-                                </DropdownToggle>
-                                <DropdownMenu className="n-dropdown-menu">
-                                    <DropdownItem
-                                        className="n-dropdown-link"
-                                        onClick={this.redirect("/register#photographer")}
-                                    >
-                                        REGISTER AS A PHOTOGRAPHER
-                                    </DropdownItem>
-                                    <DropdownItem
-                                        className="n-dropdown-link"
-                                        onClick={this.redirect("/organizations")}
-                                    >
-                                        FIND AN NGO
-                                    </DropdownItem>
-                                    <DropdownItem
-                                        className="n-dropdown-link"
-                                        onClick={this.redirect("/projects")}
-                                    >
-                                        CURRENT PROJECTS
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            <Link to="/organizations" className="nav-link">
+                                ORGANIZATIONS
+                            </Link>
+                        </NavItem>
+                        <NavItem className="navbarlink">
+                            <Link to="/photographers" className="nav-link">
+                                PHOTOGRAPHERS
+                            </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
                             <Link to="/about" className="nav-link">
