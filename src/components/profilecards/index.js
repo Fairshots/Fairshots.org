@@ -100,7 +100,9 @@ export default class ProfileCards extends Component {
                             <CardImg className="feat-pic" src={card.ProfilePic || card.Logo} />
                             <CardTitle>{card.Name}</CardTitle>
                             {card.skill && <CardSubtitle>{orgInfo.Name}</CardSubtitle>}
-                            <CardText>{card.Country}</CardText>
+                            <CardText>{`${card.City || ""}${card.City ? "," : ""} ${
+                                card.Country
+                            }`}</CardText>
                         </CardBody>
                     </Card>
                 ))}

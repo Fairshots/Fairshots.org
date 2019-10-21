@@ -11,9 +11,9 @@ import ProfileCards from "../../components/profilecards";
  */
 class AllOrgs extends Component {
     componentDidMount() {
-        const { allOrgs, doGetOrgs } = this.props;
+        const { allOrgs, doGetOrgs, token } = this.props;
         if (!allOrgs.organizations) {
-            doGetOrgs();
+            doGetOrgs(token);
         }
     }
 
@@ -38,10 +38,11 @@ class AllOrgs extends Component {
 }
 
 const mapStateToProps = state => ({
-    allOrgs: state.allOrgs
+    allOrgs: state.allOrgs,
+    token: state.auth.user.token
 });
 const mapDispatchToProps = dispatch => ({
-    doGetOrgs: () => dispatch(getAllOrgs())
+    doGetOrgs: token => dispatch(getAllOrgs(token))
 });
 
 export default withRouter(

@@ -1,13 +1,14 @@
 import { FAIRSHOTS_API } from "./constants";
 import toggleLoading from "./toggleLoading";
 
-export default function getAllOrgs() {
+export default function getAllOrgs(token = undefined) {
     return async dispatch => {
         dispatch(toggleLoading());
         const config = {
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                Authorization: token
             }
         };
         try {

@@ -12,9 +12,9 @@ import ProfileCards from "../../components/profilecards";
  */
 class AllPhotographers extends Component {
     componentDidMount() {
-        const { allPhotographers, doGetPhotographers } = this.props;
+        const { allPhotographers, doGetPhotographers, token } = this.props;
         if (!allPhotographers.photographers) {
-            doGetPhotographers();
+            doGetPhotographers(token);
         }
     }
 
@@ -39,10 +39,11 @@ class AllPhotographers extends Component {
 }
 
 const mapStateToProps = state => ({
-    allPhotographers: state.allPhotographers
+    allPhotographers: state.allPhotographers,
+    token: state.auth.user.token
 });
 const mapDispatchToProps = dispatch => ({
-    doGetPhotographers: () => dispatch(getAllPhotographers())
+    doGetPhotographers: token => dispatch(getAllPhotographers(token))
 });
 
 export default withRouter(
