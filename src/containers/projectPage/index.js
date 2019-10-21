@@ -72,7 +72,7 @@ const ProjectPage = props => {
                         toggleModal={setModalState}
                         alreadyApplied={
                             props.userType !== "organization" &&
-                            userProfile.Projects &&
+                            userProfile.Projects.length > 0 &&
                             userProfile.Projects.map(
                                 proj => proj.id === parseInt(projId, 10)
                             ).reduce((acc, el) => acc || el)
