@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { FaCog, FaUser, FaUserPlus, FaSignInAlt } from "react-icons/fa";
 import Auth0 from "./auth0-webauth";
-import { login, logout, forgotPw } from "../../actions";
+import { login, logout, forgotPw, getProfile } from "../../actions";
 import LoginModal from "../../components/loginModal";
 
 import "./login-handler.scss";
@@ -23,6 +23,25 @@ class LoginHandler extends Component {
         profileNav: false,
         forgotPass: false
     };
+
+    componentDidMount() {
+        const { profile, getUserProfile, userInfo, notify } = this.props;
+        console.log(userInfo.token);
+        console.log(profile);
+
+        if (!profile.id && userInfo.token) {
+            getUserProfile(userInfo.userType, userInfo.userId, userInfo.token, false).then(() => {
+                if (profile.error) {
+                    // if token is expired Alert user to login
+
+                    setTimeout(() => {
+                        notify("please Login to continue");
+                        this.props.history.push("/");
+                    }, 3000);
+                }
+            });
+        }
+    }
 
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -149,6 +168,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    getUserProfile: (userType, id, token, thirdParty) =>
+        dispatch(getProfile(userType, id, token, thirdParty)),
+
     doLogin: formProps => {
         dispatch(login(formProps));
     },
@@ -159,7 +181,8 @@ const mapDispatchToProps = dispatch => ({
         history.push("/");
         dispatch(logout());
     },
-    clearMessages: () => dispatch({ type: "AUTH_RESETMESSAGES" })
+    clearMessages: () => dispatch({ type: "AUTH_RESETMESSAGES" }),
+    notify: message => dispatch({ type: "AUTH_ERROR", payload: message })
 });
 
 export default withRouter(

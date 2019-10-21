@@ -49,15 +49,15 @@ export default class Footer extends Component {
                         >
                             <img src="images/facebook.png" className="social-icon-footer" />
                         </a>
+                        <a
+                            href="https://www.instagram.com/fairshots/"
+                            target="_blank"
+                            className="w-inline-block"
+                        >
+                            <img src="images/instagram.png" className="social-icon-footer" />
+                        </a>
                     </div>
                 </div>
-                <h4 className="footer-categories donation">
-                    If you like our website and want to see us develop further please help by making
-                    a donation below.
-                </h4>
-                <a target="_blank" className="contact-button w-button">
-                    Donate
-                </a>
             </div>
         );
     }

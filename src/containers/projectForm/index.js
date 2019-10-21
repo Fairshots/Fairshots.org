@@ -57,9 +57,11 @@ class ProjectForm extends Component {
                     if (form[i].config.value.includes("region")) return { [i]: "Region" };
                     if (form[i].config.value.includes("town")) return { [i]: "Region" };
                 } else if (i === "ProfessionalOnly") {
+                    if (form[i].config.value === true) return { [i]: true };
                     if (form[i].config.value.includes("Only professional")) return { [i]: true };
                     return { [i]: false };
                 } else if (i === "FundsFairshot") {
+                    if (form[i].config.value === true) return { [i]: true };
                     if (form[i].config.value === "yes") return { [i]: true };
                     return { [i]: false };
                 } else if (i === "Duration") return { [i]: parseInt(form[i].config.value, 10) };
@@ -126,6 +128,17 @@ class ProjectForm extends Component {
     populateUpdateForm = projId => {
         const { form } = this.state;
         const project = { ...this.props.projects[projId] };
+        const proj = Object.keys(project)
+            .map(i => {
+                if (i.includes("Date") || i.includes("Delivery"))
+                    return { [i]: project[i].split("T")[0] };
+                if (i.includes("Photos")) return { [i]: [...project[i]] };
+                if (i.includes("FundsFairshot"))
+                    if (project[i] === true) return { [i]: "yes" };
+                    else return { [i]: "No" };
+                return { [i]: project[i] };
+            })
+            .reduce((acc, cur) => ({ ...acc, ...cur }));
 
         const formData = Object.keys(form)
             .map(i => ({
@@ -133,13 +146,7 @@ class ProjectForm extends Component {
                     ...form[i],
                     config: {
                         ...form[i].config,
-                        value:
-                            // eslint-disable-next-line no-nested-ternary
-                            i.includes("Date") || i.includes("Delivery")
-                                ? project[i].split("T")[0]
-                                : i.includes("Photos")
-                                ? [...project[i]]
-                                : project[i],
+                        value: proj[i],
                         valid: true,
                         touched: true
                     }
