@@ -25,21 +25,10 @@ class LoginHandler extends Component {
     };
 
     componentDidMount() {
-        const { profile, getUserProfile, userInfo, notify } = this.props;
-        console.log(userInfo.token);
-        console.log(profile);
+        const { profile, getUserProfile, userInfo } = this.props;
 
         if (!profile.id && userInfo.token) {
-            getUserProfile(userInfo.userType, userInfo.userId, userInfo.token, false).then(() => {
-                if (profile.error) {
-                    // if token is expired Alert user to login
-
-                    setTimeout(() => {
-                        notify("please Login to continue");
-                        this.props.history.push("/");
-                    }, 3000);
-                }
-            });
+            getUserProfile(userInfo.userType, userInfo.userId, userInfo.token, false);
         }
     }
 
@@ -80,6 +69,14 @@ class LoginHandler extends Component {
             if (this.props.notification.includes("e-mail was sent")) {
                 setTimeout(() => this.toggleOpenCloses("loginModal"), 5000);
             }
+        }
+
+        if (this.props.profile.error === "Unauthorized" && !prevProps.profile.error) {
+            // if token is expired Alert user to login
+            setTimeout(() => {
+                this.props.notify("Please login to continue");
+                this.props.handleLogout(this.props.history);
+            }, 3000);
         }
     }
 

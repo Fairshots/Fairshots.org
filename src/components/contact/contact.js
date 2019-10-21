@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Form, FormGroup, Input, Button } from "reactstrap";
+import { FaFacebookSquare, FaInstagram, FaEnvelope } from "react-icons/fa";
 
 export default function Contact({
     uname,
@@ -108,14 +109,24 @@ export default function Contact({
                         href="mailto:contact@fairshots.org?subject=Contact%20from%20the%20website"
                         className="text-link"
                     >
-                        Contact@fairshots.org
+                        <FaEnvelope />
+                        &nbsp; Contact@fairshots.org
                     </a>
                     <a
                         href="https://www.facebook.com/fairshots.org/"
                         target="_blank"
                         className="text-link"
                     >
-                        facebook.com/fairshots.org
+                        <FaFacebookSquare />
+                        &nbsp; facebook.com/fairshots.org
+                    </a>
+                    <a
+                        href="https://www.instagram.com/fairshots/"
+                        target="_blank"
+                        class="text-link"
+                    >
+                        <FaInstagram />
+                        &nbsp; @fairshots
                     </a>
                 </Col>
             </Row>
