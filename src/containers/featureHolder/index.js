@@ -52,6 +52,7 @@ class FeatureHolder extends Component {
                 <Link to="/organizations" className="text-link see-all mb-3">
                     see all available ORGANIZATIONS
                 </Link>
+                S
             </div>
         );
     }
