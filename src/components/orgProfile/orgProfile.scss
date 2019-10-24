@@ -7,16 +7,14 @@
         margin-right: auto;
         margin-left: auto;
         border: 4px solid #fff;
-        border-radius: 100%;
         background-color: #fff;
         background-image: url("'../images/example-bg.png");
         background-position: 50% 50%;
         background-size: cover;
         background-repeat: no-repeat;
-        object-fit: cover;
+        object-fit: contain;
         object-position: center;
     }
-
     .profile-picture.thumbnail {
         width: 35px;
         height: 35px;

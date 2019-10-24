@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Spinner } from "reactstrap";
+import { Spinner, Col, Form, FormGroup, Label, Input } from "reactstrap";
 import { getAllPhotographers } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
@@ -22,6 +22,19 @@ class AllPhotographers extends Component {
         const { allPhotographers } = this.props;
         return (
             <div>
+                <Form>
+                    <FormGroup row className="filter-row row justify-content-end">
+                        <Label for="exampleSelect" sm={1}>
+                            Filter by:
+                        </Label>
+                        <Col sm={1}>
+                            <Input type="select" name="select" id="exampleSelect" />
+                        </Col>
+                        <Col sm={2}>
+                            <Input type="text" id="filter" placeholder="Filter" />
+                        </Col>
+                    </FormGroup>
+                </Form>
                 {allPhotographers ? (
                     <ProfileCards
                         userType="photographer"
