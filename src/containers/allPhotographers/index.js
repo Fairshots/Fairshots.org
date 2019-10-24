@@ -11,10 +11,27 @@ import ProfileCards from "../../components/profilecards";
  * @extends Component
  */
 class AllPhotographers extends Component {
+    state = {
+        featuredPhotographers: [],
+        morePhotographers: []
+    };
+
     componentDidMount() {
         const { allPhotographers, doGetPhotographers, token } = this.props;
         if (!allPhotographers.photographers) {
             doGetPhotographers(token);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (
+            this.props.allPhotographers !== prevProps.allPhotographers &&
+            this.props.allPhotographers.length > 0
+        ) {
+            this.setState({
+                featuredPhotographers: this.props.allPhotographers.filter(el => el.featured),
+                morePhotographers: this.props.allPhotographers.filter(el => !el.featured)
+            });
         }
     }
 
