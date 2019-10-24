@@ -38,7 +38,7 @@ export default function Main(props) {
                             width="100%"
                             height={window.innerHeight}
                             frameBorder="0"
-                            src="http://fairshots.org/stories"
+                            src="https://fairshots.org/stories"
                             style={{ top: "-60px", position: "relative" }}
                         />
                     )}
