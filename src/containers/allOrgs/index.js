@@ -45,7 +45,7 @@ class AllOrgs extends Component {
                         userType="organization"
                         cards={featuredOrgs}
                         pushHistory={id => {
-                            this.props.history.push(`/photographer/${id}`);
+                            this.props.history.push(`/organization/${id}`);
                         }}
                     />
                 ) : (
@@ -57,7 +57,7 @@ class AllOrgs extends Component {
                         userType="organization"
                         cards={moreOrgs}
                         pushHistory={id => {
-                            this.props.history.push(`/photographer/${id}`);
+                            this.props.history.push(`/organization/${id}`);
                         }}
                     />
                 ) : (

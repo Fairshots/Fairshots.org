@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Spinner, Col, Form, FormGroup, Label, Input } from "reactstrap";
+import { Spinner } from "reactstrap";
 import { getAllPhotographers } from "../../actions";
 import ProfileCards from "../../components/profilecards";
+import FilterBox from "../../components/filterBox";
 
 import "./allPhotographers.scss";
 
@@ -15,7 +16,9 @@ import "./allPhotographers.scss";
 class AllPhotographers extends Component {
     state = {
         featuredPhotographers: [],
-        morePhotographers: []
+        morePhotographers: [],
+        select: "Name",
+        condition: ""
     };
 
     componentDidMount() {
@@ -24,6 +27,10 @@ class AllPhotographers extends Component {
             doGetPhotographers(token).then(() => this.separatePhotographers());
         }
     }
+
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
 
     separatePhotographers = () => {
         const { allPhotographers } = this.props;
@@ -36,29 +43,25 @@ class AllPhotographers extends Component {
         }
     };
 
+    filterPhotographers = (array, field, condition) =>
+        array.filter(el => el[field].includes(condition));
+
     render() {
         const { allPhotographers } = this.props;
-        const { featuredPhotographers, morePhotographers } = this.state;
+        const { featuredPhotographers, morePhotographers, select, condition } = this.state;
         return (
             <div>
-                <Form>
-                    <FormGroup row className="filter-row row justify-content-end">
-                        <Label for="exampleSelect" sm={1}>
-                            Filter by:
-                        </Label>
-                        <Col sm={1}>
-                            <Input type="select" name="select" id="exampleSelect" />
-                        </Col>
-                        <Col sm={2}>
-                            <Input type="text" id="filter" placeholder="Filter" />
-                        </Col>
-                    </FormGroup>
-                </Form>
+                <FilterBox
+                    options={["Name", "Country"]}
+                    select={this.state.select}
+                    condition={this.state.condition}
+                    handleChange={this.handleChange}
+                />
                 <h2 className="feautured-h3">Featured Photographers </h2>
                 {featuredPhotographers ? (
                     <ProfileCards
                         userType="photographer"
-                        cards={featuredPhotographers}
+                        cards={this.filterPhotographers(featuredPhotographers, select, condition)}
                         pushHistory={id => {
                             this.props.history.push(`/photographer/${id}`);
                         }}
