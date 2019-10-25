@@ -10,23 +10,54 @@ import ProfileCards from "../../components/profilecards";
  * @extends Component
  */
 class AllOrgs extends Component {
+    state = {
+        featuredOrgs: [],
+        moreOrgs: []
+    };
+
     componentDidMount() {
         const { allOrgs, doGetOrgs, token } = this.props;
         if (!allOrgs.organizations) {
-            doGetOrgs(token);
+            doGetOrgs(token).then(() => this.separateOrgs());
         }
     }
 
+    separateOrgs = () => {
+        const { allOrgs } = this.props;
+        const allOrgArray = Object.values(allOrgs);
+        if (allOrgArray.length > 0) {
+            this.setState({
+                featuredOrgs: allOrgArray.filter(el => el && el.featured),
+                moreOrgs: allOrgArray.filter(el => el && !el.featured)
+            });
+        }
+    };
+
     render() {
         const { allOrgs } = this.props;
+
+        const { featuredOrgs, moreOrgs } = this.state;
         return (
             <div>
-                {allOrgs ? (
+                <h2 className="feautured-h3">Featured Organizations </h2>
+                {featuredOrgs ? (
                     <ProfileCards
                         userType="organization"
-                        cards={Object.values(allOrgs)}
+                        cards={featuredOrgs}
                         pushHistory={id => {
-                            this.props.history.push(`/organization/${id}`);
+                            this.props.history.push(`/photographer/${id}`);
+                        }}
+                    />
+                ) : (
+                    <Spinner type="grow" color="success" />
+                )}
+                <h2 className="feautured-h3">More Organizations </h2>
+                {featuredOrgs ? (
+                    <ProfileCards
+                        userType="organization"
+                        cards={moreOrgs}
+                        pushHistory={id => {
+                            this.props.history.push(`/photographer/${id}`);
                         }}
                     />
                 ) : (

@@ -5,6 +5,8 @@ import { Spinner, Col, Form, FormGroup, Label, Input } from "reactstrap";
 import { getAllPhotographers } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 
+import "./allPhotographers.scss";
+
 /**
  * When mounted dispatches action to fetch basic info from all photographers and display in proper
  * page routed in /photographers
@@ -19,24 +21,24 @@ class AllPhotographers extends Component {
     componentDidMount() {
         const { allPhotographers, doGetPhotographers, token } = this.props;
         if (!allPhotographers.photographers) {
-            doGetPhotographers(token);
+            doGetPhotographers(token).then(() => this.separatePhotographers());
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (
-            this.props.allPhotographers !== prevProps.allPhotographers &&
-            this.props.allPhotographers.length > 0
-        ) {
+    separatePhotographers = () => {
+        const { allPhotographers } = this.props;
+        const allPhotogArray = Object.values(allPhotographers);
+        if (allPhotogArray.length > 0) {
             this.setState({
-                featuredPhotographers: this.props.allPhotographers.filter(el => el.featured),
-                morePhotographers: this.props.allPhotographers.filter(el => !el.featured)
+                featuredPhotographers: allPhotogArray.filter(el => el.featured),
+                morePhotographers: allPhotogArray.filter(el => !el.featured)
             });
         }
-    }
+    };
 
     render() {
         const { allPhotographers } = this.props;
+        const { featuredPhotographers, morePhotographers } = this.state;
         return (
             <div>
                 <Form>
@@ -52,10 +54,23 @@ class AllPhotographers extends Component {
                         </Col>
                     </FormGroup>
                 </Form>
-                {allPhotographers ? (
+                <h2 className="feautured-h3">Featured Photographers </h2>
+                {featuredPhotographers ? (
                     <ProfileCards
                         userType="photographer"
-                        cards={Object.values(allPhotographers)}
+                        cards={featuredPhotographers}
+                        pushHistory={id => {
+                            this.props.history.push(`/photographer/${id}`);
+                        }}
+                    />
+                ) : (
+                    <Spinner type="grow" color="success" />
+                )}
+                <h2 className="feautured-h3">More Photographers </h2>
+                {featuredPhotographers ? (
+                    <ProfileCards
+                        userType="photographer"
+                        cards={morePhotographers}
                         pushHistory={id => {
                             this.props.history.push(`/photographer/${id}`);
                         }}
