@@ -2,12 +2,17 @@
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
+
     background-color: #00a651;
 }
 
 .so-far-div {
     padding: 15px;
-    border: 6px solid #fff;
+    min-height: 150px;
+    @media (max-width: 640px) {
+        min-height: 400px;
+    }
+    border: 1px solid #fff;
 }
 
 .so-far-paragraph {

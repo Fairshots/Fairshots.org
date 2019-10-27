@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { Spinner, Col, Form, FormGroup, Label, Input } from "reactstrap";
+import React from "react";
+import { Col, Form, FormGroup, Label, Input } from "reactstrap";
+
+import "./filterbox.scss";
 
 const FilterBox = ({ options, select, condition, handleChange }) => (
     <Form>
         <FormGroup row className="filter-row row justify-content-end">
-            <Label for="exampleSelect" sm={1}>
-                Filter by:
-            </Label>
-            <Col sm={2}>
+            <Col sm={2} className="d-inline-flex">
+                <Label for="exampleSelect">Filter by:</Label>
+
                 <Input
                     type="select"
                     value={select}
                     name="select"
                     onChange={handleChange}
-                    id="exampleSelect"
+                    id="filterSelect"
                 >
                     {options.map(o => (
                         <option>{o}</option>

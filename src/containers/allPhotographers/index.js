@@ -6,8 +6,6 @@ import { getAllPhotographers } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 import FilterBox from "../../components/filterBox";
 
-import "./allPhotographers.scss";
-
 /**
  * When mounted dispatches action to fetch basic info from all photographers and display in proper
  * page routed in /photographers
@@ -17,6 +15,8 @@ class AllPhotographers extends Component {
     state = {
         featuredPhotographers: [],
         morePhotographers: [],
+        filteredFeatPhotographers: [],
+        filteredMorePhotographers: [],
         select: "Name",
         condition: ""
     };
@@ -28,7 +28,14 @@ class AllPhotographers extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.condition !== prevState.condition) {
+            this.filterPhotographers(this.state.select, this.state.condition);
+        }
+    }
+
     handleChange = event => {
+        event.preventDefault();
         this.setState({ [event.target.name]: event.target.value });
     };
 
@@ -36,19 +43,36 @@ class AllPhotographers extends Component {
         const { allPhotographers } = this.props;
         const allPhotogArray = Object.values(allPhotographers);
         if (allPhotogArray.length > 0) {
+            const featuredPhotographers = allPhotogArray.filter(el => el && el.featured);
+            const morePhotographers = allPhotogArray.filter(el => el && !el.featured);
             this.setState({
-                featuredPhotographers: allPhotogArray.filter(el => el.featured),
-                morePhotographers: allPhotogArray.filter(el => !el.featured)
+                featuredPhotographers,
+                morePhotographers,
+                filteredFeatPhotographers: featuredPhotographers,
+                filteredMorePhotographers: morePhotographers
             });
         }
     };
 
-    filterPhotographers = (array, field, condition) =>
-        array.filter(el => el[field].includes(condition));
+    filterPhotographers = (field, condition) => {
+        this.setState({
+            filteredFeatPhotographers: this.state.featuredPhotographers.filter(el =>
+                el[field].toLowerCase().includes(condition.toLowerCase())
+            ),
+            filteredMorePhotographers: this.state.morePhotographers.filter(el =>
+                el[field].toLowerCase().includes(condition.toLowerCase())
+            )
+        });
+    };
 
     render() {
-        const { allPhotographers } = this.props;
-        const { featuredPhotographers, morePhotographers, select, condition } = this.state;
+        const {
+            featuredPhotographers,
+            morePhotographers,
+            filteredFeatPhotographers,
+            filteredMorePhotographers
+        } = this.state;
+        console.log(featuredPhotographers.length);
         return (
             <div>
                 <FilterBox
@@ -58,10 +82,10 @@ class AllPhotographers extends Component {
                     handleChange={this.handleChange}
                 />
                 <h2 className="feautured-h3">Featured Photographers </h2>
-                {featuredPhotographers ? (
+                {featuredPhotographers.length > 0 ? (
                     <ProfileCards
                         userType="photographer"
-                        cards={this.filterPhotographers(featuredPhotographers, select, condition)}
+                        cards={filteredFeatPhotographers}
                         pushHistory={id => {
                             this.props.history.push(`/photographer/${id}`);
                         }}
@@ -70,10 +94,10 @@ class AllPhotographers extends Component {
                     <Spinner type="grow" color="success" />
                 )}
                 <h2 className="feautured-h3">More Photographers </h2>
-                {featuredPhotographers ? (
+                {morePhotographers.length > 0 ? (
                     <ProfileCards
                         userType="photographer"
-                        cards={morePhotographers}
+                        cards={filteredMorePhotographers}
                         pushHistory={id => {
                             this.props.history.push(`/photographer/${id}`);
                         }}
