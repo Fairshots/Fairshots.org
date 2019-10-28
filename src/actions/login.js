@@ -23,11 +23,12 @@ export function login(formProps) {
                     payload: usertoSave
                 });
                 dispatch(toggleLoading());
-            } else throw res;
+            } else throw await res.text();
         } catch (e) {
             dispatch({
                 type: "AUTH_ERROR",
-                payload: "email or password incorrect or doesn`t exist"
+                payload:
+                    e === "Unauthorized" ? "E-mail or password incorrect or user doesn't exist" : e
             });
             dispatch(toggleLoading());
         }
@@ -127,6 +128,35 @@ export function resetPw(formProps) {
                 console.log(info);
                 dispatch({
                     type: "AUTH_RESETPASSWORD",
+                    payload: info
+                });
+                dispatch(toggleLoading());
+            } else throw await res.text();
+        } catch (e) {
+            dispatch({
+                type: "AUTH_ERROR",
+                payload: e
+            });
+            dispatch(toggleLoading());
+        }
+    };
+}
+
+export function confirmEmail(formProp) {
+    const token = formProp.replace(/&/g, ".");
+    return async dispatch => {
+        dispatch(toggleLoading());
+        const config = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+        };
+        try {
+            const res = await fetch(`${FAIRSHOTS_API}login/emailconfirm/${token}`, config);
+            if (res.ok) {
+                const info = await res.json();
+                console.log(info);
+                dispatch({
+                    type: "AUTH_CONFIRMEMAIL",
                     payload: info
                 });
                 dispatch(toggleLoading());

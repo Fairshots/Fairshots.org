@@ -38,12 +38,11 @@ export function getProfile(userType, id, token, thirdParty = false) {
                     });
                 }
                 dispatch(toggleLoading());
-            } else throw res;
+            } else throw await res.text();
         } catch (e) {
-            console.log(e.toString());
             dispatch({
                 type: "PROFILE_ERROR",
-                payload: e.statusText !== undefined ? e.statusText : e.toString()
+                payload: e
             });
             dispatch(toggleLoading());
         }

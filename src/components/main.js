@@ -13,6 +13,7 @@ import ProjectForm from "../containers/projectForm";
 import ProjectPage from "../containers/projectPage";
 import PasswordReset from "../containers/passwordReset";
 import SocialLogin from "../containers/loginHandler/socialLogin";
+import ConfirmEmail from "../containers/confirmEmail";
 
 export default function Main(props) {
     const { pathname } = useLocation();
@@ -63,6 +64,7 @@ export default function Main(props) {
                 <Route path="/login/pwreset/:token" exact component={PasswordReset} />
                 <Route path="/project/:projId" exact component={ProjectPage} />
                 <Route path="/:userType/:userId" exact component={UserProfile} />
+                <Route path="/:userType/emailconfirm/:token" exact component={ConfirmEmail} />
             </Switch>
         </main>
     );
