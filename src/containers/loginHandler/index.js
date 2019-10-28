@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { FaCog, FaUser, FaUserPlus, FaSignInAlt } from "react-icons/fa";
 import Auth0 from "./auth0-webauth";
-import { login, logout, forgotPw } from "../../actions";
+import { login, logout, forgotPw, getProfile } from "../../actions";
 import LoginModal from "../../components/loginModal";
 
 import "./login-handler.scss";
@@ -23,6 +23,14 @@ class LoginHandler extends Component {
         profileNav: false,
         forgotPass: false
     };
+
+    componentDidMount() {
+        const { profile, getUserProfile, userInfo } = this.props;
+
+        if (!profile.id && userInfo.token) {
+            getUserProfile(userInfo.userType, userInfo.userId, userInfo.token, false);
+        }
+    }
 
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -61,6 +69,14 @@ class LoginHandler extends Component {
             if (this.props.notification.includes("e-mail was sent")) {
                 setTimeout(() => this.toggleOpenCloses("loginModal"), 5000);
             }
+        }
+
+        if (this.props.profile.error === "Unauthorized" && !prevProps.profile.error) {
+            // if token is expired Alert user to login
+            setTimeout(() => {
+                this.props.notify("Please login to continue");
+                this.props.handleLogout(this.props.history);
+            }, 3000);
         }
     }
 
@@ -149,6 +165,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    getUserProfile: (userType, id, token, thirdParty) =>
+        dispatch(getProfile(userType, id, token, thirdParty)),
+
     doLogin: formProps => {
         dispatch(login(formProps));
     },
@@ -159,7 +178,8 @@ const mapDispatchToProps = dispatch => ({
         history.push("/");
         dispatch(logout());
     },
-    clearMessages: () => dispatch({ type: "AUTH_RESETMESSAGES" })
+    clearMessages: () => dispatch({ type: "AUTH_RESETMESSAGES" }),
+    notify: message => dispatch({ type: "AUTH_ERROR", payload: message })
 });
 
 export default withRouter(

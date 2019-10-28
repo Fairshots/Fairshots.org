@@ -1,8 +1,8 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import Home from "./home";
 import About from "./about";
-import { Contact } from "./contact";
+import ContactPage from "../containers/contactPage";
 import TermsandConditions from "./terms-and-conditions";
 import RegisterForm from "../containers/registerForm";
 import UserProfile from "../containers/userProfile";
@@ -13,14 +13,24 @@ import ProjectForm from "../containers/projectForm";
 import ProjectPage from "../containers/projectPage";
 import PasswordReset from "../containers/passwordReset";
 import SocialLogin from "../containers/loginHandler/socialLogin";
+import ConfirmEmail from "../containers/confirmEmail";
 
 export default function Main(props) {
+    const { pathname } = useLocation();
+
+    useEffect(
+        () => {
+            window.scrollTo(0, 0);
+        },
+        [pathname]
+    );
+
     return (
         <main>
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/about" exact component={About} />
-                <Route path="/contact-us" exact component={Contact} />
+                <Route path="/contact-us" exact component={ContactPage} />
                 <Route
                     path="/stories"
                     exact
@@ -29,7 +39,7 @@ export default function Main(props) {
                             width="100%"
                             height={window.innerHeight}
                             frameBorder="0"
-                            src="http://fairshots.org/stories"
+                            src="https://fairshots.org/stories"
                             style={{ top: "-60px", position: "relative" }}
                         />
                     )}
@@ -54,6 +64,7 @@ export default function Main(props) {
                 <Route path="/login/pwreset/:token" exact component={PasswordReset} />
                 <Route path="/project/:projId" exact component={ProjectPage} />
                 <Route path="/:userType/:userId" exact component={UserProfile} />
+                <Route path="/:userType/emailconfirm/:token" exact component={ConfirmEmail} />
             </Switch>
         </main>
     );

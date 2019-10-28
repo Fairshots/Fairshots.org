@@ -1,13 +1,15 @@
 import { FAIRSHOTS_API } from "./constants";
 import toggleLoading from "./toggleLoading";
 
-export default function getAllPhotographers() {
+export default function getAllPhotographers(token = undefined) {
     return async dispatch => {
         dispatch(toggleLoading());
+        console.log(token);
         const config = {
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                Authorization: token
             }
         };
         try {

@@ -41,6 +41,7 @@ export default function notifications(state = INITIAL_STATE, action) {
                 isThere: true
             });
         }
+
         case "MAIL_ERROR": {
             return Object.assign({}, state, {
                 message: "Your message was not sent. Try again later",

@@ -77,9 +77,12 @@ export default class ProfileCards extends Component {
 
         return (
             <div className="card-deck" ref={this.ref}>
-                {cards.map(card => (
-                    <Card key={card.id} style={zoomDeck}>
-                        <div className="card-img-top-holder">
+                {cards.map((card, i) => (
+                    <Card key={i} style={zoomDeck}>
+                        <div
+                            className="card-img-top-holder"
+                            style={{ backgroundColor: card.Logo ? "white" : "#242424" }}
+                        >
                             <CardImg
                                 top
                                 src={
@@ -88,6 +91,7 @@ export default class ProfileCards extends Component {
                                         : card.ProfilePic || card.Logo
                                 }
                                 alt="card img cap"
+                                style={{ objectFit: card.Logo ? "contain" : "cover" }}
                             />
                             <CardImgOverlay
                                 className="feat-biography"
@@ -97,10 +101,14 @@ export default class ProfileCards extends Component {
                             </CardImgOverlay>
                         </div>
                         <CardBody>
-                            <CardImg className="feat-pic" src={card.ProfilePic || card.Logo} />
+                            {card.Skill && <CardImg className="feat-pic" src={card.ProfilePic} />}
                             <CardTitle>{card.Name}</CardTitle>
-                            {card.skill && <CardSubtitle>{orgInfo.Name}</CardSubtitle>}
-                            <CardText>{card.Country}</CardText>
+                            {card.Skill && (
+                                <CardSubtitle>{`${card.Skill} photographer`}</CardSubtitle>
+                            )}
+                            <CardText>{`${card.City || ""}${card.City ? "," : ""} ${
+                                card.Country
+                            }`}</CardText>
                         </CardBody>
                     </Card>
                 ))}

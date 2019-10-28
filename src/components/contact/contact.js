@@ -1,51 +1,73 @@
 import React from "react";
+import { Row, Col, Form, FormGroup, Input, Button } from "reactstrap";
+import { FaFacebookSquare, FaInstagram, FaEnvelope } from "react-icons/fa";
 
-export default function Contact() {
+export default function Contact({
+    uname,
+    setUname,
+    email,
+    setEmail,
+    message,
+    setMessage,
+    subject,
+    setSubject,
+    errorMessage,
+    handleSubmit
+}) {
     return (
         <div className="contact-us">
             <h3 className="about-green-tittles">Get in touch</h3>
-            <div className="w-row">
-                <div className="w-col w-col-6">
-                    <div className="w-form">
-                        <form
-                            id="wf-form-Contact-us"
-                            name="wf-form-Contact-us"
-                            data-name="Contact us"
-                        >
-                            <label for="name" className="about-green-tittles">
-                                Your Name:
-                            </label>
-                            <input
+            <Row>
+                <Col onSubmit={handleSubmit}>
+                    <Form>
+                        <FormGroup>
+                            <label className="about-green-tittles">Your Name:</label>
+                            <Input
                                 type="text"
                                 id="name"
                                 name="name"
-                                data-name="Name"
                                 placeholder="Enter your name"
-                                maxlength="256"
                                 className="w-input"
+                                value={uname}
+                                onChange={e => {
+                                    e.preventDefault();
+                                    setUname(e.target.value);
+                                }}
+                                invalid={errorMessage !== "" && uname === ""}
                             />
-                            <label for="email" className="about-green-tittles">
-                                Your email address:
-                            </label>
-                            <input
-                                type="email"
+                        </FormGroup>
+                        <FormGroup>
+                            <label className="about-green-tittles">Your email address:</label>
+                            <Input
+                                type="Email"
                                 className="w-input"
-                                maxlength="256"
                                 name="email"
-                                data-name="Email"
                                 placeholder="Enter your email address"
                                 id="email"
-                                required=""
+                                value={email}
+                                onChange={e => {
+                                    e.preventDefault();
+                                    setEmail(e.target.value);
+                                }}
+                                invalid={errorMessage !== "" && email === ""}
                             />
-                            <label for="Message-type" className="about-green-tittles">
+                        </FormGroup>
+                        <FormGroup>
+                            <label className="about-green-tittles">
                                 What would you like to do?
                             </label>
-                            <select
+                            <Input
+                                type="select"
                                 id="Message-type"
                                 name="Message-type"
-                                data-name="Message type"
                                 required=""
                                 className="w-select"
+                                value={subject}
+                                onChange={e => {
+                                    e.preventDefault();
+                                    setSubject(e.target.value);
+                                }}
+                                invalid={errorMessage !== "" && subject === ""}
                             >
                                 <option value="Contact">I just want to say &#x27;Hi&#x27;</option>
                                 <option value="Suggestion">I want to make a suggestion</option>
@@ -53,56 +75,61 @@ export default function Contact() {
                                 <option value="work">I want to work with Fairshots.org</option>
                                 <option value="Question">I want to ask a question</option>
                                 <option value="Other">Other</option>
-                            </select>
-                            <label for="Message" className="about-green-tittles">
-                                Message:
-                            </label>
-                            <textarea
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <label className="about-green-tittles">Message:</label>
+                            <Input
+                                type="textarea"
                                 id="Message"
                                 name="Message"
                                 placeholder="Type your message here"
-                                maxlength="5000"
-                                data-name="Message"
-                                required=""
                                 className="message-text-box w-input"
+                                value={message}
+                                onChange={e => {
+                                    e.preventDefault();
+                                    setMessage(e.target.value);
+                                }}
+                                invalid={errorMessage !== "" && message === ""}
                             />
-                            <div className="w-embed w-script" />
-                            <input
-                                type="submit"
-                                value="Contact"
-                                data-wait="The pigeon is on his way..."
-                                wait="The pigeon is on his way..."
-                                className="contact-button w-button"
-                            />
-                        </form>
-                        <div className="w-form-done">
-                            <p className="featured-listing-bold-black">
-                                Thanks for your message!
-                                <br /> We will try to get back to you asap but you never know :)
-                            </p>
+                        </FormGroup>
+                        <div className="text-center mt-4">
+                            <div className="text-danger" style={{ minHeight: "30px" }}>
+                                {errorMessage}
+                            </div>
+                            <Button color="success" type="submit">
+                                Contact
+                            </Button>
                         </div>
-                        <div className="featured-listing-bold-black w-form-fail">
-                            <p>Oops! Something went wrong while submitting the form</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="w-col w-col-6">
+                    </Form>
+                </Col>
+                <Col>
                     <h4 className="about-green-tittles">Get Social</h4>
                     <a
                         href="mailto:contact@fairshots.org?subject=Contact%20from%20the%20website"
                         className="text-link"
                     >
-                        Contact@fairshots.org
+                        <FaEnvelope />
+                        &nbsp; Contact@fairshots.org
                     </a>
                     <a
                         href="https://www.facebook.com/fairshots.org/"
                         target="_blank"
                         className="text-link"
                     >
-                        facebook.com/fairshots.org
+                        <FaFacebookSquare />
+                        &nbsp; facebook.com/fairshots.org
                     </a>
-                </div>
-            </div>
+                    <a
+                        href="https://www.instagram.com/fairshots/"
+                        target="_blank"
+                        class="text-link"
+                    >
+                        <FaInstagram />
+                        &nbsp; @fairshots
+                    </a>
+                </Col>
+            </Row>
         </div>
     );
 }

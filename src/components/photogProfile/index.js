@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "reactstrap";
+import { FaSadTear } from "react-icons/fa";
 import imgUploadWidget from "../../helpers/imgUploadWidget";
 import Portfolio from "../portfolio";
 
@@ -95,15 +96,19 @@ export default function PhotogProfile({
                         <h3 className="portfolio-tittle">Portfolio</h3>
                     </div>
                     <div className="portfolio-holder">
-                        {photographer.Photos ? (
-                            <Portfolio
-                                photos={photographer.Photos}
-                                toggleDelPhoto={toggleModal}
-                                thirdParty={thirdParty}
-                            />
-                        ) : (
-                            <p>Loading...</p>
-                        )}
+                        {photographer.Photos &&
+                            (photographer.Photos.length > 0 ? (
+                                <Portfolio
+                                    photos={photographer.Photos}
+                                    toggleDelPhoto={toggleModal}
+                                    thirdParty={thirdParty}
+                                    te
+                                />
+                            ) : (
+                                <p className="no-photos-yet">
+                                    No photos here yet <FaSadTear />
+                                </p>
+                            ))}
                     </div>
                 </div>
             )}

@@ -9,22 +9,11 @@ import "./orgProfile.scss";
 
 export default function OrgProfile({
     organization,
-    uploadPhoto,
     toggleModal,
     thirdParty,
     history,
     isAuthenticated
 }) {
-    const { cloudinary } = window;
-    const imgUploadWidget = cloudinary.createUploadWidget(
-        { cloudName: "fairshots", uploadPreset: "kahvrgme" },
-        (error, result) => {
-            if (result.event === "success") {
-                uploadPhoto(result.info.secure_url);
-            }
-        }
-    );
-
     return (
         <>
             {organization && (
@@ -106,26 +95,31 @@ export default function OrgProfile({
                             </div>
                         </div>
                     </Row>
-                    <Row className="justify-content-center mt-2">
-                        <h3 className="portfolio-tittle">Projects Posted</h3>
-                    </Row>
-                    <Row className="justify-content-center">
-                        {organization.Projects ? (
-                            <ProjectCards
-                                userType="project"
-                                cards={organization.Projects}
-                                orgsInfo={{
-                                    Name: organization.Name,
-                                    Country: organization.Country
-                                }}
-                                pushHistory={id => {
-                                    history.push(`/project/${id}`);
-                                }}
-                            />
-                        ) : (
-                            <p>Loading...</p>
-                        )}
-                    </Row>
+                    {!thirdParty && (
+                        <>
+                            {" "}
+                            <Row className="justify-content-center mt-2">
+                                <h3 className="portfolio-tittle">Projects Posted</h3>
+                            </Row>
+                            <Row className="justify-content-center">
+                                {organization.Projects ? (
+                                    <ProjectCards
+                                        userType="project"
+                                        cards={organization.Projects}
+                                        orgsInfo={{
+                                            Name: organization.Name,
+                                            Country: organization.Country
+                                        }}
+                                        pushHistory={id => {
+                                            history.push(`/project/${id}`);
+                                        }}
+                                    />
+                                ) : (
+                                    <p>Loading...</p>
+                                )}
+                            </Row>{" "}
+                        </>
+                    )}
                 </div>
             )}
         </>

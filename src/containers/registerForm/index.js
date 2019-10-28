@@ -107,7 +107,7 @@ class RegisterForm extends Component {
                     </div>
                     <div className="row mt-5 justify-content-center">
                         <FacebookLoginButton
-                            style={{ "font-size": "14px", width: "50%" }}
+                            style={{ fontSize: "14px", width: "50%" }}
                             iconSize="16px"
                             size="40px"
                             onClick={() =>
@@ -119,7 +119,7 @@ class RegisterForm extends Component {
                             <span>Continue with Facebook</span>
                         </FacebookLoginButton>
                         <GoogleLoginButton
-                            style={{ "font-size": "14px", width: "50%" }}
+                            style={{ fontSize: "14px", width: "50%" }}
                             iconSize="16px"
                             size="40px"
                             onClick={() =>

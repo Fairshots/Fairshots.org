@@ -103,9 +103,9 @@ export default class ProjectCards extends Component {
                                 <CardSubtitle>
                                     {card.Organization ? card.Organization.Name : orgsInfo.Name}
                                 </CardSubtitle>
-                                <CardText>
-                                    {card.Country ? card.Country : orgsInfo.Country}
-                                </CardText>
+                                <CardText>{`${card.City || ""}${card.City ? "," : ""} ${
+                                    card.Country
+                                }`}</CardText>
                             </CardBody>
                             <p id="cause-badge">
                                 <Badge color="success" pill>
