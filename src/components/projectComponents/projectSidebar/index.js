@@ -55,10 +55,12 @@ const ProjectSidebar = ({ projectInfo, userType, toggleModal, alreadyApplied }) 
                         <th scope="row">Duration</th>
                         <td>{`${projectInfo.Duration} days`}</td>
                     </tr>
-                    <tr>
-                        <th scope="row">Delivery Deadline</th>
-                        <td>{new Date(projectInfo.Delivery).toLocaleDateString()}</td>
-                    </tr>
+                    {projectInfo.Delivery && (
+                        <tr>
+                            <th scope="row">Delivery Deadline</th>
+                            <td>{new Date(projectInfo.Delivery).toLocaleDateString()}</td>
+                        </tr>
+                    )}
                     <tr>
                         <th scope="row">Location</th>
                         <td>{`${projectInfo.City}, ${projectInfo.Country}`}</td>

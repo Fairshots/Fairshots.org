@@ -18,26 +18,21 @@ const projButtons = ({ userType, toggleModal, projectExpired }) => (
                     Close applications
                 </Button>
             </>
-        ) : userType === "photographer" ? (
-            <>
-                {!projectExpired && (
-                    <Button
-                        className="mb-2"
-                        color="success"
-                        outline
-                        onClick={() => toggleModal({ show: true, type: "APPLICATION" })}
-                    >
-                        Apply
-                    </Button>
-                )}
-                <Button className="mb-2" color="success" outline>
-                    Help this Cause
-                </Button>
-            </>
         ) : (
-            <Button className="mb-2" color="success" outline>
-                Help this cause
-            </Button>
+            userType === "photographer" && (
+                <>
+                    {!projectExpired && (
+                        <Button
+                            className="mb-2"
+                            color="success"
+                            outline
+                            onClick={() => toggleModal({ show: true, type: "APPLICATION" })}
+                        >
+                            Apply
+                        </Button>
+                    )}
+                </>
+            )
         )}
     </ButtonGroup>
 );
