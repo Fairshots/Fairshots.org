@@ -8,7 +8,7 @@ import {
     DropdownItem,
     DropdownMenu
 } from "reactstrap";
-import { FaCog, FaUser, FaUserPlus, FaSignInAlt } from "react-icons/fa";
+import { FaCog, FaUser, FaUserPlus, FaSignInAlt, FaUserCircle } from "react-icons/fa";
 import Auth0 from "./auth0-webauth";
 import { login, logout, forgotPw, getProfile } from "../../actions";
 import LoginModal from "../../components/loginModal";
@@ -74,8 +74,8 @@ class LoginHandler extends Component {
         if (this.props.profile.error === "Unauthorized" && !prevProps.profile.error) {
             // if token is expired Alert user to login
             setTimeout(() => {
-                this.props.notify("Please login to continue");
                 this.props.handleLogout(this.props.history);
+                this.props.notify("Please login to continue");
             }, 3000);
         }
     }
@@ -128,7 +128,17 @@ class LoginHandler extends Component {
                                     history.push(`/${userInfo.userType}/${userInfo.userId}`)
                                 }
                             >
-                                <FaCog /> PROFILE
+                                <FaUserCircle /> PROFILE
+                            </DropdownItem>
+                            <DropdownItem
+                                className="f-dropdown-link"
+                                onClick={() =>
+                                    history.push(
+                                        `/${userInfo.userType}/${userInfo.userId}/settings`
+                                    )
+                                }
+                            >
+                                <FaCog /> SETTINGS
                             </DropdownItem>
                             <DropdownItem
                                 className="f-dropdown-link"

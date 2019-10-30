@@ -2,20 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import {
-    getProfile,
-    getOneFromAll,
-    uploadPhoto,
-    delPhoto,
-    toggleActivateProfile,
-    sendMessage
-} from "../../actions";
+import { getProfile, getOneFromAll, uploadPhoto, delPhoto, sendMessage } from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
 import { MailForm } from "../../components/contact";
 import DeletePhoto from "./deletephoto";
-import InactivateProfile from "./inactivate-profile";
+
 import "./userProfile.scss";
 
 /**
@@ -119,11 +112,9 @@ class UserProfile extends Component {
             match: {
                 params: { userType, userId }
             },
-            userProfile: { accountInactive },
             token,
             authId,
             doDelPhoto,
-            doInactivateProfile,
             messaging,
             doSendMessage
         } = this.props;
@@ -136,17 +127,6 @@ class UserProfile extends Component {
                     <DeletePhoto
                         photoItem={this.state.photoToDel}
                         doDelPhoto={doDelPhoto(userType, userId, token)}
-                        toggleModal={this.toggleModal}
-                    />
-                );
-            }
-            case "INACTIVATE_PROFILE": {
-                console.log(`current status ${accountInactive}`);
-                return (
-                    <InactivateProfile
-                        doInactivateProfile={() =>
-                            doInactivateProfile(userType, userId, token, accountInactive)
-                        }
                         toggleModal={this.toggleModal}
                     />
                 );
@@ -239,9 +219,6 @@ const mapDispatchToProps = dispatch => ({
 
     doDelPhoto: (userType, id, token) => photoItem =>
         dispatch(delPhoto(userType, id, token, photoItem)),
-
-    doInactivateProfile: (userType, id, token, currentStatus) =>
-        dispatch(toggleActivateProfile(userType, id, token, currentStatus)),
 
     doSendMessage: (fromId, toId, token, subject, message) =>
         dispatch(sendMessage(fromId, toId, subject, message, token))
