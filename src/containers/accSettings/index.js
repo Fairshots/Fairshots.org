@@ -7,6 +7,7 @@ import { toggleActivateProfile } from "../../actions";
 
 const AccSettings = ({
     userProfile,
+    userProfile: { accountInactive },
     token,
     doInactivateProfile,
     match: {
@@ -15,10 +16,16 @@ const AccSettings = ({
     history
 }) => {
     const [modalShow, setModalShow] = useState(false);
+    const [statusChanged, setStatusChanged] = useState(false);
 
-    useEffect(() => {
-        history.push(`${userType}/${userProfile.id}`);
-    }, userProfile.accountInactive);
+    useEffect(
+        () => {
+            if (statusChanged) {
+                setTimeout(() => history.push(`/${userType}/${userProfile.id}`), 5000);
+            }
+        },
+        [statusChanged]
+    );
 
     return (
         <Container style={{ minHeight: "500px" }}>
@@ -36,14 +43,16 @@ const AccSettings = ({
             <ReusableModal
                 Component={() => (
                     <InactivateProfile
-                        doInactivateProfile={() =>
+                        doInactivateProfile={() => {
                             doInactivateProfile(
                                 userType,
                                 userId,
                                 token,
                                 userProfile.accountInactive
-                            )
-                        }
+                            );
+                            setStatusChanged(true);
+                            setModalShow(false);
+                        }}
                         toggleModal={() => setModalShow(!modalShow)}
                     />
                 )}

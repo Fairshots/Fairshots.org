@@ -70,6 +70,22 @@ export default function notifications(state = INITIAL_STATE, action) {
                 isThere: true
             });
         }
+
+        case "INACTIVATE_PROFILE": {
+            return Object.assign({}, state, {
+                message: action.payload.msg,
+                type: "Success",
+                isThere: true
+            });
+        }
+        case "REACTIVATE_PROFILE": {
+            return Object.assign({}, state, {
+                message: action.payload.msg,
+                type: "Success",
+                isThere: true
+            });
+        }
+
         case "PROJECT_CREATED": {
             return Object.assign({}, state, {
                 message: "Your project was created",
