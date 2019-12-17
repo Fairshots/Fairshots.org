@@ -26,6 +26,9 @@
             text-align: center;
             text-transform: uppercase;
             cursor: pointer;
+            @media (max-width: 640px) {
+                font-size: 12px;
+            }
         }
         .f-tab-link:hover {
             box-shadow: inset 0 0 12px 0 #fff;
