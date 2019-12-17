@@ -99,13 +99,20 @@ class LoginHandler extends Component {
                             <Link
                                 to="#!"
                                 className="nav-link"
-                                onClick={() => this.toggleOpenCloses("loginModal")}
+                                onClick={() => {
+                                    this.toggleOpenCloses("loginModal");
+                                    this.props.navcloser();
+                                }}
                             >
                                 <FaUser /> LOGIN
                             </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
-                            <Link className="nav-link" to="/register#photographer">
+                            <Link
+                                className="nav-link"
+                                to="/register#photographer"
+                                onClick={this.props.navcloser}
+                            >
                                 <FaUserPlus /> SIGN UP
                             </Link>
                         </NavItem>
@@ -124,25 +131,30 @@ class LoginHandler extends Component {
                         <DropdownMenu className="f-dropdown-menu">
                             <DropdownItem
                                 className="f-dropdown-link"
-                                onClick={() =>
-                                    history.push(`/${userInfo.userType}/${userInfo.userId}`)
-                                }
+                                onClick={() => {
+                                    history.push(`/${userInfo.userType}/${userInfo.userId}`);
+                                    this.props.navcloser();
+                                }}
                             >
                                 <FaUserCircle /> PROFILE
                             </DropdownItem>
                             <DropdownItem
                                 className="f-dropdown-link"
-                                onClick={() =>
+                                onClick={() => {
                                     history.push(
                                         `/${userInfo.userType}/${userInfo.userId}/settings`
-                                    )
-                                }
+                                    );
+                                    this.props.navcloser();
+                                }}
                             >
                                 <FaCog /> SETTINGS
                             </DropdownItem>
                             <DropdownItem
                                 className="f-dropdown-link"
-                                onClick={() => handleLogout(history)}
+                                onClick={() => {
+                                    handleLogout(history);
+                                    this.props.navcloser();
+                                }}
                             >
                                 <FaSignInAlt /> LOGOUT
                             </DropdownItem>
