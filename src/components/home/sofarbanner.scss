@@ -2,17 +2,14 @@
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
-
+    display: flex;
     background-color: #00a651;
 }
 
 .so-far-div {
     padding: 15px;
-    min-height: 150px;
-    @media (max-width: 640px) {
-        min-height: 400px;
-    }
     border: 1px solid #fff;
+    flex-wrap: wrap;
 }
 
 .so-far-paragraph {
