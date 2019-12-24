@@ -30,6 +30,7 @@
         "@babel/runtime-corejs2": "^7.4.5",
         "auth0-js": "^9.11.2",
         "bootstrap": "^4.3.1",
+        "formik": "^2.0.8",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-icons": "^3.6.1",
@@ -39,7 +40,6 @@
         "react-social-login-buttons": "^2.3.1",
         "reactstrap": "^8.0.0",
         "redux": "^4.0.0",
-        "redux-form": "^7.4.2",
         "redux-thunk": "^2.3.0"
     },
     "devDependencies": {

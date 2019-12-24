@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm, formValueSelector } from "redux-form";
+import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import Auth0 from "../loginHandler/auth0-webauth";
@@ -57,12 +57,8 @@ class RegisterForm extends Component {
     render() {
         const {
             doRegister,
-            handleSubmit,
             regmsg,
-            valid,
-            location: { pathname },
-            profilePic,
-            logo
+            location: { pathname }
         } = this.props;
         return (
             <div className="register-form d-flex flex-column flex-wrap align-items-center">
@@ -74,13 +70,7 @@ class RegisterForm extends Component {
                 </p>
                 <div className="register-tabs">
                     <div className="d-flex flex-wrap justify-content-around">
-                        <Link
-                            to={{ pathname, hash: "#organization" }}
-                            className="f-tab-link"
-                            onClick={() => {
-                                this.props.initialize();
-                            }}
-                        >
+                        <Link to={{ pathname, hash: "#organization" }} className="f-tab-link">
                             <div>JOIN AS AN organization</div>
                             <img
                                 src="images/Dark_Green_Arrow_Up.png"
@@ -89,13 +79,7 @@ class RegisterForm extends Component {
                                 }`}
                             />
                         </Link>
-                        <Link
-                            to={{ pathname, hash: "#photographer" }}
-                            className="f-tab-link"
-                            onClick={() => {
-                                this.props.initialize();
-                            }}
-                        >
+                        <Link to={{ pathname, hash: "#photographer" }} className="f-tab-link">
                             <div>JOIN AS AN photographer</div>
                             <img
                                 src="images/Dark_Green_Arrow_Up.png"
@@ -133,24 +117,45 @@ class RegisterForm extends Component {
                     </div>
                     <div className="w-tab-content">
                         {this.state.userType === "photographer" ? (
-                            <PhotographerForm
-                                handleSubmit={handleSubmit(doRegister(this.state.userType))}
-                                renderField={renderField}
-                                modalShow={() =>
-                                    this.setState({ modalShow: !this.state.modalShow })
-                                }
-                                profilePic={profilePic}
-                            />
+                            <Formik
+                                onSubmit={(values, { setSubmitting }) => {
+                                    doRegister(this.state.userType)(values);
+                                    setSubmitting(false);
+                                }}
+                                validate={validate}
+                                initialValues={{
+                                    Name: "",
+                                    Email: "",
+                                    Password: "",
+                                    ConfirmPassword: "",
+                                    ProfilePic: "",
+                                    Skill: "",
+                                    Biography: "",
+                                    Phone: "",
+                                    webpage: "",
+                                    facebook: "",
+                                    instagram: "",
+                                    City: "",
+                                    Country: "",
+                                    agreement: false
+                                }}
+                            >
+                                <PhotographerForm
+                                    renderField={renderField}
+                                    modalShow={() =>
+                                        this.setState({ modalShow: !this.state.modalShow })
+                                    }
+                                />
+                            </Formik>
                         ) : (
                             <OrganizationForm
-                                handleSubmit={handleSubmit(doRegister(this.state.userType))}
                                 renderField={renderField}
                                 modalShow={() =>
                                     this.setState({ modalShow: !this.state.modalShow })
                                 }
-                                logo={logo}
                             />
                         )}
+
                         {regmsg.message && (
                             <span
                                 className={`${
@@ -172,13 +177,12 @@ class RegisterForm extends Component {
         );
     }
 }
-const selector = formValueSelector("registerNewForm");
+
 const mapStateToProps = state => ({
     regmsg: state.registration,
-    initialValues: state.auth.prefilled_signup,
-    profilePic: selector(state, "ProfilePic"),
-    logo: selector(state, "Logo")
+    initialValues: state.auth.prefilled_signup
 });
+
 const mapDispatchToProps = dispatch => ({
     doRegister: userType => formFilled => {
         console.log(formFilled);
@@ -188,14 +192,7 @@ const mapDispatchToProps = dispatch => ({
     doResetMessages: () => dispatch(resetMessages())
 });
 
-const registerform = reduxForm({
-    form: "registerNewForm",
-    validate,
-    enableReinitialize: true,
-    keepDirtyOnReinitialize: true
-})(RegisterForm);
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(registerform);
+)(RegisterForm);

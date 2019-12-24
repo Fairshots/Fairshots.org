@@ -1,24 +1,30 @@
 import React from "react";
 import { FormGroup, FormFeedback, Input } from "reactstrap";
 
-const renderField = ({ input, label, type, options, meta: { touched, error, warning } }) => (
+const renderField = ({ field, label, type, options, form, form: { touched, errors } }) => (
     <FormGroup>
         <label>{label}</label>
         {type === "select" ? (
-            <Input {...input} type={type} invalid={touched && error}>
+            <Input {...field} type="select" invalid={touched[field.name] && errors[field.name]}>
                 {options.map((i, index) => (
                     <option key={index}>{i}</option>
                 ))}
             </Input>
         ) : (
             <Input
-                {...input}
+                {...field}
                 type={type}
-                invalid={touched && error}
-                value={type === "file" ? undefined : input.value}
+                invalid={touched[field.name] && errors[field.name]}
+                value={type === "file" ? undefined : field.value}
+                onChange={
+                    type === "file"
+                        ? event => form.setFieldValue(field.name, event.currentTarget.files[0])
+                        : field.onChange
+                }
             />
         )}
-        {touched && (error && <FormFeedback>{error}</FormFeedback>)}
+        {touched[field.name] &&
+            (errors[field.name] && <FormFeedback>{errors[field.name]}</FormFeedback>)}
     </FormGroup>
 );
 

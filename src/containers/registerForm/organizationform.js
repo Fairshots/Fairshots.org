@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Field, FieldArray } from "redux-form";
+import { Field, FieldArray } from "formik";
 import { Form, Button } from "reactstrap";
 import { countrylist, causes, languages } from "../../helpers/form-data-options";
 import checkboxesFormArray from "../../components/checkboxesFormArray";
 
-export default function OrganizationForm({ handleSubmit, renderField, modalShow, logo }) {
+export default function OrganizationForm({ handleSubmit, renderField, modalShow, ...props }) {
     const [picUrl, setPicUrl] = useState("");
 
     useEffect(
         () => {
-            if (typeof profilePic === "string") setPicUrl(logo);
+            if (typeof props.values.Logo === "string") setPicUrl(props.values.Logo);
         },
         [logo]
     );

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Field, FieldArray } from "redux-form";
 import { Dropdown, DropdownMenu, DropdownToggle, CustomInput } from "reactstrap";
 
 import "./checkboxesFormArray.scss";
