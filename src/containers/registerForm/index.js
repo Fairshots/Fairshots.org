@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Row, Container } from "reactstrap";
 import { connect } from "react-redux";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
@@ -167,6 +168,7 @@ class RegisterForm extends Component {
                         )}
                     </div>
                 </div>
+
                 <ReusableModal
                     Component={TermsandConditions}
                     size="lg"

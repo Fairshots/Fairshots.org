@@ -38,6 +38,11 @@ export default function auth(state = INITIAL_STATE, action) {
                 notification: "An e-mail was sent with a link to reset your password"
             });
         }
+        case "AUTH_CONFIRMEMAIL": {
+            return Object.assign({}, state, {
+                notification: action.payload.msg
+            });
+        }
         case "AUTH_RESETPASSWORD": {
             return Object.assign({}, state, {
                 notification: action.payload.msg

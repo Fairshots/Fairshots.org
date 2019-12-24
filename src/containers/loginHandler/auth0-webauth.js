@@ -6,7 +6,7 @@ const Auth0 = new auth0.WebAuth({
     clientID: "Sw0UdTyMoz6UnDkyAWQcJL1Kwj6yxA2g",
     responseType: "token id_token",
     audience: `${FAIRSHOTS_API.slice(0, -1)}`,
-    redirectUri: "https://beta.fairshots.org/login/callback",
+    redirectUri: "https://www.fairshots.org/login/callback",
     scope: "openid profile email"
 });
 

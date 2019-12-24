@@ -32,38 +32,50 @@ class NavbarPage extends Component {
                 >
                     <Nav className="align-items-center">
                         <NavItem className="navbarlink">
-                            <Link to="/stories" className="nav-link">
+                            <Link to="/stories" className="nav-link" onClick={this.toggleCollapse}>
                                 Stories
                             </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
-                            <Link to="/projects" className="nav-link">
+                            <Link to="/projects" className="nav-link" onClick={this.toggleCollapse}>
                                 PROJECTS
                             </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
-                            <Link to="/organizations" className="nav-link">
+                            <Link
+                                to="/organizations"
+                                className="nav-link"
+                                onClick={this.toggleCollapse}
+                            >
                                 ORGANIZATIONS
                             </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
-                            <Link to="/photographers" className="nav-link">
+                            <Link
+                                to="/photographers"
+                                className="nav-link"
+                                onClick={this.toggleCollapse}
+                            >
                                 PHOTOGRAPHERS
                             </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
-                            <Link to="/about" className="nav-link">
+                            <Link to="/about" className="nav-link" onClick={this.toggleCollapse}>
                                 ABOUT
                             </Link>
                         </NavItem>
                         <NavItem className="navbarlink">
-                            <Link to="/contact-us" className="nav-link">
+                            <Link
+                                to="/contact-us"
+                                className="nav-link"
+                                onClick={this.toggleCollapse}
+                            >
                                 CONTACT
                             </Link>
                         </NavItem>
                     </Nav>
                     <Nav className="login-handler">
-                        <LoginHandler />
+                        <LoginHandler navcloser={this.toggleCollapse} />
                     </Nav>
                 </Collapse>
             </Navbar>
