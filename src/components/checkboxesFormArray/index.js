@@ -14,6 +14,22 @@ export default class CheckboxesFormArray extends Component {
         };
     }
 
+    componentDidMount() {
+        const { name, form, options } = this.props;
+        const tempVal = [...this.state.markedValues];
+
+        if (form.values[name].length > 0) {
+            let index;
+            form.values[name].forEach(val => {
+                index = options.findIndex(el => el === val);
+                tempVal[index] = true;
+            });
+            this.setState({
+                markedValues: [...tempVal]
+            });
+        }
+    }
+
     toggle() {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
