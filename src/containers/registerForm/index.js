@@ -8,7 +8,12 @@ import Auth0 from "../loginHandler/auth0-webauth";
 import PhotographerForm from "./photographerform";
 import OrganizationForm from "./organizationform";
 import { register, checkForm, resetMessages } from "../../actions/register";
-import { renderField, validate } from "./helper-functions";
+import {
+    OrgInitialValues,
+    PhotographerInitialValues,
+    renderField,
+    validate
+} from "./helper-functions";
 import ReusableModal from "../../components/UI/reusableModal";
 import TermsandConditions from "../../components/terms-and-conditions";
 import "./registerForm.scss";
@@ -59,7 +64,8 @@ class RegisterForm extends Component {
         const {
             doRegister,
             regmsg,
-            location: { pathname }
+            location: { pathname },
+            prefilledSignup
         } = this.props;
         return (
             <div className="register-form d-flex flex-column flex-wrap align-items-center">
@@ -124,37 +130,45 @@ class RegisterForm extends Component {
                                     setSubmitting(false);
                                 }}
                                 validate={validate}
-                                initialValues={{
-                                    Name: "",
-                                    Email: "",
-                                    Password: "",
-                                    ConfirmPassword: "",
-                                    ProfilePic: "",
-                                    Skill: "",
-                                    Biography: "",
-                                    Phone: "",
-                                    webpage: "",
-                                    facebook: "",
-                                    instagram: "",
-                                    City: "",
-                                    Country: "",
-                                    agreement: false
-                                }}
+                                initialValues={
+                                    prefilledSignup
+                                        ? { ...PhotographerInitialValues, ...prefilledSignup }
+                                        : PhotographerInitialValues
+                                }
                             >
-                                <PhotographerForm
-                                    renderField={renderField}
-                                    modalShow={() =>
-                                        this.setState({ modalShow: !this.state.modalShow })
-                                    }
-                                />
+                                {({ values }) => (
+                                    <PhotographerForm
+                                        renderField={renderField}
+                                        modalShow={() =>
+                                            this.setState({ modalShow: !this.state.modalShow })
+                                        }
+                                        profilePic={values.ProfilePic}
+                                    />
+                                )}
                             </Formik>
                         ) : (
-                            <OrganizationForm
-                                renderField={renderField}
-                                modalShow={() =>
-                                    this.setState({ modalShow: !this.state.modalShow })
+                            <Formik
+                                onSubmit={(values, { setSubmitting }) => {
+                                    doRegister(this.state.userType)(values);
+                                    setSubmitting(false);
+                                }}
+                                validate={validate}
+                                initialValues={
+                                    prefilledSignup
+                                        ? { ...OrgInitialValues, ...prefilledSignup }
+                                        : OrgInitialValues
                                 }
-                            />
+                            >
+                                {({ values }) => (
+                                    <OrganizationForm
+                                        renderField={renderField}
+                                        modalShow={() =>
+                                            this.setState({ modalShow: !this.state.modalShow })
+                                        }
+                                        logo={values.Logo}
+                                    />
+                                )}
+                            </Formik>
                         )}
 
                         {regmsg.message && (
@@ -182,7 +196,7 @@ class RegisterForm extends Component {
 
 const mapStateToProps = state => ({
     regmsg: state.registration,
-    initialValues: state.auth.prefilled_signup
+    prefilledSignup: state.auth.prefilled_signup
 });
 
 const mapDispatchToProps = dispatch => ({

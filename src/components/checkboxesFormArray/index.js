@@ -21,6 +21,7 @@ export default class CheckboxesFormArray extends Component {
     }
 
     controlMarked(event) {
+        const { push, remove, form, options, name } = this.props;
         event.stopPropagation();
 
         const tempVal = [...this.state.markedValues];
@@ -29,17 +30,15 @@ export default class CheckboxesFormArray extends Component {
         if (!tempVal[id]) {
             // value not yet checked
             tempVal[id] = true;
-            this.props.fields.push(this.props.options[id]);
+            push(options[id]);
             this.setState({
                 markedValues: [...tempVal]
             });
         } else {
             // value already checked (i.e. item to remove)
-            const itemToRemove = this.props.fields
-                .getAll()
-                .findIndex(el => el === this.props.options[id]);
+            const itemToRemove = form.values[name].findIndex(el => el === options[id]);
             tempVal[id] = false;
-            this.props.fields.remove(itemToRemove);
+            remove(itemToRemove);
             this.setState({
                 markedValues: [...tempVal]
             });
@@ -47,12 +46,6 @@ export default class CheckboxesFormArray extends Component {
     }
 
     render() {
-        const {
-            fields,
-            options,
-            meta: { error }
-        } = this.props;
-
         return (
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                 <DropdownToggle
@@ -62,14 +55,14 @@ export default class CheckboxesFormArray extends Component {
                     aria-expanded={this.state.dropdownOpen}
                     caret
                 >
-                    {fields.name}
+                    {this.props.name}
                 </DropdownToggle>
                 <DropdownMenu className="values-menu">
-                    {options.map((item, index) => (
+                    {this.props.options.map((item, index) => (
                         <CustomInput
                             onChange={this.controlMarked}
-                            key={`${fields.name + index}`}
-                            id={`${index + fields.name}`}
+                            key={`${this.props.name + index}`}
+                            id={`${index + this.props.name}`}
                             type="checkbox"
                             checked={this.state.markedValues[index]}
                             label={item}

@@ -1,6 +1,44 @@
 import React from "react";
 import { FormGroup, FormFeedback, Input } from "reactstrap";
 
+const OrgInitialValues = {
+    Name: "",
+    Email: "",
+    Password: "",
+    ConfirmPassword: "",
+    Logo: "",
+    ContactPerson: "",
+    Position: "",
+    Background: "",
+    Phone: "",
+    website: "",
+    facebook: "",
+    Languages: [],
+    PrimaryCause: "",
+    City: "",
+    Country: "",
+    agreement: false
+};
+
+const PhotographerInitialValues = {
+    Name: "",
+    Email: "",
+    Password: "",
+    ConfirmPassword: "",
+    ProfilePic: "",
+    Skill: "",
+    Biography: "",
+    Phone: "",
+    webpage: "",
+    facebook: "",
+    instagram: "",
+    Languages: [],
+    Causes: [],
+    City: "",
+    Country: "",
+    agreement: false
+};
+
 const renderField = ({ field, label, type, options, form, form: { touched, errors } }) => (
     <FormGroup>
         <label>{label}</label>
@@ -106,4 +144,4 @@ const validate = (values, props) => {
     return errors;
 };
 
-export { validate, renderField };
+export { OrgInitialValues, PhotographerInitialValues, validate, renderField };
