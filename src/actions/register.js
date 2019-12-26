@@ -22,7 +22,11 @@ export function register(userType, formProps) {
                 headers: { "Content-Type": "application/json" },
                 body:
                     userType === "photographer"
-                        ? JSON.stringify({ ...formProps, ProfilePic: imgRes.secure_url })
+                        ? JSON.stringify({
+                              ...formProps,
+                              ProfilePic: imgRes.secure_url,
+                              Photos: []
+                          })
                         : JSON.stringify({
                               ...formProps,
                               Logo: imgRes.secure_url,
