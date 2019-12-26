@@ -80,24 +80,24 @@ const validate = (values, props) => {
         errors.Email = "Invalid email address";
     }
 
-    if (values.Password !== values.ConfirmPassword) {
-        if (!props.initialValues) {
-            errors.Password = "Passwords don't match";
-        } else if (values.Password !== props.initialValues.Password) {
-            errors.Password = "Passwords don't match";
-        }
-    }
-
     if (formType === "register") {
         if (!values.Password) {
             errors.Password = "Required";
         } else if (values.Password.length < 8) {
             errors.Password = "minimum 8 characters";
         }
+        if (values.Password !== values.ConfirmPassword) {
+            errors.Password = "Passwords don't match";
+        }
         if (!values.agreement) {
             errors.agreement = "You need to click the box above";
         }
+    } else if (values.ConfirmPassword) {
+        if (values.Password !== values.ConfirmPassword) {
+            errors.Password = "Passwords don't match";
+        }
     }
+
     if (!values.City) {
         errors.City = "Required";
     }

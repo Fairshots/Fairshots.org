@@ -20,23 +20,18 @@ class UpdateProfile extends Component {
     render() {
         const { doUpdate, handleSubmit, token, initialValues, id } = this.props;
         return (
-            <Formik initialValues={initialValues}>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={(values, { setSubmitting }) => {
+                    doUpdate(this.state.userType, id, initialValues, token)(values);
+                    setSubmitting(false);
+                }}
+                validate={validate}
+            >
                 {this.state.userType === "photographer" ? (
-                    <PhotographerForm
-                        handleSubmit={handleSubmit(
-                            doUpdate(this.state.userType, id, initialValues, token)
-                        )}
-                        renderField={renderField}
-                        modalShow="update"
-                    />
+                    <PhotographerForm renderField={renderField} modalShow="update" />
                 ) : (
-                    <OrganizationForm
-                        handleSubmit={handleSubmit(
-                            doUpdate(this.state.userType, id, initialValues, token)
-                        )}
-                        renderField={renderField}
-                        modalShow="update"
-                    />
+                    <OrganizationForm renderField={renderField} modalShow="update" />
                 )}
             </Formik>
         );
