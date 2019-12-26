@@ -7,14 +7,11 @@ export function register(userType, formProps) {
         dispatch(toggleLoading());
         try {
             let imgRes = { secure_url: "/images/org-logo.png" };
-            if (
-                (formProps.ProfilePic && formProps.ProfilePic[0]) ||
-                (formProps.Logo && formProps.Logo[0])
-            ) {
+            if (formProps.ProfilePic || formProps.Logo) {
                 if (userType === "photographer") {
-                    imgRes = await sendPhotoGetUrl(formProps.ProfilePic[0], "lsofhgqb");
+                    imgRes = await sendPhotoGetUrl(formProps.ProfilePic, "lsofhgqb");
                 } else {
-                    imgRes = await sendPhotoGetUrl(formProps.Logo[0], "lsofhgqb");
+                    imgRes = await sendPhotoGetUrl(formProps.Logo, "lsofhgqb");
                 }
             }
             const config = {

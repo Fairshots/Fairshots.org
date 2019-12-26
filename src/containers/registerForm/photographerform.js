@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Field, FieldArray } from "redux-form";
-import { Form, Button } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Field, FieldArray, Form } from "formik";
+import { Button } from "reactstrap";
 import { countrylist, causes, languages } from "../../helpers/form-data-options";
-import checkboxesFormArray from "../../components/checkboxesFormArray";
+import CheckboxesFormArray from "../../components/checkboxesFormArray";
 
-export default function PhotographerForm({ handleSubmit, renderField, modalShow, profilePic }) {
+export default function PhotographerForm({ renderField, modalShow, profilePic }) {
     const [picUrl, setPicUrl] = useState("");
 
     useEffect(
@@ -15,7 +15,7 @@ export default function PhotographerForm({ handleSubmit, renderField, modalShow,
     );
 
     return (
-        <Form className="container" onSubmit={handleSubmit}>
+        <Form className="container">
             <Field name="Name" label="Name: " component={renderField} type="text" />
             <Field name="Email" label="E-mail: " component={renderField} type="Email" />
             <Field name="Password" label="Password: " component={renderField} type="Password" />
@@ -43,15 +43,14 @@ export default function PhotographerForm({ handleSubmit, renderField, modalShow,
                 className="languages"
                 name="Languages"
                 label="Languages: "
-                component={checkboxesFormArray}
-                options={languages}
+                render={formikProps => <CheckboxesFormArray {...formikProps} options={languages} />}
             />
+
             <FieldArray
                 className="causes"
                 name="Causes"
                 label="Causes: "
-                component={checkboxesFormArray}
-                options={causes}
+                render={formikProps => <CheckboxesFormArray {...formikProps} options={causes} />}
             />
             <Field name="City" label="City: " component={renderField} options={[]} type="text" />
             <Field

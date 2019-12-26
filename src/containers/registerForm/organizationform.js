@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Field, FieldArray } from "redux-form";
-import { Form, Button } from "reactstrap";
+import { Field, FieldArray, Form } from "formik";
+import { Button } from "reactstrap";
 import { countrylist, causes, languages } from "../../helpers/form-data-options";
-import checkboxesFormArray from "../../components/checkboxesFormArray";
+import CheckboxesFormArray from "../../components/checkboxesFormArray";
 
-export default function OrganizationForm({ handleSubmit, renderField, modalShow, logo }) {
+export default function OrganizationForm({ renderField, modalShow, logo }) {
     const [picUrl, setPicUrl] = useState("");
 
     useEffect(
         () => {
-            if (typeof profilePic === "string") setPicUrl(logo);
+            if (typeof logo === "string") setPicUrl(logo);
         },
         [logo]
     );
     return (
         <div>
-            <Form className="container" onSubmit={handleSubmit}>
+            <Form className="container">
                 <Field
                     name="Name"
                     label="Organization Name: "
@@ -48,13 +48,16 @@ export default function OrganizationForm({ handleSubmit, renderField, modalShow,
                 />
                 <Field name="website" label="Website: " component={renderField} type="url" />
                 <Field name="facebook" label="Facebook: " component={renderField} type="url" />
-                <FieldArray
-                    className="Languages"
-                    name="Languages"
-                    label="Languages: "
-                    component={checkboxesFormArray}
-                    options={languages}
-                />
+                {
+                    <FieldArray
+                        className="Languages"
+                        name="Languages"
+                        label="Languages: "
+                        render={formikProps => (
+                            <CheckboxesFormArray {...formikProps} options={languages} />
+                        )}
+                    />
+                }
                 <Field
                     className="Causes"
                     name="PrimaryCause"

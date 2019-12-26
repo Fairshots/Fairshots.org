@@ -1,24 +1,68 @@
 import React from "react";
 import { FormGroup, FormFeedback, Input } from "reactstrap";
 
-const renderField = ({ input, label, type, options, meta: { touched, error, warning } }) => (
+const OrgInitialValues = {
+    Name: "",
+    Email: "",
+    Password: "",
+    ConfirmPassword: "",
+    Logo: "",
+    ContactPerson: "",
+    Position: "",
+    Background: "",
+    Phone: "",
+    website: "",
+    facebook: "",
+    Languages: [],
+    PrimaryCause: "",
+    City: "",
+    Country: "",
+    agreement: false
+};
+
+const PhotographerInitialValues = {
+    Name: "",
+    Email: "",
+    Password: "",
+    ConfirmPassword: "",
+    ProfilePic: "",
+    Skill: "",
+    Biography: "",
+    Phone: "",
+    webpage: "",
+    facebook: "",
+    instagram: "",
+    Languages: [],
+    Causes: [],
+    City: "",
+    Country: "",
+    agreement: false
+};
+
+const renderField = ({ field, label, type, options, form, form: { touched, errors } }) => (
     <FormGroup>
         <label>{label}</label>
         {type === "select" ? (
-            <Input {...input} type={type} invalid={touched && error}>
+            <Input {...field} type="select" invalid={touched[field.name] && errors[field.name]}>
                 {options.map((i, index) => (
                     <option key={index}>{i}</option>
                 ))}
             </Input>
         ) : (
             <Input
-                {...input}
+                {...field}
                 type={type}
-                invalid={touched && error}
-                value={type === "file" ? undefined : input.value}
+                invalid={touched[field.name] && errors[field.name]}
+                value={type === "file" ? undefined : field.value}
+                onChange={
+                    type === "file"
+                        ? event => form.setFieldValue(field.name, event.currentTarget.files[0])
+                        : field.onChange
+                }
             />
         )}
-        {touched && (error && <FormFeedback>{error}</FormFeedback>)}
+        {touched[field.name] &&
+            (errors[field.name] && <FormFeedback>{errors[field.name]}</FormFeedback>)}
     </FormGroup>
 );
 
@@ -36,24 +80,24 @@ const validate = (values, props) => {
         errors.Email = "Invalid email address";
     }
 
-    if (values.Password !== values.ConfirmPassword) {
-        if (!props.initialValues) {
-            errors.Password = "Passwords don't match";
-        } else if (values.Password !== props.initialValues.Password) {
-            errors.Password = "Passwords don't match";
-        }
-    }
-
     if (formType === "register") {
         if (!values.Password) {
             errors.Password = "Required";
         } else if (values.Password.length < 8) {
             errors.Password = "minimum 8 characters";
         }
+        if (values.Password !== values.ConfirmPassword) {
+            errors.Password = "Passwords don't match";
+        }
         if (!values.agreement) {
             errors.agreement = "You need to click the box above";
         }
+    } else if (values.ConfirmPassword) {
+        if (values.Password !== values.ConfirmPassword) {
+            errors.Password = "Passwords don't match";
+        }
     }
+
     if (!values.City) {
         errors.City = "Required";
     }
@@ -100,4 +144,4 @@ const validate = (values, props) => {
     return errors;
 };
 
-export { validate, renderField };
+export { OrgInitialValues, PhotographerInitialValues, validate, renderField };

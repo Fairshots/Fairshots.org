@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm } from "redux-form";
+import { Formik } from "formik";
 import PhotographerForm from "../registerForm/photographerform";
 import OrganizationForm from "../registerForm/organizationform";
 import { renderField, validate } from "../registerForm/helper-functions";
@@ -20,25 +20,20 @@ class UpdateProfile extends Component {
     render() {
         const { doUpdate, handleSubmit, token, initialValues, id } = this.props;
         return (
-            <div>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={(values, { setSubmitting }) => {
+                    doUpdate(this.state.userType, id, initialValues, token)(values);
+                    setSubmitting(false);
+                }}
+                validate={validate}
+            >
                 {this.state.userType === "photographer" ? (
-                    <PhotographerForm
-                        handleSubmit={handleSubmit(
-                            doUpdate(this.state.userType, id, initialValues, token)
-                        )}
-                        renderField={renderField}
-                        modalShow="update"
-                    />
+                    <PhotographerForm renderField={renderField} modalShow="update" />
                 ) : (
-                    <OrganizationForm
-                        handleSubmit={handleSubmit(
-                            doUpdate(this.state.userType, id, initialValues, token)
-                        )}
-                        renderField={renderField}
-                        modalShow="update"
-                    />
+                    <OrganizationForm renderField={renderField} modalShow="update" />
                 )}
-            </div>
+            </Formik>
         );
     }
 }
@@ -60,13 +55,7 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-const up = reduxForm({
-    form: "registerNewForm",
-    validate,
-    enableReinitialize: true
-})(UpdateProfile);
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(up);
+)(UpdateProfile);
