@@ -40,7 +40,7 @@ export default function Main(props) {
                             width="100%"
                             height={window.innerHeight}
                             frameBorder="0"
-                            src="https://fairshots.org/stories"
+                            src="https://stories.fairshots.org"
                             style={{ top: "-60px", position: "relative" }}
                         />
                     )}
