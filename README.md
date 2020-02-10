@@ -8,7 +8,10 @@
 
 ## WHAT IS FAIRSHOTS?
 
-Simply put Fairshots is a platform that connects photographers and non-profit organizations. It makes it easy for organizations to browse and connect to photographer that are looking for world changing work, both globally and locally.
+Simply put Fairshots is a platform that connects photographers and non-profit organizations. It makes it easy for organizations to browse and connect to photographer that are looking for world changing work, both globally and locally.  
+
+## ROADMAP
+[Project Progress](https://github.com/orgs/Fairshots/projects/1)
 
 ## WHY PHOTOGRAPHY
 
