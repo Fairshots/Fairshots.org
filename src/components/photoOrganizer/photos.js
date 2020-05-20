@@ -1,4 +1,4 @@
-export const photos = [ 
+export const photos = [
     {
         src: "https://source.unsplash.com/2ShvY8Lf6l0/800x599",
         width: 1,

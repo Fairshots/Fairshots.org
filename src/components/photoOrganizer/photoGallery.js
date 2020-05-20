@@ -20,9 +20,9 @@ export default function PhotoGallery() {
 
   return (
     <div>
-       <h2>Sortable Gallery</h2>
+        <h2>Sortable Gallery</h2>
         <h3>Drag photo to rearrange</h3>
-      <SortableGallery items={items} onSortEnd={onSortEnd} axis={"xy"} />
+        <SortableGallery items={items} onSortEnd={onSortEnd} axis={"xy"} />
     </div>
   );
 }

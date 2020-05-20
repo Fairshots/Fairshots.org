@@ -155,7 +155,6 @@ class UserProfile extends Component {
                     />
                 );
             }
-<<<<<<< HEAD
             case "ORGANIZE_PHOTOS": {
                 return (
                     <>
@@ -166,9 +165,6 @@ class UserProfile extends Component {
                     </>
                 );
             }
-=======
-
->>>>>>> 768d0b9d37c46b88f05aea551a410b91096213ba
             default:
                 return undefined;
         }
