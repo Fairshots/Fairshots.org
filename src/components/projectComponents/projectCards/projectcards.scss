@@ -1,0 +1,103 @@
+@media (min-width: 768px) {
+    .proj-card-deck {
+        .card {
+            flex: 0 0 44% !important;
+            overflow: hidden;
+        }
+    }
+}
+
+@media (min-width: 1152px) {
+    .proj-card-deck {
+        .card {
+            flex: 0 0 30% !important;
+        }
+    }
+}
+.proj-card-deck {
+    justify-content: center;
+    .card {
+        flex: 0 0 100%;
+        margin: 10px !important;
+        background-color: #242424;
+        color: white;
+        box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.56);
+        border: none;
+
+        .card-img-top-holder {
+            height: 260px;
+            overflow: hidden;
+            .card-img-top {
+                height: inherit;
+                object-fit: cover;
+            }
+        }
+        .card-body {
+            z-index: 6;
+            background-color: #242424;
+        }
+        .card-title {
+            font-family: Lato, sans-serif;
+            font-size: 28px;
+            line-height: 24px;
+            font-weight: 200;
+            text-transform: capitalize;
+            text-shadow: 0 0 25px #000;
+        }
+
+        .card-subtitle {
+            font-family: Lato, sans-serif;
+            color: #fff;
+            font-size: 14px;
+            line-height: 18px;
+            font-style: italic;
+            letter-spacing: 1px;
+            text-transform: capitalize;
+            text-shadow: 1px 1px 13px #000;
+        }
+        .card-text {
+            font-family: Lato, sans-serif;
+            color: #fff;
+            font-size: 16px;
+            line-height: 21px;
+            font-style: italic;
+            font-weight: 200;
+            letter-spacing: 0px;
+            text-shadow: 0 0 23px #000;
+        }
+        .feat-pic {
+            width: 60px;
+            height: 60px;
+            margin: 10px auto;
+            float: none;
+            border: 2px solid #fff;
+            border-radius: 100%;
+            background-color: #fff;
+            background-position: 50% 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .feat-biography {
+            z-index: 5;
+            position: absolute;
+            cursor: pointer;
+            font-family: Lato, sans-serif;
+            font-size: 14px;
+            line-height: 18px;
+            font-style: italic;
+            letter-spacing: 1px;
+            text-transform: capitalize;
+            font-size: 0px;
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.4);
+                font-size: 14px;
+            }
+            height: 260px;
+            overflow: hidden;
+        }
+    }
+    p#cause-badge {
+        position: relative;
+        top: -367px;
+    }
+}

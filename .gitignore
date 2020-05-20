@@ -1,0 +1,17 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+
+# Dependency directories
+node_modules
+/dist
+
+# Optional npm cache directory
+.npm
+
+# Coverage directory used by jest
+coverage
+\.vscode/

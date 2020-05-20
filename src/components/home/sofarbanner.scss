@@ -1,0 +1,41 @@
+.so-far-banner {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    background-color: #00a651;
+}
+
+.so-far-div {
+    padding: 15px;
+    border: 1px solid #fff;
+    flex-wrap: wrap;
+}
+
+.so-far-paragraph {
+    font-family: Lato, sans-serif;
+    color: #fff;
+    font-size: 29px;
+    line-height: 36px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.updates-small-paragraph {
+    display: inline;
+    float: left;
+    font-family: Lato, sans-serif;
+    color: #fff;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+    .so-far-paragraph {
+        font-size: 21px;
+    }
+    .updates-small-paragraph {
+        font-size: 14px;
+    }
+}

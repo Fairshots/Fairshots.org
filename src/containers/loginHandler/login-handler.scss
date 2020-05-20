@@ -1,0 +1,48 @@
+.login-handler {
+    .loglog {
+        color: white !important;
+    }
+    .profileNav.loglog:hover {
+        background-color: #00a651;
+    }
+    .profileNav.loglog:focus {
+        background-color: #00a651;
+    }
+
+    a {
+        color: white;
+        &.general-paragraph {
+            color: darkgreen;
+        }
+    }
+
+    .f-dropdown-link {
+        font-family: Lato, sans-serif;
+        font-size: 15px;
+        font-weight: 100;
+        text-transform: uppercase;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+        white-space: nowrap;
+        padding: 10px 20px;
+        display: block;
+        -webkit-transition: background-color 200ms ease;
+        transition: background-color 200ms ease;
+        color: #fff;
+        background-color: #444;
+    }
+    .f-dropdown-link:hover {
+        background-color: #00a651;
+    }
+    .f-dropdown-menu {
+        background-color: #444;
+    }
+}
+
+img.rounded-circle {
+    height: 35px;
+    width: 35px;
+    padding: 0px;
+    object-fit: cover;
+}

@@ -1,0 +1,38 @@
+@mixin equalBg {
+    background-color: #fff !important;
+    border: 1px solid #ced4da !important;
+    font-family: Lato, sans-serif !important;
+    color: #00a651 !important;
+}
+
+button.cbformArray {
+    width: 100%;
+    @include equalBg();
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    &:hover {
+        @include equalBg();
+    }
+    &:active {
+        @include equalBg();
+    }
+}
+
+.values-menu.dropdown-menu.show {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2%;
+
+    .custom-control {
+        margin-right: 1.5rem;
+
+        label.custom-control-label {
+            color: #212529;
+            text-transform: none;
+        }
+    }
+}

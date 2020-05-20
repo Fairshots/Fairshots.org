@@ -1,0 +1,68 @@
+.navbar.navbar-dark {
+    position: fixed;
+    width: 100%;
+    background-color: #444;
+    font-family: Lato, sans-serif;
+    color: #fff;
+    font-weight: 300;
+    z-index: 10;
+    height: 60px;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    a.navbar-brand {
+        @media (max-width: 768px) {
+            width: 200px;
+        }
+    }
+
+    a {
+        color: white;
+    }
+
+    .navbarlink {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 300;
+        text-transform: uppercase;
+        @media (max-width: 768px) {
+            width: 100%;
+        }
+        .nav-link {
+            -webkit-transition: background-color 500ms ease;
+            transition: background-color 500ms ease;
+        }
+        .nav-link:hover {
+            background-color: #00a651;
+        }
+    }
+
+    .n-dropdown-link {
+        font-family: Lato, sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+        white-space: nowrap;
+        padding: 10px 20px;
+        display: block;
+        -webkit-transition: background-color 200ms ease;
+        transition: background-color 200ms ease;
+        color: #fff;
+        background-color: #444;
+    }
+    .n-dropdown-link:hover {
+        background-color: #00a651;
+    }
+    .n-dropdown-menu {
+        background-color: #444;
+    }
+
+    #navbarCollapse3 {
+        @media (max-width: 768px) {
+            background-color: #444;
+        }
+    }
+}
