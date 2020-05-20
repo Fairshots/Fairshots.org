@@ -28,10 +28,7 @@
     "homepage": "https://github.com/Fairshots/Fairshots.org#readme",
     "dependencies": {
         "@babel/runtime-corejs2": "^7.4.5",
-<<<<<<< HEAD
         "array-move": "^2.2.1",
-=======
->>>>>>> 768d0b9d37c46b88f05aea551a410b91096213ba
         "auth0-js": "^9.11.2",
         "bootstrap": "^4.3.1",
         "formik": "^2.0.8",
@@ -39,17 +36,11 @@
         "react-dom": "^16.8.6",
         "react-icons": "^3.6.1",
         "react-image-gallery": "^0.9.1",
-<<<<<<< HEAD
         "react-photo-gallery": "^8.0.0",
         "react-redux": "^5.0.7",
         "react-router-dom": "^5.1.2",
         "react-social-login-buttons": "^2.3.1",
         "react-sortable-hoc": "^1.11.0",
-=======
-        "react-redux": "^5.0.7",
-        "react-router-dom": "^5.1.2",
-        "react-social-login-buttons": "^2.3.1",
->>>>>>> 768d0b9d37c46b88f05aea551a410b91096213ba
         "reactstrap": "^8.0.0",
         "redux": "^4.0.0",
         "redux-thunk": "^2.3.0"
