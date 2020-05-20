@@ -55,12 +55,15 @@ export default function PhotogProfile({
                                 >
                                     Upload Photos
                                 </Button>
+<<<<<<< HEAD
                                 <Button
                                     color="success w-75 mb-2"
                                     onClick={() => toggleModal("ORGANIZE_PHOTOS")}
                                 >
                                     Organize Photos
                                 </Button>
+=======
+>>>>>>> 768d0b9d37c46b88f05aea551a410b91096213ba
                             </div>
                         )}
                         <div className="col-lg-9">

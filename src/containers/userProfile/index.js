@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+<<<<<<< HEAD
 import { Modal, ModalBody, Button } from "reactstrap";
+=======
+import { Modal, ModalBody } from "reactstrap";
+>>>>>>> 768d0b9d37c46b88f05aea551a410b91096213ba
 import { withRouter } from "react-router-dom";
 import { getProfile, getOneFromAll, uploadPhoto, delPhoto, sendMessage } from "../../actions";
 import UpdateProfile from "./updateProfile";
@@ -8,8 +12,11 @@ import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
 import { MailForm } from "../../components/contact";
 import DeletePhoto from "./deletephoto";
+<<<<<<< HEAD
 import PhotoGallery from "../../components/photoOrganizer/photoGallery";
 import photos from "../../components/photoOrganizer/photos";
+=======
+>>>>>>> 768d0b9d37c46b88f05aea551a410b91096213ba
 
 import "./userProfile.scss";
 
@@ -115,7 +122,10 @@ class UserProfile extends Component {
                 params: { userType, userId }
             },
             token,
+<<<<<<< HEAD
             userProfile,
+=======
+>>>>>>> 768d0b9d37c46b88f05aea551a410b91096213ba
             authId,
             doDelPhoto,
             messaging,
@@ -145,6 +155,7 @@ class UserProfile extends Component {
                     />
                 );
             }
+<<<<<<< HEAD
             case "ORGANIZE_PHOTOS": {
                 return (
                     <>
@@ -155,6 +166,9 @@ class UserProfile extends Component {
                     </>
                 );
             }
+=======
+
+>>>>>>> 768d0b9d37c46b88f05aea551a410b91096213ba
             default:
                 return undefined;
         }
