@@ -2,14 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody, Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
-import { getProfile, getOneFromAll, uploadPhoto, delPhoto, sendMessage } from "../../actions";
+import {
+    getProfile,
+    getOneFromAll,
+    uploadPhoto,
+    delPhoto,
+    sendMessage,
+    updPhotoOrd
+} from "../../actions";
 import UpdateProfile from "./updateProfile";
 import OrgProfile from "../../components/orgProfile";
 import PhotogProfile from "../../components/photogProfile";
 import { MailForm } from "../../components/contact";
 import DeletePhoto from "./deletephoto";
 import PhotoGallery from "../../components/photoOrganizer/photoGallery";
-import photos from "../../components/photoOrganizer/photos";
 
 import "./userProfile.scss";
 
@@ -29,6 +35,7 @@ class UserProfile extends Component {
             thirdParty: false,
             profileToLoad: {}
         };
+
         this.toggleModal = this.toggleModal.bind(this);
     }
 
@@ -119,8 +126,10 @@ class UserProfile extends Component {
             authId,
             doDelPhoto,
             messaging,
-            doSendMessage
+            doSendMessage,
+            doUpdatePhotoOrder
         } = this.props;
+
         switch (type) {
             case "UPDATE_PROFILE": {
                 return <UpdateProfile />;
@@ -146,13 +155,52 @@ class UserProfile extends Component {
                 );
             }
             case "ORGANIZE_PHOTOS": {
+                const sortedPhotos = userProfile.Photos.sort((a, b) =>
+                    a.portfolioOrder > b.portfolioOrder ? 1 : -1
+                );
+                const indexes = sortedPhotos.map(photo => photo.portfolioOrder);
+
+                this.setIndexes = function(oldIdx, newIdx) {
+                    const temp = indexes[oldIdx];
+                    indexes[oldIdx] = indexes[newIdx];
+                    indexes[newIdx] = temp;
+                };
                 return (
-                    <>
-                        <PhotoGallery photos={photos} />
-                        <Button color="success w-75 mb-2" onClick={() => {}}>
-                            Update
-                        </Button>
-                    </>
+                    <div>
+                        <PhotoGallery
+                            photos={sortedPhotos.map(photo => ({
+                                src: photo.cloudlink,
+                                width: 1,
+                                height: 1
+                            }))}
+                            setIdxs={this.setIndexes}
+                        />
+
+                        <div className="d-flex">
+                            <Button
+                                color="success w-75 mb-2"
+                                onClick={() => {
+                                    doUpdatePhotoOrder(
+                                        userType,
+                                        userId,
+                                        token,
+                                        sortedPhotos,
+                                        indexes
+                                    );
+                                    this.toggleModal("ORGANIZE_PHOTOS");
+                                }}
+                            >
+                                Update
+                            </Button>
+
+                            <Button
+                                color="success w-75 mb-2"
+                                onClick={() => this.toggleModal("ORGANIZE_PHOTOS")}
+                            >
+                                Cancel
+                            </Button>
+                        </div>
+                    </div>
                 );
             }
             default:
@@ -233,7 +281,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(delPhoto(userType, id, token, photoItem)),
 
     doSendMessage: (fromId, toId, token, subject, message) =>
-        dispatch(sendMessage(fromId, toId, subject, message, token))
+        dispatch(sendMessage(fromId, toId, subject, message, token)),
+
+    doUpdatePhotoOrder: (userType, id, token, photos, orderList) =>
+        dispatch(updPhotoOrd(userType, id, token, photos, orderList))
 });
 
 export default withRouter(

@@ -1,3 +1,5 @@
+import initPhotoOrders from "../helpers/initPhotoOrders";
+
 export default function profile(state = {}, action) {
     console.log(action);
     switch (action.type) {
@@ -7,8 +9,11 @@ export default function profile(state = {}, action) {
             });
         }
         case "GET_PROFILE": {
+            const { Photos, ...rest } = action.payload;
+            initPhotoOrders(Photos);
             return Object.assign({}, state, {
-                ...action.payload,
+                Photos,
+                ...rest,
                 error: false
             });
         }
@@ -25,12 +30,21 @@ export default function profile(state = {}, action) {
             return Object.assign({}, state, {
                 Photos: [
                     ...state.Photos,
-                    { id: action.payload[0].id, cloudlink: action.payload[0].cloudlink }
+                    {
+                        id: action.payload[0].id,
+                        cloudlink: action.payload[0].cloudlink,
+                        portfolioOrder: action.payload[0].portfolioOrder
+                    }
                 ],
                 error: false
             });
         }
-
+        case "PROFILE_PHOTO_ORDER_UPDATED": {
+            return Object.assign({}, state, {
+                Photos: [...action.payload],
+                error: false
+            });
+        }
         case "PROFILE_PHOTO_DELETED": {
             const photosArray = state.Photos.filter((el, i) => el.id !== action.payload.id);
             console.log(photosArray);
