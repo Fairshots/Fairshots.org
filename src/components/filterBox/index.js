@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Form, FormGroup, Label, Input } from "reactstrap";
+import Aux from '../../helpers/hoc/Aux/Aux';
 
 import "./filterbox.scss";
 
@@ -36,7 +37,24 @@ const FilterBox = ({
                 <Col style={{ display: "none" }} />
             )}
             {/* Active when database is available for the following: */}
-            <Col sm={2} className="d-inline-flex">
+            {cause ? (
+                <Col sm={2} className="d-inline-flex">
+                    <Input
+                        type="select"
+                        value={currentCause}
+                        name="select"
+                        onChange={handleChange}
+                        id="selectCause"
+                    >
+                    {cause.map(o => (
+                        <option>{o}</option>
+                        ))}
+                    </Input>
+                </Col>
+            ) : (
+                <Col style={{ display: "none" }} />
+            )}
+            {/* <Col sm={2} className="d-inline-flex">
                 <Input
                     type="select"
                     value={currentCause}
@@ -48,45 +66,55 @@ const FilterBox = ({
                         <option>{o}</option>
                     ))}
                 </Input>
-            </Col>
-            <Col sm={2} className="d-inline-flex">
-                <Input
-                    type="select"
-                    value={currentLanguage}
-                    name="select"
-                    onChange={handleChange}
-                    id="selectLanguage"
-                >
-                    {language.map(o => (
-                        <option>{o}</option>
-                    ))}
-                </Input>
-            </Col>
-            <Col sm={2} className="d-inline-flex">
-                {/* <Label for="exampleSelect">Filter by:</Label> */}
+            </Col> */}
+            {language ? (
+                <Col sm={2} className="d-inline-flex">
+                    <Input
+                        type="select"
+                        value={currentLanguage}
+                        name="select"
+                        onChange={handleChange}
+                        id="selectLanguage"
+                    >
+                        {language.map(o => (
+                            <option>{o}</option>
+                        ))}
+                    </Input>
+                </Col>
+            ) : (
+                <Col style={{ display: "none" }} />
+            )}
+            {options ? (
+                <Aux>
+                    <Col sm={2} className="d-inline-flex">
+                        {/* <Label for="exampleSelect">Filter by:</Label> */}
 
-                <Input
-                    type="select"
-                    value={select}
-                    name="select"
-                    onChange={handleChange}
-                    id="filterSelect"
-                >
-                    {options.map(o => (
-                        <option>{o}</option>
-                    ))}
-                </Input>
-            </Col>
-            <Col sm={2}>
-                <Input
-                    type="text"
-                    value={condition}
-                    name="condition"
-                    onChange={handleChange}
-                    id="filter"
-                    placeholder="Filter"
-                />
-            </Col>
+                        <Input
+                            type="select"
+                            value={select}
+                            name="select"
+                            onChange={handleChange}
+                            id="filterSelect"
+                        >
+                            {options.map(o => (
+                                <option>{o}</option>
+                            ))}
+                        </Input>
+                    </Col>
+                    <Col sm={2}>
+                        <Input
+                            type="text"
+                            value={condition}
+                            name="condition"
+                            onChange={handleChange}
+                            id="filter"
+                            placeholder="Filter"
+                        />
+                    </Col>
+                </Aux>
+            ) : (
+                <Col style={{ display: "none" }} />
+            )}
         </FormGroup>
     </Form>
 );
