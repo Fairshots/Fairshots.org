@@ -5,7 +5,7 @@ import { Spinner, Pagination } from "reactstrap";
 import { getAllPhotographers } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 import FilterBox from "../../components/filterBox";
-import FilterModal from "../../components/filterBox/filterModal/filterModal";
+// import FilterModal from "../../components/filterBox/filterModal/filterModal";
 import PaginationItem from "../../components/pagination/index";
 import { causes, languages } from "../../helpers/form-data-options";
 
