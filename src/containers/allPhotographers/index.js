@@ -246,18 +246,6 @@ class AllPhotographers extends Component {
         }
         return (
             <div>
-                {/* <FilterModal
-                    locationValue={this.state.locationValue}
-                    filterChanges={this.handleChange}
-                    value={this.state.condition}
-                    typeValue={this.state.typeValue}
-                    interestValue={this.state.interestValue}
-                    languageValue={this.state.languageValue}
-                    changeHandler={this.changeHandler}
-                    locationInput={this.state.locationInput}
-                    filterResults={e => this.filterResults(e)}
-                    
-                /> */}
                 {this.props.token ? (
                     <FilterBox
                         options={["Name", "Country", "City", "Region"]}
@@ -274,7 +262,7 @@ class AllPhotographers extends Component {
                         // location={["Country", "Region", "City"]}
                     />
                 ) : (
-                    <p />
+                    <FilterBox select={this.state.select} options={["Name", "Country"]} />
                 )}
                 <h2 className="feautured-h3">Featured Photographers </h2>
                 <Pagination>
