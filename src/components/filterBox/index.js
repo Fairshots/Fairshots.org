@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Form, FormGroup, Label, Input } from "reactstrap";
-import Aux from '../../helpers/hoc/Aux/Aux';
+import Aux from "../../helpers/hoc/Aux/Aux";
 
 import "./filterbox.scss";
 
