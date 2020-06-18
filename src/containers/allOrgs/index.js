@@ -244,20 +244,24 @@ class AllOrgs extends Component {
                     condition={this.state.condition}
                     handleChange={this.handleChange}
                 /> */}
-                <FilterBox
-                    options={["Name", "Country", "City", "Region"]}
-                    select={this.state.select}
-                    condition={this.state.condition}
-                    handleChange={this.handleChange}
-                    currentType={this.state.typeValue}
-                    // currentLanguage={this.state.languageValue}
-                    // currentLocation={this.state.locationValue}
-                    currentCause={this.state.primaryCause}
-                    // type={["All", "Professional", "Amateur", "Student"]}
-                    cause={causes}
-                    language={languages}
-                    // location={["Country", "Region", "City"]}
-                />
+                {this.props.token ? (
+                    <FilterBox
+                        options={["Name", "Country", "City", "Region"]}
+                        select={this.state.select}
+                        condition={this.state.condition}
+                        handleChange={this.handleChange}
+                        currentType={this.state.typeValue}
+                        // currentLanguage={this.state.languageValue}
+                        // currentLocation={this.state.locationValue}
+                        currentCause={this.state.primaryCause}
+                        // type={["All", "Professional", "Amateur", "Student"]}
+                        cause={causes}
+                        language={languages}
+                        // location={["Country", "Region", "City"]}
+                    />
+                ) : (
+                    <FilterBox select={this.state.select} options={["Name", "Country"]} />
+                )}
                 <h2 className="feautured-h3">Featured Organizations </h2>
                 <Pagination>
                     {this.state.pages.map((el, i) => (
