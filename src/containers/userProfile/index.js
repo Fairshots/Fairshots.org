@@ -112,6 +112,23 @@ class UserProfile extends Component {
         }));
     }
 
+    orderChanged(photos) {
+        let result = false;
+        this.props.userProfile.Photos.forEach(val => {
+            if (
+                !photos.find(
+                    curVal =>
+                        curVal.id === val.id &&
+                        curVal.cloudlink === val.cloudlink &&
+                        curVal.portfolioOrder === val.portfolioOrder
+                )
+            ) {
+                result = true;
+            }
+        });
+        return result;
+    }
+
     /**
      * Controls which type of content to load inside Modal asked to be open
      * @param {*} type
@@ -156,8 +173,9 @@ class UserProfile extends Component {
             }
             case "ORGANIZE_PHOTOS": {
                 const sortedPhotos = userProfile.Photos.sort((a, b) =>
-                    a.portfolioOrder > b.portfolioOrder ? 1 : -1
+                    a.portfolioOrder >= b.portfolioOrder ? 1 : -1
                 );
+
                 const indexes = sortedPhotos.map(photo => photo.portfolioOrder);
 
                 this.setIndexes = function(oldIdx, newIdx) {
@@ -180,14 +198,15 @@ class UserProfile extends Component {
                             <Button
                                 color="success w-75 mb-2"
                                 onClick={() => {
-                                    doUpdatePhotoOrder(
-                                        userType,
-                                        userId,
-                                        token,
-                                        sortedPhotos,
-                                        indexes
-                                    );
-                                    this.toggleModal("ORGANIZE_PHOTOS");
+                                    const resArr = sortedPhotos.map((val, idx) => ({
+                                        id: val.id,
+                                        cloudlink: val.cloudlink,
+                                        portfolioOrder: indexes[idx]
+                                    }));
+                                    if (this.orderChanged(resArr)) {
+                                        doUpdatePhotoOrder(userType, userId, token, resArr);
+                                        this.toggleModal("ORGANIZE_PHOTOS", "");
+                                    }
                                 }}
                             >
                                 Update
@@ -195,7 +214,7 @@ class UserProfile extends Component {
 
                             <Button
                                 color="success w-75 mb-2"
-                                onClick={() => this.toggleModal("ORGANIZE_PHOTOS")}
+                                onClick={() => this.toggleModal("ORGANIZE_PHOTOS", "")}
                             >
                                 Cancel
                             </Button>
@@ -283,8 +302,8 @@ const mapDispatchToProps = dispatch => ({
     doSendMessage: (fromId, toId, token, subject, message) =>
         dispatch(sendMessage(fromId, toId, subject, message, token)),
 
-    doUpdatePhotoOrder: (userType, id, token, photos, orderList) =>
-        dispatch(updPhotoOrd(userType, id, token, photos, orderList))
+    doUpdatePhotoOrder: (userType, id, token, photos) =>
+        dispatch(updPhotoOrd(userType, id, token, photos))
 });
 
 export default withRouter(

@@ -85,7 +85,7 @@ export function delPhoto(userType, id, token, photoItem) {
     };
 }
 
-export function updPhotoOrd(userType, id, token, photos, orderList) {
+export function updPhotoOrd(userType, id, token, photos) {
     return async dispatch => {
         try {
             const config = {
@@ -95,11 +95,11 @@ export function updPhotoOrd(userType, id, token, photos, orderList) {
                     Authorization: `bearer ${token}`
                 },
                 body: JSON.stringify(
-                    photos.map((photo, idx) => ({ id: photo.id, order: orderList[idx] }))
+                    photos.map(photo => ({ id: photo.id, order: photo.portfolioOrder }))
                 )
             };
             dispatch(toggleLoading());
-            const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photoOrdering`, config);
+            const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/orderphotos`, config);
             if (res.ok) {
                 const ret = await res.json();
                 console.log(ret);
@@ -108,18 +108,15 @@ export function updPhotoOrd(userType, id, token, photos, orderList) {
                         userType === "project"
                             ? "PHOTO_ORDER_UPDATED"
                             : "PROFILE_PHOTO_ORDER_UPDATED",
-                    payload: photos.map((photo, idx) => [
-                        { ...photo, portfolioOrder: orderList[idx] }
-                    ])
+                    payload: photos
                 });
-                // dispatch(toggleLoading());
             } else throw await res.text();
         } catch (e) {
             dispatch({
                 type: userType === "project" ? "PROJECT_ERROR" : "PROFILE_ERROR",
                 payload: e
             });
-            // dispatch(toggleLoading());
         }
+        dispatch(toggleLoading());
     };
 }

@@ -41,8 +41,7 @@ export default function profile(state = {}, action) {
         }
         case "PROFILE_PHOTO_ORDER_UPDATED": {
             return Object.assign({}, state, {
-                Photos: [...action.payload],
-                error: false
+                Photos: [...action.payload]
             });
         }
         case "PROFILE_PHOTO_DELETED": {
