@@ -1,6 +1,5 @@
 import React from "react";
-import { Col, Form, FormGroup, Label, Input } from "reactstrap";
-import Aux from "../../helpers/hoc/Aux/Aux";
+import { Col, Form, FormGroup, Input } from "reactstrap";
 
 import "./filterbox.scss";
 
@@ -29,7 +28,7 @@ const FilterBox = ({
                         id="selectType"
                     >
                         {type.map(o => (
-                            <option>{o}</option>
+                            <option key={o}>{o}</option>
                         ))}
                     </Input>
                 </Col>
@@ -47,7 +46,7 @@ const FilterBox = ({
                         id="selectCause"
                     >
                     {cause.map(o => (
-                        <option>{o}</option>
+                        <option key={o}>{o}</option>
                         ))}
                     </Input>
                 </Col>
@@ -77,7 +76,7 @@ const FilterBox = ({
                         id="selectLanguage"
                     >
                         {language.map(o => (
-                            <option>{o}</option>
+                            <option key={o}>{o}</option>
                         ))}
                     </Input>
                 </Col>
@@ -85,7 +84,7 @@ const FilterBox = ({
                 <Col style={{ display: "none" }} />
             )}
             {options ? (
-                <Aux>
+                <React.Fragment>
                     <Col sm={2} className="d-inline-flex">
                         {/* <Label for="exampleSelect">Filter by:</Label> */}
 
@@ -97,7 +96,7 @@ const FilterBox = ({
                             id="filterSelect"
                         >
                             {options.map(o => (
-                                <option>{o}</option>
+                                <option key={o}>{o}</option>
                             ))}
                         </Input>
                     </Col>
@@ -111,7 +110,7 @@ const FilterBox = ({
                             placeholder="Filter"
                         />
                     </Col>
-                </Aux>
+                </React.Fragment>
             ) : (
                 <Col style={{ display: "none" }} />
             )}
