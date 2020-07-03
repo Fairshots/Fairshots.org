@@ -21,6 +21,7 @@ class AllOrgs extends Component {
         select: "Name",
         condition: "",
         primaryCause: "",
+        languages: "",
         dataFilteredFeat: null,
         dataFilteredMore: null,
         pages: [10, 30, 50, 100]
@@ -34,29 +35,24 @@ class AllOrgs extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.primaryCause !== prevState.primaryCause) {
-            this.filterByCause("PrimaryCause", this.state.primaryCause);
-        } else if (this.state.condition !== prevState.condition) {
-            this.filterOrgs(this.state.select, this.state.condition);
+        if (
+            this.state.primaryCause !== prevState.primaryCause ||
+            this.state.languages !== prevState.languages ||
+            this.state.condition !== prevState.condition
+        ) {
+            this.filteringData();
         }
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.condition !== prevState.condition) {
-    //         this.filterOrgs(this.state.select, this.state.condition);
-    //     }
-    // }
-
     handleChange = event => {
         event.preventDefault();
-        console.log(event.target.id, event.target.value);
         let selected = null;
         switch (event.target.id) {
             case "selectCause":
                 selected = "primaryCause";
                 break;
             case "selectLanguage":
-                selected = "languageValue";
+                selected = "languages";
                 break;
             case "filterSelect":
                 selected = "select";
@@ -68,20 +64,13 @@ class AllOrgs extends Component {
                 break;
         }
         if (selected) {
-            console.log(selected);
             this.setState({ [selected]: event.target.value });
         }
     };
 
-    // handleChange = event => {
-    //     event.preventDefault();
-    //     this.setState({ [event.target.name]: event.target.value });
-    // };
-
     separateOrgs = () => {
         const { allOrgs } = this.props;
         const allOrgArray = Object.values(allOrgs);
-        console.log(allOrgArray);
         if (allOrgArray.length > 0) {
             const featuredOrgs = allOrgArray.filter(el => el && el.featured);
             const moreOrgs = allOrgArray.filter(el => el && !el.featured);
@@ -94,78 +83,58 @@ class AllOrgs extends Component {
         }
     };
 
-    filterByCause = (type, value) => {
-        let filterDataMore = null;
-        let filterDataFeat = null;
-        if (value === "All") {
-            filterDataFeat = null;
-            filterDataMore = null;
-        } else {
-            filterDataFeat = this.state.featuredOrgs.map(org =>
-                org[type].filter(ca => ca.toLowerCase() === value.toLowerCase())
-            );
-            filterDataMore = this.state.moreOrgs.map(org =>
-                org[type].filter(ca => ca.toLowerCase() === value.toLowerCase())
-            );
-        }
-        this.setState({
-            dataFilteredFeat: filterDataFeat,
-            dataFilteredMore: filterDataMore
+    filteringData = () => {
+        let filteredItemsFeat = this.state.featuredOrgs;
+        let filteredItemsMore = this.state.moreOrgs;
+        const { state } = this;
+        const filterProperties = ["primaryCause", "languages", "condition"];
+        filterProperties.forEach(filterBy => {
+            const filterValue = state[filterBy];
+            if (filterValue) {
+                if (filterBy === "languages") {
+                    console.log("hey")
+                    filteredItemsFeat = filteredItemsFeat.filter(item =>
+                        item.Languages
+                            ? item.Languages.find(
+                                  i => i.toLowerCase() === filterValue.toLowerCase()
+                              )
+                            : true
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(item =>
+                        item.Languages
+                            ? item.Languages.find(
+                                  l => l.toLowerCase() === filterValue.toLowerCase()
+                              )
+                            : true
+                    );
+                }
+                if (filterBy === "primaryCause") {
+                    filteredItemsFeat = filteredItemsFeat.filter(
+                        item => item.PrimaryCause === filterValue
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(
+                        item => item.PrimaryCause === filterValue
+                    );
+                }
+                if (filterBy === "condition") {
+                    filteredItemsFeat = filteredItemsFeat.filter(item =>
+                        item[this.state.select].toLowerCase().includes(filterValue.toLowerCase())
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(item =>
+                        item[this.state.select].toLowerCase().includes(filterValue.toLowerCase())
+                    );
+                }
+            }
+            this.setState({
+                ...state,
+                dataFilteredFeat: filteredItemsFeat,
+                dataFilteredMore: filteredItemsMore
+            });
         });
     };
 
-    filterOrgs = (option, value) => {
-        console.log(option);
-        console.log(value);
-        // If it has already been filtered by skill
-        if (this.state.primaryCause !== "All" || !this.state.primaryCause) {
-            // Copy of the full array for each section
-            const featFilterCopy = this.state.featuredOrgs;
-            // .filter(
-            //     el => el.PrimaryCause === this.state.primaryCause
-            // );
-            console.log(featFilterCopy);
-            const moreFilterCopy = this.state.moreOrgs;
-            // .filter(
-            //     el => el.PrimaryCause === this.state.primaryCause
-            // );
-            // Set state with new filtered values with the values previously filtered
-            this.setState({
-                dataFilteredFeat: featFilterCopy.filter(el =>
-                    el[option].toLowerCase().includes(value.toLowerCase())
-                ),
-                dataFilteredMore: moreFilterCopy.filter(el =>
-                    el[option].toLowerCase().includes(value.toLowerCase())
-                )
-            });
-        } else {
-            this.setState({
-                ...this.state,
-                filteredFeatOrgs: this.state.featuredOrgs.filter(el =>
-                    el[option].toLowerCase().includes(value.toLowerCase())
-                ),
-                filteredMoreOrgs: this.state.moreOrgs.filter(el =>
-                    el[option].toLowerCase().includes(value.toLowerCase())
-                )
-            });
-        }
-    };
-
-    // filterOrgs = (field, condition) => {
-    //     this.setState({
-    //         filteredFeatOrgs: this.state.featuredOrgs.filter(el =>
-    //             el[field].toLowerCase().includes(condition.toLowerCase())
-    //         ),
-    //         filteredMoreOrgs: this.state.moreOrgs.filter(el =>
-    //             el[field].toLowerCase().includes(condition.toLowerCase())
-    //         )
-    //     });
-    // };
-
     pageHandler = (e, type) => {
         e.preventDefault();
-        console.log(type);
-        console.log(e.target.id);
         let filterId = null;
         switch (e.target.id) {
             case "10":
@@ -191,7 +160,7 @@ class AllOrgs extends Component {
 
     changePageHandler = (pageNumber, type) => {
         if (type === "more") {
-            if (this.state.primaryCause === "" || this.state.primaryCause === "All") {
+            if (!this.state.dataFilteredMore) {
                 this.setState({
                     filteredMoreOrgs: this.state.moreOrgs.slice(0, pageNumber)
                 });
@@ -201,7 +170,7 @@ class AllOrgs extends Component {
                 });
             }
         } else if (type === "featured") {
-            if (this.state.primaryCause === "" || this.state.primaryCause === "All") {
+            if (!this.state.dataFilteredFeat) {
                 this.setState({
                     filteredFeatOrgs: this.state.featuredOrgs.slice(0, pageNumber)
                 });
@@ -210,9 +179,6 @@ class AllOrgs extends Component {
                     dataFilteredFeat: this.state.dataFilteredFeat.slice(0, pageNumber)
                 });
             }
-            // this.setState({
-            //     filteredFeatPhotographers: this.state.featuredPhotographers.slice(0, pageNumber)
-            // });
         }
     };
 
@@ -238,12 +204,6 @@ class AllOrgs extends Component {
 
         return (
             <div>
-                {/* <FilterBox
-                    options={["Name", "Country"]}
-                    select={this.state.select}
-                    condition={this.state.condition}
-                    handleChange={this.handleChange}
-                /> */}
                 {this.props.token ? (
                     <FilterBox
                         options={["Name", "Country", "City", "Region"]}
@@ -251,22 +211,22 @@ class AllOrgs extends Component {
                         condition={this.state.condition}
                         handleChange={this.handleChange}
                         currentType={this.state.typeValue}
-                        // currentLanguage={this.state.languageValue}
-                        // currentLocation={this.state.locationValue}
                         currentCause={this.state.primaryCause}
-                        // type={["All", "Professional", "Amateur", "Student"]}
                         cause={causes}
                         language={languages}
-                        // location={["Country", "Region", "City"]}
                     />
                 ) : (
-                    <FilterBox select={this.state.select} options={["Name", "Country"]} />
+                    <FilterBox
+                        handleChange={this.handleChange}
+                        select={this.state.select}
+                        options={["Name", "Country"]}
+                    />
                 )}
                 <h2 className="feautured-h3">Featured Organizations </h2>
                 <Pagination>
-                    {this.state.pages.map((el, i) => (
+                    {this.state.pages.map(el => (
                         <PaginationItem
-                            key={i}
+                            key={el}
                             pageNumber={el}
                             onClick={e => this.pageHandler(e, "featured")}
                             id={el}
@@ -286,9 +246,9 @@ class AllOrgs extends Component {
                 )}
                 <h2 className="feautured-h3">More Organizations </h2>
                 <Pagination>
-                    {this.state.pages.map((el, i) => (
+                    {this.state.pages.map(el => (
                         <PaginationItem
-                            key={i}
+                            key={el}
                             pageNumber={el}
                             onClick={e => this.pageHandler(e, "featured")}
                             id={el}

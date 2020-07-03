@@ -5,7 +5,6 @@ import { Spinner, Pagination } from "reactstrap";
 import { getAllPhotographers } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 import FilterBox from "../../components/filterBox";
-// import FilterModal from "../../components/filterBox/filterModal/filterModal";
 import PaginationItem from "../../components/pagination/index";
 import { causes, languages } from "../../helpers/form-data-options";
 
@@ -23,8 +22,8 @@ class AllPhotographers extends Component {
         select: "Name",
         condition: "",
         pages: [10, 30, 50, 100],
-        languageValue: "",
-        interestValue: "",
+        languages: "",
+        cause: "",
         skill: "",
         locationInput: "",
         dataFilteredFeat: null,
@@ -39,18 +38,15 @@ class AllPhotographers extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.skill !== prevState.skill) {
-            this.filterByType("Skill", this.state.skill);
-        } else if (this.state.condition !== prevState.condition) {
-            this.filterPhotographers(this.state.select, this.state.condition);
+        if (
+            this.state.skill !== prevState.skill ||
+            this.state.languages !== prevState.languages ||
+            this.state.cause !== prevState.cause ||
+            this.state.condition !== prevState.condition
+        ) {
+            this.filteringData();
         }
     }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.condition !== prevState.condition) {
-    //         this.filterPhotographers(this.state.select, this.state.condition);
-    //     }
-    // }
 
     handleChange = event => {
         event.preventDefault();
@@ -61,10 +57,10 @@ class AllPhotographers extends Component {
                 selected = "skill";
                 break;
             case "selectCause":
-                selected = "interestValue";
+                selected = "cause";
                 break;
             case "selectLanguage":
-                selected = "languageValue";
+                selected = "languages";
                 break;
             case "filterSelect":
                 selected = "select";
@@ -97,84 +93,62 @@ class AllPhotographers extends Component {
         }
     };
 
-    filterByType = (type, value) => {
-        let filterDataMore = null;
-        let filterDataFeat = null;
-        if (value === "All") {
-            filterDataFeat = null;
-            filterDataMore = null;
-        } else {
-            filterDataFeat = this.state.featuredPhotographers.filter(item => item[type] === value);
-            filterDataMore = this.state.morePhotographers.filter(item => item[type] === value);
-            console.log(this.state);
-        }
-        // else if (value === "Professional" || value === "Amateur" || value === "Student") {
-        //     filterDataFeat = this.state.featuredPhotographers.filter(item => item[type] === value);
-        //     filterDataMore = this.state.morePhotographers.filter(item => item[type] === value);
-        //     console.log(this.state);
-        // }
-        this.setState({
-            dataFilteredFeat: filterDataFeat,
-            dataFilteredMore: filterDataMore
+    filteringData = () => {
+        let filteredItemsFeat = this.state.featuredPhotographers;
+        let filteredItemsMore = this.state.morePhotographers;
+        const { state } = this;
+        const filterProperties = ["skill", "languages", "cause", "condition"];
+        filterProperties.forEach(filterBy => {
+            const filterValue = state[filterBy];
+            if (filterValue) {
+                if (filterBy === "languages") {
+                    filteredItemsFeat = filteredItemsFeat.filter(item =>
+                        item.Languages ? item.Languages.find(i => i === filterValue) : true
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(item =>
+                        item.Languages ? item.Languages.find(l => l === filterValue) : true
+                    );
+                }
+                if (filterBy === "skill") {
+                    filteredItemsFeat = filteredItemsFeat.filter(
+                        item => item.Skill === filterValue
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(
+                        item => item.Skill === filterValue
+                    );
+                }
+                if (filterBy === "cause") {
+                    filteredItemsFeat = filteredItemsFeat.filter(item =>
+                        item.Causes
+                            ? item.Causes.find(i => i.toLowerCase() === filterValue.toLowerCase())
+                            : false
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(item =>
+                        item.Causes
+                            ? item.Causes.find(i => i.toLowerCase() === filterValue.toLowerCase())
+                            : false
+                    );
+                }
+                if (filterBy === "condition") {
+                    filteredItemsFeat = filteredItemsFeat.filter(item =>
+                        item[this.state.select].toLowerCase().includes(filterValue.toLowerCase())
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(item =>
+                        item[this.state.select].toLowerCase().includes(filterValue.toLowerCase())
+                    );
+                }
+            }
+            this.setState({
+                ...state,
+                dataFilteredFeat: filteredItemsFeat,
+                dataFilteredMore: filteredItemsMore
+            });
         });
     };
-
-    filterPhotographers = (option, value) => {
-        console.log(option);
-        console.log(value);
-        // If it has already been filtered by skill
-        if (
-            this.state.skill === "Professional" ||
-            this.state.skill === "Amateur" ||
-            this.state.skill === "Student"
-        ) {
-            // Copy of the full array for each section
-            const featFilterCopy = this.state.featuredPhotographers.filter(
-                el => el.Skill === this.state.skill
-            );
-            const moreFilterCopy = this.state.morePhotographers.filter(
-                el => el.Skill === this.state.skill
-            );
-            // Set state with new filtered values with the values previously filtered
-            this.setState({
-                dataFilteredFeat: featFilterCopy.filter(el =>
-                    el[option].toLowerCase().includes(value.toLowerCase())
-                ),
-                dataFilteredMore: moreFilterCopy.filter(el =>
-                    el[option].toLowerCase().includes(value.toLowerCase())
-                )
-            });
-        } else {
-            this.setState({
-                ...this.state,
-                filteredFeatPhotographers: this.state.featuredPhotographers.filter(el =>
-                    el[option].toLowerCase().includes(value.toLowerCase())
-                ),
-                filteredMorePhotographers: this.state.morePhotographers.filter(el =>
-                    el[option].toLowerCase().includes(value.toLowerCase())
-                )
-            });
-        }
-    };
-
-    // filterPhotographers = (field, condition) => {
-    //     console.log(field);
-    //     console.log(condition);
-    //     this.setState({
-    //         filteredFeatPhotographers: this.state.featuredPhotographers.filter(el =>
-    //             el[field].toLowerCase().includes(condition.toLowerCase())
-    //         ),
-    //         filteredMorePhotographers: this.state.morePhotographers.filter(el =>
-    //             el[field].toLowerCase().includes(condition.toLowerCase())
-    //         )
-    //     });
-    // };
 
     // Function to filter results depending on user's choice.
     pageHandler = (e, type) => {
         e.preventDefault();
-        console.log(type);
-        console.log(e.target.id);
         let filterId = null;
         switch (e.target.id) {
             case "10":
@@ -200,7 +174,7 @@ class AllPhotographers extends Component {
 
     changePageHandler = (pageNumber, type) => {
         if (type === "more") {
-            if (this.state.skill === "" || this.state.skill === "All") {
+            if (!this.state.dataFilteredMore) {
                 this.setState({
                     filteredMorePhotographers: this.state.morePhotographers.slice(0, pageNumber)
                 });
@@ -210,7 +184,7 @@ class AllPhotographers extends Component {
                 });
             }
         } else if (type === "featured") {
-            if (this.state.skill === "" || this.state.skill === "All") {
+            if (!this.state.dataFilteredFeat) {
                 this.setState({
                     filteredFeatPhotographers: this.state.featuredPhotographers.slice(0, pageNumber)
                 });
@@ -219,9 +193,6 @@ class AllPhotographers extends Component {
                     dataFilteredFeat: this.state.dataFilteredFeat.slice(0, pageNumber)
                 });
             }
-            // this.setState({
-            //     filteredFeatPhotographers: this.state.featuredPhotographers.slice(0, pageNumber)
-            // });
         }
     };
 
@@ -234,13 +205,13 @@ class AllPhotographers extends Component {
             dataFilteredMore,
             dataFilteredFeat
         } = this.state;
-
         let displayFeatFilterData = null;
         let displayMoreFilterData = null;
         if (!dataFilteredMore || !dataFilteredFeat) {
             displayMoreFilterData = filteredMorePhotographers;
             displayFeatFilterData = filteredFeatPhotographers;
         } else {
+            console.log(this.state)
             displayMoreFilterData = dataFilteredMore;
             displayFeatFilterData = dataFilteredFeat;
         }
@@ -253,22 +224,26 @@ class AllPhotographers extends Component {
                         condition={this.state.condition}
                         handleChange={this.handleChange}
                         skillType={this.state.skill}
-                        currentLanguage={this.state.languageValue}
+                        currentLanguage={this.state.languages}
                         currentLocation={this.state.locationValue}
-                        currentCause={this.state.interestValue}
-                        type={["All", "Professional", "Amateur", "Student"]}
+                        currentCause={this.state.cause}
+                        type={[" ", "Professional", "Amateur", "Student"]}
                         cause={causes}
                         language={languages}
                         // location={["Country", "Region", "City"]}
                     />
                 ) : (
-                    <FilterBox select={this.state.select} options={["Name", "Country"]} />
+                    <FilterBox
+                        handleChange={this.handleChange}
+                        select={this.state.select}
+                        options={["Name", "Country"]}
+                    />
                 )}
                 <h2 className="feautured-h3">Featured Photographers </h2>
                 <Pagination>
-                    {this.state.pages.map((el, i) => (
+                    {this.state.pages.map(el => (
                         <PaginationItem
-                            key={i}
+                            key={el}
                             pageNumber={el}
                             onClick={e => this.pageHandler(e, "featured")}
                             id={el}
@@ -289,9 +264,9 @@ class AllPhotographers extends Component {
                 )}
                 <h2 className="feautured-h3">More Photographers </h2>
                 <Pagination>
-                    {this.state.pages.map((el, i) => (
+                    {this.state.pages.map(el => (
                         <PaginationItem
-                            key={i}
+                            key={el}
                             onClick={e => this.pageHandler(e, "more")}
                             pageNumber={el}
                             id={el}

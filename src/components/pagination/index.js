@@ -1,9 +1,9 @@
 import React from "react";
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import { PaginationItem, PaginationLink } from "reactstrap";
 import "./pagination.scss";
 
 const paginationItem = props => (
-    <PaginationItem key={props.key} >
+    <PaginationItem key={props.ref}>
         <PaginationLink id={props.id} onClick={props.onClick} href="#">
             {props.pageNumber}
         </PaginationLink>
