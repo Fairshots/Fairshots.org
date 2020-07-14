@@ -27,6 +27,9 @@ const FilterBox = ({
                         onChange={handleChange}
                         id="selectType"
                     >
+                        <option value="" disabled selected>
+                            Looking for...
+                        </option>
                         {type.map(o => (
                             <option key={o}>{o}</option>
                         ))}
@@ -35,7 +38,6 @@ const FilterBox = ({
             ) : (
                 <Col style={{ display: "none" }} />
             )}
-            {/* Active when database is available for the following: */}
             {cause ? (
                 <Col sm={2} className="d-inline-flex">
                     <Input
@@ -45,8 +47,11 @@ const FilterBox = ({
                         onChange={handleChange}
                         id="selectCause"
                     >
-                    {cause.map(o => (
-                        <option key={o}>{o}</option>
+                        <option value="" disabled selected>
+                            Interested in...
+                        </option>
+                        {cause.map(o => (
+                            <option key={o}>{o}</option>
                         ))}
                     </Input>
                 </Col>
@@ -75,6 +80,9 @@ const FilterBox = ({
                         onChange={handleChange}
                         id="selectLanguage"
                     >
+                        <option value="" disabled selected>
+                            Who speaks...
+                        </option>
                         {language.map(o => (
                             <option key={o}>{o}</option>
                         ))}
