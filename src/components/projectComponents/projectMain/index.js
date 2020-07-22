@@ -2,13 +2,15 @@ import React from "react";
 import { Container, Row, Col, Table } from "reactstrap";
 // import Gallery from "../../gallery";
 import ImageGallery from "react-image-gallery";
-import ProfileCards from "../../profilecards";
+import initPhotoOrders from "../../../helpers/initPhotoOrders";
 
 const ProjectMain = ({ projectInfo, userType, pushHistory }) => {
-    const slides = projectInfo.Photos.map(item => ({
-        original: item.cloudlink,
-        thumbnail: item.cloudlink
-    }));
+    initPhotoOrders(projectInfo.Photos);
+    const slides=Array.prototype.slice.call(projectInfo.Photos).sort((a, b) => 
+    (a.portfolioOrder >= b.portfolioOrder ? 1 : -1)).map(item => ({
+            original: item.cloudlink,
+            thumbnail: item.cloudlink
+        }));
 
     return (
         <Col md="9" className="project__main">

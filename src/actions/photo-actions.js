@@ -105,7 +105,7 @@ export function updPhotoOrd(userType, id, token, photos) {
                 console.log(ret);
                 dispatch({
                     type:
-                        userType === "project"
+                        userType === "organization"
                             ? "PHOTO_ORDER_UPDATED"
                             : "PROFILE_PHOTO_ORDER_UPDATED",
                     payload: photos
@@ -113,7 +113,7 @@ export function updPhotoOrd(userType, id, token, photos) {
             } else throw await res.text();
         } catch (e) {
             dispatch({
-                type: userType === "project" ? "PROJECT_ERROR" : "PROFILE_ERROR",
+                type: userType === "organization" ? "PROJECT_ERROR" : "PROFILE_ERROR",
                 payload: e
             });
         }

@@ -13,6 +13,7 @@ const ProjectSidebar = ({ projectInfo, userType, toggleModal, alreadyApplied }) 
                 userType={userType}
                 toggleModal={toggleModal}
                 projectExpired={projectExpired}
+                hasPhotos={Boolean(projectInfo.Photos && projectInfo.Photos.length > 1)}
             />
             {projectExpired && (
                 <Row className="justify-content-center" style={{ color: "red" }}>

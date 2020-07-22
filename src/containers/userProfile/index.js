@@ -172,9 +172,9 @@ class UserProfile extends Component {
                 );
             }
             case "ORGANIZE_PHOTOS": {
-                const sortedPhotos = userProfile.Photos.sort((a, b) =>
-                    a.portfolioOrder >= b.portfolioOrder ? 1 : -1
-                );
+                const sortedPhotos = Array.prototype.slice
+                    .call(userProfile.Photos)
+                    .sort((a, b) => (a.portfolioOrder >= b.portfolioOrder ? 1 : -1));
 
                 const indexes = sortedPhotos.map(photo => photo.portfolioOrder);
 

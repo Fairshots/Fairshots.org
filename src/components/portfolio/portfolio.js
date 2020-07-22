@@ -92,8 +92,8 @@ export default class Portfolio extends Component {
                 </div>
             </CarouselItem>
         )); */
-        const slides = photos
-            .sort((a, b) => (a.portfolioOrder >= b.portfolioOrder ? 1 : -1))
+        const slides =Array.prototype.slice.call(photos).sort((a, b) => 
+        (a.portfolioOrder >= b.portfolioOrder ? 1 : -1))
             .map(item => ({
                 original: item.cloudlink,
                 thumbnail: item.cloudlink
