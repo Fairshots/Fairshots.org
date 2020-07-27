@@ -116,7 +116,7 @@ export default class ProfileCards extends Component {
                         </Card>
                     ))
                 ) : (
-                    <h3>None Available</h3>
+                    <h3>No results matching the selected critiria.</h3>
                 )}
             </div>
         );
