@@ -4,7 +4,13 @@ import "./pagination.scss";
 
 const paginationItem = props => (
     <PaginationItem key={props.ref}>
-        <PaginationLink id={props.id} onClick={props.onClick} href="#">
+        <PaginationLink
+            className="text-dark"
+            style={{ margin: "3px" }}
+            id={props.id}
+            onClick={props.onClick}
+            href="#"
+        >
             {props.pageNumber}
         </PaginationLink>
     </PaginationItem>
