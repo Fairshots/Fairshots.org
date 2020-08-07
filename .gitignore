@@ -4,11 +4,12 @@ logs
 npm-debug.log*
 
 # Runtime data
-
+.DS_Store
 # Dependency directories
 node_modules
-/dist
-
+/dist/*
+!/dist/images
+!/dist/css
 # Optional npm cache directory
 .npm
 
