@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Spinner } from "reactstrap";
+import { Spinner, Pagination } from "reactstrap";
 import { getAllOrgs } from "../../actions";
 import ProfileCards from "../../components/profilecards";
 import FilterBox from "../../components/filterBox";
+import { causes, languages } from "../../helpers/form-data-options";
+import PaginationItem from "../../components/pagination/index";
 
 /**
  * When mounted dispatches action to fetch basic info from all Orgs and display in proper page routed in /organizations
@@ -17,7 +19,12 @@ class AllOrgs extends Component {
         filteredFeatOrgs: [],
         filteredMoreOrgs: [],
         select: "Name",
-        condition: ""
+        condition: "",
+        primaryCause: "",
+        languages: "",
+        dataFilteredFeat: null,
+        dataFilteredMore: null,
+        pages: [10, 30, 50, 100]
     };
 
     componentDidMount() {
@@ -28,14 +35,37 @@ class AllOrgs extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.condition !== prevState.condition) {
-            this.filterOrgs(this.state.select, this.state.condition);
+        if (
+            this.state.primaryCause !== prevState.primaryCause ||
+            this.state.languages !== prevState.languages ||
+            this.state.condition !== prevState.condition
+        ) {
+            this.filteringData();
         }
     }
 
     handleChange = event => {
         event.preventDefault();
-        this.setState({ [event.target.name]: event.target.value });
+        let selected = null;
+        switch (event.target.id) {
+            case "selectCause":
+                selected = "primaryCause";
+                break;
+            case "selectLanguage":
+                selected = "languages";
+                break;
+            case "filterSelect":
+                selected = "select";
+                break;
+            case "filter":
+                selected = "condition";
+                break;
+            default:
+                break;
+        }
+        if (selected) {
+            this.setState({ [selected]: event.target.value });
+        }
     };
 
     separateOrgs = () => {
@@ -47,39 +77,166 @@ class AllOrgs extends Component {
             this.setState({
                 featuredOrgs,
                 moreOrgs,
-                filteredFeatOrgs: featuredOrgs,
-                filteredMoreOrgs: moreOrgs
+                filteredFeatOrgs: featuredOrgs.slice(0, 10),
+                filteredMoreOrgs: moreOrgs.slice(0, 10)
             });
         }
     };
 
-    filterOrgs = (field, condition) => {
-        this.setState({
-            filteredFeatOrgs: this.state.featuredOrgs.filter(el =>
-                el[field].toLowerCase().includes(condition.toLowerCase())
-            ),
-            filteredMoreOrgs: this.state.moreOrgs.filter(el =>
-                el[field].toLowerCase().includes(condition.toLowerCase())
-            )
+    filteringData = () => {
+        let filteredItemsFeat = this.state.featuredOrgs;
+        let filteredItemsMore = this.state.moreOrgs;
+        const { state } = this;
+        const filterProperties = ["primaryCause", "languages", "condition"];
+        filterProperties.forEach(filterBy => {
+            const filterValue = state[filterBy];
+            if (filterValue) {
+                if (filterBy === "languages") {
+                    console.log("hey")
+                    filteredItemsFeat = filteredItemsFeat.filter(item =>
+                        item.Languages
+                            ? item.Languages.find(
+                                  i => i.toLowerCase() === filterValue.toLowerCase()
+                              )
+                            : true
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(item =>
+                        item.Languages
+                            ? item.Languages.find(
+                                  l => l.toLowerCase() === filterValue.toLowerCase()
+                              )
+                            : true
+                    );
+                }
+                if (filterBy === "primaryCause") {
+                    filteredItemsFeat = filteredItemsFeat.filter(
+                        item => item.PrimaryCause === filterValue
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(
+                        item => item.PrimaryCause === filterValue
+                    );
+                }
+                if (filterBy === "condition") {
+                    filteredItemsFeat = filteredItemsFeat.filter(item =>
+                        item[this.state.select].toLowerCase().includes(filterValue.toLowerCase())
+                    );
+                    filteredItemsMore = filteredItemsMore.filter(item =>
+                        item[this.state.select].toLowerCase().includes(filterValue.toLowerCase())
+                    );
+                }
+            }
+            this.setState({
+                ...state,
+                dataFilteredFeat: filteredItemsFeat,
+                dataFilteredMore: filteredItemsMore
+            });
         });
     };
 
+    pageHandler = (e, type) => {
+        e.preventDefault();
+        let filterId = null;
+        switch (e.target.id) {
+            case "10":
+                filterId = 10;
+                break;
+            case "30":
+                filterId = 30;
+                break;
+            case "50":
+                filterId = 50;
+                break;
+            case "100":
+                filterId = 100;
+                break;
+            default:
+                filterId = null;
+                break;
+        }
+        if (filterId) {
+            this.changePageHandler(filterId, type);
+        }
+    };
+
+    changePageHandler = (pageNumber, type) => {
+        if (type === "more") {
+            if (!this.state.dataFilteredMore) {
+                this.setState({
+                    filteredMoreOrgs: this.state.moreOrgs.slice(0, pageNumber)
+                });
+            } else {
+                this.setState({
+                    dataFilteredMore: this.state.dataFilteredMore.slice(0, pageNumber)
+                });
+            }
+        } else if (type === "featured") {
+            if (!this.state.dataFilteredFeat) {
+                this.setState({
+                    filteredFeatOrgs: this.state.featuredOrgs.slice(0, pageNumber)
+                });
+            } else {
+                this.setState({
+                    dataFilteredFeat: this.state.dataFilteredFeat.slice(0, pageNumber)
+                });
+            }
+        }
+    };
+
     render() {
-        const { featuredOrgs, moreOrgs, filteredFeatOrgs, filteredMoreOrgs } = this.state;
+        const {
+            featuredOrgs,
+            moreOrgs,
+            filteredFeatOrgs,
+            filteredMoreOrgs,
+            dataFilteredMore,
+            dataFilteredFeat
+        } = this.state;
+
+        let displayFeatFilterData = null;
+        let displayMoreFilterData = null;
+        if (!dataFilteredMore || !dataFilteredFeat) {
+            displayMoreFilterData = filteredMoreOrgs;
+            displayFeatFilterData = filteredFeatOrgs;
+        } else {
+            displayMoreFilterData = dataFilteredMore;
+            displayFeatFilterData = dataFilteredFeat;
+        }
 
         return (
             <div>
-                <FilterBox
-                    options={["Name", "Country"]}
-                    select={this.state.select}
-                    condition={this.state.condition}
-                    handleChange={this.handleChange}
-                />
+                {this.props.token ? (
+                    <FilterBox
+                        options={["Name", "Country", "City", "Region"]}
+                        select={this.state.select}
+                        condition={this.state.condition}
+                        handleChange={this.handleChange}
+                        currentType={this.state.typeValue}
+                        currentCause={this.state.primaryCause}
+                        cause={causes}
+                        language={languages}
+                    />
+                ) : (
+                    <FilterBox
+                        handleChange={this.handleChange}
+                        select={this.state.select}
+                        options={["Name", "Country"]}
+                    />
+                )}
                 <h2 className="feautured-h3">Featured Organizations </h2>
+                <Pagination>
+                    {this.state.pages.map(el => (
+                        <PaginationItem
+                            key={el}
+                            pageNumber={el}
+                            onClick={e => this.pageHandler(e, "featured")}
+                            id={el}
+                        />
+                    ))}
+                </Pagination>
                 {featuredOrgs ? (
                     <ProfileCards
                         userType="organization"
-                        cards={filteredFeatOrgs}
+                        cards={displayFeatFilterData}
                         pushHistory={id => {
                             this.props.history.push(`/organization/${id}`);
                         }}
@@ -88,10 +245,20 @@ class AllOrgs extends Component {
                     <Spinner type="grow" color="success" />
                 )}
                 <h2 className="feautured-h3">More Organizations </h2>
+                <Pagination>
+                    {this.state.pages.map(el => (
+                        <PaginationItem
+                            key={el}
+                            pageNumber={el}
+                            onClick={e => this.pageHandler(e, "featured")}
+                            id={el}
+                        />
+                    ))}
+                </Pagination>
                 {moreOrgs ? (
                     <ProfileCards
                         userType="organization"
-                        cards={filteredMoreOrgs}
+                        cards={displayMoreFilterData}
                         pushHistory={id => {
                             this.props.history.push(`/organization/${id}`);
                         }}

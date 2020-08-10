@@ -30,16 +30,16 @@ export default function OrganizationForm({ renderField, modalShow, logo }) {
                     component={renderField}
                     type="Password"
                 />
-                <Field name="Phone" label="Phone: " component={renderField} type="Telephone" />
+                {/* <Field name="Phone" label="Phone: " component={renderField} type="Telephone" />
                 <Field name="Logo" label="Logo: " component={renderField} type="file" />
-                {picUrl !== "" && <img src={picUrl} height="128" width="128" />}
+                {picUrl !== "" && <img src={picUrl} height="128" width="128" />} */}
                 <Field
                     name="ContactPerson"
                     label="Contact Person: "
                     component={renderField}
                     type="text"
                 />
-                <Field name="Position" label="Position: " component={renderField} type="text" />
+                {/* <Field name="Position" label="Position: " component={renderField} type="text" />
                 <Field
                     name="Background"
                     label="About this organization: "
@@ -79,7 +79,7 @@ export default function OrganizationForm({ renderField, modalShow, logo }) {
                     component={renderField}
                     type="select"
                     options={countrylist}
-                />
+                /> */}
 
                 {modalShow !== "update" && (
                     <Field
