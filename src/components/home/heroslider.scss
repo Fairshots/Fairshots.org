@@ -1,0 +1,127 @@
+.darken {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 450px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.hero-slider {
+    .carousel.slide {
+        overflow: hidden;
+        .carousel-item {
+            height: 450px;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: inherit;
+                object-fit: cover;
+                object-position: center top;
+            }
+        }
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+        z-index: 3;
+        cursor: pointer;
+    }
+}
+.hero-text-holder {
+    position: absolute;
+    left: 0px;
+    top: 131px;
+    right: 0px;
+    display: block;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    opacity: 1;
+    transition: opacity 500ms ease 0s, transform 800ms ease 0s;
+
+    .join-button-and-text {
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        height: 50px;
+        z-index: 3;
+        text-align: center;
+        font-size: 13px;
+
+        .join-button {
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            z-index: 3;
+            display: block;
+            overflow: visible;
+            width: 200px;
+            margin-top: 140px;
+            margin-right: auto;
+            margin-left: auto;
+            border-radius: 30px;
+            background-color: #00a651;
+            text-align: center;
+        }
+        .general-paragraph.hero {
+            z-index: 3;
+            color: #e7e7e7;
+        }
+    }
+    .hero-sentence {
+        position: relative;
+        left: 0%;
+        top: 0%;
+        right: 0%;
+        bottom: 0%;
+        z-index: 3;
+        display: block;
+        width: 550px;
+        margin: 0px auto 11px;
+        clear: none;
+        font-family: Lato, sans-serif;
+        color: #fff;
+        font-size: 51px;
+        line-height: 53px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .hero-undertitle {
+        position: relative;
+        z-index: 3;
+        display: block;
+        width: 500px;
+        margin-top: 0px;
+        margin-right: auto;
+        margin-left: auto;
+        font-family: Lato, sans-serif;
+        color: #fff;
+        font-size: 31px;
+        font-weight: 200;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}
+
+@media (min-width: 768px) {
+    .darken {
+        height: 800px;
+    }
+    .hero-slider {
+        .carousel.slide {
+            .carousel-item {
+                height: 800px;
+                overflow: hidden;
+                img {
+                    height: inherit;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-text-holder {
+        position: relative;
+        top: -60px;
+    }
+}

@@ -1,27 +1,76 @@
 import React from "react";
-import {
-    FormGroup, FormFeedback, Input
-} from "reactstrap";
+import { FormGroup, FormFeedback, Input } from "reactstrap";
 
-const renderField = ({
-    input, label, type, options, meta: { touched, error, warning }
-}) => (
+const OrgInitialValues = {
+    Name: "",
+    Email: "",
+    Password: "",
+    ConfirmPassword: "",
+    Logo: "",
+    ContactPerson: "",
+    Position: "",
+    Background: "",
+    Phone: "",
+    website: "",
+    facebook: "",
+    Languages: [],
+    PrimaryCause: "",
+    City: "",
+    Country: "",
+    agreement: false
+};
+
+const PhotographerInitialValues = {
+    Name: "",
+    Email: "",
+    Password: "",
+    ConfirmPassword: "",
+    ProfilePic: "",
+    Skill: "",
+    Biography: "",
+    Phone: "",
+    webpage: "",
+    facebook: "",
+    instagram: "",
+    Languages: [],
+    Causes: [],
+    City: "",
+    Country: "",
+    agreement: false
+};
+
+const renderField = ({ field, label, type, options, form, form: { touched, errors } }) => (
     <FormGroup>
         <label>{label}</label>
-        {type === "select"
-            ? <Input {...input} type={type} invalid={touched && error}>
-                {options.map((i, index) => <option key={index}>{i}</option>)}
+        {type === "select" ? (
+            <Input {...field} type="select" invalid={touched[field.name] && errors[field.name]}>
+                {options.map((i, index) => (
+                    <option key={index}>{i}</option>
+                ))}
             </Input>
-            : <Input {...input} type={type} invalid={touched && error} value={type === "file" ? undefined : input.value}/>}
-        {touched && (error && <FormFeedback>{error}</FormFeedback>)}
+        ) : (
+            <Input
+                {...field}
+                type={type}
+                invalid={touched[field.name] && errors[field.name]}
+                value={type === "file" ? undefined : field.value}
+                onChange={
+                    type === "file"
+                        ? event => form.setFieldValue(field.name, event.currentTarget.files[0])
+                        : field.onChange
+                }
+            />
+        )}
+        {touched[field.name] &&
+            (errors[field.name] && <FormFeedback>{errors[field.name]}</FormFeedback>)}
     </FormGroup>
 );
 
-const validate = values => {
+const validate = (values, props) => {
     const errors = {};
     const userType = window.location.href.match("photographer") ? "photographer" : "organization";
     const formType = window.location.href.match("register") ? "register" : "update";
-
+    console.log(props);
     if (!values.Name) {
         errors.Name = "Required";
     }
@@ -30,13 +79,25 @@ const validate = values => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.Email)) {
         errors.Email = "Invalid email address";
     }
+
     if (formType === "register") {
         if (!values.Password) {
             errors.Password = "Required";
         } else if (values.Password.length < 8) {
             errors.Password = "minimum 8 characters";
         }
+        if (values.Password !== values.ConfirmPassword) {
+            errors.Password = "Passwords don't match";
+        }
+        if (!values.agreement) {
+            errors.agreement = "You need to click the box above";
+        }
+    } else if (values.ConfirmPassword) {
+        if (values.Password !== values.ConfirmPassword) {
+            errors.Password = "Passwords don't match";
+        }
     }
+
     if (!values.City) {
         errors.City = "Required";
     }
@@ -83,4 +144,4 @@ const validate = values => {
     return errors;
 };
 
-export { validate, renderField };
+export { OrgInitialValues, PhotographerInitialValues, validate, renderField };

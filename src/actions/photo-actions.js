@@ -1,16 +1,7 @@
-import sha1 from "sha1";
 import { CLOUDINARY_API, FAIRSHOTS_API } from "./constants";
+import toggleLoading from "./toggleLoading";
 
-function GenSignature(params, apisecret) {
-    const paramsToSign = { ...params };
-    console.log(paramsToSign);
-    const keys = Object.keys(paramsToSign).sort();
-    const stringbuilder = keys.map(key => `${key}=${paramsToSign[key]}`).join("&");
-    console.log(stringbuilder);
-    return sha1(`${stringbuilder}${apisecret}`);
-}
-
-export function uploadPhoto(userType, id, token, url) {
+export function uploadPhoto(userType, id, token, url, order) {
     return async dispatch => {
         try {
             const config = {
@@ -19,27 +10,28 @@ export function uploadPhoto(userType, id, token, url) {
                     "Content-Type": "application/json",
                     Authorization: `bearer ${token}`
                 },
-                body: JSON.stringify({ photos: [{ [`${userType}Id`]: id, cloudlink: url }] })
-
+                body: JSON.stringify({
+                    photos: [{ [`${userType}Id`]: id, cloudlink: url, portfolioOrder: order }]
+                })
             };
             console.log(config);
+
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photos`, config);
-            const ret = await res.json();
-            console.log(ret);
-            dispatch(
-                {
-                    type: "PHOTO_UPLOADED",
+            if (res.ok) {
+                const ret = await res.json();
+                console.log(ret);
+                dispatch({
+                    type: userType === "project" ? "PHOTO_UPLOADED" : "PROFILE_PHOTO_UPLOADED",
                     payload: ret
-                }
-            );
+                });
+            } else throw await res.text();
         } catch (e) {
             console.log(e);
-            dispatch(
-                {
-                    type: "UPLOAD_ERROR",
-                    payload: "Oops! Something went wrong. Plase try again"
-                }
-            );
+
+            dispatch({
+                type: userType === "project" ? "PROJECT_ERROR" : "PROFILE_ERROR",
+                payload: e
+            });
         }
     };
 }
@@ -61,28 +53,9 @@ export async function sendPhotoGetUrl(file, upreset = "kahvrgme") {
     }
 }
 
-export function delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem) {
+export function delPhoto(userType, id, token, photoItem) {
     return async dispatch => {
         try {
-            /*
-            const regexp = /((\w+)\.(jpe?g|png|gif|bmp|)$)/gi;
-            regexp.lastIndex = 0;
-            const publicId = regexp.exec(photoItem.cloudlink)[2];
-            const timestamp = Math.floor(Date.now() / 1000).toString();
-            const signature = GenSignature({ publicId, timestamp }, clAPISecret);
-            const fd = new FormData();
-            fd.append("public_id", publicId);
-            fd.append("api_key", clAPIKey);
-            fd.append("timestamp", timestamp);
-            fd.append("signature", signature);
-            let config = {
-                method: "POST",
-                body: fd
-            };
-            console.log(config);
-            const imgDel = await fetch(`${CLOUDINARY_API}/destroy`, config);
-            */
-
             const config = {
                 method: "DELETE",
                 headers: {
@@ -90,27 +63,60 @@ export function delPhoto(userType, id, token, clAPIKey, clAPISecret, photoItem) 
                     Authorization: `bearer ${token}`
                 },
                 body: JSON.stringify({ photoIds: [photoItem.id] })
-
             };
+            dispatch(toggleLoading());
             const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/photos`, config);
             if (res.ok) {
                 const ret = await res.json();
                 console.log(ret);
-                dispatch(
-                    {
-                        type: "PHOTO_DELETED",
-                        payload: photoItem
-                    }
-                );
-            } else throw res;
+                dispatch({
+                    type: userType === "project" ? "PHOTO_DELETED" : "PROFILE_PHOTO_DELETED",
+                    payload: photoItem
+                });
+                dispatch(toggleLoading());
+            } else throw await res.text();
         } catch (e) {
-            console.log(e.toString());
-            dispatch(
-                {
-                    type: "PROFILE_ERROR",
-                    payload: e.statusText !== undefined ? e.statusText : e.toString()
-                }
-            );
+            dispatch({
+                type: userType === "project" ? "PROJECT_ERROR" : "PROFILE_ERROR",
+                payload: e
+            });
+            dispatch(toggleLoading());
         }
+    };
+}
+
+export function updPhotoOrd(userType, id, token, photos) {
+    return async dispatch => {
+        try {
+            const config = {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `bearer ${token}`
+                },
+                body: JSON.stringify(
+                    photos.map(photo => ({ id: photo.id, order: photo.portfolioOrder }))
+                )
+            };
+            dispatch(toggleLoading());
+            const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/orderphotos`, config);
+            if (res.ok) {
+                const ret = await res.json();
+                console.log(ret);
+                dispatch({
+                    type:
+                        userType === "organization"
+                            ? "PHOTO_ORDER_UPDATED"
+                            : "PROFILE_PHOTO_ORDER_UPDATED",
+                    payload: photos
+                });
+            } else throw await res.text();
+        } catch (e) {
+            dispatch({
+                type: userType === "organization" ? "PROJECT_ERROR" : "PROFILE_ERROR",
+                payload: e
+            });
+        }
+        dispatch(toggleLoading());
     };
 }

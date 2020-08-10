@@ -1,8 +1,8 @@
 @mixin equalBg {
-    background-color:#fff!important;
-    border: 1px solid #ced4da!important;
-    font-family: Lato, sans-serif!important;
-    color: #00a651!important;
+    background-color: #fff !important;
+    border: 1px solid #ced4da !important;
+    font-family: Lato, sans-serif !important;
+    color: #00a651 !important;
 }
 
 button.cbformArray {
@@ -19,7 +19,6 @@ button.cbformArray {
     &:active {
         @include equalBg();
     }
-
 }
 
 .values-menu.dropdown-menu.show {
@@ -28,7 +27,7 @@ button.cbformArray {
     flex-wrap: wrap;
     padding: 2%;
 
-    .custom-control { 
+    .custom-control {
         margin-right: 1.5rem;
 
         label.custom-control-label {

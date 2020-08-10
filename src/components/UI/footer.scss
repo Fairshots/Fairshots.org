@@ -1,0 +1,47 @@
+.footer {
+    position: static;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin-top: 30px;
+    padding: 23px 66px;
+    border-style: none;
+    background-color: #444;
+
+    &-categories {
+        font-family: Lato, sans-serif;
+        color: #00a651;
+        font-size: 15px;
+        line-height: 18px;
+        font-weight: 400;
+        text-transform: capitalize;
+
+        .donation {
+            margin-top: 19px;
+            margin-bottom: auto;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+
+    .footer-links {
+        display: block;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        clear: none;
+        color: #fff;
+        font-size: 11px;
+        line-height: 13px;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    .footer-links:hover {
+        color: #00a651;
+    }
+
+    .social-icon-footer {
+        width: 40px;
+        margin: 10px 5px;
+    }
+}

@@ -1,21 +1,48 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import "./sofarbanner.scss";
 
-export default class SoFarBanner extends Component {
-    render() {
-        return (
-            <div>
-                <div className="so-far-banner">
-                    <div className="so-far-div">
-                        <p className="so-far-paragraph">WE HAVE XX PHOTOGRAPHERS FROM AROUND THE GLOBE AND YY ORGANIzATIONS LOOKING to COLLABORATE!</p>
-                        <p className="updates-small-paragraph">FAIRSHOTS is successfully CONNECting PHOTOGRAPHERS TO NGOS in:</p>
-                        <br/>
-                        <div className="w-embed w-iframe d-flex align-items-center">
-                            <iframe src="https://www.google.com/maps/d/embed?mid=1BQH9E4jw_7jcauK7B4ubBwn5i-Y" width="680" height="480"></iframe>
-                        </div>
-                    </div>
+const SoFarBanner = ({ mainFeatures }) => {
+    let countries;
+    if (mainFeatures.orgCities) {
+        const orgcountries = mainFeatures.orgCities
+            .map(el => el.Country)
+            .reduce((acc, el) => {
+                if (acc && acc.includes(el)) return acc;
+                return `${acc} , ${el}`;
+            });
+        countries = mainFeatures.photogCities
+            .map(el => el.Country)
+            .reduce((acc, el) => {
+                if (acc && acc.includes(el)) return acc;
+                return `${acc} , ${el}`;
+            }, orgcountries);
 
+        countries = countries
+            .split(", ")
+            .sort()
+            .join(", ");
+    }
+    return (
+        <div>
+            <div className="so-far-banner">
+                <div className="so-far-div">
+                    <p className="so-far-paragraph">
+                        WE HAVE {mainFeatures.numPhotographers} PHOTOGRAPHERS FROM AROUND THE GLOBE
+                        AND &nbsp;{mainFeatures.numOrgs} ORGANIzATIONS LOOKING to COLLABORATE!
+                    </p>
+                    <p className="updates-small-paragraph">
+                        FAIRSHOTS is successfully CONNECting PHOTOGRAPHERS TO NGOS in: {countries}
+                    </p>
+                    <br />
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
+
+const mapStateToProps = state => ({
+    mainFeatures: state.mainFeatures
+});
+
+export default connect(mapStateToProps)(SoFarBanner);

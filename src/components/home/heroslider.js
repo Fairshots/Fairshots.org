@@ -1,44 +1,108 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { UncontrolledCarousel, Container } from "reactstrap";
+
+import "./heroslider.scss";
 
 export default class HeroSlider extends Component {
+    state = {
+        items: [
+            {
+                src: "images/hero-shot.jpg",
+                header: "",
+                caption: ""
+            },
+            {
+                src: "images/Fotolia_91498983_L.jpg",
+                header: "",
+                caption: ""
+            },
+            {
+                src: "images/carroussel_03.jpg",
+                header: "",
+                caption: ""
+            },
+            {
+                src: "images/Fotolia_75859919_L.jpg",
+                header: "",
+                caption: ""
+            },
+            {
+                src: "images/Fotolia_58758895_L.jpg",
+                header: "",
+                caption: ""
+            },
+            {
+                src: "images/Fotolia_93354406_L.jpg",
+                header: "",
+                caption: ""
+            }
+        ],
+        items_mobile: [
+            {
+                src: "images/Fairshots-mobile-slideshow-02.jpg",
+                header: "",
+                caption: ""
+            },
+            {
+                src: "images/Fairshots-mobile-slideshow-03.jpg",
+                header: "",
+                caption: ""
+            },
+            {
+                src: "images/Fairshots-mobile-slideshow.jpg",
+                header: "",
+                caption: ""
+            },
+            {
+                src: "images/Fairshots-mobile-slideshow-04.jpg",
+                header: "",
+                caption: ""
+            }
+        ],
+        screenSize: 1024
+    };
+
+    componentDidMount() {
+        window.addEventListener("resize", this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions = () => {
+        this.setState({ screenSize: window.innerWidth });
+    };
+
     render() {
         return (
-            <div>
-                <div className="hero-and-slider-section">
-                    <div className="darken"></div>
-                    <div className="hero-text-holder">
-                        <h1 data-ix="hero-sliding" className="hero-sentence">A better world one click at a time</h1>
-                        <h2 data-ix="hero-sliding-2" className="hero-undertittle">connecting socially engaged photographers with world changing NGOS</h2><Link to="/register" className="join-button w-button">I WANT TO JOIN</Link>
+            <div className="hero-slider">
+                {this.state.screenSize > 768 && <div className="darken" />}
+                <Container fluid>
+                    <UncontrolledCarousel
+                        items={
+                            this.state.screenSize > 768 ? this.state.items : this.state.items_mobile
+                        }
+                    />
+                </Container>
+
+                <div className="hero-text-holder">
+                    {this.state.screenSize > 768 && (
+                        <div>
+                            <h1 className="hero-sentence">A better world one click at a time</h1>
+                            <h2 className="hero-undertitle">
+                                connecting socially engaged photographers with world changing NGOS
+                            </h2>
+                        </div>
+                    )}
+                    <div className="join-button-and-text">
+                        <Link to="/register" className="join-button w-button">
+                            I WANT TO JOIN
+                        </Link>
                         <p className="general-paragraph hero">Quickly while it is still free :)</p>
                     </div>
-                    <div data-delay="3000" data-animation="slide" data-autoplay="1" data-duration="1500" data-infinite="1" className="homepageheroslider w-slider">
-                        <div className="mask-darken w-slider-mask">
-                            <div className="w-slide"><img src="images/hero-shot.jpg" className="hero-slider-image"/></div>
-                            <div className="w-slide"><img src="images/Fotolia_91498983_L.jpg" className="hero-slider-image"/></div>
-                            <div className="w-slide"><img src="images/carroussel_03.jpg" className="hero-slider-image"/></div>
-                            <div className="w-slide"><img src="images/Fotolia_75859919_L.jpg" className="hero-slider-image"/></div>
-                            <div className="w-slide"><img src="images/Fotolia_58758895_L.jpg" className="hero-slider-image"/></div>
-                            <div className="w-slide"><img src="images/Fotolia_93354406_L.jpg" className="hero-slider-image"/></div>
-                        </div>
-                        <div className="w-slider-arrow-left">
-                            <div className="w-icon-slider-left"></div>
-                        </div>
-                        <div className="w-slider-arrow-right">
-                            <div className="w-icon-slider-right"></div>
-                        </div>
-                        <div className="slide-nav w-slider-nav"></div>
-                    </div>
                 </div>
-                <div className="hero-and-slider-section mobile">
-                    <div data-animation="slide" data-duration="1500" data-infinite="1" data-delay="3000" data-autoplay="1" className="homepageheroslider w-slider">
-                        <div className="mask-darken w-slider-mask">
-                            <div className="w-slide"><img src="images/Fairshots-mobile-slideshow-02.jpg" className="hero-slider-image"/></div>
-                            <div className="w-slide"><img src="images/Fairshots-mobile-slideshow-03.jpg" className="hero-slider-image"/></div>
-                            <div className="w-slide"><img src="images/Fairshots-mobile-slideshow.jpg" className="hero-slider-image"/></div>
-                            <div className="w-slide"><img src="images/Fairshots-mobile-slideshow-04.jpg" className="hero-slider-image"/></div>
-                        </div>
-                    </div><Link to="/register" className="join-button w-button">I WANT TO JOIN</Link></div>
             </div>
         );
     }

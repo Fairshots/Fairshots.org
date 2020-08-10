@@ -1,4 +1,10 @@
 .register-form {
+    .tab-arrow.noshow {
+        opacity: 0;
+        -webkit-transform: translate(0px, -10px) scale(1, 0.3);
+        -ms-transform: translate(0px, -10px) scale(1, 0.3);
+        transform: translate(0px, -10px) scale(1, 0.3);
+    }
     .register-tabs {
         .f-tab-link {
             display: inline-block;
@@ -20,6 +26,9 @@
             text-align: center;
             text-transform: uppercase;
             cursor: pointer;
+            @media (max-width: 640px) {
+                font-size: 12px;
+            }
         }
         .f-tab-link:hover {
             box-shadow: inset 0 0 12px 0 #fff;
@@ -27,15 +36,23 @@
         }
     }
     label {
-    margin-top: 15px;
-    margin-bottom: 10px;
-    font-family: Lato, sans-serif;
-    color: #00a651;
-    font-weight: 300;
-    text-transform: uppercase;
-    }   
+        margin-top: 15px;
+        margin-bottom: 10px;
+        font-family: Lato, sans-serif;
+        color: #00a651;
+        font-weight: 300;
+        text-transform: uppercase;
+    }
     form.container {
-    margin-bottom: 10px;
-}
-
+        margin-bottom: 10px;
+    }
+    .form-check-input {
+        position: relative;
+        top: -30px;
+        left: 305px;
+    }
+    #term-agree {
+        color: #00a651;
+        text-decoration: underline;
+    }
 }

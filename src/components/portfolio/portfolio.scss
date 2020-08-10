@@ -1,38 +1,34 @@
-@mixin flex-center {
-    display: flex;
-    justify-content: center;
-}
+@import "../../../node_modules/react-image-gallery/styles/scss/image-gallery.scss";
+@import "../../../node_modules/react-image-gallery/styles/scss/ionicons.scss";
 
-
-.carousel {
+.image-gallery {
+    margin: 0 auto;
     width: 100%;
+    transition: all 1s ease;
 
-
-
-    .carousel-control-prev { 
-        width: 8%;
-
-    }
-    .carousel-control-next { 
-        width: 8%;
-
-    }
-
-    .carousel-item.active {
-        @include flex-center;
-         .img-hold {
-            position: relative;
-            left: 1%;
-        }
-    
-    }
     .close.btn-light {
-        color: white;
-        position: relative;
+        z-index: 3;
+        color: red;
+        position: absolute;
         top: 1%;
         right: 5%;
-        
+    }
+    .image-gallery-image {
+        background-color: #242424;
+        @media (min-width: 768px) {
+            height: 600px;
+        }
+        @media all and (display-mode: fullscreen) {
+            height: 100vh;
+        }
 
+        @media (max-width: 550px) {
+            height: 80vh;
+        }
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 }
-

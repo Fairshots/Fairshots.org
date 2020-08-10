@@ -6,7 +6,7 @@ export default function getFeatures() {
         const config = {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             }
         };
         try {
@@ -14,21 +14,17 @@ export default function getFeatures() {
             if (res.ok) {
                 const features = await res.json();
                 console.log(features);
-                dispatch(
-                    {
-                        type: "GET_FEATURES",
-                        payload: features
-                    }
-                );
+                dispatch({
+                    type: "GET_FEATURES",
+                    payload: features
+                });
             } else throw res;
         } catch (e) {
             console.log(e.toString());
-            dispatch(
-                {
-                    type: "FEATURES_ERROR",
-                    payload: e.statusText !== undefined ? e.statusText : e.toString()
-                }
-            );
+            dispatch({
+                type: "FEATURES_ERROR",
+                payload: e.statusText !== undefined ? e.statusText : e.toString()
+            });
         }
     };
 }
