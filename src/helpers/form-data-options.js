@@ -1,5 +1,5 @@
 const countrylist = [
-    "",
+    " ",
     "Afghanistan",
     "Albania",
     "Algeria",
@@ -211,6 +211,7 @@ const countrylist = [
 ];
 
 const causes = [
+    " ",
     "Animal Welfare",
     "Arts and Culture",
     "Children and youth",
@@ -225,6 +226,7 @@ const causes = [
     "Other"
 ];
 const languages = [
+    " ",
     "Afrikaans",
     "Arabic",
     "Bengali",

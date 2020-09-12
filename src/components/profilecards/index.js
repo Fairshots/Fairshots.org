@@ -77,41 +77,47 @@ export default class ProfileCards extends Component {
 
         return (
             <div className="card-deck" ref={this.ref}>
-                {cards.map((card, i) => (
-                    <Card key={i} style={zoomDeck}>
-                        <div
-                            className="card-img-top-holder"
-                            style={{ backgroundColor: card.Logo ? "white" : "#242424" }}
-                        >
-                            <CardImg
-                                top
-                                src={
-                                    card.Photos && card.Photos[0]
-                                        ? card.Photos[0].cloudlink
-                                        : card.ProfilePic || card.Logo
-                                }
-                                alt="card img cap"
-                                style={{ objectFit: card.Logo ? "contain" : "cover" }}
-                            />
-                            <CardImgOverlay
-                                className="feat-biography"
-                                onClick={() => pushHistory(card.id)}
+                {cards.length ? (
+                    cards.map((card, i) => (
+                        <Card key={i} style={zoomDeck}>
+                            <div
+                                className="card-img-top-holder"
+                                style={{ backgroundColor: card.Logo ? "white" : "#242424" }}
                             >
-                                <p>{card.Biography || card.Background}</p>
-                            </CardImgOverlay>
-                        </div>
-                        <CardBody>
-                            {card.Skill && <CardImg className="feat-pic" src={card.ProfilePic} />}
-                            <CardTitle>{card.Name}</CardTitle>
-                            {card.Skill && (
-                                <CardSubtitle>{`${card.Skill} photographer`}</CardSubtitle>
-                            )}
-                            <CardText>{`${card.City || ""}${card.City ? "," : ""} ${
-                                card.Country
-                            }`}</CardText>
-                        </CardBody>
-                    </Card>
-                ))}
+                                <CardImg
+                                    top
+                                    src={
+                                        card.Photos && card.Photos[0]
+                                            ? card.Photos[0].cloudlink
+                                            : card.ProfilePic || card.Logo
+                                    }
+                                    alt="card img cap"
+                                    style={{ objectFit: card.Logo ? "contain" : "cover" }}
+                                />
+                                <CardImgOverlay
+                                    className="feat-biography"
+                                    onClick={() => pushHistory(card.id)}
+                                >
+                                    <p>{card.Biography || card.Background}</p>
+                                </CardImgOverlay>
+                            </div>
+                            <CardBody>
+                                {card.Skill && (
+                                    <CardImg className="feat-pic" src={card.ProfilePic} />
+                                )}
+                                <CardTitle>{card.Name}</CardTitle>
+                                {card.Skill && (
+                                    <CardSubtitle>{`${card.Skill} photographer`}</CardSubtitle>
+                                )}
+                                <CardText>{`${card.City || ""}${card.City ? "," : ""} ${
+                                    card.Country
+                                }`}</CardText>
+                            </CardBody>
+                        </Card>
+                    ))
+                ) : (
+                    <h3>No results matching the selected critiria.</h3>
+                )}
             </div>
         );
     }
