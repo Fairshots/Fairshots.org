@@ -29,6 +29,24 @@ export default function project(state = {}, action) {
                 error: false
             });
         }
+        case "PHOTO_ORDER_UPDATED": {
+            const photos = action.payload;
+            // get keys
+            const stateKeys = Object.keys(state);
+            // get array index where photo ids match what is in payload
+            const contIndex = stateKeys.findIndex(key => state[key].Photos.every(elem => {
+                    if (photos.findIndex(val => val.id == elem.id) == -1) return false;
+                    return true;
+                })
+            );
+            return Object.assign({}, state, {
+                [stateKeys[contIndex]]: {
+                    ...state[stateKeys[contIndex]],
+                    Photos: [...photos]
+                },
+                error: false
+            });
+        }
         case "GET_PROJECT": {
             return Object.assign({}, state, {
                 [action.payload.id]: { ...action.payload },

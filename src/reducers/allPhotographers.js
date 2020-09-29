@@ -1,3 +1,5 @@
+import initPhotoOrders from "../helpers/initPhotoOrders";
+
 export default function allPhotographers(state = {}, action) {
     switch (action.type) {
         case "allPhotographers_ERROR": {
@@ -16,8 +18,13 @@ export default function allPhotographers(state = {}, action) {
             });
         }
         case "GET_ONEFROMALLPHOTOGRAPHERS": {
+            const { Photos, ...rest } = action.payload;
+            initPhotoOrders(Photos);
             return Object.assign({}, state, {
-                [action.payload.id]: { ...action.payload }
+                Photos,
+                ...rest.map(photographer => ({
+                    [photographer.id]: { ...photographer }
+                }))
             });
         }
         default:

@@ -1,7 +1,7 @@
 import { CLOUDINARY_API, FAIRSHOTS_API } from "./constants";
 import toggleLoading from "./toggleLoading";
 
-export function uploadPhoto(userType, id, token, url) {
+export function uploadPhoto(userType, id, token, url, order) {
     return async dispatch => {
         try {
             const config = {
@@ -10,7 +10,9 @@ export function uploadPhoto(userType, id, token, url) {
                     "Content-Type": "application/json",
                     Authorization: `bearer ${token}`
                 },
-                body: JSON.stringify({ photos: [{ [`${userType}Id`]: id, cloudlink: url }] })
+                body: JSON.stringify({
+                    photos: [{ [`${userType}Id`]: id, cloudlink: url, portfolioOrder: order }]
+                })
             };
             console.log(config);
 
@@ -27,7 +29,7 @@ export function uploadPhoto(userType, id, token, url) {
             console.log(e);
 
             dispatch({
-                type: userType === "project" ? "PROJECT_ERROR" : "UPLOAD_ERROR",
+                type: userType === "project" ? "PROJECT_ERROR" : "PROFILE_ERROR",
                 payload: e
             });
         }
@@ -75,10 +77,46 @@ export function delPhoto(userType, id, token, photoItem) {
             } else throw await res.text();
         } catch (e) {
             dispatch({
-                type: userType === "project" ? "PROJECT_ERROR" : "UPLOAD_ERROR",
+                type: userType === "project" ? "PROJECT_ERROR" : "PROFILE_ERROR",
                 payload: e
             });
             dispatch(toggleLoading());
         }
+    };
+}
+
+export function updPhotoOrd(userType, id, token, photos) {
+    return async dispatch => {
+        try {
+            const config = {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `bearer ${token}`
+                },
+                body: JSON.stringify(
+                    photos.map(photo => ({ id: photo.id, order: photo.portfolioOrder }))
+                )
+            };
+            dispatch(toggleLoading());
+            const res = await fetch(`${FAIRSHOTS_API}api/${userType}/${id}/orderphotos`, config);
+            if (res.ok) {
+                const ret = await res.json();
+                console.log(ret);
+                dispatch({
+                    type:
+                        userType === "organization"
+                            ? "PHOTO_ORDER_UPDATED"
+                            : "PROFILE_PHOTO_ORDER_UPDATED",
+                    payload: photos
+                });
+            } else throw await res.text();
+        } catch (e) {
+            dispatch({
+                type: userType === "organization" ? "PROJECT_ERROR" : "PROFILE_ERROR",
+                payload: e
+            });
+        }
+        dispatch(toggleLoading());
     };
 }

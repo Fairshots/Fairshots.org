@@ -55,6 +55,16 @@ export default function PhotogProfile({
                                 >
                                     Upload Photos
                                 </Button>
+                                {photographer.Photos && photographer.Photos.length > 1 ? (
+                                    <Button
+                                        color="success w-75 mb-2"
+                                        onClick={() => toggleModal("ORGANIZE_PHOTOS")}
+                                    >
+                                        Organize Photos
+                                    </Button>
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                         )}
                         <div className="col-lg-9">

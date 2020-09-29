@@ -6,6 +6,7 @@
     "scripts": {
         "test": "jest",
         "coverage": "jest --collectCoverageFrom=**/*.js --collectCoverageFrom=!node_modules --coverage",
+        "server": "cross-env NODE_ENV=development webpack-dev-server --mode development --port 3000",
         "start": "cross-env NODE_ENV=development webpack-dev-server --open --mode development",
         "cloud9": "cross-env NODE_ENV=development webpack-dev-server --host $IP --port $PORT --public $C9_HOSTNAME --open --mode development",
         "build": "cross-env NODE_ENV=production webpack --mode production"
@@ -28,6 +29,7 @@
     "homepage": "https://github.com/Fairshots/Fairshots.org#readme",
     "dependencies": {
         "@babel/runtime-corejs2": "^7.4.5",
+        "array-move": "^2.2.1",
         "auth0-js": "^9.11.2",
         "bootstrap": "^4.3.1",
         "formik": "^2.0.8",
@@ -35,9 +37,11 @@
         "react-dom": "^16.8.6",
         "react-icons": "^3.6.1",
         "react-image-gallery": "^0.9.1",
+        "react-photo-gallery": "^8.0.0",
         "react-redux": "^5.0.7",
         "react-router-dom": "^5.1.2",
         "react-social-login-buttons": "^2.3.1",
+        "react-sortable-hoc": "^1.11.0",
         "reactstrap": "^8.0.0",
         "redux": "^4.0.0",
         "redux-thunk": "^2.3.0"

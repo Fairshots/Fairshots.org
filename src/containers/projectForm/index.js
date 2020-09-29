@@ -116,10 +116,13 @@ class ProjectForm extends Component {
 
                 if (photosToDelete.length > 0)
                     photosToDelete.map(item => doDelPhoto("project", projId, token, item));
-                if (photosToAdd.length > 0)
-                    photosToAdd.map(item =>
-                        doUploadPhoto("project", projId, token, item.cloudlink)
+                if (photosToAdd.length > 0) {
+                    const max =
+                        project.Photos && Math.max(...project.Photos.map(p => p.portfolioOrder));
+                    photosToAdd.map((item, idx) =>
+                        doUploadPhoto("project", projId, token, item.cloudlink, idx + max)
                     );
+                }
             }
             this.props.updateProject(formData, projId, token);
         }
@@ -272,7 +275,8 @@ const mapDispatchToProps = dispatch => ({
     updateProject: (formProps, id, token) => {
         dispatch(putProject(formProps, id, token));
     },
-    doUploadPhoto: (userType, id, token, url) => dispatch(uploadPhoto(userType, id, token, url)),
+    doUploadPhoto: (userType, id, token, url, order) =>
+        dispatch(uploadPhoto(userType, id, token, url, order)),
 
     doDelPhoto: (userType, id, token, photoItem) =>
         dispatch(delPhoto(userType, id, token, photoItem))
