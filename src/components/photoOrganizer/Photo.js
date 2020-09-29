@@ -2,7 +2,6 @@ import React from "react";
 
 const imgWithClick = { cursor: "pointer" };
 const presAspect = { "object-fit": "cover" };
-
 const Photo = ({ index, onClick, photo, margin, direction, top, left }) => {
     const imgStyle = { margin,...presAspect };
     if (direction === "column") {
